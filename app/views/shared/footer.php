@@ -14,5 +14,11 @@
         <p><i class="fas fa-phone"></i> Phone: +1 (555) 123-4567</p>
         <p><i class="fab fa-github"></i> <a href="#">GitHub</a></p>
       </div>
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+      </div>
     </div>
   </footer>
