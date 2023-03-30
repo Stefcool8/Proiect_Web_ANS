@@ -1,0 +1,90 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-image: linear-gradient(135deg, #83a4d4, #b6fbff);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.main-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(
+        100vh - 114px
+    ); /* Subtract the approximate combined height of navbar and footer */
+    padding: 1rem;
+}
+
+.container {
+    width: 100%;
+    max-width: 400px;
+    background-color: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 1rem;
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+}
+
+.input-group {
+    margin-bottom: 1rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: clamp(0.8rem, 3vw, 1.25rem);
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: clamp(0.8rem, 3vw, 1.25rem);
+}
+
+button {
+    display: block;
+    width: 100%;
+    padding: 0.5rem;
+    background-color: #333;
+    color: white;
+    font-size: clamp(0.8rem, 3vw, 1.25rem);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #444;
+}
+
+.signup-link {
+    text-align: center;
+    margin-top: 1rem;
+    font-size: clamp(0.8rem, 3vw, 1.25rem);
+}
+
+.signup-link a {
+    text-decoration: none;
+    color: #333;
+}
+
+@media screen and (max-width: 600px) {
+    .container {
+        padding: 1rem;
+    }
+}
