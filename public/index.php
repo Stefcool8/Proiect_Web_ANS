@@ -25,7 +25,9 @@
             require_once 'contact.php';
         } elseif ($url === '/login') {
             require_once '../app/views/pages/login.php';
-        } 
+        } elseif ($url === '/signup') {
+            require_once '../app/views/pages/register.php';
+        }
         else {
         // If the URL doesn't match any of the above, show a 404 error page
             http_response_code(404);
