@@ -22,7 +22,7 @@
         } elseif ($url === '/home') {
             require_once '../app/views/pages/home.php';
         } elseif ($url === '/contact') {
-            require_once 'contact.php';
+            require_once '../app/views/pages/contact.php';
         } elseif ($url === '/login') {
             require_once '../app/views/pages/login.php';
         } 
