@@ -1,97 +1,117 @@
-footer {
+.footer-container {
+    display: grid; /* grid layout */
+    grid-template-columns: 1fr 1fr 1fr; /* 3 columns */
+    grid-gap: 2rem; /* gap between columns */
+    padding: 2rem; /* padding around the container */
+
     background-color: #333;
+    background-image: linear-gradient(45deg, #333, #344);
     color: #fff;
-    padding: 2rem 0;
     box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.footer-container {
-    gap: 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 1rem;
-    animation: fadeIn 1s;
+.footer-container .about-item,
+.footer-container .contact-item {
+    display: flex; /* flex layout */
+    flex-direction: column; /* column layout, items are stacked vertically in about and contact areas */
+    justify-content: center; /* center content vertically */
+    align-items: center; /* center content horizontally */
 }
 
-.footer-item {
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-    padding: 1rem;
+.footer-container .about-item ul {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
 }
 
-.footer-item h3 {
-    margin-bottom: 1rem;
-    font-size: 1.3rem;
-    letter-spacing: 1px;
-}
-
-.footer-item h3 i {
-    margin-right: 0.5rem;
-}
-
-.footer-item ul {
-    list-style-type: none;
-}
-
-.footer-item ul li {
+.footer-container .about-item ul li,
+.footer-container .contact-item ul li {
+    list-style: none; /* remove bullet points */
     margin-bottom: 0.5rem;
 }
 
-.footer-item ul li a,
-.footer-item p a {
+.footer-container .about-item ul li a,
+.footer-container .contact-item ul li a {
     color: #fff;
     text-decoration: none;
-    padding: 0.5rem;
-    transition: color 0.3s, background-color 0.3s, border-color 0.3s;
+}
+
+.footer-container .contact-item p {
+    margin-bottom: 0.5rem;
+}
+
+.footer-container .contact-item p a {
+    margin-left: 0.5rem;
+}
+
+.footer-container .social-item {
+    display: flex; /* flex layout */
+    flex-direction: row; /* row layout, items are stacked horizontally in social area */
+    justify-content: center; /* center content horizontally */
+    align-items: center; /* center content vertically */
+    gap: 1rem; /* gap between items */
+}
+
+.footer-container h3 {
+    margin-bottom: 1rem;
+}
+
+.footer-container .about-item ul li a,
+.footer-container .contact-item ul li a,
+.footer-container .contact-item p a {
+    color: #fff;
+    text-decoration: none;
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #333;
+    background-image: linear-gradient(45deg, #333, #555);
+    border-radius: 15px;
     position: relative;
-    z-index: 1;
-    font-size: 1.1rem;
+    transition: all 0.3s ease; /* transition for hover effect, defined next */
 }
 
-.footer-item ul li a i,
-.footer-item p a i {
-    margin-right: 0.5rem;
+.footer-container .about-item ul li a:hover,
+.footer-container .contact-item ul li a:hover,
+.footer-container .contact-item p a:hover {
+    background-color: rgba(75, 75, 75, 0.9);
+    color: #00b3b3;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    animation: shake 0.5s; /* animation for hover effect, read more: https://www.w3schools.com/css/css3_animations.asp:  */
 }
 
-.footer-item ul li a::before,
-.footer-item p a::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #444;
-    border: 2px solid #555;
-    border-radius: 25px;
-    opacity: 0;
-    transition: opacity 0.3s, border-color 0.3s;
-    z-index: -1;
+.footer-container .social-item a {
+    color: #fff;
+    font-size: 1.2rem;
+    transition: color 0.3s, transform 0.3s; /* only the color and transform properties will be transitioned */
 }
 
-.footer-item ul li a:hover,
-.footer-item p a:hover {
-    color: yellow;
-    animation: shake 0.5s;
+.footer-container .social-item a:hover {
+    transform: scale(1.2);
 }
 
-.footer-item ul li a:hover::before,
-.footer-item p a:hover::before {
-    opacity: 1;
-    border-color: #666;
+.footer-container .social-item a:hover i.fab.fa-facebook-f {
+    color: #1877f2;
 }
 
-@keyframes fadeIn {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
+.footer-container .social-item a:hover i.fab.fa-twitter {
+    color: #1da1f2;
+}
+
+.footer-container .social-item a:hover i.fab.fa-instagram {
+    color: #c13584;
+}
+
+.footer-container .social-item a:hover i.fab.fa-linkedin-in {
+    color: #0077b5;
+}
+
+.footer-container .contact-item i.fab.fa-github:hover {
+    color: #171515;
 }
 
 @keyframes shake {
+    /* shake effect for button hover */
     0%,
     100% {
         transform: translate(0, 0);
@@ -110,34 +130,8 @@ footer {
     }
 }
 
-@media (max-width: 600px) {
-    .footer-item {
-        margin-bottom: 2rem;
-        padding: 1rem;
+@media screen and (max-width: 800px) {
+    .footer-container {
+        grid-template-columns: 1fr;
     }
-}
-
-.social-icons {
-    display: grid;
-    grid-template-columns: repeat(4, auto);
-    justify-content: center;
-    gap: 1rem;
-}
-
-.social-icons a {
-    color: #fff;
-    font-size: 1.2rem;
-    transition: color 0.3s;
-}
-
-.social-icons a:hover {
-    color: yellow;
-}
-
-.footer-item .social-icons {
-    margin-top: 1rem; /* Add space between icons and "Contact Us" text */
-}
-
-.footer-item .social-icons a {
-    font-size: 1.4rem; /* Make the icons larger */
 }

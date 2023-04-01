@@ -2,9 +2,16 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    outline: 1px solid red;
+    /* outline: 1px solid red; */
 }
 
 body {
     font-family: Arial, sans-serif;
+    background-image: linear-gradient(
+        135deg,
+        #83a4d4,
+        #b6fbff
+    ); /* adds the backround of the site */
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
