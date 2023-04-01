@@ -7,9 +7,15 @@
     <link rel="stylesheet" href="./assets/css/navbar.css">
     <link rel="stylesheet" href="./assets/css/footer.css">
     <link rel="stylesheet" href="./assets/css/login.css">
+    <link rel="stylesheet" href="./assets/css/register.css">
+    <link rel="stylesheet" href="./assets/css/home.css">
+    <link rel="stylesheet" href="./assets/css/contact.css">
+    <link rel="stylesheet" href="./assets/css/index.css">
+
     <script src="./assets/js/navbar.js" defer></script>
     <script src="./assets/js/footer.js" defer></script>
-    <title>Home Page</title>
+    <title>Index Page</title>
+
 </head>
 <body>
 
@@ -27,9 +33,8 @@
             require_once '../app/views/pages/login.php';
         } elseif ($url === '/signup') {
             require_once '../app/views/pages/register.php';
-        }
-        else {
-        // If the URL doesn't match any of the above, show a 404 error page
+        } else {
+            // If the URL doesn't match any of the above, show a 404 error page
             http_response_code(404);
             echo '404 Not Found';
         }

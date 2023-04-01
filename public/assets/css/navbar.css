@@ -1,73 +1,69 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: Arial, sans-serif;
-}
-
 .navbar {
-    display: grid;
-    grid-template-columns: 1fr 3fr;
-    align-items: center;
+    display: flex; /* read about flexbox: https://www.w3schools.com/css/css3_flexbox.asp */
+    flex-direction: row; /* make the items in the navbar go from left to right */
+    justify-content: space-between; /* space the items evenly */
+    align-items: center; /* center the items vertically */
     background-color: #333;
-    padding: 0.5rem 1rem;
+    padding: 1rem; /* read about rem: https://www.w3schools.com/css/css_units.asp */
 }
 
-.logo {
-    color: white;
-    font-size: 1.5rem;
-    font-family: "Roboto", sans-serif;
-    font-weight: 500;
-    text-transform: uppercase;
-    text-decoration: none;
-    letter-spacing: 2px;
-    margin-left: 1rem;
-    grid-column: 1 / span 1;
-    grid-row: 1 / span 1;
-    align-self: center;
+.navbar .logo {
+    /* used to center the logo in its container */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
 }
 
-.logo img {
+.navbar .logo img {
     max-height: 50px;
-    transition: all 0.3s ease;
+    transition: all 0.3s ease; /* read about transitions: https://www.w3schools.com/css/css3_transitions.asp */
 }
 
-.logo:hover img {
-    transform: scale(1.1) rotate(10deg);
-    filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.3));
+.navbar .logo img:hover {
+    transform: scale(1.1) rotate(10deg); /* make it a liitle bigger and rotate it a little */
+    filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 1)); /* add a drop shadow */
 }
 
-.logo a {
-    text-decoration: none;
-    color: white;
+.navbar .nav-links {
+    display: flex; /* the links will also be a flexbox */
+    flex-direction: row; /* the links will go from left to right */
+    justify-content: flex-end; /* the links will be on the right side */
+    margin-right: 0.25rem; /* add a little space between the links and the logo */
+    list-style-type: none; /* removes the bullet points */
 }
 
-.nav-links {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    list-style-type: none;
-    justify-self: end;
+.navbar .nav-links .link {
+    margin-right: 0.25rem; /* add a little space between the links */
+    margin-top: 0.25rem; /* add a little space between the links */
 }
 
-.nav-links a {
+.navbar .nav-links a {
     color: white;
     text-decoration: none;
     text-align: center;
     padding: 0.5rem;
-    display: block;
-    transition: all 0.3s ease;
     border-radius: 5px;
     background-color: transparent;
     font-size: 1rem;
+    display: block;
     position: relative;
     transition: all 0.3s ease, background-color 0.5s ease;
     overflow: hidden;
 }
 
+.navbar .nav-links a:hover {
+    background-color: rgba(85, 85, 85, 0.7);
+    color: white;
+    font-size: 1.1rem;
+    padding: 0.55rem 0.5rem;
+    bottom: 2px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 1);
+    letter-spacing: 1px;
+}
+
 .nav-links a::after {
+    /* this is the underline */
     content: "";
     position: absolute;
     left: 0;
@@ -75,44 +71,21 @@ body {
     width: 100%;
     height: 2px;
     background-color: white;
-    transform: translateX(-100%);
-    transition: transform 0.3s ease;
+    transform: translateX(
+        -100%
+    ); /* move it to the left, not visible if no hover */
+    transition: transform 0.3s ease; /* transition for the hover effect */
 }
 
 .nav-links a:hover::after {
     transform: translateX(0);
 }
 
-.nav-links a:hover {
-    background-color: rgba(85, 85, 85, 0.7);
-    color: white;
-    font-size: 1.1rem;
-    padding: 0.55rem 0.5rem;
-    bottom: 2px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    letter-spacing: 1px;
-}
-
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 800px) {
     .navbar {
-        grid-template-columns: 1fr;
-        grid-template-rows: auto auto;
-        justify-items: center;
-        row-gap: 0.5rem;
+        flex-direction: column; /* make the items in the navbar go from top to bottom */
     }
-
-    .nav-links {
-        grid-template-columns: 1fr;
-        grid-template-rows: repeat(4, auto);
-        justify-self: center;
-        row-gap: 0.5rem;
-    }
-
-    .logo {
-        grid-row: 1;
-    }
-
-    .nav-links {
-        grid-row: 2;
+    .navbar .nav-links {
+        flex-direction: column; /* make the links go from top to bottom */
     }
 }
