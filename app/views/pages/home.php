@@ -15,35 +15,37 @@
 <body>
 
     <div class="parent">
-        <div class="div1"> 
+        <div class="header">
             <?php require_once '../app/views/shared/navbar.php'; ?>
         </div>
-
+        
         <div class="main-content">
-            <div class="video-and-buttons">
-                <div class="left-area">
-                    <div class="text-area">
-                        <p>Insert your text here</p>
-                    </div>
-                    <div class="button-wrapper">
-                        <button class="button">Button 1</button>
-                        <button class="button">Button 2</button>
-                    </div>
+            <div class="intro">
+                <div class="text-area">
+                    <p>Insert your text here</p>
                 </div>
-
+                <div class="button-wrapper">
+                    <button class="button">Button 1</button>
+                    <button class="button">Button 2</button>
+                </div>
                 <div class="video">
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/tgbNymZ7vqY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <div class="video-wrapper">
+                        <iframe src="https://www.youtube.com/embed/tgbNymZ7vqY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
                 </div>
             </div>
             <div class="three-zones">
                 <div class="left-zone">
-                    Feature one
+                    <h3>Feature one</h3>
+                    <p>Insert your text here</p>
                 </div>
                 <div class="middle-zone">
-                    Feature two
+                    <h3>Feature two</h3>
+                    <p>Insert your text here</p>
                 </div>
                 <div class="right-zone">
-                    Feature three
+                    <h3>Feature three</h3>
+                    <p>Insert your text here</p>
                 </div>
             </div>
             <div class="slideshow">
@@ -53,10 +55,10 @@
                 <img src="../assets/img/photo.png" class="slide">
                 <img src="../assets/img/img1.jpg" class="slide">
                 <img src="../assets/img/photo.png" class="slide">
-            </div>
+            </div> 
         </div>
-
-        <div class="div3"> 
+        
+        <div class="footer">
             <?php require_once '../app/views/shared/footer.php'; ?>
         </div>
     </div>
