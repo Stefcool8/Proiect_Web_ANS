@@ -33,6 +33,8 @@
             require_once '../app/views/pages/login.php';
         } elseif ($url === '/signup') {
             require_once '../app/views/pages/register.php';
+        } elseif ($url === '/about') {
+            require_once '../app/views/pages/about.php';
         } else {
             // If the URL doesn't match any of the above, show a 404 error page
             http_response_code(404);
