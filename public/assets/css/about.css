@@ -116,19 +116,19 @@
     }
     
     #myBtn {
-        width: 20%;
+        width: 10rem;
     }
     
     #myBtn1 {
-        width: 25%;
+        width: 10rem;
     }
     
     #myBtn2 {
-        width: 25%;
+        width: 10rem;
     }
     
     #myBtn3 {
-        width: 25%;
+        width: 10rem;
     }
     
     @media screen and (max-width: 768px) {
