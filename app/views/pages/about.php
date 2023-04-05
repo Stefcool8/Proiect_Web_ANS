@@ -23,7 +23,7 @@
             <div class="show">
                 <!-- <img src="../assets/img/about.jpg" class="image"> -->
                 <div class= "my-element">
-                    <p> About us </p> 
+                    <p> About us </p>      
                 </div>
             </div>
   
