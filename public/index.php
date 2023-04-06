@@ -35,7 +35,9 @@
             require_once '../app/views/pages/register.php';
         } elseif ($url === '/about') {
             require_once '../app/views/pages/about.php';
-        } else {
+        } elseif ($url === '/dashboard') {
+            require_once '../app/views/pages/dashboard.php';
+        }else {
             // If the URL doesn't match any of the above, show a 404 error page
             http_response_code(404);
             echo '404 Not Found';
