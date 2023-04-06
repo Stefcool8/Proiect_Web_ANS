@@ -29,9 +29,9 @@
                 <div class = "project-1">
                     <p>Project Name</p>
                     <div class ="button-area">
-                        <button class="button"> View Project </button>
-                        <button class="button"> Modify Project </button>
-                        <button class="button"> Delete Project </button>
+                        <button class="button"> View  </button>
+                        <button class="button"> Modify  </button>
+                        <button class="button"> Delete  </button>
 
                     </div>
                 </div>
