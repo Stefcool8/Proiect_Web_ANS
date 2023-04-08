@@ -9,11 +9,11 @@
             </article>
             <div class="button-wrapper">
                 <div class="button"><a href="/login">Use it now</a></div>
-                <div class="button"><a href="https://github.com/Stefcool8/Proiect_Web_ANS">Github</a></div>
+                <div class="button"><a href="https://github.com/Stefcool8/Proiect_Web_ANS" target="_blank">GitHub</a></div>
             </div>
             <figure class="video">
                 <div class="video-wrapper">
-                    <iframe src="https://www.youtube.com/embed/tgbNymZ7vqY" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <iframe src="https://www.youtube.com/embed/tgbNymZ7vqY" title="YouTube video player" allowfullscreen></iframe>
                 </div>
             </figure>
         </section>
