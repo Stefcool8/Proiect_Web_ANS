@@ -37,12 +37,29 @@
                 </div>
                 <div class = "project-1">
                     <p>Project Name</p>
+                    <div class ="button-area">
+                        <button class="button"> View  </button>
+                        <button class="button"> Modify  </button>
+                        <button class="button"> Delete  </button>
+                    </div>
                 </div>
                 <div class = "project-1">
                     <p>Project Name</p>
+                    <div class ="button-area">
+                        <button class="button"> View  </button>
+                        <button class="button"> Modify  </button>
+                        <button class="button"> Delete  </button>
+
+                    </div>
                 </div>
                 <div class = "project-1">
                     <p>Project Name</p>
+                    <div class ="button-area">
+                        <button class="button"> View  </button>
+                        <button class="button"> Modify  </button>
+                        <button class="button"> Delete  </button>
+
+                    </div>
                 </div>
                 
             </div>
