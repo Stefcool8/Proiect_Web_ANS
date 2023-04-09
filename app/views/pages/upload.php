@@ -21,10 +21,10 @@
         <div class="main-content">
 
             <div class="upload-options">
-                <button class="button">Paste</button>
-                <button class="button">Upload a File</button>
-                <button class="button">From URL</button>
-                <button class="button">Try our samples</button>
+                <button class="Paste">Paste</button>
+                <button class="Upload">Upload a File</button>
+                <button class="URL">From URL</button>
+                <button class="Try">Try our samples</button>
             </div>
 
             <div class="specialized-form">
