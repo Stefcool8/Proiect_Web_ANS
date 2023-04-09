@@ -4,7 +4,7 @@
     <main class="main-content">
         <div class="container">
             <h2>Login Form</h2>
-            <form action="/login" method="post">
+            <form action="/dashboard" method="post">
                 <div class="input-group">
                     <label for="username">Username</label>
                         <input type="text" id="username" name="username" required>
@@ -17,7 +17,7 @@
             </form>
             <div class="signup-link">
                 <p>Don't have an account? <a href="/signup">Sign up</a></p>
-                <p>Forgot your password? <a href="/password/reset">Reset password</a></p>
+                <p>Forgot your password? <a href="/reset">Reset password</a></p>
             </div>
         </div>
     </main>

@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="./assets/css/contact.css">
     <link rel="stylesheet" href="./assets/css/about.css">
     <link rel="stylesheet" href="./assets/css/dashboard.css">
+    <link rel="stylesheet" href="./assets/css/reset.css">
 
 
     <link rel="icon" href="./assets/img/globe.png">
@@ -44,7 +45,10 @@
             require_once '../app/views/pages/about.php';
         }elseif ($url === '/dashboard') {
             require_once '../app/views/pages/dashboard.php';
-        } else {
+        } elseif ($url === '/reset') {
+            require_once '../app/views/pages/reset.php';
+        }
+        else {
             // if the URL doesn't match any of the above, show a 404 error page
             http_response_code(404);
             echo '404 Not Found';
