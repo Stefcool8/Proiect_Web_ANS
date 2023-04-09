@@ -296,14 +296,39 @@
                         <p>
                             Continutul paginii este alcatuit dintr-o singura zona, si anume zona de formular de inregistrare.
                             <section>
-                                <h5 property="name">Zona de fromular de inregistrare</h5>
+                                <h5 property="name">Zona de fromular de autentificare</h5>
                                 <p>
-                                    Zona de fromular de inregistrare este compusa dintr-un background discret si formularul propriu zis, in care utilizatorul trebuie sa completeze 2 campuri obligatorii: "Username", unde utilizatorul trebuie sa isi scrie numele de utilizator cu care s-a
+                                    Zona de fromular de autentificare este compusa dintr-un background discret si formularul propriu zis, in care utilizatorul trebuie sa completeze 2 campuri obligatorii: "Username", unde utilizatorul trebuie sa isi scrie numele de utilizator cu care s-a
                                     intregistrat in aplicatie; "Password", unde utiliztorul trebuie sa scrie parola aferenta contului sau. Accesul in contul din aplicatie este realizat doar daca combinatie username-password introdusa este aferenta unui
                                     cont de utilizator existent.In caz contrar, accesul nu este permis, iar utilizatorul este indrumat cu ajutorul unor intrebari, pentru a sti cum trebuie sa finalizeze cu bine autentificarea. Astfel, intrebarea "Don't
                                     have an account?" este urmata de un link catre pagina "Sing up", unde utilizatorul neinregistrat isi poate creea un cont. Intrebarea "Forgot your password?" este urmata de un link catre pagina "Reset password", unde
-                                    utilizatorul care nu isi mai aminteste parola poate sa o afle.
+                                    utilizatorul care nu isi mai aminteste parola poate sa o afle.git
                                 </p>
+                            </section>
+                    </section>
+                </section>
+
+                <section>
+                    <h4 property="name">Pagina "Sign up"</h4>
+                    <p property="text">
+                        Pagina "Sign up" este pagina aplicatiei care ilustreaza un formular de inregistrare in aplicatie, prin care un utilizator neinregistrat isi poate crea un cont pentru aplicatie. Totusi, daca se incearca inregistrarea unui utilizator care are deja un cont
+                        in aplicatie, acesta are parte de suport, avand posibilitatea de a accesa din cadrul formularului pagina de autentificare, de unde isi poate accesa contul. Aceasta pagina contine meniul de navigare, continutul propriu-zis al paginii
+                        si footer-ul, primul si ultimul element enumerat aici fiind specifice fiecarei pagini ale aplicatiei.
+                    </p>
+                    </p>
+                    <section>
+                        <h5 property="name">Continut</h5>
+                        <p>
+                            Continutul paginii este alcatuit dintr-o singura zona, si anume zona de formular de inregistrare.
+                            <section>
+                                <h5 property="name">Zona de fromular de inregistrare</h5>
+                                <p>
+                                    Zona de fromular de inregistrare este compusa dintr-un background discret si formularul propriu zis, in care utilizatorul trebuie sa completeze 4 campuri obligatorii: "Username", unde utilizatorul trebuie sa scrie numele de utilizator cu care doreste
+                                    sa fie intregistrat in aplicatie; "Email", unde utiliztorul trebuie sa scrie adresa de e-mail aferenta contului pe care si-l creeaza; "Password", unde utilizatorul va scrie parola pentru contul nou creat; "Confirm password",
+                                    unde utilizatorul va scrie exact ceea ce a scris si in campul "Password", aceasta fiind o conditie de verificare. Daca adresa de e-mail introdusa nu este deja in baza de date a datelor utilizatorilor inregistrati, iar
+                                    celelalte campuri sunt completate corespunzator, atunci noul cont este creat cu succes iar utilizatorul este redirectionat catre pagina "Login", pentru a putea intra in aplicatie.In caz contrar, contul nou nu este creat,
+                                    iar utilizatorul are parte de suport, printr-o intrebare aflata in subsolul formularului. Astfel, intrebarea "Already have an account?" este urmata de un link care conduce utilizatorul deja inregistrat catre pagina
+                                    "Login", de unde poate intra in contul sau din aplicatie. </p>
                             </section>
                     </section>
                 </section>
