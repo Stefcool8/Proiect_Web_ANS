@@ -32,11 +32,28 @@
     transform: scale(1.05);
 }
 
+.view-profile-btn {
+    color: white;
+    background-color: rgb(58, 23, 61);
+    text-align: center;
+    font-size: 1.25rem;
+    cursor: pointer;
+    padding: 0.5rem 1.5rem;
+    transition: all 0.3s;
+    border-radius: 2vh;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-decoration: none;
+    margin-left: 1rem;
+}
+
+.view-profile-btn:hover {
+    transform: scale(1.05);
+}
+
 .project-area {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: rgba(0, 0, 0, 0.5);
     height: 100%;
     width: 80%;
     gap: 3vh;
@@ -59,7 +76,6 @@
     justify-content: flex-end;
     padding: 2vh;
     border-radius: 2vh;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .button-area {
@@ -80,7 +96,6 @@
     padding: 0.25rem 1rem;
     transition: all 0.3s;
     border-radius: 2vh;
-    box-shadow: 1px 4px 6px rgba(0, 0, 0, 0.1);
     text-decoration: none;
 }
 

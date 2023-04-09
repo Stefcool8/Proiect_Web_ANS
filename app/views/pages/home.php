@@ -1,5 +1,5 @@
 
-<div class="parent">
+<div class="home">
     <?php require_once '../app/views/shared/navbar.php'; ?>
     <main class="main-content">
         <section class="intro">
