@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="./assets/css/register.css">
     <link rel="stylesheet" href="./assets/css/home.css">
     <link rel="stylesheet" href="./assets/css/contact.css">
-    <link rel="stylesheet" href="./assets/css/user-profile.css">
+    <link rel="stylesheet" href="./assets/css/profile.css">
 
     <script src="./assets/js/navbar.js" defer></script>
     <script src="./assets/js/footer.js" defer></script>
@@ -34,8 +34,8 @@
             require_once '../app/views/pages/login.php';
         } elseif ($url === '/signup') {
             require_once '../app/views/pages/register.php';
-        } elseif ($url === '/user-profile') {
-            require_once '../app/views/pages/user-profile.php';
+        } elseif ($url === '/profile') {
+            require_once '../app/views/pages/profile.php';
         } else {
             // If the URL doesn't match any of the above, show a 404 error page
             http_response_code(404);
