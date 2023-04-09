@@ -1,79 +1,87 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 .central-area {
-    padding: 2rem;
-    min-height: calc(100vh - 7.125rem);
-    display: grid;
-    grid-template-rows: 1fr 4fr;
+    padding: 4vh 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     gap: 1rem;
     width: 100%;
 }
 
-.my-element {
-    background-image: linear-gradient(45deg, rgb(57, 57, 87), rgb(58, 23, 61));
-    background-repeat: no-repeat;
-    background-size: 100%;
-    background-position: 0 center;
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    text-align: center;
-    position: relative;
-    margin: auto;
-    width: 100%;
-    justify-content: center;
-    height: 100%;
+.page-name {
+    font-size: 2rem;
+    font-weight: bold;
     color: white;
+    margin-bottom: 1rem;
+}
+
+.create-project-btn {
+    color: white;
+    background-color: rgb(58, 23, 61);
+    text-align: center;
+    font-size: 1.25rem;
+    cursor: pointer;
+    padding: 0.5rem 1.5rem;
+    transition: all 0.3s;
+    border-radius: 2vh;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-decoration: none; /* Added */
+}
+
+.create-project-btn:hover {
+    transform: scale(1.05);
 }
 
 .project-area {
     display: flex;
     flex-direction: column;
+    align-items: center;
     background-color: rgba(0, 0, 0, 0.5);
     height: 100%;
-    width: 100%;
-    gap: 1.5rem;
+    width: 80%;
+    gap: 3vh;
     text-align: center;
     position: relative;
     margin: auto;
     justify-content: flex-start;
 }
 
-.project-1 {
-    background-color: rgba(0, 0, 0, 0.6);
+.project {
+    background-color: rgba(255, 255, 255, 0.95);
     height: 100%;
     width: 100%;
-    gap: 1rem;
+    gap: 2vh;
     text-align: center;
-    line-height: 10rem;
-    color: white;
+    line-height: 8vh;
+    color: rgb(83, 15, 89);
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    padding: 1rem;
+    padding: 2vh;
+    border-radius: 2vh;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .button-area {
     display: flex;
-    justify-content: space-evenly;
-    gap: 0.5rem;
-    justify-content: flex-end;
+    justify-content: space-around;
+    gap: 1vh;
+    align-items: center;
 }
 
 .button {
     color: white;
+    background-color: rgb(58, 23, 61);
     text-align: center;
-    font-size: 1.5rem;
+    font-size: 2vh;
     cursor: pointer;
-    float: right;
-    width: 15rem;
-    padding: 0.8rem 1.6rem;
-    font-size: 1rem;
+    float: none;
+    width: 40vh;
+    padding: 0.25rem 1rem;
     transition: all 0.3s;
+    border-radius: 2vh;
+    box-shadow: 1px 4px 6px rgba(0, 0, 0, 0.1);
+    text-decoration: none;
 }
 
 .button:hover {
@@ -82,44 +90,48 @@
 
 @media screen and (max-width: 767px) {
     .central-area {
-        grid-template-rows: auto auto;
+        flex-direction: column;
     }
-    .project-1 {
-        line-height: 6rem;
+    .page-name {
+        font-size: 1.5rem;
+        line-height: 1vh;
+    }
+    .project {
+        line-height: 4vh;
     }
     .button {
         width: 100%;
-        font-size: 1.2rem;
+        font-size: 1.25rem;
     }
 }
 
 @media screen and (max-width: 576px) {
     .central-area {
-        padding: 1rem;
+        padding: 2vh 0;
     }
-    .my-element {
-        font-size: 2.5rem;
-        line-height: 7rem;
+    .page-name {
+        font-size: 1rem;
+        line-height: 1vh;
     }
     .project-area {
-        gap: 1rem;
+        gap: 2vh;
     }
     .button {
-        padding: 0.6rem 1.2rem;
+        padding: 1rem 1.25rem;
         font-size: 1rem;
     }
 }
 
-@media screen and (max-width: 320px) {
-    .my-element {
-        font-size: 2rem;
-        line-height: 6rem;
+@media screen and (max-width: 375px) {
+    .page-name {
+        font-size: 1rem;
+        line-height: 12vh;
     }
     .project-area {
-        gap: 0.5rem;
+        gap: 1vh;
     }
     .button {
-        padding: 0.4rem 0.8rem;
-        font-size: 0.8rem;
+        padding: 0.5rem 1rem;
+        font-size: 1rem;
     }
 }
