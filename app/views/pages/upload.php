@@ -21,14 +21,25 @@
         <div class="main-content">
 
             <div class="upload-options">
-                <button class="Paste">Paste</button>
-                <button class="Upload">Upload a File</button>
-                <button class="URL">From URL</button>
-                <button class="Try">Try our samples</button>
+                <button id="paste">Paste</button>
+                <button id="upload">Upload a File</button>
+                <button id="url">From URL</button>
+                <button id="try">Try our samples</button>
             </div>
 
             <div class="specialized-form">
-                <iframe src="profile.php" title="Specialized Form"></iframe>
+                <div id="paste-form">
+                    <p> Paste your code here: </p>
+                </div>
+                <div id="upload-form">
+                    <p> Upload your file here: </p>
+                </div>
+                <div id="url-form">
+                    <p> Paste your URL here: </p>
+                </div>
+                <div id="try-form">
+                    <p> Try our samples here: </p>
+                </div>
             </div>
 
         </div>

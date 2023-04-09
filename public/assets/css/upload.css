@@ -33,28 +33,28 @@
     background-image: linear-gradient(to bottom right, rgb(2, 108, 108), rgb(135, 252, 252));
 }
 
-.upload .main-content .upload-options .Paste:focus {
+.upload .main-content .upload-options #paste:focus {
     background-image: linear-gradient(to bottom right, rgb(0, 45, 158), rgb(0, 170, 255));
     border-color: white;
     border-width: 2px;
     border-style: solid;
 }
 
-.upload .main-content .upload-options .Upload:focus {
+.upload .main-content .upload-options #upload:focus {
     background-image: linear-gradient(to bottom right, rgb(0, 45, 158), rgb(0, 170, 255));
     border-color: white;
     border-width: 2px;
     border-style: solid;
 }
 
-.upload .main-content .upload-options .URL:focus {
+.upload .main-content .upload-options #url:focus {
     background-image: linear-gradient(to bottom right, rgb(0, 45, 158), rgb(0, 170, 255));
     border-color: white;
     border-width: 2px;
     border-style: solid;
 }
 
-.upload .main-content .upload-options .Try:focus {
+.upload .main-content .upload-options #try:focus {
     background-image: linear-gradient(to bottom right, rgb(0, 45, 158), rgb(0, 170, 255));
     border-color: white;
     border-width: 2px;
@@ -62,13 +62,33 @@
 }
 
 .upload .main-content .specialized-form {
-    background-color: white;
     border-color: rgba(1, 36, 85, 0.837);
     border-style: solid;
     border-width: 8px;
     float: right;
     width: 75%;
     height: 30rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.upload .main-content .specialized-form #paste-form {
+    background-color: blueviolet;
+}
+
+.upload .main-content .specialized-form #upload-form {
+    display: none;
+    background-color: aquamarine; 
+}
+
+.upload .main-content .specialized-form #url-form {
+    display: none;
+    background-color: red;
+}
+
+.upload .main-content .specialized-form #try-form {
+    display: none;
+    background-color: blue;
 }
 
 /* Media query for small screens */
