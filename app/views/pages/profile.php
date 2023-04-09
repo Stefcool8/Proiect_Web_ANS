@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="./assets/css/profile.css">
     <script src="./assets/js/navbar.js" defer></script>
     <script src="./assets/js/footer.js" defer></script>
-    <title>Home Page</title>
+    <title>User Profile</title>
 </head>
 <body>
 
