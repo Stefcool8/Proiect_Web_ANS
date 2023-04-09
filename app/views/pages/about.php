@@ -28,8 +28,8 @@
             </div>
   
             <div class="central-area">
-                <p>Insert about information</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus impe<span id="dots">...</span><span id="more">rdiet, nulla et dictum interdum, nisi lorem egestas vitae scelerisque enim ligula venenatis dolor. Maecenas nisl est, ultrices nec congue eget, auctor vitae massa. Fusce luctus vestibulum augue ut aliquet. Nunc sagittis dictum nisi, sed ullamcorper ipsum dignissim ac. In at libero sed nunc venenatis imperdiet sed ornare turpis. Donec vitae dui eget tellus gravida venenatis. Integer fringilla congue eros non fermentum. Sed dapibus pulvinar nibh tempor porta.</span></p>
+                <p>Information about us</p>
+                <p>Realization of this application was a collective work of the following students from group A1: Martinescu Nicolae, Nastasiu Stefan si Cobaschi Emanuel-Aser. <span id="dots">...</span><span id="more">rdiet, nulla et dictum interdum, nisi lorem egestas vitae scelerisque enim ligula venenatis dolor. Maecenas nisl est, ultrices nec congue eget, auctor vitae massa. Fusce luctus vestibulum augue ut aliquet. Nunc sagittis dictum nisi, sed ullamcorper ipsum dignissim ac. In at libero sed nunc venenatis imperdiet sed ornare turpis. Donec vitae dui eget tellus gravida venenatis. Integer fringilla congue eros non fermentum. Sed dapibus pulvinar nibh tempor porta.</span></p>
                 <button  onclick="myFunction()" id="myBtn">Read more</button>
 
             </div>

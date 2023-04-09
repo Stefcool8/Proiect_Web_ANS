@@ -10,7 +10,7 @@
     flex-direction: column;
     justify-content: start;
     align-items: center;
-    padding: 2rem 0;
+    padding: 5vh 0;
     color: #ffffff;
 }
 
@@ -19,59 +19,61 @@
     grid-template-columns: repeat(24, 1fr);
     grid-template-rows: repeat(4, 1fr);
     width: 100%;
-    gap: 2rem;
-    padding: 0 1rem; /* added padding to create space on smaller screens */
+    gap: 5vh;
+    padding: 0 2vh;
+    margin-bottom: 5vh;
 }
 
 .main-content .intro .text-area {
     grid-row: 2;
-    grid-column: 5 / span 4;
+    grid-column: 4 / span 4;
     text-align: center;
 }
 
 .main-content .intro .button-wrapper {
     grid-row: 3;
-    grid-column: 3 / span 9;
+    grid-column: 2 / span 8;
     display: flex;
-    justify-content: space-between;
-    gap: 1rem;
+    justify-content: space-evenly;
+    gap: 2vh;
 }
 
 .main-content .intro .button-wrapper .button {
     background-color: #4caf50;
     border: none;
     color: white;
-    padding: 0.5rem 1.5rem;
+    padding: 2vh 3vh;
     text-align: center;
     text-decoration: none;
-    display: inline-block;
-    font-size: 1rem;
+    display: inline-flex;
+    font-size: 3vh;
     cursor: pointer;
-    border-radius: 5px;
+    border-radius: 1vh;
     transition: all 0.3s;
+    min-width: 16vh;
+    justify-content: center;
+    align-items: center;
+}
+
+.highlighted-text {
+    font-size: 3vh;
+    font-weight: bold;
+    color: #4caf50;
+    text-shadow: 0.2vh 0.2vh 0.4vh rgba(0, 0, 0, 0.3);
 }
 
 .main-content .intro .button-wrapper .button:hover {
     background-color: #369b42;
-    transform: scale(1.05);
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    transform: scale(1.02);
+    box-shadow: 0 0 1vh rgba(0, 0, 0, 0.3);
 }
 
 .main-content .intro .video {
     grid-row: 1 / span 4;
-    grid-column: 14 / span 10;
+    grid-column: 12 / span 12;
     position: relative;
     overflow: hidden;
     padding-top: 42.857%;
-}
-
-/* video resizes responsively */
-.main-content .intro .video .video-wrapper {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
 }
 
 .main-content .intro .video .video-wrapper iframe {
@@ -87,8 +89,9 @@
     flex-direction: row;
     justify-content: space-between;
     width: 100%;
-    gap: 2rem;
-    padding: 2rem 2rem;
+    gap: 3vh;
+    padding: 3vh;
+    min-height: 50vh;
 }
 
 .left-zone,
@@ -100,31 +103,33 @@
     align-items: center;
     width: 100%;
     height: 100%;
-    padding: 1rem;
+    padding: 2vh;
     background-color: rgba(0, 0, 0, 0.5);
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border-radius: 2vh;
+    box-shadow: 0 0 1vh rgba(0, 0, 0, 0.3);
     transition: all 0.3s;
+    min-height: 30vh;
 }
 
 .left-zone:hover,
 .middle-zone:hover,
 .right-zone:hover {
     background-color: rgba(0, 0, 0, 0.7);
-    transform: scale(1.05);
+    transform: scale(1.02);
 }
 
 .three-zones h3 {
-    border-bottom: 2px solid #ffffff;
-    padding-bottom: 0.5rem;
+    font-size: 3vh;
+    border-bottom: 0.2vh solid #ffffff;
+    padding-bottom: 1vh;
 }
 
 .slideshow {
     position: relative;
     width: 100%;
-    height: 300px;
+    height: 30vh;
     overflow: hidden;
-    padding: 1rem;
+    padding: 2vh;
 }
 
 .slide {
@@ -149,24 +154,23 @@
     object-fit: cover;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 826px) {
     .main-content .intro {
         grid-template-columns: 1fr;
         grid-template-rows: auto auto auto auto auto auto auto;
-        row-gap: 1rem;
+        row-gap: 2vh;
+        font-size: 1vh;
     }
     .main-content .intro .text-area {
         grid-row: 3;
         grid-column: 1;
-        margin-bottom: 1rem;
+        margin-bottom: 2vh;
     }
-
     .main-content .intro .button-wrapper {
         grid-row: 4;
         grid-column: 1;
-        margin-bottom: 1rem;
+        margin-bottom: 2vh;
     }
-
     .main-content .intro .video {
         grid-row: 5 / span 3;
         grid-column: 1;
@@ -174,6 +178,25 @@
 
     .main-content .three-zones {
         flex-direction: column;
-        row-gap: 1rem;
+        row-gap: 2vh;
     }
+}
+
+.left-zone p,
+.middle-zone p,
+.right-zone p {
+    text-align: center;
+    font-size: 2vh;
+    font-weight: 300;
+    line-height: 1.6;
+}
+
+.main-content .intro .button-wrapper .button a {
+    color: white;
+    text-decoration: none;
+}
+
+.main-content .intro .button-wrapper .button a:hover {
+    color: white;
+    text-decoration: none;
 }

@@ -11,17 +11,24 @@
     <link rel="stylesheet" href="./assets/css/register.css">
     <link rel="stylesheet" href="./assets/css/home.css">
     <link rel="stylesheet" href="./assets/css/contact.css">
+    <link rel="stylesheet" href="./assets/css/about.css">
+    <link rel="stylesheet" href="./assets/css/dashboard.css">
 
-    <script src="./assets/js/navbar.js" defer></script>
-    <script src="./assets/js/footer.js" defer></script>
-    <title>Index Page</title>
+
+    <link rel="icon" href="./assets/img/globe.png">
+
+    <script src="./assets/js/navbar.js"></script>
+    <script src="./assets/js/footer.js"></script>
+    <script src="./assets/js/home.js"></script>
+    <script src="./assets/js/about.js"></script>
+    <title>Web application</title>
 
 </head>
 <body>
 
     <?php
 
-        // Determine which page to load based on the URL
+        // determine which page to load based on the URL
         $url = $_SERVER['REQUEST_URI'];
         if ($url === '/') {
             require_once '../app/views/pages/home.php';
@@ -35,8 +42,10 @@
             require_once '../app/views/pages/register.php';
         } elseif ($url === '/about') {
             require_once '../app/views/pages/about.php';
+        }elseif ($url === '/dashboard') {
+            require_once '../app/views/pages/dashboard.php';
         } else {
-            // If the URL doesn't match any of the above, show a 404 error page
+            // if the URL doesn't match any of the above, show a 404 error page
             http_response_code(404);
             echo '404 Not Found';
         }
