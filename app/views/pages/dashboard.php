@@ -1,76 +1,54 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="./assets/css/navbar.css">
-    <link rel="stylesheet" href="./assets/css/footer.css">
-    <link rel="stylesheet" href="./assets/css/dashboard.css">
-    <script src="./assets/js/navbar.js" defer></script>
-    <script src="./assets/js/footer.js" defer></script>
-    <title>About us</title>
-</head>
-<body>
-
-
-        <div class="div1"> 
-            <?php require_once '../app/views/shared/navbar.php'; ?>
+<?php require_once '../app/views/shared/navbar.php'; ?>
+<main class = "central-area">
+    <div class="page-name">
+        <p>List of projects</p>
+    </div>
+    <div>
+        <a href="/project/create" class="create-project-btn">Create new project</a>
+    </div>
+            
+    <div class="project-area">
+                
+        <div class = "project project-1">
+            <p>Project Name</p>
+            <div class ="button-area">
+                <a href="/project/1" class="button">View</a>
+                <a href="/project/1/edit" class="button">Modify</a>
+                <a href="/project/1/delete" class="button">Delete</a>
+            </div>
         </div>
 
-        <div class = "central-area">
-            <div class = "my-element">
-                <p> List of project </p>
+        <div class = "project project-2">
+            <p>Project Name</p>
+            <div class ="button-area">
+                <a href="/project/2" class="button">View</a>
+                <a href="/project/2/edit" class="button">Modify</a>
+                <a href="/project/2/delete" class="button">Delete</a>
             </div>
+        </div>
             
-            <div class = "project-area">
-                
-                <div class = "project-1">
-                    <p>Project Name</p>
-                    <div class ="button-area">
-                        <button class="button"> View  </button>
-                        <button class="button"> Modify  </button>
-                        <button class="button"> Delete  </button>
-
-                    </div>
-                </div>
-                <div class = "project-1">
-                    <p>Project Name</p>
-                    <div class ="button-area">
-                        <button class="button"> View  </button>
-                        <button class="button"> Modify  </button>
-                        <button class="button"> Delete  </button>
-                    </div>
-                </div>
-                <div class = "project-1">
-                    <p>Project Name</p>
-                    <div class ="button-area">
-                        <button class="button"> View  </button>
-                        <button class="button"> Modify  </button>
-                        <button class="button"> Delete  </button>
-
-                    </div>
-                </div>
-                <div class = "project-1">
-                    <p>Project Name</p>
-                    <div class ="button-area">
-                        <button class="button"> View  </button>
-                        <button class="button"> Modify  </button>
-                        <button class="button"> Delete  </button>
-
-                    </div>
-                </div>
-                
+        <div class = "project project-3">
+            <p>Project Name</p>
+            <div class ="button-area">
+                <a href="/project/3" class="button">View</a>
+                <a href="/project/3/edit" class="button">Modify</a>
+                <a href="/project/3/delete" class="button">Delete</a>
             </div>
+        </div>
+
+        <div class = "project project-4">
+            <p>Project Name</p>
+            <div class ="button-area">
+                <a href="/project/4" class="button">View</a>
+                <a href="/project/4/edit" class="button">Modify</a>
+                <a href="/project/4/delete" class="button">Delete</a>
+            </div>
+        </div>
+                
+    </div>
            
 
-        </div>
+</main>
+<?php require_once '../app/views/shared/footer.php'; ?>
 
-        <div class="div3"> 
-            <?php require_once '../app/views/shared/footer.php'; ?>
-        </div>
-   
-
-</body>
-</html>
 
