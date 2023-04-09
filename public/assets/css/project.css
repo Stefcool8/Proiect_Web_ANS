@@ -1,0 +1,49 @@
+.project-info {
+    margin: 2rem;
+    background-color: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.project-info h2 {
+    color: #3f51b5;
+    margin-bottom: 1rem;
+}
+
+.project-info p {
+    color: #333;
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+.project-info span {
+    font-weight: bold;
+}
+
+#chart {
+    margin: 2rem;
+    background-color: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.bar {
+    fill: steelblue;
+}
+
+.bar:hover {
+    fill: darkorange;
+}
+
+.axis {
+    font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+}
