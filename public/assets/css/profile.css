@@ -69,7 +69,16 @@
 }
 
 .main-content .user-visual .user-picture-and-controls .controls button {
-    margin-right: 1.5rem;
+    margin-right: 2vw;
+    background-image: linear-gradient(to bottom right, cyan, #192a56);
+    color: #fff; 
+    border-radius: 20px; 
+    border: none; 
+    padding: 10px 20px; 
+    font-size: 1.3vw; 
+    font-weight: bold;
+    cursor: pointer;
+    width: 10vw;
 }
 
 .main-content .user-details {
@@ -79,8 +88,9 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 1rem;
-    margin-top: 3rem;
+    padding: 2vw;
+    margin-top: 5vw;
+    font-size: 1.5vw;
 }
 
 .main-content .user-details .input-group {
@@ -88,11 +98,11 @@
     flex-direction: row;
     align-items: right;
     justify-content: space-between;
-    padding: 0.5rem;
+    padding: 0.5vw;
 }
 
 .main-content .user-details .input-group select {
-    width: 30rem;
+    width: 30vw;
     height: 100%;
     border-style: solid;
     border-color: white;
@@ -102,6 +112,7 @@
     cursor: pointer;
     color: white;
     order: 2;
+    font-size: 1vw;
 }
 
 .main-content .user-details .input-group select option {
@@ -115,21 +126,51 @@
 }
 
 .main-content .user-details .input-group input[type="text"], input[type="email"], textarea {
-    width: 30rem;
+    width: 30vw;
     text-align: left;
     order: 2;
+    font-size: 1vw;
 }
 
 /* Media query for small screens */
 @media only screen and (max-width: 768px) {
+    .main-content .user-visual .user-picture-and-controls {
+        height: 13vw;
+    }
+    .main-content .user-visual .user-picture-and-controls .user-picture {
+        height: 20vw;
+        width: 20vw;
+    }
+    .main-content .user-visual .user-picture-and-controls .user-name-and-email h1 {
+        font-size: 4vw;
+    }
+    .main-content .user-visual .user-picture-and-controls .user-name-and-email h5 {
+        font-size: 2vw;
+    }
+    .main-content .user-visual .user-picture-and-controls .user-name-and-email {
+        transform: translateY(40%);
+    }
+    .main-content .user-visual .user-picture-and-controls .controls {
+        transform: translateY(70%);
+    }
+    .main-content .user-visual .user-picture-and-controls .controls button {
+        font-size: 2vw;
+        text-align: center;
+        padding: 1.5vw 2vw;
+    }
+    .main-content .user-details {
+        font-size: 3vw;
+    }
     .main-content .user-details .input-group {
         flex-direction: column; /* stack the label and input elements vertically */
         align-items: flex-start; /* align elements to the left edge of the container */
     }
     .main-content .user-details .input-group input[type="text"], input[type="email"], textarea {
-        width: 50vw; 
+        width: 50vw;
+        font-size: 2.5vw;
     }
     .main-content .user-details .input-group select {
         width: 50vw;
+        font-size: 2.5vw;
     }
 }
