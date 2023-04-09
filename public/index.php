@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="/assets/css/dashboard.css">
     <link rel="stylesheet" href="/assets/css/reset.css">
     <link rel="stylesheet" href="/assets/css/project.css">
+    <link rel="stylesheet" href="./assets/css/profile.css">
 
 
 
