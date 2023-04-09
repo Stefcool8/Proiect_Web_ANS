@@ -11,12 +11,16 @@
     <link rel="stylesheet" href="./assets/css/register.css">
     <link rel="stylesheet" href="./assets/css/home.css">
     <link rel="stylesheet" href="./assets/css/contact.css">
+    <link rel="stylesheet" href="./assets/css/about.css">
+    <link rel="stylesheet" href="./assets/css/dashboard.css">
+
 
     <link rel="icon" href="./assets/img/globe.png">
 
     <script src="./assets/js/navbar.js"></script>
     <script src="./assets/js/footer.js"></script>
     <script src="./assets/js/home.js"></script>
+    <script src="./assets/js/about.js"></script>
     <title>Web application</title>
 
 </head>
@@ -38,6 +42,8 @@
             require_once '../app/views/pages/register.php';
         } elseif ($url === '/about') {
             require_once '../app/views/pages/about.php';
+        }elseif ($url === '/dashboard') {
+            require_once '../app/views/pages/dashboard.php';
         } else {
             // if the URL doesn't match any of the above, show a 404 error page
             http_response_code(404);
