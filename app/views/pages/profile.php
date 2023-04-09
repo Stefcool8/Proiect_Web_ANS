@@ -13,7 +13,7 @@
 </head>
 <body>
 
-    <div class="parent">
+    <div class="profile">
         <div class="header">
             <?php require_once '../app/views/shared/navbar.php'; ?>
         </div>

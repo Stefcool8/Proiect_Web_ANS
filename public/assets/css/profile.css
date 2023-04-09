@@ -1,21 +1,21 @@
-.main-content .user-visual {
+.profile .main-content .user-visual {
     position: relative;
     width: 100%;
     height: 20vw;
 }
 
-.main-content .user-visual .user-banner {
+.profile .main-content .user-visual .user-banner {
     max-width: 100%;
     height: 70%;
     overflow: hidden;
 }
 
-.main-content .user-visual .user-banner img {
+.profile .main-content .user-visual .user-banner img {
     max-width: 100%;
     height: auto;
 }
 
-.main-content .user-visual .user-picture-and-controls {
+.profile .main-content .user-visual .user-picture-and-controls {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
@@ -27,7 +27,7 @@
     background-color: transparent;
 }
 
-.main-content .user-visual .user-picture-and-controls .user-picture {
+.profile .main-content .user-visual .user-picture-and-controls .user-picture {
     width: 10vw;
     height: 10vw;
     border-radius: 50%;
@@ -38,7 +38,7 @@
     border-color: black;
 }
 
-.main-content .user-visual .user-picture-and-controls .user-name-and-email {
+.profile .main-content .user-visual .user-picture-and-controls .user-name-and-email {
     max-width: 100%;
     height: auto;
     display: flex;
@@ -49,15 +49,15 @@
     margin-left: 2vw;
 }
 
-.main-content .user-visual .user-picture-and-controls .user-name-and-email h1 {
+.profile .main-content .user-visual .user-picture-and-controls .user-name-and-email h1 {
     font-size: 2vw;
 }
 
-.main-content .user-visual .user-picture-and-controls .user-name-and-email h5 {
+.profile .main-content .user-visual .user-picture-and-controls .user-name-and-email h5 {
     font-size: 1vw;
 }
 
-.main-content .user-visual .user-picture-and-controls .controls {
+.profile .main-content .user-visual .user-picture-and-controls .controls {
     max-width: 100%;
     height: auto;
     display: flex;
@@ -68,7 +68,7 @@
     transform: translateY(10%);
 }
 
-.main-content .user-visual .user-picture-and-controls .controls button {
+.profile .main-content .user-visual .user-picture-and-controls .controls button {
     margin-right: 2vw;
     background-image: linear-gradient(to bottom right, cyan, #192a56);
     color: #fff; 
@@ -81,11 +81,11 @@
     width: 10vw;
 }
 
-.main-content .user-visual .user-picture-and-controls .controls button:hover {
+.profile .main-content .user-visual .user-picture-and-controls .controls button:hover {
     background-image: linear-gradient(to bottom right, #192a56, cyan);
 }
 
-.main-content .user-details {
+.profile .main-content .user-details {
     width: 100%;
     height: auto;
     display: flex;
@@ -97,7 +97,7 @@
     font-size: 1.5vw;
 }
 
-.main-content .user-details .input-group {
+.profile .main-content .user-details .input-group {
     display: flex;
     flex-direction: row;
     align-items: right;
@@ -105,7 +105,7 @@
     padding: 0.5vw;
 }
 
-.main-content .user-details .input-group select {
+.profile .main-content .user-details .input-group select {
     width: 30vw;
     height: 100%;
     border-style: solid;
@@ -119,17 +119,17 @@
     font-size: 1vw;
 }
 
-.main-content .user-details .input-group select option {
+.profile .main-content .user-details .input-group select option {
     color: black;
 }
 
-.main-content .user-details .input-group label {
+.profile .main-content .user-details .input-group label {
     margin-right: 5vw;
     text-align: left;
     order: 1;
 }
 
-.main-content .user-details .input-group input[type="text"], input[type="email"], textarea {
+.profile .main-content .user-details .input-group input[type="text"], input[type="email"], textarea {
     width: 30vw;
     text-align: left;
     order: 2;
@@ -138,42 +138,42 @@
 
 /* Media query for small screens */
 @media only screen and (max-width: 768px) {
-    .main-content .user-visual .user-picture-and-controls {
+    .profile .main-content .user-visual .user-picture-and-controls {
         height: 13vw;
     }
-    .main-content .user-visual .user-picture-and-controls .user-picture {
+    .profile .main-content .user-visual .user-picture-and-controls .user-picture {
         height: 20vw;
         width: 20vw;
     }
-    .main-content .user-visual .user-picture-and-controls .user-name-and-email h1 {
+    .profile .main-content .user-visual .user-picture-and-controls .user-name-and-email h1 {
         font-size: 4vw;
     }
-    .main-content .user-visual .user-picture-and-controls .user-name-and-email h5 {
+    .profile .main-content .user-visual .user-picture-and-controls .user-name-and-email h5 {
         font-size: 2vw;
     }
-    .main-content .user-visual .user-picture-and-controls .user-name-and-email {
+    .profile .main-content .user-visual .user-picture-and-controls .user-name-and-email {
         transform: translateY(40%);
     }
-    .main-content .user-visual .user-picture-and-controls .controls {
+    .profile .main-content .user-visual .user-picture-and-controls .controls {
         transform: translateY(70%);
     }
-    .main-content .user-visual .user-picture-and-controls .controls button {
+    .profile .main-content .user-visual .user-picture-and-controls .controls button {
         font-size: 2vw;
         text-align: center;
         padding: 1.5vw 2vw;
     }
-    .main-content .user-details {
+    .profile .main-content .user-details {
         font-size: 3vw;
     }
-    .main-content .user-details .input-group {
+    .profile .main-content .user-details .input-group {
         flex-direction: column; /* stack the label and input elements vertically */
         align-items: flex-start; /* align elements to the left edge of the container */
     }
-    .main-content .user-details .input-group input[type="text"], input[type="email"], textarea {
+    .profile .main-content .user-details .input-group input[type="text"], input[type="email"], textarea {
         width: 50vw;
         font-size: 2.5vw;
     }
-    .main-content .user-details .input-group select {
+    .profile .main-content .user-details .input-group select {
         width: 50vw;
         font-size: 2.5vw;
     }
