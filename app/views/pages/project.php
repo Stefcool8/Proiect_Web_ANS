@@ -7,7 +7,17 @@
     <p>Author: <span id="project-author">N. Martinescu</span></p>
     <p>Contributors: <span id="project-contributors">A. Cobaschi, S. Nastasiu</span></p>
     <p>Chart Type: <span id="chart-type">Bar Chart</span></p>
+    <div class="buttons">
+        <button class="btn" id="download-csv">Download CSV</button>
+        <button class="btn" id="download-png">Download PNG</button>
+        <button class="btn" id="download-jpeg">Download JPEG</button>
+        <button class="btn" id="download-svg">Download SVG</button>
+        <button class="btn">Share Link</button>
+        <button class="btn">Add Collaborators</button>
+    </div>
 </main>
-<div id="chart"></div>
+<div id="chart-container">
+    <div id="chart"></div>
+</div>
 <script src="/assets/js/project.js"></script>
 <?php require_once '../app/views/shared/footer.php'; ?>
