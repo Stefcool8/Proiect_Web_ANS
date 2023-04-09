@@ -1,11 +1,25 @@
+.main-content {
+    display: flex;
+    flex-direction: row;
+    margin: auto;
+    width: 80%;
+    margin-top: 2.5rem;
+    margin-bottom: 2.5rem;
+}
+
 .main-content .upload-options {
     display: flex;
     flex-direction: column;
+    float: left;
+    width: 25%;
+    padding-right: 3vw;
 }
 
 .main-content .upload-options .button {
     width: 100%;
     height: 100%;
+    margin: 0.5vw;
+    padding: 15px 20px;
     border: none;
     background-color: #f1f1f1;
     color: black;
@@ -16,4 +30,7 @@
 
 .main-content .specialized-form {
     background-color: aliceblue;
+    float: right;
+    width: 75%;
+    height: 30rem;
 }
