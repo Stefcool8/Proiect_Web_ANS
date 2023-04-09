@@ -4,7 +4,7 @@
     min-height: 100vh;
 }
 
-.main-content {
+.login .main-content {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -12,13 +12,13 @@
     padding: 2vh;
 }
 
-.container {
+.login .container {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 100%;
-    max-width: 200px;
+    max-width: 40vw;
     background-color: white;
     padding: 4vh;
     border-radius: 2vh;
@@ -39,7 +39,7 @@
     padding-bottom: 1vh;
 }
 
-.input-group {
+.login .input-group {
     margin-bottom: 1vh;
     width: 100%;
 }
@@ -99,7 +99,7 @@
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-.signup-link {
+.login .signup-link {
     text-align: center;
     margin-top: 1vh;
     font-size: 1vh;
@@ -117,7 +117,7 @@
 }
 
 @media screen and (max-width: 600px) {
-    .container {
+    .login .container {
         padding: 2vh;
         max-width: 90%;
     }
