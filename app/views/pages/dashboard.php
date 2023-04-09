@@ -19,7 +19,6 @@
         </div>
 
         <div class = "central-area">
-            
             <div class = "my-element">
                 <p> List of project </p>
             </div>
