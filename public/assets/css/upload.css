@@ -15,12 +15,13 @@
     padding-right: 3vw;
 }
 
-.upload .main-content .upload-options .button {
+.upload .main-content .upload-options button {
     width: 100%;
     height: 100%;
     margin: 0.5vw;
     padding: 15px 20px;
     border: none;
+    border-radius: 20px; 
     background-image: linear-gradient(to bottom right, cyan, white);
     color: black;
     font-size: 1.5vw;
@@ -28,7 +29,7 @@
     cursor: pointer;
 }
 
-.upload .main-content .upload-options .button:hover {
+.upload .main-content .upload-options button:hover, button.clicked {
     background-image: linear-gradient(to bottom right, rgb(0, 45, 158), rgb(0, 170, 255));
 }
 
@@ -62,7 +63,7 @@
     .upload .main-content .specialized-form {
         width: 100%;
     }
-    .upload .main-content .upload-options .button {
+    .upload .main-content .upload-options button {
         padding: 2.5vw 1vw;
         font-size: 2vw;
     }

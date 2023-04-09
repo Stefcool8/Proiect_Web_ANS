@@ -21,6 +21,8 @@
     <link rel="icon" href="/assets/img/globe.png">
 
     <script src="./assets/js/about.js"></script>
+    <script src="./assets/js/upload.js"></script>
+    <script src="./assets/js/home.js"></script>
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.1/papaparse.min.js"></script>
