@@ -19,18 +19,47 @@
   
             <div class="three-zones">
                 <div class="left-zone">
-                    <p>Nicu's contribution</p>
-                    <p ><span id ="dots1">...</span> <span id="more1"> egestas vitae scelerisque enim ligula venenatis dolor. Maecenas nisl est, ultrices nec congue eget, auctor vitae massa. Fusce luctus vestibulum augue ut aliquet. Nunc sagittis dictum nisi, sed ullamcorper ipsum dignissim ac. In at libero sed nunc venenatis imperdiet sed ornare turpis. Donec vitae dui eget tellus gravida venenatis. Integer fringilla congue eros non fermentum. Sed dapibus pulvinar nibh tempor porta.</span></p>
+                    <p>Nicolae's contribution</p>
+                    <p>Nicolae managed to do the following tasks:</p><span id ="dots1">...</span>
+                        <span id="more1">
+                            <p> Create and managing a Jira project for displaying the tasks on a Kanban board </p>
+                            <p> Make research on UI/UX design tools, especially Figma</p>
+                            <p> Help in creating Pain diagrams with the main pages of our Application</p>
+                            <p> Create HTML, CSS, JavaScript code for NavBar and Footer</p>
+                            <p> Create HTML, CSS, JavaScript code for Home page </p>
+                            <p> Create HTML, CSS code for Contact page </p>
+                            <p> Create HTML, CSS code for Login page </p>
+                            <p> Create HTML, CSS code for Register page </p>
+                            <p> Create HTML, CSS code for Reset Password page </p>
+                            <p> Create HTML, CSS and JavaScript code for Project page, that actually is a hardcoded example of Project visualisation</p>
+                            <p> Constant communication (giving and bringing advices)</p>                        
+                        </span>
+                    
                     <button onclick ="myFunction1()" id ="myBtn1"> Read more</button>
                 </div>
                 <div class="middle-zone">
                     <p> Stefan's contribution</p>
-                    <p >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet, nulla et dictum interdum, nisi lorem<span id ="dots2">...</span> <span id="more2"> egestas vitae scelerisque enim ligula venenatis dolor. Maecenas nisl est, ultrices nec congue eget, auctor vitae massa. Fusce luctus vestibulum augue ut aliquet. Nunc sagittis dictum nisi, sed ullamcorper ipsum dignissim ac. In at libero sed nunc venenatis imperdiet sed ornare turpis. Donec vitae dui eget tellus gravida venenatis. Integer fringilla congue eros non fermentum. Sed dapibus pulvinar nibh tempor porta.</span></p>
+                    <p>Stefan managed to do the following tasks:</p><span id ="dots2">...</span>
+                        <span id="more2">
+                            <p> Make research on UI/UX design tools, especially Figma</p>
+                            <p> Create Pain diagrams with the main pages of our Application</p>
+                            <p> Create HTML, CSS code for Profile page </p>
+                            <p> Create HTML, CSS and JavaScript code for Upload page </p>
+                            <p> Constant communication (giving and bringing advices)</p> 
+                        </span>
+                    
                     <button onclick ="myFunction2()" id ="myBtn2"> Read more</button>
                 </div>
                 <div class="right-zone">
                     <p> Aser's contribution</p>
-                    <p >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet, nulla et dictum interdum, nisi lorem<span id ="dots3">...</span> <span id="more3"> egestas vitae scelerisque enim ligula venenatis dolor. Maecenas nisl est, ultrices nec congue eget, auctor vitae massa. Fusce luctus vestibulum augue ut aliquet. Nunc sagittis dictum nisi, sed ullamcorper ipsum dignissim ac. In at libero sed nunc venenatis imperdiet sed ornare turpis. Donec vitae dui eget tellus gravida venenatis. Integer fringilla congue eros non fermentum. Sed dapibus pulvinar nibh tempor porta.</span></p>
+                    <p>Aser managed to do the following tasks:</p><span id ="dots3">...</span>
+                        <span id="more3">
+                            <p> Make research on UI/UX design tools, especially Figma</p>
+                            <p> Help in creating Pain diagrams with the main pages of our Application</p>
+                            <p> Create HTML, CSS and Javascript code for About page </p>
+                            <p> Create HTML, CSS code for Dashboard page </p>
+                            <p> Constant communication (giving and bringing advices)</p> 
+                        </span>
                     <button onclick ="myFunction3()" id ="myBtn3"> Read more</button>
                 </div>
             </div>
