@@ -16,8 +16,7 @@
     <link rel="stylesheet" href="/assets/css/reset.css">
     <link rel="stylesheet" href="/assets/css/project.css">
     <link rel="stylesheet" href="./assets/css/profile.css">
-
-
+    <link rel="stylesheet" href="./assets/css/upload.css">
 
     <link rel="icon" href="/assets/img/globe.png">
 
@@ -60,6 +59,8 @@
             require_once '../app/views/pages/project.php';
         } elseif ($url === '/profile') {
             require_once '../app/views/pages/profile.php';
+        } elseif ($url === '/upload') {
+            require_once '../app/views/pages/upload.php';
         }
         else {
             // if the URL doesn't match any of the above, show a 404 error page
