@@ -62,7 +62,7 @@
 }
 
 .bar {
-    fill: steelblue;
+    fill: white;
 }
 
 .bar:hover {
@@ -80,7 +80,7 @@
     shape-rendering: crispEdges;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 826px) {
     .project-info {
         font-size: 0.9rem;
     }

@@ -57,6 +57,8 @@
             require_once '../app/views/pages/project.php';
         } elseif ($url === '/project/4') {
             require_once '../app/views/pages/project.php';
+        } elseif ($url === '/profile') {
+            require_once '../app/views/pages/profile.php';
         }
         else {
             // if the URL doesn't match any of the above, show a 404 error page
