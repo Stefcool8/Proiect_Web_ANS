@@ -9,7 +9,7 @@
         #2b2d42,
         #1c1e2d
     ); /* this adds the white effect to the navbar */
-    padding: 1rem; /* read about rem: https://www.w3schools.com/css/css_units.asp */
+    padding: 3vh; /* read about vh: https://www.w3schools.com/css/css_units.asp */
 }
 
 .navbar .logo {
@@ -21,55 +21,57 @@
 }
 
 .navbar .logo img {
-    max-height: 50px;
+    min-height: 7vh;
+    max-height: 10vh;
     transition: all 0.3s ease; /* read about transitions: https://www.w3schools.com/css/css3_transitions.asp */
 }
 
 .navbar .logo img:hover {
     transform: scale(1.1) rotate(10deg); /* make it a liitle bigger and rotate it a little */
-    filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 1)); /* add a drop shadow */
+    filter: drop-shadow(
+        0.2vh 0.4vh 0.6vh rgba(0, 0, 0, 1)
+    ); /* add a drop shadow */
 }
 
 .navbar .nav-links {
     display: flex; /* the links will also be a flexbox */
     flex-direction: row; /* the links will go from left to right */
     justify-content: flex-end; /* the links will be on the right side */
-    margin-right: 0.25rem; /* add a little space between the links and the logo */
+    margin-right: 1vh; /* add a little space between the links and the logo */
     list-style-type: none; /* removes the bullet points */
 }
 
 .navbar .nav-links .link {
-    margin-right: 0.25rem; /* add a little space between the links */
-    margin-top: 0.25rem; /* add a little space between the links */
+    margin-right: 1vh; /* add a little space between the links */
+    margin-top: 1vh; /* add a little space between the links */
 }
 .navbar .nav-links i {
-    margin-left: 0.25rem;
+    margin-left: 1vh;
 }
 
 .navbar .nav-links a {
     color: white;
     text-decoration: none;
     text-align: center;
-    padding: 0.5rem;
-    border-radius: 5px;
+    padding: 2vh;
     background-color: transparent;
-    font-size: 1rem;
+    font-size: 3vh;
     display: block;
     position: relative;
-    transition: all 0.3s ease, background-color 0.5s ease;
+    transition: all 0.5s ease, background-color 0.5s ease;
     overflow: hidden;
 }
 
 .navbar .nav-links a:hover {
     background-color: #333;
     background-image: linear-gradient(45deg, #1c1e2d, #262a3e);
-    border-radius: 10%;
     color: white;
-    font-size: 1.1rem;
-    padding: 0.55rem 0.5rem;
-    bottom: 2px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 1);
-    letter-spacing: 1px;
+    border-radius: 2vh;
+    font-size: 3.5vh;
+    padding: 2.2vh 2vh;
+    bottom: 0.5vh;
+    box-shadow: 0 0.2vh 0.5vh rgba(0, 0, 0, 1);
+    letter-spacing: 0.1vh;
 }
 
 .nav-links a::after {
@@ -79,7 +81,7 @@
     left: 0;
     bottom: 0;
     width: 100%;
-    height: 2px;
+    height: 0.5vh;
     background-color: white;
     transform: translateX(
         -100%
@@ -91,11 +93,15 @@
     transform: translateX(0);
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 826px) {
     .navbar {
         flex-direction: column; /* make the items in the navbar go from top to bottom */
     }
     .navbar .nav-links {
         flex-direction: column; /* make the links go from top to bottom */
+    }
+
+    .navbar .nav-links .link {
+        padding: 2vh;
     }
 }

@@ -1,13 +1,13 @@
 .footer-container {
     display: grid; /* grid layout */
     grid-template-columns: 1fr 1fr 1fr; /* 3 columns */
-    grid-gap: 2rem; /* gap between columns */
-    padding: 2rem; /* padding around the container */
+    grid-gap: 5vh; /* gap between columns */
+    padding: 5vh; /* padding around the container */
 
     background-color: #333;
     background-image: linear-gradient(135deg, #262a3e, #2b2d42);
     color: #fff;
-    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 -0.2vh 0.5vh rgba(0, 0, 0, 0.1);
 }
 
 .footer-container .about-item,
@@ -22,13 +22,13 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.5rem;
+    gap: 1vh;
 }
 
 .footer-container .about-item ul li,
 .footer-container .contact-item ul li {
     list-style: none; /* remove bullet points */
-    margin-bottom: 0.5rem;
+    margin-bottom: 1vh;
 }
 
 .footer-container .about-item ul li a,
@@ -38,11 +38,11 @@
 }
 
 .footer-container .contact-item p {
-    margin-bottom: 0.5rem;
+    margin-bottom: 1vh;
 }
 
 .footer-container .contact-item p a {
-    margin-left: 0.5rem;
+    margin-left: 1vh;
 }
 
 .footer-container .social-item {
@@ -50,11 +50,11 @@
     flex-direction: row; /* row layout, items are stacked horizontally in social area */
     justify-content: center; /* center content horizontally */
     align-items: center; /* center content vertically */
-    gap: 1rem; /* gap between items */
+    gap: 2vh; /* gap between items */
 }
 
 .footer-container h3 {
-    margin-bottom: 1rem;
+    margin-bottom: 2vh;
 }
 
 .footer-container .about-item ul li a,
@@ -63,10 +63,10 @@
     color: #fff;
     text-decoration: none;
     display: inline-block;
-    padding: 5px 10px;
+    padding: 2vh;
     background-color: #333;
     background-image: linear-gradient(135deg, #1c1e2d, #262a3e);
-    border-radius: 15px;
+    border-radius: 2vh;
     position: relative;
     transition: all 0.3s ease; /* transition for hover effect, defined next */
 }
@@ -76,14 +76,19 @@
 .footer-container .contact-item p a:hover {
     background-color: rgba(75, 75, 75, 0.9);
     color: #00b3b3;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0.2vh 0.5vh rgba(0, 0, 0, 0.3);
     animation: shake 0.5s; /* animation for hover effect, read more: https://www.w3schools.com/css/css3_animations.asp:  */
 }
 
 .footer-container .social-item a {
     color: #fff;
-    font-size: 1.2rem;
+    font-size: 4vh;
     transition: color 0.3s, transform 0.3s; /* only the color and transform properties will be transitioned */
+}
+
+.footer-container .contact-item i.fab.fa-github {
+    font-size: 4vh;
+    transition: all 0.3s;
 }
 
 .footer-container .social-item a:hover {
@@ -108,6 +113,12 @@
 
 .footer-container .contact-item i.fab.fa-github:hover {
     color: #171515;
+    transform: scale(1.2);
+}
+
+.footer-container i {
+    font-size: 3vh;
+    margin-right: 1vh;
 }
 
 @keyframes shake {
@@ -117,21 +128,22 @@
         transform: translate(0, 0);
     }
     20% {
-        transform: translate(-5px, -5px);
+        transform: translate(-0.5vh, -0.5vh);
     }
     40% {
-        transform: translate(5px, -5px);
+        transform: translate(0.5vh, -0.5vh);
     }
     60% {
-        transform: translate(-5px, -5px);
+        transform: translate(-0.5vh, -0.5vh);
     }
     80% {
-        transform: translate(5px, -5px);
+        transform: translate(0.5vh, -0.5vh);
     }
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 826px) {
     .footer-container {
         grid-template-columns: 1fr;
+        padding: 5vh 2vh;
     }
 }

@@ -1,4 +1,4 @@
-.contact {
+.password-reset {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -13,8 +13,12 @@
 }
 
 .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     width: 100%;
-    max-width: 75vh;
+    max-width: 400px;
     background-color: white;
     padding: 4vh;
     border-radius: 2vh;
@@ -22,11 +26,11 @@
     color: black;
 }
 
-.contact form {
+.password-reset form {
     width: 100%;
 }
 
-.contact h2 {
+.password-reset h2 {
     text-align: center;
     margin-bottom: 1vh;
     font-size: 4vh;
@@ -36,31 +40,25 @@
 
 .input-group {
     margin-bottom: 1vh;
+    width: 100%;
 }
 
-.contact label {
+.password-reset label {
     display: block;
     margin-bottom: 0.5vh;
     font-size: 3vh;
 }
 
-.contact input[type="text"],
-.contact input[type="email"],
-.contact textarea {
+.password-reset input[type="email"] {
     width: 100%;
     padding: 0.5vh;
     border-radius: 2vh;
     border: 1px solid #ccc;
     font-size: 3vh;
-    box-sizing: border-box;
-    transition: all 0.3s;
+    transition: border 0.3s, box-shadow 0.3s;
 }
 
-.contact textarea {
-    resize: none;
-}
-
-.contact button {
+.password-reset button {
     display: block;
     width: 100%;
     padding: 1vh;
@@ -72,48 +70,69 @@
     cursor: pointer;
     transition: all 0.3s;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    margin-top: 2vh;
 }
 
-.contact input[type="text"]:hover,
-.contact input[type="email"]:hover,
-.contact textarea:hover {
+.password-reset input[type="email"]:hover {
     border: 1px solid #777;
 }
 
-.contact input[type="text"]:focus,
-.contact input[type="email"]:focus,
-.contact textarea:focus {
+.password-reset input[type="email"]:focus {
     outline: none;
     border: 1px solid #777;
     box-shadow: 0 0 5px #777;
 }
 
-.contact button:hover {
+.password-reset button:hover {
     background-color: #444;
-    transform: scale(1.02);
+    transform: scale (1.02);
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
-.contact button:active {
+.password-reset button:active {
     background-color: #555;
     transform: scale(0.98);
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-@media screen and (max-width: 600px) {
+.signup-link {
+    text-align: center;
+    margin-top: 1vh;
+    font-size: 1vh;
+}
+
+.signup-link p {
+    font-size: 2vh;
+    margin: 0;
+}
+
+.signup-link a {
+    text-decoration: none;
+    font-size: 2vh;
+    color: #333;
+}
+
+@media screen and (max-width: 826px) {
     .container {
-        padding: 1rem;
+        padding: 2vh;
+        max-width: 90%;
     }
 
-    .contact h2 {
+    .password-reset h2 {
         font-size: 3.5vh;
     }
 
-    .contact label,
-    .contact input[type="text"],
-    .contact input[type="email"],
-    .contact textarea,
-    .contact button {
+    .password-reset label,
+    .password-reset input[type="email"],
+    .password-reset button {
         font-size: 2.5vh;
+    }
+
+    .signup-link p {
+        font-size: 1.5vh;
+    }
+
+    .signup-link a {
+        font-size: 1.5vh;
     }
 }
