@@ -12,7 +12,6 @@
     <article>
         <header>
             <h1 property="headline">
-                Auto Park Smart Explorer: O aplicatie web pentru vizualizarea si analiza datelor in special din domeniul auto
             </h1>
             <div role="contentinfo">
                 <section typeof="sa:AuthorsList">
@@ -113,6 +112,16 @@
             <h2 property="name">Introducere</h2>
 
             <p property="text">
+                Vizualizarea si analiza datelor este o cerinta tot mai des intalnita in randul entitatilor care apeleaza la servicii software.Ca raspuns la aceasta tendinta, echipa noastra, ANS-TheGradeSlayers, a carei componenta este detaliata in sectiunea "Autori",
+                lanseaza o aplicatie web, denumita "Auto Park Smart Explorer" - o aplicatie web pentru vizualizarea si analiza datelor in special din domeniul auto. Motivatia noastra este aceea de a veni pe piata cu un produs bun, sigur, usor de folosit,
+                si care sa vina atat in sprijinul companiilor ce activeaza in domeniul mentionat anterior(fie companii de stat, fie companii private), si care au nevoie de un studiu al pietei auto din Romania ultimilor 10 ani(folosind baze de date puse
+                la dispozitie de Registrul Auto Roman), cat si in sprijinul persoanelor interesate de acest domeniu si evolutia lui in timp. Documentatia de fata are rolul de a facilita interactiunea utilizatorilor cu aplicatia in sine. Astfel, este detaliat
+                modul in care trebuie pregatita masina locala si pasii premergatori rularii aplicatiei. De asemeena, sunt oferite detalii privitoare la implementarea aplicatiei si modul in care aceasta functioneaza, atat la nivel textual cat si la nivel
+                vizual, prin diagrame de tip use-case. Ne dorim ca produsul nostru sa fie scalabil si eficeint, prin urmare raportul final va contine si o rubrica in care sunt consemnate rezultate obtinute in urma unor teste semnificative in privinta
+                aceasta. Ne dorim de asemenea ca aplicatia noastra sa fie una sigura pentru utilizatori, motiv pentru care documentul de fata contine o sectiune in care sunt precizate si cateva obiective in privinta aceasta.Scenariile principale de folosire
+                a aplicatiei sunt crearea contului, logarea, crearea proiectelor noi prin importarea unor date, vizualizarea statisticilor generate pe baza proiectelor, si exportarea acestora in diferite formate. Modul in care un utilizator poate face
+                aceste lucruri este detaliat explicit in sectiunea de Fronted, acesta fiind stadiul actual al proiectului, interfata fiind realizata.Urmeaza sa se aduca unele imbunatatiri partii de interactiune cu utilizatorul si sa se implementeze logica
+                din Backend. Tehnologiile folosite pana acum sunt HTML, CSS si JavaScript, evitandu-se utilizarea framework-urilor. Nu in ultimul rand, documentul de fata contine bibliografia de care ne-am folosit in realizarea proiectului.
 
             </p>
         </section>
@@ -147,10 +156,15 @@
                         <h5 property="name">Meniu de navigare</h5>
                         <p property="text">
                             Meniul de navigare este o componenta comuna tuturor paginilor aplicatiei, din acest motiv ea va fi explicata doar aici,restul paginilor urmand sa treaca direct la explicarea continutului paginii. Meniul de navigare este realizat in HTML si CSS, aceasta
-                            contine un logo in partea stanga, momentan nu exista un logo concret pentru aplicatie, in locul ei fiind o imagine de test. In partea dreapta se afla un meniu cu diferite link-uri catre alte pagini ale aplicatiei. Link-ul "Home"
-                            duce catre pagina curenta, "About" catre pagina unde se afla mai multe detalii despre aplicatie si autori, "Contact" catre pagina unde se afla un formular de contact pentru a putea trimite mesaje catre administratorii aplicatiei,
-                            iar in cele din urma "Use Feature", care duce catre dashboard-ul aplicatiei in cazul in care utilizatorul este logat, iar in cazul in care nu este logat, acesta va fi redirectionat catre pagina de login. Momentan, acest link
-                            redirectioneaza catre pagina de login, deoarece inca nu a fost implementat un mecanism de autentificare.
+                            contine un logo in partea stanga, momentan nu exista un logo concret pentru aplicatie, in locul ei fiind o imagine de test. In partea dreapta se afla un meniu cu diferite link-uri catre alte pagini ale aplicatiei, dupa cum
+                            urmeaza:
+                            <ul>
+                                <li>Link-ul "Home" - duce catre pagina curenta</li>
+                                <li>Link-ul"About" - duce catre pagina unde se afla mai multe detalii despre aplicatie si autori</li>
+                                <li>Link-ul "Contact" - duce catre pagina unde se afla un formular de contact pentru a putea trimite mesaje catre administratorii aplicatiei</li>
+                                <li>Link-ul "Use Feature" - care duce catre dashboard-ul aplicatiei in cazul in care utilizatorul este logat, iar in cazul in care nu este logat, acesta va fi redirectionat catre pagina de login. Momentan, acest link redirectioneaza
+                                    catre pagina de login, deoarece inca nu a fost implementat un mecanism de autentificare.</li>
+                            </ul>
                         </p>
                     </section>
                     <section>
@@ -161,7 +175,11 @@
                         <section>
                             <h5 property="name">Zona de informatii</h5>
                             <p>
-                                Zona de informatii este impartita in doua: partea stanga contine scopul principal al aplicatiei si doua butoane: "Use it now", care are acelasi efect ca si "Use feature" din meniul de navigare, "Github", care duce catre repository-ul de Github al proiectului.
+                                Zona de informatii este impartita in doua: partea stanga contine scopul principal al aplicatiei si doua butoane:
+                                <ul>
+                                    <li>"Use it now", care are acelasi efect ca si "Use feature" din meniul de navigare</li>
+                                    <li>"Github", care duce catre repository-ul de Github al proiectului</li>
+                                </ul>
                                 Partea din dreapta contine un video de prezentare a aplicatiei, acesta momentan nu exista, deci a fost pus un video aleator aparut de pe youtube.
                             </p>
                         </section>
@@ -184,12 +202,47 @@
                         <h5 property="name">Footer</h5>
                         <p property="text">
                             Footer-ul este o componenta comuna tuturor paginilor aplicatiei, din acest motiv ea va fi explicata doar aici, la fel ca si meniul de navigare, restul paginilor detaliind doar continutul specific al lor. Footer-ul este realizat in HTML si CSS. Acesta
-                            contine 3 sectiuni de informatii. In partea stanga se regasesc 3 link-uri, cate unul pentru urmatoarele pagini: "Termenii serviciilor", unde sunt detaliati termenii si conditiile utilizarii aplicatiei noastre, sectiune ce este
-                            recomandata a fi citita inainte de folosirea explicita a serviciilor oferite de noi. La momentul actual, termenii si conditiile nu sunt detaliate, link-ul trimitand la pagina curenta; "Politica de confidentialitate" contine
-                            informatii legate de protectia datelor dumneavoastra, noi garantand faputl ca nu vom folosi datele introduse de dumneavoastra documentation in scopul folosirii aplicatiei, fiind excluse orice furnizare de date pentru alte entitati.
-                            La momentul actual, politica de confidentialitate nu este complet definita, link-ul trimitand la pagina curenta; "Harta site-ului", care trimite catre principalele pagini si functionalitati din cadrul aplicatiei. De asemenea,
-                            la momentul actual link-ul trimite la pagina curenta.
+                            contine 3 sectiuni de informatii. </p>
+                        <p property="text"> In partea stanga se regasesc 3 link-uri, cate unul pentru urmatoarele pagini:
+                            <ul>
+                                <li>"Termenii serviciilor", unde sunt detaliati termenii si conditiile utilizarii aplicatiei noastre, sectiune ce este recomandata a fi citita inainte de folosirea explicita a serviciilor oferite de noi. La momentul actual,
+                                    termenii si conditiile nu sunt detaliate, link-ul trimitand la pagina curenta;</li>
+                                <li> "Politica de confidentialitate" contine informatii legate de protectia datelor dumneavoastra, noi garantand faputl ca nu vom folosi datele introduse de dumneavoastra documentation in scopul folosirii aplicatiei, fiind excluse
+                                    orice furnizare de date pentru alte entitati. La momentul actual, politica de confidentialitate nu este complet definita, link-ul trimitand la pagina curenta;</li>
+                                <li>
+                                    "Harta site-ului", care trimite catre principalele pagini si functionalitati din cadrul aplicatiei. De asemenea, la momentul actual link-ul trimite la pagina curenta.
+                                </li>
+                            </ul>
                         </p>
+
+                        <p property="text">
+                            In partea de mijloc, se regasesc informatii de contact precum:
+                            <ul>
+                                <li>Adresa de email a administratorilor aplicatiei</li>
+                                <li>Numarul de telefon al administratorilor aplicatiei</li>
+                                <li>Un link catre pagina de github a aplicatiei</li>
+                            </ul>
+                        </p>
+
+                        <p property="text">
+                            In partea de mijloc, se regasesc informatii de contact precum:
+                            <ul>
+                                <li>Adresa de email a administratorilor aplicatiei</li>
+                                <li>Numarul de telefon al administratorilor aplicatiei</li>
+                                <li>Un link catre pagina de github a aplicatiei</li>
+                            </ul>
+                        </p>
+
+                        <p property="text">
+                            In partea de dreapta, se regasesc linkuri catre paginile noastre de pe retele sociale precum:
+                            <ul>
+                                <li>Facebook</li>
+                                <li>Twitter</li>
+                                <li>Instagram</li>
+                                <li>LinkedIn</li>
+                            </ul>
+                        </p>
+
                     </section>
                 </section>
                 <section>
