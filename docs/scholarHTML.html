@@ -12,7 +12,6 @@
     <article>
         <header>
             <h1 property="headline">
-                Auto Park Smart Explorer: O aplicatie web pentru vizualizarea si analiza datelor in special din domeniul auto
             </h1>
             <div role="contentinfo">
                 <section typeof="sa:AuthorsList">
@@ -113,6 +112,16 @@
             <h2 property="name">Introducere</h2>
 
             <p property="text">
+                Vizualizarea si analiza datelor este o cerinta tot mai des intalnita in randul entitatilor care apeleaza la servicii software.Ca raspuns la aceasta tendinta, echipa noastra, ANS-TheGradeSlayers, a carei componenta este detaliata in sectiunea "Autori",
+                lanseaza o aplicatie web, denumita "Auto Park Smart Explorer" - o aplicatie web pentru vizualizarea si analiza datelor in special din domeniul auto. Motivatia noastra este aceea de a veni pe piata cu un produs bun, sigur, usor de folosit,
+                si care sa vina atat in sprijinul companiilor ce activeaza in domeniul mentionat anterior(fie companii de stat, fie companii private), si care au nevoie de un studiu al pietei auto din Romania ultimilor 10 ani(folosind baze de date puse
+                la dispozitie de Registrul Auto Roman), cat si in sprijinul persoanelor interesate de acest domeniu si evolutia lui in timp. Documentatia de fata are rolul de a facilita interactiunea utilizatorilor cu aplicatia in sine. Astfel, este detaliat
+                modul in care trebuie pregatita masina locala si pasii premergatori rularii aplicatiei. De asemeena, sunt oferite detalii privitoare la implementarea aplicatiei si modul in care aceasta functioneaza, atat la nivel textual cat si la nivel
+                vizual, prin diagrame de tip use-case. Ne dorim ca produsul nostru sa fie scalabil si eficeint, prin urmare raportul final va contine si o rubrica in care sunt consemnate rezultate obtinute in urma unor teste semnificative in privinta
+                aceasta. Ne dorim de asemenea ca aplicatia noastra sa fie una sigura pentru utilizatori, motiv pentru care documentul de fata contine o sectiune in care sunt precizate si cateva obiective in privinta aceasta.Scenariile principale de folosire
+                a aplicatiei sunt crearea contului, logarea, crearea proiectelor noi prin importarea unor date, vizualizarea statisticilor generate pe baza proiectelor, si exportarea acestora in diferite formate. Modul in care un utilizator poate face
+                aceste lucruri este detaliat explicit in sectiunea de Fronted, acesta fiind stadiul actual al proiectului, interfata fiind realizata.Urmeaza sa se aduca unele imbunatatiri partii de interactiune cu utilizatorul si sa se implementeze logica
+                din Backend. Tehnologiile folosite pana acum sunt HTML, CSS si JavaScript, evitandu-se utilizarea framework-urilor. Nu in ultimul rand, documentul de fata contine bibliografia de care ne-am folosit in realizarea proiectului.
 
             </p>
         </section>
@@ -147,10 +156,15 @@
                         <h5 property="name">Meniu de navigare</h5>
                         <p property="text">
                             Meniul de navigare este o componenta comuna tuturor paginilor aplicatiei, din acest motiv ea va fi explicata doar aici,restul paginilor urmand sa treaca direct la explicarea continutului paginii. Meniul de navigare este realizat in HTML si CSS, aceasta
-                            contine un logo in partea stanga, momentan nu exista un logo concret pentru aplicatie, in locul ei fiind o imagine de test. In partea dreapta se afla un meniu cu diferite link-uri catre alte pagini ale aplicatiei. Link-ul "Home"
-                            duce catre pagina curenta, "About" catre pagina unde se afla mai multe detalii despre aplicatie si autori, "Contact" catre pagina unde se afla un formular de contact pentru a putea trimite mesaje catre administratorii aplicatiei,
-                            iar in cele din urma "Use Feature", care duce catre dashboard-ul aplicatiei in cazul in care utilizatorul este logat, iar in cazul in care nu este logat, acesta va fi redirectionat catre pagina de login. Momentan, acest link
-                            redirectioneaza catre pagina de login, deoarece inca nu a fost implementat un mecanism de autentificare.
+                            contine un logo in partea stanga, momentan nu exista un logo concret pentru aplicatie, in locul ei fiind o imagine de test. In partea dreapta se afla un meniu cu diferite link-uri catre alte pagini ale aplicatiei, dupa cum
+                            urmeaza:
+                            <ul>
+                                <li>Link-ul "Home" - duce catre pagina curenta</li>
+                                <li>Link-ul"About" - duce catre pagina unde se afla mai multe detalii despre aplicatie si autori</li>
+                                <li>Link-ul "Contact" - duce catre pagina unde se afla un formular de contact pentru a putea trimite mesaje catre administratorii aplicatiei</li>
+                                <li>Link-ul "Use Feature" - care duce catre dashboard-ul aplicatiei in cazul in care utilizatorul este logat, iar in cazul in care nu este logat, acesta va fi redirectionat catre pagina de login. Momentan, acest link redirectioneaza
+                                    catre pagina de login, deoarece inca nu a fost implementat un mecanism de autentificare.</li>
+                            </ul>
                         </p>
                     </section>
                     <section>
@@ -161,7 +175,11 @@
                         <section>
                             <h5 property="name">Zona de informatii</h5>
                             <p>
-                                Zona de informatii este impartita in doua: partea stanga contine scopul principal al aplicatiei si doua butoane: "Use it now", care are acelasi efect ca si "Use feature" din meniul de navigare, "Github", care duce catre repository-ul de Github al proiectului.
+                                Zona de informatii este impartita in doua: partea stanga contine scopul principal al aplicatiei si doua butoane:
+                                <ul>
+                                    <li>"Use it now", care are acelasi efect ca si "Use feature" din meniul de navigare</li>
+                                    <li>"Github", care duce catre repository-ul de Github al proiectului</li>
+                                </ul>
                                 Partea din dreapta contine un video de prezentare a aplicatiei, acesta momentan nu exista, deci a fost pus un video aleator aparut de pe youtube.
                             </p>
                         </section>
@@ -184,12 +202,47 @@
                         <h5 property="name">Footer</h5>
                         <p property="text">
                             Footer-ul este o componenta comuna tuturor paginilor aplicatiei, din acest motiv ea va fi explicata doar aici, la fel ca si meniul de navigare, restul paginilor detaliind doar continutul specific al lor. Footer-ul este realizat in HTML si CSS. Acesta
-                            contine 3 sectiuni de informatii. In partea stanga se regasesc 3 link-uri, cate unul pentru urmatoarele pagini: "Termenii serviciilor", unde sunt detaliati termenii si conditiile utilizarii aplicatiei noastre, sectiune ce este
-                            recomandata a fi citita inainte de folosirea explicita a serviciilor oferite de noi. La momentul actual, termenii si conditiile nu sunt detaliate, link-ul trimitand la pagina curenta; "Politica de confidentialitate" contine
-                            informatii legate de protectia datelor dumneavoastra, noi garantand faputl ca nu vom folosi datele introduse de dumneavoastra documentation in scopul folosirii aplicatiei, fiind excluse orice furnizare de date pentru alte entitati.
-                            La momentul actual, politica de confidentialitate nu este complet definita, link-ul trimitand la pagina curenta; "Harta site-ului", care trimite catre principalele pagini si functionalitati din cadrul aplicatiei. De asemenea,
-                            la momentul actual link-ul trimite la pagina curenta.
+                            contine 3 sectiuni de informatii. </p>
+                        <p property="text"> In partea stanga se regasesc 3 link-uri, cate unul pentru urmatoarele pagini:
+                            <ul>
+                                <li>"Termenii serviciilor", unde sunt detaliati termenii si conditiile utilizarii aplicatiei noastre, sectiune ce este recomandata a fi citita inainte de folosirea explicita a serviciilor oferite de noi. La momentul actual,
+                                    termenii si conditiile nu sunt detaliate, link-ul trimitand la pagina curenta;</li>
+                                <li> "Politica de confidentialitate" contine informatii legate de protectia datelor dumneavoastra, noi garantand faputl ca nu vom folosi datele introduse de dumneavoastra documentation in scopul folosirii aplicatiei, fiind excluse
+                                    orice furnizare de date pentru alte entitati. La momentul actual, politica de confidentialitate nu este complet definita, link-ul trimitand la pagina curenta;</li>
+                                <li>
+                                    "Harta site-ului", care trimite catre principalele pagini si functionalitati din cadrul aplicatiei. De asemenea, la momentul actual link-ul trimite la pagina curenta.
+                                </li>
+                            </ul>
                         </p>
+
+                        <p property="text">
+                            In partea de mijloc, se regasesc informatii de contact precum:
+                            <ul>
+                                <li>Adresa de email a administratorilor aplicatiei</li>
+                                <li>Numarul de telefon al administratorilor aplicatiei</li>
+                                <li>Un link catre pagina de github a aplicatiei</li>
+                            </ul>
+                        </p>
+
+                        <p property="text">
+                            In partea de mijloc, se regasesc informatii de contact precum:
+                            <ul>
+                                <li>Adresa de email a administratorilor aplicatiei</li>
+                                <li>Numarul de telefon al administratorilor aplicatiei</li>
+                                <li>Un link catre pagina de github a aplicatiei</li>
+                            </ul>
+                        </p>
+
+                        <p property="text">
+                            In partea de dreapta, se regasesc linkuri catre paginile noastre de pe retele sociale precum:
+                            <ul>
+                                <li>Facebook</li>
+                                <li>Twitter</li>
+                                <li>Instagram</li>
+                                <li>LinkedIn</li>
+                            </ul>
+                        </p>
+
                     </section>
                 </section>
                 <section>
@@ -246,7 +299,7 @@
                             <h5 property="name">Zona de titlu</h5>
                             <p>
                                 Zona de titlu este compusa dintr-un background atractiv si descrierea explicita a ceea ce urmeaza sa vizualizam in zona urmatoare, si anume "List of projects". De asemenea, dedesubtul titlului exista doua butoane: cel din stanga, denumit "View Profile"
-                                trimite catre pagina de profil a utilizatorului curent, iar cel din dreapta, denumit "Create new project", trimite catre pagina de upload, unde este posibila crearea unui nou proiect.
+                                trimite catre pagina "Profile" a utilizatorului curent, iar cel din dreapta, denumit "Create new project", trimite catre pagina "Upload", unde este posibila crearea unui nou proiect.
                             </p>
                         </section>
 
@@ -273,9 +326,9 @@
                         <p>
                             Continutul paginii este alcatuit dintr-o singura zona, si anume zona de formular de contact.
                             <section>
-                                <h5 property="name">Zona de fromular de contact</h5>
+                                <h5 property="name">Zona de formular de contact</h5>
                                 <p>
-                                    Zona de fromular este compusa dintr-un background discret si formularul propriu zis, in care utilizatorul trebuie sa completeze 4 campuri obligatorii: "Name", unde utilizatorul trebuie sa isi scrie numele; "Email", unde utiliztorul trebuie sa isi scrie
+                                    Zona de formular este compusa dintr-un background discret si formularul propriu zis, in care utilizatorul trebuie sa completeze 4 campuri obligatorii: "Name", unde utilizatorul trebuie sa isi scrie numele; "Email", unde utilizatorul trebuie sa isi scrie
                                     adresa de e-mail; "Subject", unde acesta trebuie sa mentioneze subiectul principal la caracterul face referire mesajul sau; "Message", unde utilizatorul trebuie sa scrie mesajul pe care doreste sa il transmita echipei
                                     de administrare.
                                 </p>
@@ -296,9 +349,9 @@
                         <p>
                             Continutul paginii este alcatuit dintr-o singura zona, si anume zona de formular de inregistrare.
                             <section>
-                                <h5 property="name">Zona de fromular de autentificare</h5>
+                                <h5 property="name">Zona formularului de autentificare</h5>
                                 <p>
-                                    Zona de fromular de autentificare este compusa dintr-un background discret si formularul propriu zis, in care utilizatorul trebuie sa completeze 2 campuri obligatorii: "Username", unde utilizatorul trebuie sa isi scrie numele de utilizator cu care s-a
+                                    Zona formularului de autentificare este compusa dintr-un background discret si formularul propriu zis, in care utilizatorul trebuie sa completeze 2 campuri obligatorii: "Username", unde utilizatorul trebuie sa isi scrie numele de utilizator cu care s-a
                                     intregistrat in aplicatie; "Password", unde utiliztorul trebuie sa scrie parola aferenta contului sau. Accesul in contul din aplicatie este realizat doar daca combinatie username-password introdusa este aferenta unui
                                     cont de utilizator existent.In caz contrar, accesul nu este permis, iar utilizatorul este indrumat cu ajutorul unor intrebari, pentru a sti cum trebuie sa finalizeze cu bine autentificarea. Astfel, intrebarea "Don't
                                     have an account?" este urmata de un link catre pagina "Sing up", unde utilizatorul neinregistrat isi poate creea un cont. Intrebarea "Forgot your password?" este urmata de un link catre pagina "Reset password", unde
@@ -323,7 +376,7 @@
                             <section>
                                 <h5 property="name">Zona de fromular de inregistrare</h5>
                                 <p>
-                                    Zona de fromular de inregistrare este compusa dintr-un background discret si formularul propriu zis, in care utilizatorul trebuie sa completeze 4 campuri obligatorii: "Username", unde utilizatorul trebuie sa scrie numele de utilizator cu care doreste
+                                    Zona formularului de inregistrare este compusa dintr-un background discret si formularul propriu zis, in care utilizatorul trebuie sa completeze 4 campuri obligatorii: "Username", unde utilizatorul trebuie sa scrie numele de utilizator cu care doreste
                                     sa fie intregistrat in aplicatie; "Email", unde utiliztorul trebuie sa scrie adresa de e-mail aferenta contului pe care si-l creeaza; "Password", unde utilizatorul va scrie parola pentru contul nou creat; "Confirm password",
                                     unde utilizatorul va scrie exact ceea ce a scris si in campul "Password", aceasta fiind o conditie de verificare. Daca adresa de e-mail introdusa nu este deja in baza de date a datelor utilizatorilor inregistrati, iar
                                     celelalte campuri sunt completate corespunzator, atunci noul cont este creat cu succes iar utilizatorul este redirectionat catre pagina "Login", pentru a putea intra in aplicatie.In caz contrar, contul nou nu este creat,
@@ -333,6 +386,160 @@
                     </section>
                 </section>
 
+                <section>
+                    <h4 property="name">Pagina "Reset password"</h4>
+                    <p property="text">
+                        Pagina "Reset password" este pagina aplicatiei care faciliteaza resetarea parolei unui utilizator inregistrat deja.Totodata, acesta mai are posibilitatea sa se autentifice in aplicatie, in cazul in care isi aminteste parola contului sau. Aceasta pagina
+                        contine meniul de navigare, continutul propriu-zis al paginii si footer-ul, primul si ultimul element enumerat aici fiind specifice fiecarei pagini ale aplicatiei.
+                    </p>
+                    </p>
+                    <section>
+                        <h5 property="name">Continut</h5>
+                        <p>
+                            Continutul paginii este alcatuit dintr-o singura zona, si anume zona formularului de resetare a parolei.
+                            <section>
+                                <h5 property="name">Zona formularului de resetare a parolei</h5>
+                                <p>
+                                    Zona formularului de resetare a parolei este compusa dintr-un background discret si formularul propriu zis, in care utilizatorul trebuie sa completeze un singur camp obligatoriu: "Email", unde trebuie sa scrie adresa de email pe care doreste sa primeasca
+                                    un link de resetare.Daca adresa de e-mail se afla in baza de date a aplicatiei, atunci utilizatorul este redirectionat catre o pagina cu un mesaj de confirmare a trimiterii link-ului cu succes.In caz contrar, se asteapta
+                                    introducerea unei adrese de e-mail valide sau schimbarea paginii din meniul aplicatiei.
+                            </section>
+                    </section>
+                </section>
+
+                <section>
+                    <h4 property="name">Pagina "User profile"</h4>
+                    <p property="text">
+                        Pagina "User profile" este pagina aplicatiei care permite vizualizarea datelor personale asociate contului unui utilizator inregistrat. Totodata, utilizatorul are posibilitatea sa editeze aceste informatii si sa le salveze. Aceasta pagina contine meniul
+                        de navigare, continutul propriu-zis al paginii si footer-ul, primul si ultimul element enumerat aici fiind specifice fiecarei pagini ale aplicatiei.
+                    </p>
+                    </p>
+                    <section>
+                        <h5 property="name">Continut</h5>
+                        <p>
+                            Continutul paginii este alcatuit din 3 zone, si anume: o zona cu banner-ul utilizatorului, o zona cu imaginea de profil si butoanele de control si o zona cu un formular ce contine datele personale ale contului asociat.
+                            <section>
+                                <h5 property="name">Zona banner-ului utilizatorului</h5>
+                                <p>
+                                    Zona banner-ului este compusa dintr-o imagine atractiva, care poate fi aleasa de utilizator si care intra in contact cu zona urmatoare.
+                                </p>
+                            </section>
+
+                            <section>
+                                <h5 property="name">Zona imaginii de profil si a butoanelor de control</h5>
+                                <p>
+                                    Partea stanga a zonei este compusa dintr-o imagine circulara, care reprezinta un utilizator si care poate fi schimbata dupa bunul plac.De asemenea, in dreapta imaginii de profil se gasesc numele de utilizator si adresa sa de e-mail. Partea dreapta a zonei
+                                    este compusa din doua butoane de control dispuse orizontal: "Cancel" - care permite anularea modificarilor efectuate si redirectioneaza utilizatorul catre pagina "Dashboard"; "Save" - ce permite salvarea editarilor
+                                    efectuate.
+                                </p>
+                            </section>
+
+                            <section>
+                                <h5 property="name">Zona formularului cu date personale</h5>
+                                <p>
+                                    Zona aceasta cuprinde 6 campuri unde pot fi introduse date, dupa cum urmeaza:
+                                    <ul>
+                                        <li>"First name" - caseta pentru prenumele utilizatorului;</li>
+                                        <li>"Last name" - caseta pentru numele de familie al utilizatorului</li>
+                                        <li>"Username" - caseta pentru numele de utilizator</li>
+                                        <li>"Email - caseta pentru adresa de e-mail a utilizatorului</li>
+                                        <li>"Contry" - caseta in care utilizatorul poate alege tara de provenienta dintr-o multime de tari predefinite. </li>
+                                        <li>"Bio" - caseta pentru informatii aditionale despre utilizator</li>
+                                    </ul>
+                                </p>
+                            </section>
+
+                    </section>
+                </section>
+
+                <section>
+                    <h4 property="name">Pagina "Upload"</h4>
+                    <p property="text">
+                        Pagina "Upload" este pagina aplicatiei care permite crearea unui nou proiect, utilizatorul avand 4 optiuni pentru importarea datelor ce urmeaza a fi prelucrate.Aceasta pagina contine meniul de navigare, continutul propriu-zis al paginii si footer-ul,
+                        primul si ultimul element enumerat aici fiind specifice fiecarei pagini ale aplicatiei.
+                    </p>
+                    </p>
+                    <section>
+                        <h5 property="name">Continut</h5>
+                        <p>
+                            Continutul paginii este alcatuit din 2 zone, si anume: o zona cu butoanele de control, in partea stanga si o zona de facilitare a incarcarii datelor, in partea dreapta.
+                            <section>
+                                <h5 property="name">Zona butoanelor de control</h5>
+                                <p>
+                                    Zona butoanelor cuprinde 4 optiuni diferite de importare a datelor, dupa cum urmeaza:
+                                    <ul>
+                                        <li>"Paste" - permite inserarea datelor in format textual</li>
+                                        <li>"Upload" - permite importarea fisierelor de pe dispozitivul local</li>
+                                        <li>"From URL" - permite inserarea unui link care trimite la datele de importat</li>
+                                        <li>"Try our samples" - permite incarcarea unor date predefinite in aplicatie</li>
+                                    </ul>
+                                </p>
+                            </section>
+
+                            <section>
+                                <h5 property="name">Zona facilitarii importarii datelor</h5>
+                                <p>
+                                    Aceasta zona dreptunghiulara are un comportament diferit in functie de butonul de control selectat, dupa cum urmeaza:
+                                    <ul>
+                                        <li>Pentru butonul "Paste" selectat, zona permite introducerea unui text ce urmeaza a fi parsat </li>
+                                        <li>Pentru butonul "Upload" selectat, zona va deschide o fereastra ce permite fie navigarea printre documentele de pe masina locala si selectarea acestora, fie tragerea si plasarea fisierelor, prin intermediul cursorului
+                                        </li>
+                                        <li> Pentru butonul "URL" selectat, zona permite introducerea unui link catre datele de importat</li>
+                                        <li>Pentru butonul "Try our samples" selectat, zona permite incarcarea unor date predefinite in aplicatie</li>
+                                    </ul>
+                                </p>
+                            </section>
+                    </section>
+                </section>
+
+                <section>
+                    <h4 property="name">Pagina "Project"</h4>
+                    <p property="text">
+                        Pagina "Project" este pagina aplicatiei care permite vizualizarea unui proiect, utilizatorul avand 4 optiuni pentru vizualizarea datelor: 3 metode de tip diagrame si una corelata cu harta Romaniei, in care prin mutarea cursorului pe un anumit judet, se
+                        pot vizualiza statisticile atribuite acestuia.Aceasta pagina contine meniul de navigare, continutul propriu-zis al paginii si footer-ul, primul si ultimul element enumerat aici fiind specifice fiecarei pagini ale aplicatiei.
+                    </p>
+                    </p>
+                    <section>
+                        <h5 property="name">Continut</h5>
+                        <p>
+                            Continutul paginii este alcatuit din 2 zone, si anume: o zona ce contine informatii despre proiectul vizualizat, impreuna cu 6 butoane de control, si o zona ce contine vizualizarea propriu-zisa a datelor, statisticilor si a diagramelor asociate proiectului
+                            curent.
+                            <section>
+                                <h5 property="name">Zona informatiilor despre proiect si a butoanelor de control</h5>
+                                <p>
+                                    In partea de sus a acestei zone se afla informatii generale despre proiectul curent, si anume:
+                                    <ul>
+                                        <li>"Project Name" - numele proiectului curent</li>
+                                        <li>"Date created" - data la care a fost creat proiectul curent</li>
+                                        <li>"Last modified" - data la care a avut loc ultima modificare a proiectului curent</li>
+                                        <li>"Description" - scurta descriere a proiectului curent</li>
+                                        <li>"Author" - numele de utilizator al autorului acestui proiect</li>
+                                        <li>"Contributors" - numele de utilizator ai contribuitorilor la acest proiect</li>
+                                        <li>"Chart Type" - tipul de diagrame sub forma carora vor fi vizualizate date, statistici.La momentul actual, este hardcodat un singur mod de vizualizare, si anume 'Bar Chart'</li>
+                                    </ul>
+
+                                    In partea de jos a acestei zone se afla cele 6 butoane de control(4 dintre ele oferind modalitati de exportare), dispuse orizontal, dupa cum urmeaza:
+                                    <ul>
+                                        <li>"Download CSV" - permite descarcarea in format CSV a statisticilor generate</li>
+                                        <li>"Download PNG" - permite descarcarea in format PNG a statisticilor generate; momentan functionalitatea acestui buton nu este implementata</li>
+                                        <li>"Download JPEG" - permite descarcarea in format JPEG a statisticilor generate; momentan functionalitatea acestui buton nu este implementata</li>
+                                        <li>"Download SVG" - permite descarcarea in format SVG a statisticilor generate</li>
+                                        <li>"Share link" - permite distribuirea link-ului catre vizualizarea proiectului curent; momentan aceasta functionalitate nu este implementata</li>
+                                        <li>"Add Collaborators" - permite adaugarea unor noi colaboratori pentru proiectul curent; momentan aceasta functionalitate nu este implementata</li>
+                                    </ul>
+
+                                </p>
+                            </section>
+
+                            <section>
+                                <h5 property="name">Zona vizualizarii propriu-zise</h5>
+                                <p>
+                                    Aceasta zona contine reprezentarile sub forma de diagrame a statisticilor generate in proiectul curent.Pentru moment, avem o singura varianta implementata, si anume vizualizarea sub forma de bare a caror inaltime e direct proportionala cu numaru de elemente
+                                    corespunzatoare.
+                                </p>
+                            </section>
+                    </section>
+                </section>
 
             </section>
 
