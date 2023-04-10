@@ -40,7 +40,7 @@
     border-style: solid;
 }
 
-.upload .main-content .upload-options #upload:focus {
+.upload .main-content .upload-options #drag-drop:focus {
     background-image: linear-gradient(to bottom right, rgb(0, 45, 158), rgb(0, 170, 255));
     border-color: white;
     border-width: 2px;
@@ -73,22 +73,51 @@
 }
 
 .upload .main-content .specialized-form #paste-form {
-    background-color: blueviolet;
+    background-color: white;
+    width: 100%;
+    height: 100%;
+    display: block;
+    font-size: 1.5vw;
 }
 
-.upload .main-content .specialized-form #upload-form {
+.upload .main-content .specialized-form textarea::placeholder {
+    color: black;
+    font-size: 2vw;
+}
+
+.upload .main-content .specialized-form #drag-drop-form {
     display: none;
-    background-color: aquamarine; 
+    background-color: aquamarine;
+    color: darkblue;
+    font-size: 2vw;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .upload .main-content .specialized-form #url-form {
     display: none;
     background-color: red;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .upload .main-content .specialized-form #try-form {
     display: none;
     background-color: blue;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 /* Media query for small screens */

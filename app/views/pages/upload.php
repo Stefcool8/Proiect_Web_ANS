@@ -22,16 +22,14 @@
 
             <div class="upload-options">
                 <button id="paste">Paste</button>
-                <button id="upload">Upload a File</button>
+                <button id="drag-drop">Drop a File</button>
                 <button id="url">From URL</button>
                 <button id="try">Try our samples</button>
             </div>
 
             <div class="specialized-form">
-                <div id="paste-form">
-                    <p> Paste your code here: </p>
-                </div>
-                <div id="upload-form">
+                <textarea id="paste-form" placeholder="Paste your code here: "></textarea>
+                <div id="drag-drop-form">
                     <p> Upload your file here: </p>
                 </div>
                 <div id="url-form">
