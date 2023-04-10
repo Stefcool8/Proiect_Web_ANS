@@ -133,6 +133,30 @@
         </section>
 
         <section>
+            <h2 property="name">Plan de instalare si setup</h2>
+            <p property="text">
+                Pentru a putea rula aplicatia pe masina locala este necesar sa parcurgeti urmatorii pasi in ordinea precizata:
+                <ol>
+                    <li>
+                        Instalati XAMPP de la link-ul <a href="https://www.apachefriends.org/"> click here</a> </ si aveti grija sa fie salvat direct in disk-ul C, nu in vreun alt fisier. De obicei, este setat sa se salveze automat la adresa
+                            "C:\xampp", dar totusi aveti grija la acest aspect. <li>
+                        <li>
+                            In fisierul de la adresa "C/xampp/htdocs" faceti un "git clone <a href="https://github.com/Stefcool8/Proiect_Web_ANS">https://github.com/Stefcool8/Proiect_Web_ANS</a> , pentru a salva local proiectul.
+                        </li>
+                        <li>
+                            Momentan sunteti pe branch-ul "main". Faceti un "git checkout AAPSE-28" pentru a ajunge pe branch-ul cu proiectul.
+                        </li>
+                        <li>
+                            Deschideti fisierul text de la adresa "xampp/apache/conf/httpd". Cautati "DocumentRoot" si schimbati-i adresa cu "C:/xampp/htdocs/Proiect_Web_ANS/public".
+                        </li>
+                        <li>
+                            Acum, deschideti un browser (de preferat nu Edge) si accesati "localhost".Ar trebui ca acum sa aveti acces la proiectul nostru, si sa interactionati cu interfata noastra.
+                        </li>
+                </ol>
+            </p>
+        </section>
+
+        <section>
             <h2 property="name">Implementarea</h2>
             <section>
                 <h3 property="name">Frontend</h3>
@@ -277,10 +301,10 @@
                 <section>
                     <h4 property="name">Pagina "Dashboard"</h4>
                     <p property="text">
-                        Pagina "Dashboard" este pagina aplicatiei care permite vizualizarea de ansamblu a proiectelor utilizatorului curent, dar si accesarea profilului utilizatorului cat si initierea crearii unui proiect nou. Tinand cont de caracterul personalizat al acestei
-                        pagini, in functie de utilizator, accesul se poate face apasand butonul "Use Feature", numai in cazul in care utilizatorul este logat, in caz contrar acesta fiind redirectionat catre pagina de logare.Deoarece inca nu a fost implementat
-                        un mecanism de autentificare, accesul catre pagina Dashboard se poate face accesand "http://localhost/dashboard". Aceasta pagina contine meniul de navigare, continutul propriu-zis al paginii si footer-ul, primul si ultimul element
-                        enumerat aici fiind specifice fiecarei pagini ale aplicatiei.
+                        Pagina "Dashboard"(accesata localhost/dashboard) este pagina aplicatiei care permite vizualizarea de ansamblu a proiectelor utilizatorului curent, dar si accesarea profilului utilizatorului cat si initierea crearii unui proiect nou. Tinand cont de caracterul
+                        personalizat al acestei pagini, in functie de utilizator, accesul se poate face apasand butonul "Use Feature", numai in cazul in care utilizatorul este logat, in caz contrar acesta fiind redirectionat catre pagina de logare.Deoarece
+                        inca nu a fost implementat un mecanism de autentificare, accesul catre pagina Dashboard se poate face accesand "http://localhost/dashboard". Aceasta pagina contine meniul de navigare, continutul propriu-zis al paginii si footer-ul,
+                        primul si ultimul element enumerat aici fiind specifice fiecarei pagini ale aplicatiei.
                     </p>
                     <section>
                         <h5 property="name">Continut</h5>
@@ -359,7 +383,8 @@
                                     </ul>
                                     Accesul in contul din aplicatie este realizat doar daca combinatie username-password introdusa este aferenta unui cont de utilizator existent.In caz contrar, accesul nu este permis, iar utilizatorul este indrumat cu ajutorul unor intrebari, pentru a sti
                                     cum trebuie sa finalizeze cu bine autentificarea. Astfel, intrebarea "Don't have an account?" este urmata de un link catre pagina "Sing up", unde utilizatorul neinregistrat isi poate creea un cont. Intrebarea "Forgot
-                                    your password?" este urmata de un link catre pagina "Reset password", unde utilizatorul care nu isi mai aminteste parola poate sa o afle.
+                                    your password?" este urmata de un link catre pagina "Reset password", unde utilizatorul care nu isi mai aminteste parola poate sa o afle.Totusi, la momentul actual, daca te logghezi cu credentiale la intamplare dar
+                                    care respecta formatul si doreste sa se logheze, este redirection pe pagina "Dashboard".
                                 </p>
                             </section>
                     </section>
@@ -474,8 +499,8 @@
                 <section>
                     <h4 property="name">Pagina "Upload"</h4>
                     <p property="text">
-                        Pagina "Upload" este pagina aplicatiei care permite crearea unui nou proiect, utilizatorul avand 4 optiuni pentru importarea datelor ce urmeaza a fi prelucrate.Aceasta pagina contine meniul de navigare, continutul propriu-zis al paginii si footer-ul,
-                        primul si ultimul element enumerat aici fiind specifice fiecarei pagini ale aplicatiei.
+                        Pagina "Upload" (accesata localhost/upload) este pagina aplicatiei care permite crearea unui nou proiect, utilizatorul avand 4 optiuni pentru importarea datelor ce urmeaza a fi prelucrate.Aceasta pagina contine meniul de navigare, continutul propriu-zis
+                        al paginii si footer-ul, primul si ultimul element enumerat aici fiind specifice fiecarei pagini ale aplicatiei.
                     </p>
                     </p>
                     <section>
@@ -488,7 +513,7 @@
                                     Zona butoanelor cuprinde 4 optiuni diferite de importare a datelor, dupa cum urmeaza:
                                     <ul>
                                         <li>"Paste" - permite inserarea datelor in format textual</li>
-                                        <li>"Upload" - permite importarea fisierelor de pe dispozitivul local</li>
+                                        <li>"Upload" - permite importarea fisierelor de pe dispozitivul local.La apasarea lui, sunt afisate numele de fisiere care sunt importate</li>
                                         <li>"From URL" - permite inserarea unui link care trimite la datele de importat</li>
                                         <li>"Try our samples" - permite incarcarea unor date predefinite in aplicatie</li>
                                     </ul>
@@ -579,14 +604,18 @@
 
         <section>
             <h2 property="name">Bibliografie</h2>
-            <ol property="citation">
-                <li property="citation">
-                    Author A, Author B, Author C. (Year). Title of the article. Journal Name, Volume(Issue), Page range.
-                </li>
-                <li property="citation">
-                    Author D, Author E. (Year). Title of the book. Publisher.
-                </li>
-            </ol>
+            <p> Lista cu link-uri utilizate frecvent in cadrul dezvoltarii acestui proiect:</p>
+            <ul>
+                <li> <a href="https://profs.info.uaic.ro/~busaco/teach/courses/web/">https://profs.info.uaic.ro/~busaco/teach/courses/web/</a> </li>
+                <li><a href="https://fii-tw.notion.site/TEHNOLOGII-WEB-3ce031995e2841de872a67896b8ad15c">https://fii-tw.notion.site/TEHNOLOGII-WEB-3ce031995e2841de872a67896b8ad15c</a></li>
+                <li><a href="https://www.w3schools.com/html/default.asp">https://www.w3schools.com/html/default.asp</a></li>
+                <li><a href="https://www.w3schools.com/css/default.asp">https://www.w3schools.com/css/default.asp</a></li>
+                <li><a href="https://www.w3schools.com/js/default.asp">https://www.w3schools.com/js/default.asp</a></li>
+                <li><a href="https://app.diagrams.net/">https://app.diagrams.net/</a></li>
+                <li><a href="https://www.rawgraphs.io/">https://www.rawgraphs.io/</a></li>
+                <li><a href="https://stackoverflow.com/">https://stackoverflow.com/</a></li>
+
+            </ul>
         </section>
     </article>
 </body>
