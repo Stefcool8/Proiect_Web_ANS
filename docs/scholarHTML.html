@@ -246,7 +246,7 @@
                             <h5 property="name">Zona de titlu</h5>
                             <p>
                                 Zona de titlu este compusa dintr-un background atractiv si descrierea explicita a ceea ce urmeaza sa vizualizam in zona urmatoare, si anume "List of projects". De asemenea, dedesubtul titlului exista doua butoane: cel din stanga, denumit "View Profile"
-                                trimite catre pagina de profil a utilizatorului curent, iar cel din dreapta, denumit "Create new project", trimite catre pagina de upload, unde este posibila crearea unui nou proiect.
+                                trimite catre pagina "Profile" a utilizatorului curent, iar cel din dreapta, denumit "Create new project", trimite catre pagina "Upload", unde este posibila crearea unui nou proiect.
                             </p>
                         </section>
 
@@ -376,7 +376,8 @@
                                 <h5 property="name">Zona imaginii de profil si a butoanelor de control</h5>
                                 <p>
                                     Partea stanga a zonei este compusa dintr-o imagine circulara, care reprezinta un utilizator si care poate fi schimbata dupa bunul plac.De asemenea, in dreapta imaginii de profil se gasesc numele de utilizator si adresa sa de e-mail. Partea dreapta a zonei
-                                    este compusa din doua butoane de control dispuse orizontal: "Cancel" - care permite anularea modificarilor efectuate; "Save" - ce permite salvarea editarilor efectuate.
+                                    este compusa din doua butoane de control dispuse orizontal: "Cancel" - care permite anularea modificarilor efectuate si redirectioneaza utilizatorul catre pagina "Dashboard"; "Save" - ce permite salvarea editarilor
+                                    efectuate.
                                 </p>
                             </section>
 
@@ -441,38 +442,47 @@
                 <section>
                     <h4 property="name">Pagina "Project"</h4>
                     <p property="text">
-                        Pagina "Project" este pagina aplicatiei care permite crearea unui nou proiect, utilizatorul avand 4 optiuni pentru importarea datelor ce urmeaza a fi prelucrate.Aceasta pagina contine meniul de navigare, continutul propriu-zis al paginii si footer-ul,
-                        primul si ultimul element enumerat aici fiind specifice fiecarei pagini ale aplicatiei.
+                        Pagina "Project" este pagina aplicatiei care permite vizualizarea unui proiect, utilizatorul avand 4 optiuni pentru vizualizarea datelor: 3 metode de tip diagrame si una corelata cu harta Romaniei, in care prin mutarea cursorului pe un anumit judet, se
+                        pot vizualiza statisticile atribuite acestuia.Aceasta pagina contine meniul de navigare, continutul propriu-zis al paginii si footer-ul, primul si ultimul element enumerat aici fiind specifice fiecarei pagini ale aplicatiei.
                     </p>
                     </p>
                     <section>
                         <h5 property="name">Continut</h5>
                         <p>
-                            Continutul paginii este alcatuit din 2 zone, si anume: o zona cu butoanele de control, in partea stanga si o zona de facilitare a incarcarii datelor, in partea dreapta.
+                            Continutul paginii este alcatuit din 2 zone, si anume: o zona ce contine informatii despre proiectul vizualizat, impreuna cu 6 butoane de control, si o zona ce contine vizualizarea propriu-zisa a datelor, statisticilor si a diagramelor asociate proiectului
+                            curent.
                             <section>
-                                <h5 property="name">Zona butoanelor de control</h5>
+                                <h5 property="name">Zona informatiilor despre proiect si a butoanelor de control</h5>
                                 <p>
-                                    Zona butoanelor cuprinde 4 optiuni diferite de importare a datelor, dupa cum urmeaza:
+                                    In partea de sus a acestei zone se afla informatii generale despre proiectul curent, si anume:
                                     <ul>
-                                        <li>"Paste" - permite inserarea datelor in format textual</li>
-                                        <li>"Upload" - permite importarea fisierelor de pe dispozitivul local</li>
-                                        <li>"From URL" - permite inserarea unui link care trimite la datele de importat</li>
-                                        <li>"Try our samples" - permite incarcarea unor date predefinite in aplicatie</li>
+                                        <li>"Project Name" - numele proiectului curent</li>
+                                        <li>"Date created" - data la care a fost creat proiectul curent</li>
+                                        <li>"Last modified" - data la care a avut loc ultima modificare a proiectului curent</li>
+                                        <li>"Description" - scurta descriere a proiectului curent</li>
+                                        <li>"Author" - numele de utilizator al autorului acestui proiect</li>
+                                        <li>"Contributors" - numele de utilizator ai contribuitorilor la acest proiect</li>
+                                        <li>"Chart Type" - tipul de diagrame sub forma carora vor fi vizualizate date, statistici.La momentul actual, este hardcodat un singur mod de vizualizare, si anume 'Bar Chart'</li>
                                     </ul>
+
+                                    In partea de jos a acestei zone se afla cele 6 butoane de control(4 dintre ele oferind modalitati de exportare), dispuse orizontal, dupa cum urmeaza:
+                                    <ul>
+                                        <li>"Download CSV" - permite descarcarea in format CSV a statisticilor generate</li>
+                                        <li>"Download PNG" - permite descarcarea in format PNG a statisticilor generate; momentan functionalitatea acestui buton nu este implementata</li>
+                                        <li>"Download JPEG" - permite descarcarea in format JPEG a statisticilor generate; momentan functionalitatea acestui buton nu este implementata</li>
+                                        <li>"Download SVG" - permite descarcarea in format SVG a statisticilor generate</li>
+                                        <li>"Share link" - permite distribuirea link-ului catre vizualizarea proiectului curent; momentan aceasta functionalitate nu este implementata</li>
+                                        <li>"Add Collaborators" - permite adaugarea unor noi colaboratori pentru proiectul curent; momentan aceasta functionalitate nu este implementata</li>
+                                    </ul>
+
                                 </p>
                             </section>
 
                             <section>
-                                <h5 property="name">Zona facilitarii importarii datelor</h5>
+                                <h5 property="name">Zona vizualizarii propriu-zise</h5>
                                 <p>
-                                    Aceasta zona dreptunghiulara are un comportament diferit in functie de butonul de control selectat, dupa cum urmeaza:
-                                    <ul>
-                                        <li>Pentru butonul "Paste" selectat, zona permite introducerea unui text ce urmeaza a fi parsat </li>
-                                        <li>Pentru butonul "Upload" selectat, zona va deschide o fereastra ce permite fie navigarea printre documentele de pe masina locala si selectarea acestora, fie tragerea si plasarea fisierelor, prin intermediul cursorului
-                                        </li>
-                                        <li> Pentru butonul "URL" selectat, zona permite introducerea unui link catre datele de importat</li>
-                                        <li>Pentru butonul "Try our samples" selectat, zona permite incarcarea unor date predefinite in aplicatie</li>
-                                    </ul>
+                                    Aceasta zona contine reprezentarile sub forma de diagrame a statisticilor generate in proiectul curent.Pentru moment, avem o singura varianta implementata, si anume vizualizarea sub forma de bare a caror inaltime e direct proportionala cu numaru de elemente
+                                    corespunzatoare.
                                 </p>
                             </section>
                     </section>
