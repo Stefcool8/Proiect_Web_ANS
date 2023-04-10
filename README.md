@@ -10,7 +10,7 @@ Componenta echipa:
 
 # Structura fisiere
 
-    docs/ - Toata documentatia + styles + diagrama use-case
+    docs/ - Toata documentatia + styles pentru docs + diagrama use-case
     public/ - Continutul public al aplicatiei
         public/assets - Continutul static al aplicatiei
             public/assets/css - CSS-ul folosit in aplicatie
