@@ -5,7 +5,7 @@
     </div>
     <div>
         <a href="/profile" class="view-profile-btn">View Profile</a>
-        <a href="/project/create" class="create-project-btn">Create new project</a>
+        <a href="/upload" class="create-project-btn">Create new project</a>
     </div>
             
     <div class="project-area">

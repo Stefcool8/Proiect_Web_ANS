@@ -21,6 +21,7 @@
     <link rel="icon" href="/assets/img/globe.png">
 
     <script src="./assets/js/about.js" defer></script>
+    <script src="./assets/js/profile.js" defer></script>
 
     <script src="./assets/js/upload.js" defer></script>
     <script src="./assets/js/paste.js" defer></script>
