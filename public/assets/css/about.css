@@ -1,0 +1,104 @@
+.about .main-content {
+    padding: 4vh;
+    min-height: calc(100vh - 114px);
+    display: grid;
+    grid-template-rows: auto auto auto;
+    gap: 1vh;
+}
+
+.about .show {
+    text-align: center;
+    position: relative;
+    margin: auto;
+    width: 100%;
+    height: 100%;
+    font-size: 5vw;
+    justify-content: center;
+    line-height: 10rem;
+}
+
+.about .my-element {
+    background-image: linear-gradient(45deg, rgb(57, 57, 87), rgb(58, 23, 61));
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: 0 center;
+    height: 100%;
+}
+
+.about .central-area,
+.about .three-zones,
+.about .left-zone,
+.about .right-zone,
+.about .middle-zone {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 2vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.about .central-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1vh;
+    width: 100%;
+    height: auto;
+}
+
+.about .three-zones {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1vh;
+}
+
+.about .left-zone,
+.about .right-zone,
+.about .middle-zone {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1vh;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+#more {
+    display: none;
+}
+
+#more1 {
+    display: none;
+}
+
+#more2 {
+    display: none;
+}
+
+#more3 {
+    display: none;
+}
+
+#myBtn {
+    width: 10rem;
+}
+
+#myBtn1 {
+    width: 10rem;
+}
+
+#myBtn2 {
+    width: 10rem;
+}
+
+#myBtn3 {
+    width: 10rem;
+}
+
+@media screen and (max-width: 768px) {
+    .about .show {
+        font-size: 8vw;
+    }
+}
