@@ -33,7 +33,9 @@
                     <p> Upload your file here: </p>
                 </div>
                 <div id="url-form">
-                    <p> Paste your URL here: </p>
+                    <input type="text" name="url-link" id="url-link">
+                    <button id="url-submit">Load data</button>
+                    <p> Enter a web address (URL) pointing to the data you want to load. </p>
                 </div>
                 <div id="try-form">
                     <p> Try our samples here: </p>

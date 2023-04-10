@@ -33,8 +33,8 @@
                         <h5> cat@cat.com </h5>
                     </div>
                     <div class="controls">
-                        <button class="button">Cancel</button>
-                        <button class="button">Save</button>
+                        <button id="cancelBtn">Cancel</button>
+                        <button id="saveBtn">Save</button>
                     </div>
                 </div>
             </div>
