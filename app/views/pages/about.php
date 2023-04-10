@@ -45,7 +45,9 @@
                             <p> Create Pain diagrams with the main pages of our Application</p>
                             <p> Create HTML, CSS code for Profile page </p>
                             <p> Create HTML, CSS and JavaScript code for Upload page </p>
+                            <p> Create Use-Case diagram</p>
                             <p> Constant communication (giving and bringing advices)</p> 
+                           
                         </span>
                     
                     <button onclick ="myFunction2()" id ="myBtn2"> Read more</button>
@@ -58,6 +60,7 @@
                             <p> Help in creating Pain diagrams with the main pages of our Application</p>
                             <p> Create HTML, CSS and Javascript code for About page </p>
                             <p> Create HTML, CSS code for Dashboard page </p>
+                            <p> Writing the most documentation </p>
                             <p> Constant communication (giving and bringing advices)</p> 
                         </span>
                     <button onclick ="myFunction3()" id ="myBtn3"> Read more</button>
