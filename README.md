@@ -23,7 +23,7 @@ Componenta echipa:
             app/views/pages - Paginile necomune ale aplicatiei
             app/views/shared - Pagini care se pot repeta
 
-Instalare
+# Instalare
 
 Instalati XAMPP de la link-ul si aveti grija sa fie salvat direct in disk-ul C, nu in vreun alt fisier. De obicei, este setat sa se salveze automat la adresa "C:\xampp", dar totusi aveti grija la acest aspect. In fisierul de la adresa "C/xampp/htdocs" faceti un "git clone" pentru a salva local proiectul. Deschideti fisierul text de la adresa "xampp/apache/conf/httpd". Cautati "DocumentRoot" (folosind ctrl+f) si schimbati-i adresa cu "C:/xampp/htdocs/Proiect_Web_ANS/public", trebuie schimbat inapoi la valoarea default dupa. Acum, deschideti un browser (de preferat nu Edge) si accesati "localhost". Ar trebui ca acum sa aveti
 acces la proiectul nostru, si sa interactionati cu interfata noastra.
