@@ -21,7 +21,7 @@
         <div class="main-content">
 
             <div class="upload-options">
-                <button id="paste">Paste</button>
+                <button id="paste" class="special">Paste</button>
                 <button id="drag-drop">Drop a File</button>
                 <button id="url">From URL</button>
                 <button id="try">Try our samples</button>

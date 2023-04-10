@@ -33,28 +33,10 @@
     background-image: linear-gradient(to bottom right, rgb(2, 108, 108), rgb(135, 252, 252));
 }
 
-.upload .main-content .upload-options #paste:focus {
-    background-image: linear-gradient(to bottom right, rgb(0, 45, 158), rgb(0, 170, 255));
-    border-color: white;
-    border-width: 2px;
-    border-style: solid;
-}
-
-.upload .main-content .upload-options #drag-drop:focus {
-    background-image: linear-gradient(to bottom right, rgb(0, 45, 158), rgb(0, 170, 255));
-    border-color: white;
-    border-width: 2px;
-    border-style: solid;
-}
-
-.upload .main-content .upload-options #url:focus {
-    background-image: linear-gradient(to bottom right, rgb(0, 45, 158), rgb(0, 170, 255));
-    border-color: white;
-    border-width: 2px;
-    border-style: solid;
-}
-
-.upload .main-content .upload-options #try:focus {
+.upload .main-content .upload-options #paste.special, 
+.upload .main-content .upload-options #drag-drop.special, 
+.upload .main-content .upload-options #url.special, 
+.upload .main-content .upload-options #try.special {
     background-image: linear-gradient(to bottom right, rgb(0, 45, 158), rgb(0, 170, 255));
     border-color: white;
     border-width: 2px;

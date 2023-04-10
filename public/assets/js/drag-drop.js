@@ -1,4 +1,9 @@
 dropButton.addEventListener("click", () => {
+    pasteButton.classList.remove("special");
+    dropButton.classList.add("special");
+    urlButton.classList.remove("special");
+    tryButton.classList.remove("special");
+
     pasteForm.style.display = "none";
     dropForm.style.display = "flex";
     urlForm.style.display = "none";
