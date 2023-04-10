@@ -273,9 +273,9 @@
                         <p>
                             Continutul paginii este alcatuit dintr-o singura zona, si anume zona de formular de contact.
                             <section>
-                                <h5 property="name">Zona de fromular de contact</h5>
+                                <h5 property="name">Zona de formular de contact</h5>
                                 <p>
-                                    Zona de fromular este compusa dintr-un background discret si formularul propriu zis, in care utilizatorul trebuie sa completeze 4 campuri obligatorii: "Name", unde utilizatorul trebuie sa isi scrie numele; "Email", unde utiliztorul trebuie sa isi scrie
+                                    Zona de formular este compusa dintr-un background discret si formularul propriu zis, in care utilizatorul trebuie sa completeze 4 campuri obligatorii: "Name", unde utilizatorul trebuie sa isi scrie numele; "Email", unde utilizatorul trebuie sa isi scrie
                                     adresa de e-mail; "Subject", unde acesta trebuie sa mentioneze subiectul principal la caracterul face referire mesajul sau; "Message", unde utilizatorul trebuie sa scrie mesajul pe care doreste sa il transmita echipei
                                     de administrare.
                                 </p>
@@ -296,9 +296,9 @@
                         <p>
                             Continutul paginii este alcatuit dintr-o singura zona, si anume zona de formular de inregistrare.
                             <section>
-                                <h5 property="name">Zona de fromular de autentificare</h5>
+                                <h5 property="name">Zona formularului de autentificare</h5>
                                 <p>
-                                    Zona de fromular de autentificare este compusa dintr-un background discret si formularul propriu zis, in care utilizatorul trebuie sa completeze 2 campuri obligatorii: "Username", unde utilizatorul trebuie sa isi scrie numele de utilizator cu care s-a
+                                    Zona formularului de autentificare este compusa dintr-un background discret si formularul propriu zis, in care utilizatorul trebuie sa completeze 2 campuri obligatorii: "Username", unde utilizatorul trebuie sa isi scrie numele de utilizator cu care s-a
                                     intregistrat in aplicatie; "Password", unde utiliztorul trebuie sa scrie parola aferenta contului sau. Accesul in contul din aplicatie este realizat doar daca combinatie username-password introdusa este aferenta unui
                                     cont de utilizator existent.In caz contrar, accesul nu este permis, iar utilizatorul este indrumat cu ajutorul unor intrebari, pentru a sti cum trebuie sa finalizeze cu bine autentificarea. Astfel, intrebarea "Don't
                                     have an account?" este urmata de un link catre pagina "Sing up", unde utilizatorul neinregistrat isi poate creea un cont. Intrebarea "Forgot your password?" este urmata de un link catre pagina "Reset password", unde
@@ -323,7 +323,7 @@
                             <section>
                                 <h5 property="name">Zona de fromular de inregistrare</h5>
                                 <p>
-                                    Zona de fromular de inregistrare este compusa dintr-un background discret si formularul propriu zis, in care utilizatorul trebuie sa completeze 4 campuri obligatorii: "Username", unde utilizatorul trebuie sa scrie numele de utilizator cu care doreste
+                                    Zona formularului de inregistrare este compusa dintr-un background discret si formularul propriu zis, in care utilizatorul trebuie sa completeze 4 campuri obligatorii: "Username", unde utilizatorul trebuie sa scrie numele de utilizator cu care doreste
                                     sa fie intregistrat in aplicatie; "Email", unde utiliztorul trebuie sa scrie adresa de e-mail aferenta contului pe care si-l creeaza; "Password", unde utilizatorul va scrie parola pentru contul nou creat; "Confirm password",
                                     unde utilizatorul va scrie exact ceea ce a scris si in campul "Password", aceasta fiind o conditie de verificare. Daca adresa de e-mail introdusa nu este deja in baza de date a datelor utilizatorilor inregistrati, iar
                                     celelalte campuri sunt completate corespunzator, atunci noul cont este creat cu succes iar utilizatorul este redirectionat catre pagina "Login", pentru a putea intra in aplicatie.In caz contrar, contul nou nu este creat,
@@ -333,6 +333,150 @@
                     </section>
                 </section>
 
+                <section>
+                    <h4 property="name">Pagina "Reset password"</h4>
+                    <p property="text">
+                        Pagina "Reset password" este pagina aplicatiei care faciliteaza resetarea parolei unui utilizator inregistrat deja.Totodata, acesta mai are posibilitatea sa se autentifice in aplicatie, in cazul in care isi aminteste parola contului sau. Aceasta pagina
+                        contine meniul de navigare, continutul propriu-zis al paginii si footer-ul, primul si ultimul element enumerat aici fiind specifice fiecarei pagini ale aplicatiei.
+                    </p>
+                    </p>
+                    <section>
+                        <h5 property="name">Continut</h5>
+                        <p>
+                            Continutul paginii este alcatuit dintr-o singura zona, si anume zona formularului de resetare a parolei.
+                            <section>
+                                <h5 property="name">Zona formularului de resetare a parolei</h5>
+                                <p>
+                                    Zona formularului de resetare a parolei este compusa dintr-un background discret si formularul propriu zis, in care utilizatorul trebuie sa completeze un singur camp obligatoriu: "Email", unde trebuie sa scrie adresa de email pe care doreste sa primeasca
+                                    un link de resetare.Daca adresa de e-mail se afla in baza de date a aplicatiei, atunci utilizatorul este redirectionat catre o pagina cu un mesaj de confirmare a trimiterii link-ului cu succes.In caz contrar, se asteapta
+                                    introducerea unei adrese de e-mail valide sau schimbarea paginii din meniul aplicatiei.
+                            </section>
+                    </section>
+                </section>
+
+                <section>
+                    <h4 property="name">Pagina "User profile"</h4>
+                    <p property="text">
+                        Pagina "User profile" este pagina aplicatiei care permite vizualizarea datelor personale asociate contului unui utilizator inregistrat. Totodata, utilizatorul are posibilitatea sa editeze aceste informatii si sa le salveze. Aceasta pagina contine meniul
+                        de navigare, continutul propriu-zis al paginii si footer-ul, primul si ultimul element enumerat aici fiind specifice fiecarei pagini ale aplicatiei.
+                    </p>
+                    </p>
+                    <section>
+                        <h5 property="name">Continut</h5>
+                        <p>
+                            Continutul paginii este alcatuit din 3 zone, si anume: o zona cu banner-ul utilizatorului, o zona cu imaginea de profil si butoanele de control si o zona cu un formular ce contine datele personale ale contului asociat.
+                            <section>
+                                <h5 property="name">Zona banner-ului utilizatorului</h5>
+                                <p>
+                                    Zona banner-ului este compusa dintr-o imagine atractiva, care poate fi aleasa de utilizator si care intra in contact cu zona urmatoare.
+                                </p>
+                            </section>
+
+                            <section>
+                                <h5 property="name">Zona imaginii de profil si a butoanelor de control</h5>
+                                <p>
+                                    Partea stanga a zonei este compusa dintr-o imagine circulara, care reprezinta un utilizator si care poate fi schimbata dupa bunul plac.De asemenea, in dreapta imaginii de profil se gasesc numele de utilizator si adresa sa de e-mail. Partea dreapta a zonei
+                                    este compusa din doua butoane de control dispuse orizontal: "Cancel" - care permite anularea modificarilor efectuate; "Save" - ce permite salvarea editarilor efectuate.
+                                </p>
+                            </section>
+
+                            <section>
+                                <h5 property="name">Zona formularului cu date personale</h5>
+                                <p>
+                                    Zona aceasta cuprinde 6 campuri unde pot fi introduse date, dupa cum urmeaza:
+                                    <ul>
+                                        <li>"First name" - caseta pentru prenumele utilizatorului;</li>
+                                        <li>"Last name" - caseta pentru numele de familie al utilizatorului</li>
+                                        <li>"Username" - caseta pentru numele de utilizator</li>
+                                        <li>"Email - caseta pentru adresa de e-mail a utilizatorului</li>
+                                        <li>"Contry" - caseta in care utilizatorul poate alege tara de provenienta dintr-o multime de tari predefinite. </li>
+                                        <li>"Bio" - caseta pentru informatii aditionale despre utilizator</li>
+                                    </ul>
+                                </p>
+                            </section>
+
+                    </section>
+                </section>
+
+                <section>
+                    <h4 property="name">Pagina "Upload"</h4>
+                    <p property="text">
+                        Pagina "Upload" este pagina aplicatiei care permite crearea unui nou proiect, utilizatorul avand 4 optiuni pentru importarea datelor ce urmeaza a fi prelucrate.Aceasta pagina contine meniul de navigare, continutul propriu-zis al paginii si footer-ul,
+                        primul si ultimul element enumerat aici fiind specifice fiecarei pagini ale aplicatiei.
+                    </p>
+                    </p>
+                    <section>
+                        <h5 property="name">Continut</h5>
+                        <p>
+                            Continutul paginii este alcatuit din 2 zone, si anume: o zona cu butoanele de control, in partea stanga si o zona de facilitare a incarcarii datelor, in partea dreapta.
+                            <section>
+                                <h5 property="name">Zona butoanelor de control</h5>
+                                <p>
+                                    Zona butoanelor cuprinde 4 optiuni diferite de importare a datelor, dupa cum urmeaza:
+                                    <ul>
+                                        <li>"Paste" - permite inserarea datelor in format textual</li>
+                                        <li>"Upload" - permite importarea fisierelor de pe dispozitivul local</li>
+                                        <li>"From URL" - permite inserarea unui link care trimite la datele de importat</li>
+                                        <li>"Try our samples" - permite incarcarea unor date predefinite in aplicatie</li>
+                                    </ul>
+                                </p>
+                            </section>
+
+                            <section>
+                                <h5 property="name">Zona facilitarii importarii datelor</h5>
+                                <p>
+                                    Aceasta zona dreptunghiulara are un comportament diferit in functie de butonul de control selectat, dupa cum urmeaza:
+                                    <ul>
+                                        <li>Pentru butonul "Paste" selectat, zona permite introducerea unui text ce urmeaza a fi parsat </li>
+                                        <li>Pentru butonul "Upload" selectat, zona va deschide o fereastra ce permite fie navigarea printre documentele de pe masina locala si selectarea acestora, fie tragerea si plasarea fisierelor, prin intermediul cursorului
+                                        </li>
+                                        <li> Pentru butonul "URL" selectat, zona permite introducerea unui link catre datele de importat</li>
+                                        <li>Pentru butonul "Try our samples" selectat, zona permite incarcarea unor date predefinite in aplicatie</li>
+                                    </ul>
+                                </p>
+                            </section>
+                    </section>
+                </section>
+
+                <section>
+                    <h4 property="name">Pagina "Project"</h4>
+                    <p property="text">
+                        Pagina "Project" este pagina aplicatiei care permite crearea unui nou proiect, utilizatorul avand 4 optiuni pentru importarea datelor ce urmeaza a fi prelucrate.Aceasta pagina contine meniul de navigare, continutul propriu-zis al paginii si footer-ul,
+                        primul si ultimul element enumerat aici fiind specifice fiecarei pagini ale aplicatiei.
+                    </p>
+                    </p>
+                    <section>
+                        <h5 property="name">Continut</h5>
+                        <p>
+                            Continutul paginii este alcatuit din 2 zone, si anume: o zona cu butoanele de control, in partea stanga si o zona de facilitare a incarcarii datelor, in partea dreapta.
+                            <section>
+                                <h5 property="name">Zona butoanelor de control</h5>
+                                <p>
+                                    Zona butoanelor cuprinde 4 optiuni diferite de importare a datelor, dupa cum urmeaza:
+                                    <ul>
+                                        <li>"Paste" - permite inserarea datelor in format textual</li>
+                                        <li>"Upload" - permite importarea fisierelor de pe dispozitivul local</li>
+                                        <li>"From URL" - permite inserarea unui link care trimite la datele de importat</li>
+                                        <li>"Try our samples" - permite incarcarea unor date predefinite in aplicatie</li>
+                                    </ul>
+                                </p>
+                            </section>
+
+                            <section>
+                                <h5 property="name">Zona facilitarii importarii datelor</h5>
+                                <p>
+                                    Aceasta zona dreptunghiulara are un comportament diferit in functie de butonul de control selectat, dupa cum urmeaza:
+                                    <ul>
+                                        <li>Pentru butonul "Paste" selectat, zona permite introducerea unui text ce urmeaza a fi parsat </li>
+                                        <li>Pentru butonul "Upload" selectat, zona va deschide o fereastra ce permite fie navigarea printre documentele de pe masina locala si selectarea acestora, fie tragerea si plasarea fisierelor, prin intermediul cursorului
+                                        </li>
+                                        <li> Pentru butonul "URL" selectat, zona permite introducerea unui link catre datele de importat</li>
+                                        <li>Pentru butonul "Try our samples" selectat, zona permite incarcarea unor date predefinite in aplicatie</li>
+                                    </ul>
+                                </p>
+                            </section>
+                    </section>
+                </section>
 
             </section>
 
