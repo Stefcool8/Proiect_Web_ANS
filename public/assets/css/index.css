@@ -28,7 +28,6 @@ body {
     background-repeat: no-repeat;
     background-attachment: fixed;
     line-height: 1.6;
-    font-size: 3vh;
 }
 
 @media screen and (min-width: 1600px) {

@@ -1,3 +1,6 @@
+<?php
+    declare(strict_types=1);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,10 +42,42 @@
 <body>
 
     <?php
-
         require_once '../vendor/autoload.php';
         require_once '../app/controllers/UserController.php';
         require_once '../app/controllers/LoginController.php';
+        require_once '../app/models/User.php';
+
+        use App\Models\User;
+
+        $user = new User(1, 'john_doe', "ana");
+
+
+
+
+        // require_once '../utils/Database.php';
+        // use Utils\Database;
+        // $db = new Database();
+
+        // Insert a new row
+        // $db->insert('user', [
+        //     'username' => 'John Doe',
+        //     'email' => 'john@example.com',
+        // ]);
+
+        // Update a row
+        // $db->update('user', [
+        //     'username' => 'Nic',
+        //     'email' => 'jane@example.com',
+        // ], [
+        //     'id' => 6
+        // ]);
+
+        // Delete a row
+        // $db->delete('user', [
+        //     'id' => 6
+        // ]);
+
+
 
         $klein = new \Klein\Klein();
 
