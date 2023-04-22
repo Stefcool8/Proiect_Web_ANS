@@ -15,8 +15,8 @@
     <link rel="stylesheet" href="/assets/css/dashboard.css">
     <link rel="stylesheet" href="/assets/css/reset.css">
     <link rel="stylesheet" href="/assets/css/project.css">
-    <link rel="stylesheet" href="./assets/css/profile.css">
-    <link rel="stylesheet" href="./assets/css/upload.css">
+    <link rel="stylesheet" href="/assets/css/profile.css">
+    <link rel="stylesheet" href="/assets/css/upload.css">
 
     <link rel="icon" href="/assets/img/globe.png">
 
@@ -40,42 +40,71 @@
 
     <?php
 
-        // determine which page to load based on the URL
-        $url = $_SERVER['REQUEST_URI'];
-        if ($url === '/') {
+        require_once '../vendor/autoload.php';
+        require_once '../app/controllers/UserController.php';
+        require_once '../app/controllers/LoginController.php';
+
+        $klein = new \Klein\Klein();
+
+        $klein->respond('GET', '/', function () {
             require_once '../app/views/pages/home.php';
-        } elseif ($url === '/home') {
+        });
+
+        $klein->respond('GET', '/home', function () {
             require_once '../app/views/pages/home.php';
-        } elseif ($url === '/contact') {
+        });
+
+        $klein->respond('GET', '/contact', function () {
             require_once '../app/views/pages/contact.php';
-        } elseif ($url === '/login') {
-            require_once '../app/views/pages/login.php';
-        } elseif ($url === '/signup') {
-            require_once '../app/views/pages/register.php';
-        } elseif ($url === '/about') {
+        });
+
+        $klein->respond('GET', '/about', function () {
             require_once '../app/views/pages/about.php';
-        } elseif ($url === '/dashboard') {
+        });
+
+        $klein->respond('GET', '/login', function () {
+            require_once '../app/views/pages/login.php';
+        });
+
+        $klein->respond('POST', '/login', function () {
+            $loginController = new LoginController();
+            return $loginController->login();
+        });
+
+        $klein->respond('GET', '/signup', function () {
+            require_once '../app/views/pages/register.php';
+        });
+
+        $klein->respond('GET', '/dashboard', function () {
             require_once '../app/views/pages/dashboard.php';
-        } elseif ($url === '/reset') {
+        });
+
+        $klein->respond('GET', '/reset', function () {
             require_once '../app/views/pages/reset.php';
-        } elseif ($url === '/project/1') {
+        });
+
+        $klein->respond('GET', '/project/[:id]', function ($request) {
             require_once '../app/views/pages/project.php';
-        } elseif ($url === '/project/2') {
-            require_once '../app/views/pages/project.php';
-        } elseif ($url === '/project/3') {
-            require_once '../app/views/pages/project.php';
-        } elseif ($url === '/project/4') {
-            require_once '../app/views/pages/project.php';
-        } elseif ($url === '/profile') {
+        });
+
+        $klein->respond('GET', '/profile', function () {
             require_once '../app/views/pages/profile.php';
-        } elseif ($url === '/upload') {
+        });
+
+        $klein->respond('GET', '/upload', function () {
             require_once '../app/views/pages/upload.php';
-        }
-        else {
-            // if the URL doesn't match any of the above, show a 404 error page
-            http_response_code(404);
-            echo '404 Not Found';
-        }
+        });
+
+        $klein->respond('GET', '/logout', function () {
+            require_once '../app/views/pages/logout.php';
+        });
+
+        $klein->respond('GET', '/user/[:id]', function ($request) {
+            $userController = new UserController();
+            return $userController->getUser($request->id);
+        });
+
+        $klein->dispatch();
 
     ?>
 

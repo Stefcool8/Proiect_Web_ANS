@@ -1,10 +1,9 @@
-
 <div class="login">
     <?php require_once '../app/views/shared/navbar.php'; ?>
     <main class="main-content">
         <div class="container">
             <h2>Login Form</h2>
-            <form action="/dashboard" method="post">
+            <form action="/login" method="post">
                 <div class="input-group">
                     <label for="username">Username</label>
                         <input type="text" id="username" name="username" required>

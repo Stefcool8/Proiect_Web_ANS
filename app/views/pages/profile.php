@@ -8,7 +8,7 @@
 
             <div class="user-visual">
                 <div class="user-banner">
-                    <img src="./assets/img/banner.jpg" alt="User Banner">
+                    <img src="/assets/img/banner.jpg" alt="User Banner">
                 </div>
                 <div class="user-picture-and-controls">
                     <div class="user-picture">
@@ -37,7 +37,7 @@
                     </div>
                     <div class="input-group">
                         <label for="username">Username</label>
-                        <input type="text" name="username" id="username" placeholder="Username" required>
+                        <input type="text" name="username" id="username" placeholder="Username" value="<?= htmlspecialchars($user->getUsername()) ?>" required>
                     </div>
                     <div class="input-group">
                         <label for="email">Email</label>
