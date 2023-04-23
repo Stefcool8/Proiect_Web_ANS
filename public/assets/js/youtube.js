@@ -1,4 +1,4 @@
-var player;
+let player;
 function onYouTubeIframeAPIReady() {
     player = new YT.Player("player", {
         height: "360",
@@ -12,13 +12,10 @@ function onYouTubeIframeAPIReady() {
 }
 
 function onPlayerReady(event) {
-    // Uncomment the following line to automatically start playing the video
     // event.target.playVideo();
 }
 
-function onPlayerStateChange(event) {
-    // Add custom code here for handling state changes
-}
+function onPlayerStateChange(event) {}
 
 function stopVideo() {
     player.stopVideo();
