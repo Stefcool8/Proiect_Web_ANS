@@ -1,4 +1,4 @@
-.navbar {
+.main-navbar {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -8,67 +8,67 @@
     padding: 3vh;
 }
 
-.navbar .logo {
+.logo-container {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
 }
 
-.navbar .logo img {
+.logo-link img {
     min-height: 7vh;
     max-height: 10vh;
     transition: all 0.3s ease;
 }
 
-.navbar .logo img:hover {
+.logo-link img:hover {
     transform: scale(1.1) rotate(10deg);
     filter: drop-shadow(0.2vh 0.4vh 0.6vh rgba(0, 0, 0, 1));
 }
 
-.navbar .nav-links {
+.navigation-links {
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
-    margin-right: 1vw;
+    margin-right: 2vw;
     list-style-type: none;
 }
 
-.navbar .nav-links .link {
-    margin-right: 1vw;
+.nav-item {
+    margin-right: 2vw;
     margin-top: 1vh;
 }
 
-.navbar .nav-links i {
+.navigation-links i {
     margin-left: 1vw;
 }
 
-.navbar .nav-links a {
+.navigation-links a {
     color: white;
     text-decoration: none;
     text-align: center;
-    padding: 2vh;
+    padding: 1.5vh;
     background-color: transparent;
-    font-size: 3vh;
+    font-size: 2.5vh;
     display: block;
     position: relative;
     transition: all 0.5s ease, background-color 0.5s ease;
     overflow: hidden;
 }
 
-.navbar .nav-links a:hover {
+.navigation-links a:hover {
     background-color: #333;
     background-image: linear-gradient(45deg, #1c1e2d, #262a3e);
     color: white;
-    border-radius: 2vh;
-    font-size: 3.5vh;
-    padding: 2.2vh 2vw;
-    bottom: -0.5vh;
+    border-radius: 1.5vh;
+    font-size: 2.7vh;
+    padding: 1.7vh 2vw;
+    bottom: -0.3vh;
     box-shadow: 0 0.2vh 0.5vh rgba(0, 0, 0, 1);
     letter-spacing: 0.1vh;
 }
 
-.nav-links a::after {
+.navigation-links a::after {
     content: "";
     position: absolute;
     left: 0;
@@ -80,19 +80,27 @@
     transition: transform 0.3s ease;
 }
 
-.nav-links a:hover::after {
+.navigation-links a:hover::after {
     transform: translateX(0%);
 }
 
 @media screen and (max-width: 826px) {
-    .navbar {
+    .main-navbar {
         flex-direction: column;
-    }
-    .navbar .nav-links {
-        flex-direction: column;
+        align-items: center;
     }
 
-    .navbar .nav-links .link {
+    .logo-container {
+        margin-right: 1vw;
+    }
+
+    .navigation-links {
+        flex-direction: column;
+        align-items: center;
+        margin-right: 0;
+    }
+
+    .nav-item {
         padding: 2vh;
     }
 }

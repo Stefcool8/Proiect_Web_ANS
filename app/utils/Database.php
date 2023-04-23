@@ -6,6 +6,7 @@ use PDO;
 use PDOException;
 
 class Database {
+    private static $instance = null;
     private $host = 'localhost';
     private $dbname = 'ans';
     private $username = 'root';
