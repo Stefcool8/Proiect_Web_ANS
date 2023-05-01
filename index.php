@@ -10,7 +10,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
         <!-- favicon -->
-        <link rel="icon" href="<?= BASE_URL; ?>/assets/img/globe.png">
+        <link rel="icon" href="<?= BASE_URL; ?>/public/assets/img/globe.png">
 
         <!-- styles and scripts -->
 <?php require_once __DIR__ . '/public/includes/styles.php'; ?>

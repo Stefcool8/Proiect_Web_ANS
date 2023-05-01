@@ -1,7 +1,7 @@
 <?php
 
 require_once __DIR__ . '/../../vendor/autoload.php';
-
+require_once __DIR__ . '/../../app/controllers/RegisterController.php';
 
 $klein = new \Klein\Klein();
 
@@ -30,9 +30,18 @@ $klein->respond('GET', '/home', function () {
             return $loginController->login();
         });
 
-        $klein->respond('GET', '/signup', function () {
-            require_once '../app/views/pages/register.php';
-        });
+$klein->respond('GET', '/signup', function () {
+    require_once __DIR__ . '/../../app/views/pages/register.php';
+});
+
+$klein->respond('POST', '/signup', function () {
+    $registerController = new \App\Controllers\RegisterController();
+    $errors = $registerController->register();
+    foreach ($errors as $error) {
+        echo $error . '<br>';
+    }
+    require_once __DIR__ . '/../../app/views/pages/register.php';
+});
 
         $klein->respond('GET', '/dashboard', function () {
             require_once '../app/views/pages/dashboard.php';

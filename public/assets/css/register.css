@@ -1,145 +1,160 @@
-.register {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
 
-.main-content {
+.register-main-content {
+    min-height: calc(100vh - 120px);
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-grow: 1;
-    padding: 2vh;
+    padding: 10px;
 }
 
-.container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 80%;
-    max-width: 400px;
-    background-color: white;
-    padding: 4vh;
-    border-radius: 2vh;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-    color: black;
-    min-height: 60vh;
-}
-
-.register form {
+.register-container {
+    max-width: 700px;
     width: 100%;
-}
-
-.register h2 {
-    text-align: center;
-    margin-bottom: 1vh;
-    font-size: 4vh;
-    border-bottom: 2px solid #ccc;
-    padding-bottom: 1vh;
-}
-
-.input-group {
-    margin-bottom: 1vh;
-    width: 100%;
-}
-
-.register label {
-    display: block;
-    margin-bottom: 0.5vh;
-    font-size: 3vh;
-}
-
-.register input[type="text"],
-.register input[type="email"],
-.register input[type="password"] {
-    width: 100%;
-    padding: 0.5vh;
+    background-color: #fff;
+    padding: 25px 30px;
     border-radius: 5px;
-    border: 1px solid #ccc;
-    font-size: 3vh;
-    transition: border 0.3s, box-shadow 0.3s;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+    margin: 60px 0;
 }
 
-.register button {
+.register-container .register-title {
+    font-size: 25px;
+    font-weight: 500;
+    position: relative;
+}
+
+.register-container .register-title::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 3px;
+    width: 30px;
+    border-radius: 5px;
+}
+
+.register-content form .register-user-details {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 20px 0 12px 0;
+}
+
+.register-container form .register-user-details .register-input-box {
+    margin-bottom: 15px;
+    width: calc(100% / 2 - 20px);
+}
+
+.register-container form .register-input-box label.register-details {
     display: block;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.register-user-details .register-input-box input {
+    height: 45px;
     width: 100%;
-    padding: 1vh;
-    background-color: #333;
-    color: white;
-    font-size: 3vh;
-    border: none;
-    border-radius: 1vh;
-    cursor: pointer;
-    transition: all 0.3s;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
-    margin-top: 2vh;
-}
-
-.register input[type="text"]:hover,
-.register input[type="email"]:hover,
-.register input[type="password"]:hover {
-    border: 1px solid #777;
-}
-
-.register input[type="password"]:focus {
     outline: none;
-    border: 1px solid #777;
-    box-shadow: 0 0 5px #777;
+    font-size: 16px;
+    border-radius: 5px;
+    padding-left: 15px;
+    border: 1px solid #ccc;
+    border-bottom-width: 2px;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
 }
 
-.register button:hover {
-    background-color: #444;
-    transform: scale(1.02);
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+.register-user-details .register-input-box input:focus,
+.register-user-details .register-input-box input:valid {
+    border-color: #9b59b6;
 }
 
-.register button:active {
-    background-color: #555;
-    transform: scale(0.98);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+.register-container form .register-gender-details .register-gender-title {
+    font-size: 20px;
+    font-weight: 500;
 }
 
-.signup-link {
-    text-align: center;
-    margin-top: 1vh;
-    font-size: 1vh;
+.register-container form .register-category {
+    display: flex;
+    width: 80%;
+    margin: 14px 0;
+    justify-content: space-between;
 }
 
-.signup-link p {
-    font-size: 2vh;
-    margin: 0;
+.register-container form .register-category label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
 }
 
-.signup-link a {
-    text-decoration: none;
-    font-size: 2vh;
-    color: #333;
+.register-container form .register-category label .register-dot {
+    height: 18px;
+    width: 18px;
+    border-radius: 50%;
+    margin-right: 10px;
+    background: #d9d9d9;
+    border: 5px solid transparent;
+    transition: all 0.3s ease;
 }
 
-@media screen and (max-width: 600px) {
-    .container {
-        padding: 2vh;
-        max-width: 90%;
+#dot-1:checked ~ .register-category label .one,
+#dot-2:checked ~ .register-category label .two,
+#dot-3:checked ~ .register-category label .three {
+    background: #9b59b6;
+    border-color: #d9d9d9;
+}
+
+.register-container form input[type="radio"] {
+    display: none;
+}
+
+.register-container form .register-button {
+    height: 45px;
+    margin: 35px 0;
+    max-width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.register-container form .register-button input {
+    height: 100%;
+    width: 100%;
+    border-radius: 5px;
+    border: none;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-color: #9b59b6;
+    color: #ffffff;
+}
+
+.register-container form .register-button input:hover {
+    background-color: #8e44ad;
+}
+
+@media (max-width: 584px) {
+    .register-container {
+        max-width: 100%;
+        padding: 25px 15px;
+        margin: 50px 0;
     }
-
-    .register h2 {
-        font-size: 3.5vh;
+    .register-container form .register-user-details .register-input-box {
+        margin-bottom: 15px;
+        width: 100%;
     }
-
-    .register label,
-    .register input[type="text"],
-    .register input[type="email"],
-    .register input[type="password"],
-    .register button {
-        font-size: 2.5vh;
+    .register-container form .register-category {
+        width: 100%;
     }
-
-    .signup-link p {
-        font-size: 1.5vh;
+    .register-content form .register-user-details {
+        max-height: none;
     }
+}
 
-    .signup-link a {
-        font-size: 1.5vh;
+@media (max-width: 459px) {
+    .register-container .register-content .register-category {
+        flex-direction: column;
     }
 }
