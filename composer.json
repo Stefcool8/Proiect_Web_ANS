@@ -6,7 +6,11 @@
             "email": "martinescunicolaee3@gmail.com"
         }
     ],
-    "require": {},
+    "require": {
+        "phpmailer/phpmailer": "^6.8",
+        "klein/klein": "^2.1",
+        "symfony/mailer": "^6.2"
+    },
     "autoload": {
         "psr-4": {
             "App\\": "app/"
