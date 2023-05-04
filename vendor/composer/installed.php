@@ -3,7 +3,7 @@
         'name' => 'marti/proiect_web_ans',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'e7d1f2b2988804e99e07c2d1d72b23a6f0717bbc',
+        'reference' => '306a4d0ac34254ed6633657b5226c5764b55d041',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -40,7 +40,7 @@
         'marti/proiect_web_ans' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'e7d1f2b2988804e99e07c2d1d72b23a6f0717bbc',
+            'reference' => '306a4d0ac34254ed6633657b5226c5764b55d041',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

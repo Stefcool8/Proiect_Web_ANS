@@ -27,7 +27,7 @@
                 <div class ="alert <?php// echo $msgClass; ?>"> <?php //echo $msg; ?> </div>
             <?php //endif; ?>
             <h2>Contact Us</h2>
-            <form method="post" action="/">
+            <form method="post" action="/contact">
                 <div class="input-group">
                     <label for="name">Name</label>
                     <input type="text" id="name" name="name" required>
