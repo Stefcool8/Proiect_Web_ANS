@@ -1,4 +1,4 @@
-.contact {
+.contact-page {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -12,7 +12,7 @@
     padding: 2vh;
 }
 
-.contact .container {
+.contact-form-container {
     width: 100%;
     max-width: 75vh;
     background-color: white;
@@ -22,11 +22,7 @@
     color: black;
 }
 
-.contact form {
-    width: 100%;
-}
-
-.contact h2 {
+.contact-form-container h2 {
     text-align: center;
     margin-bottom: 1vh;
     font-size: 4vh;
@@ -34,19 +30,17 @@
     padding-bottom: 1vh;
 }
 
-.input-group {
+.form-group {
     margin-bottom: 1vh;
 }
 
-.contact label {
+.contact-page label {
     display: block;
     margin-bottom: 0.5vh;
     font-size: 3vh;
 }
 
-.contact input[type="text"],
-.contact input[type="email"],
-.contact textarea {
+.form-control {
     width: 100%;
     padding: 0.5vh;
     border-radius: 2vh;
@@ -54,13 +48,16 @@
     font-size: 3vh;
     box-sizing: border-box;
     transition: all 0.3s;
-}
-
-.contact textarea {
     resize: none;
 }
 
-.contact button {
+.form-control:focus {
+    outline: none;
+    border: 1px solid #777;
+    box-shadow: 0 0 5px #777;
+}
+
+.submit-btn {
     display: block;
     width: 100%;
     padding: 1vh;
@@ -74,46 +71,46 @@
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
 }
 
-.contact input[type="text"]:hover,
-.contact input[type="email"]:hover,
-.contact textarea:hover {
-    border: 1px solid #777;
+.alert {
+    text-align: center;
+    padding: 1vh;
+    margin-bottom: 1vh;
+    border-radius: 2vh;
 }
 
-.contact input[type="text"]:focus,
-.contact input[type="email"]:focus,
-.contact textarea:focus {
-    outline: none;
-    border: 1px solid #777;
-    box-shadow: 0 0 5px #777;
+.alert-danger {
+    color: white;
+    background-color: #ff3633;
 }
 
-.contact button:hover {
+.alert-success {
+    color: white;
+    background-color: #33ff9c;
+}
+
+.submit-btn:hover {
     background-color: #444;
     transform: scale(1.02);
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
-.contact button:active {
+.submit-btn:active {
     background-color: #555;
     transform: scale(0.98);
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 @media screen and (max-width: 600px) {
-    .container {
+    .contact-form-container {
         padding: 1rem;
     }
-
-    .contact h2 {
+    h2 {
         font-size: 3.5vh;
     }
 
-    .contact label,
-    .contact input[type="text"],
-    .contact input[type="email"],
-    .contact textarea,
-    .contact button {
+    label,
+    .form-control,
+    .submit-btn {
         font-size: 2.5vh;
     }
 }
