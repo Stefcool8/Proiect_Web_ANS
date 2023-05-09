@@ -1,4 +1,14 @@
-<?php require_once '../app/views/shared/navbar.php'; ?>
+<?php 
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
+    
+    if (!isset($_SESSION['username'])) {
+        header('Location: /auth/login');
+    }
+?>
+
+<?php require_once __DIR__ . '/../shared/navbar.php'; ?>
 <main class = "central-area">
     <div class="page-name">
         <p>Dashboard</p>
@@ -50,6 +60,4 @@
            
 
 </main>
-<?php require_once '../app/views/shared/footer.php'; ?>
-
-
+<?php require_once __DIR__ . '/../shared/footer.php'; ?>

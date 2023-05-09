@@ -3,6 +3,7 @@
 namespace App\Models;
 
 class User {
+    private int $id;
     private string $username;
     private string $email;
     private string $name;
@@ -49,13 +50,22 @@ class User {
         return $this->password;
     }
 
+    public function getId(): int {
+        return $this->id;
+    }
+
+    public function setId(int $id): void {
+        $this->id = $id;
+    }
+
     public static function fromArray(array $properties): self {
         $user = new self();
+        $user->setId($properties['id']);
         $user->setUsername($properties['username']);
-        $user->setEmail($properties['email']);
+        // $user->setEmail($properties['email']);
         $user->setName($properties['name']);
-        $user->setPhone($properties['phone']);
-        $user->setPassword($properties['password']);
+        // $user->setPhone($properties['phone']);
+        $user->setPassword($properties['password_hash']);
         return $user;
     }
 }

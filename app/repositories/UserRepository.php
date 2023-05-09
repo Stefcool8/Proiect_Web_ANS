@@ -23,6 +23,17 @@ class UserRepository {
         return null;
     }
 
+    public function getByUsername(string $username): ?User {
+        $sql = "SELECT * FROM user WHERE username = :username";
+        $result = $this->db->fetchOne($sql, ['username' => $username]);
+        
+        if ($result) {
+            return User::fromArray($result);
+        }
+
+        return null;
+    }
+
     public function register(User $user): bool {
         
         $data = [
