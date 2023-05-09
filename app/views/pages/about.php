@@ -1,5 +1,5 @@
 <div class="about">
-    <?php require_once '../app/views/shared/navbar.php'; ?>
+    <?php require_once  __DIR__ . '/../shared/navbar.php'; ?>
         <div class="main-content">
             <div class="show">
                 <!-- <img src="../assets/img/about.jpg" class="image"> -->
@@ -68,5 +68,5 @@
             </div>
         </div>
 
-    <?php require_once '../app/views/shared/footer.php'; ?>
+    <?php require_once __DIR__ . '/../shared/footer.php'; ?>
 </div>

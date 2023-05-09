@@ -1,5 +1,5 @@
 <div class="login">
-    <?php require_once '../app/views/shared/navbar.php'; ?>
+    <?php require_once __DIR__ . '/../shared/navbar.php'; ?>
     <main class="main-content">
         <div class="container">
             <h2>Login Form</h2>
@@ -20,6 +20,6 @@
             </div>
         </div>
     </main>
-    <?php require_once '../app/views/shared/footer.php'; ?>
+    <?php require_once  __DIR__ . '/../shared/footer.php'; ?>
 </div>
 

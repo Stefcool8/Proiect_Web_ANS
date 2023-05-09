@@ -5,7 +5,7 @@
                     <h2 class="intro-title">Open source tool for data visualization</h2>
                 </div>
                 <div class="cta-buttons">
-                    <a href="<?= BASE_URL; ?>/login" class="cta-button"><span>Use it now</span></a>
+                    <a href="<?= BASE_URL; ?>/auth/login" class="cta-button"><span>Use it now</span></a>
                     <a href="https://github.com/Stefcool8/Proiect_Web_ANS" target="_blank" class="cta-button"><span>Github</span></a>
                 </div>
                 <div class="demo-video">

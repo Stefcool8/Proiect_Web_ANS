@@ -4,7 +4,7 @@
         <div class="contact-form-container">
             <h2>Contact Us</h2>
             <form method="POST" id="contact-form">
-                <div class="alert" id="form-alert" style="display:none"></div>
+                <div class="alert" id="form-alert" style="display:none; transition: opacity 1s;"></div>
                 <div class="form-group">
                     <label for="name">Name</label>
                     <input type="text" id="name" name="name" class="form-control" required>
@@ -33,8 +33,6 @@
     document.getElementById('contact-form').addEventListener('submit', async (event) => {
         event.preventDefault();
 
-        console.log('test');
-
         const formAlert = document.getElementById('form-alert');
         const name = document.getElementById('name').value;
         const email = document.getElementById('email').value;
@@ -45,13 +43,14 @@
             const response = await fetch('/contact', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
-                                'Accept': 'application/json',
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Accept': 'application/json',
                 },
-                body: JSON.stringify({ name, email, subject, message })
+                body: new URLSearchParams({ name, email, subject, message })
             });
             const jsonResponse = await response.json();
             formAlert.style.display = 'block';
+            formAlert.style.opacity = '1';
 
             if (response.status === 200) {
                 formAlert.className = 'alert alert-success';
@@ -60,8 +59,18 @@
             }
 
             formAlert.textContent = jsonResponse.message;
+
+            // Fade out after 3 seconds
+            setTimeout(() => {
+                formAlert.style.opacity = '0';
+                // Hide the element after it's faded out
+                setTimeout(() => {
+                    formAlert.style.display = 'none';
+                }, 1000); // Matches the transition duration
+            }, 3000);
         } catch (error) {
             formAlert.style.display = 'block';
+            formAlert.style.opacity = '1';
             formAlert.className = 'alert alert-danger';
             formAlert.textContent = 'An error occurred. Please try again later.';
         }
