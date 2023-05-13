@@ -1,4 +1,5 @@
-document.addEventListener("DOMContentLoaded", () => {
+function initializeSlider() {
+    console.log("DOM loaded! 🚀");
     let slides = document.querySelectorAll(".slide-image");
     let currentSlide = 0;
 
@@ -15,4 +16,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     setInterval(nextSlide, 6000); // Change the slideshow image every 6 seconds
-});
+}
+
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initializeSlider);
+} else {
+    initializeSlider();
+}
+
+console.log("slider.js loaded! 🚀");

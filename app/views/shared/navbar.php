@@ -1,13 +1,14 @@
-        <nav class="navbar">
-            <div class="logo-container">
-                <a href="<?= BASE_URL; ?>/" class="logo-link">
-                    <img src="<?= BASE_URL; ?>/public/assets/img/photo.png" alt="logo">
-                </a>
-            </div>
-            <ul class="navigation-links">
-                <li class="nav-item"><a href="<?= BASE_URL; ?>/home">Home<i class="fas fa-home"></i></a></li>
-                <li class="nav-item"><a href="<?= BASE_URL; ?>/about">About<i class="fas fa-info-circle"></i></a></li>
-                <li class="nav-item"><a href="<?= BASE_URL; ?>/contact">Contact<i class="fas fa-envelope"></i></a></li>
-                <li class="nav-item"><a href="<?= BASE_URL; ?>/auth/login">Use Feature<i class="fas fa-cogs"></i></a></li>
-            </ul>
-        </nav>
+<nav class="navbar">
+    <div class="logo-container">
+        <a href="/" class="logo-link">
+            <img src="/public/assets/img/photo.png" alt="logo">
+        </a>
+    </div>
+    <ul class="navigation-links" id="nav-links">
+        <li class="nav-item"><a href="/home">Home<i class="fas fa-home"></i></a></li>
+        <li class="nav-item"><a href="/about">About<i class="fas fa-info-circle"></i></a></li>
+        <li class="nav-item"><a href="/contact">Contact<i class="fas fa-envelope"></i></a></li>
+        <li class="nav-item"><a href="/auth/login">Use it now<i class="fas fa-sign-in-alt"></i></a></li>
+        <!-- logout link will be added here if user is logged in -->
+    </ul>
+</nav>

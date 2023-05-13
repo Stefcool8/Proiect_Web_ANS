@@ -44,11 +44,12 @@ class Mailer {
      */
     public function sendEmail(string $toEmail, string $fromName, string $fromEmail, string $subject, string $body): bool {
         $headers = $this->prepareHeaders($fromName, $fromEmail);
-
+        echo "$toEmail, $subject, $body, $headers";
         try {
             $this->send($toEmail, $subject, $body, $headers);
             return true;
         } catch (\Exception $e) {
+            echo $e->getMessage();
             return false;
         }
     }
@@ -70,6 +71,26 @@ class Mailer {
     }
 
     /**
+     * Prepare the email body.
+     * 
+     * @param string $name The name
+     * @param string $email The email address
+     * @param string $subject The subject
+     * @param string $message The message
+     * 
+     * @return string The email body
+     */
+    private function prepareBody(string $name, string $email, string $subject, string $message): string {
+        return '
+            <h2>Contact Request</h2>
+            <h4>Name:</h4> <p>' . $name . '</p>
+            <h4>Email address:</h4> <p>' . $email . '</p>
+            <h4>Subject:</h4> <p>' . $subject . '</p>
+            <h4>Message:</h4> <p>' . $message . '</p>
+        ';
+    }
+
+    /**
      * Send the email.
      *
      * @param string $toEmail The recipient's email address
@@ -83,7 +104,15 @@ class Mailer {
      */
     private function send(string $toEmail, string $subject, string $body, string $headers): void {
         if (!mail($toEmail, $subject, $body, $headers)) {
-            throw new \Exception("Failed to send email.");
+            $error = error_get_last();
+            if ($error !== null) {
+                error_log('Mailer Error: ' . $error['message']);  // Log the error
+                throw new \Exception('Mailer Error: ' . $error['message']);
+            } else {
+                throw new \Exception('Mailer Error: Failed to send email');
+            }
         }
     }
+
+
 }

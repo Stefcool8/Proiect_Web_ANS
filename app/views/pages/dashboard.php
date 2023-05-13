@@ -1,17 +1,6 @@
-<?php 
-    if (session_status() == PHP_SESSION_NONE) {
-        session_start();
-    }
-    
-    if (!isset($_SESSION['username'])) {
-        header('Location: /auth/login');
-    }
-?>
-
-<?php require_once __DIR__ . '/../shared/navbar.php'; ?>
 <main class = "central-area">
     <div class="page-name">
-        <p>Dashboard</p>
+        <p>Dashboard, Hello {{username}}</p>
     </div>
     <div>
         <a href="/profile" class="view-profile-btn">View Profile</a>
@@ -60,4 +49,3 @@
            
 
 </main>
-<?php require_once __DIR__ . '/../shared/footer.php'; ?>

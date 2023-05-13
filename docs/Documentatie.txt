@@ -1,0 +1,52 @@
+Vreau sa adaug un nou stylesheet (CSS)
+    Adauga link-ul la stylesheet-ul nou in /public/includes/styles.php.
+    Adauga stylesheet-ul in /public/assets/css.
+    Respecta spatierea in /public/includes/styles.php ca sa se vada bine in pagina cand da cineva view source.
+
+Librarii open-source externe folosite pe partea de js/css
+    font-awsome
+    d3.js
+    dom-to-image
+    PapaParse
+    iframe_api (Youtube)
+
+Adaugarea unei noi librarii de js sau css
+    Adauga link-ul la libraria noua in /public/includes/index/head.php in zona corespunzatoare.
+
+Vreau sa adaug o constanta pentru PHP sau sa fac ceva initializare importanta la inceputul aplicatiei
+    Adauga codul in /config/config.php
+
+Vreau sa adaug un nou router
+    Adauga in /public/includes/routes.php router-ul.
+    Conventie: 
+        Metoda: GET, POST, PUT, DELETE, PATCH.
+        URL-ul: /api/(nume router).
+            Obligatoriu incepe cu /api/
+                Asa o sa fie apelat din frontend cu fetch('/api/(nume router)').
+                Folosim /api/ obligatoriu la inceput ca sa facem dinstincie intre pagina /home (frontend) si datele sale care-s luate de la /api/home (backend).
+        Metoda apelata: 
+            Metoda pe care o vrei sa se apeleze. 
+            Metoda trebuie sa fie dintr-un acelasi controller.
+            Metoda trebuie sa fie publica.
+            Controller-ul trebuie sa aibe treaba cu router-ul respectiv.
+        Exemplu: $router->add('GET', '/api/home', 'HomeController::get');
+            Metoda: GET
+            URL-ul: /api/home
+                Numele router-ului este home.
+            Metoda apelata: HomeController::get
+                Metoda get din controller-ul HomeController.
+                Controller-ul HomeController.
+                HomeController se ocupa de router-ul home.
+
+Clasa /app/utils/ViewLoader.php
+    In constructor se pot defini noi locatii unde se afla fisierele view-urilor.
+    Nu cred ca o sa mai fie nevoie de alte locatii, dar daca o sa fie, se poate adauga in constructor.
+    loadView 
+        Ii cea mai importanta metoda din aceasta clasa.
+        Se ocupa de incarcarea unui view.
+        Formatul unui view este: navbar content footer.
+            Ca improvment se poate face ca navbar si footer sa fie optionale, dar nu cred ca o sa fie nevoie.
+        
+
+        
+            
