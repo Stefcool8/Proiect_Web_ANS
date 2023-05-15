@@ -89,6 +89,8 @@ class Router {
 
         // no matching route found, return a 404 status
         header("HTTP/1.1 404 Not Found");
+        header("Location: /404");
+        exit();
     }
 
     /**

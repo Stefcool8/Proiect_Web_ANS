@@ -6,29 +6,24 @@ use App\Utils\ViewLoader;
 use App\Utils\ResponseHandler;
 
 /**
- * Home controller
- *
- * @package App\Controllers
+ * @OA\Info(title="Home API", version="1.0")
+ * 
  */
 class HomeController {
 
     /**
-     * Get /home
-     * Get /
-     * Get /home/
-     * 
-     * @return void
+     * @OA\Get(
+     *     path="/api/home",
+     *     @OA\Response(response="200", description="This method returns the data for the home page.")
+     * )
      */
     public function get() {
-        // load the view
-        $view = ViewLoader::getViewLoader()->loadView('home');
-
         // send the view
-        ResponseHandler::getResponseHandler()->sendView(200, $view, [
-            "home" => [
-                "slider.js",
-                "youtube.js"
-            ]
+        ResponseHandler::getResponseHandler()->sendResponse(200, [
+            'title' => 'Open source tool for data visualization',
         ]);
     }
 }
+
+// mysecretpassword!2002
+// Cabo0Y2FsHbRDVQbYWf6j2myOhk3E4Na

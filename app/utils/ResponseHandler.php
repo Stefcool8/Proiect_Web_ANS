@@ -54,7 +54,7 @@ class ResponseHandler {
      * 
      * @return void
      */
-    public static function sendResponse(int $statusCode, string $data): void {
+    public static function sendResponse(int $statusCode, array $data): void {
         $response = [
             "status_code" => $statusCode,
             "data" => $data
