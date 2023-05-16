@@ -6,7 +6,7 @@ use App\Utils\ViewLoader;
 use App\Utils\ResponseHandler;
 
 /**
- * @OA\Info(title="Home API", version="1.0")
+ * @OA\Info(title="AutoParkExplorer API", version="1.0")
  * 
  */
 class HomeController {

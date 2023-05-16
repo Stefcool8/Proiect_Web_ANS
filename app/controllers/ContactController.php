@@ -5,10 +5,7 @@ namespace App\Controllers;
 use App\Utils\ViewLoader;
 use App\Utils\ResponseHandler;
 
-/**
- * @OA\Info(title="Contact API", version="1.0")
- * 
- */
+
 class ContactController {
 
     /**
