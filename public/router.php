@@ -7,6 +7,6 @@ use App\Utils\Router;
 $router = Router::getRouter();
 
 $router->add('GET', '/api/home', 'HomeController::get');
-
+$router->add('GET', '/api/contact', 'ContactController::get');
 
 $router->dispatch($_SERVER['REQUEST_METHOD'], $_SERVER['REQUEST_URI']);
