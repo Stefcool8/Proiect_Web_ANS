@@ -1,0 +1,76 @@
+<?php
+// DONE
+namespace App\Controllers;
+
+use App\Utils\ViewLoader;
+use App\Utils\ResponseHandler;
+use App\Utils\JWT;
+
+/**
+ * Controller for the Dashboard page.
+ * 
+ */
+class DashboardController {
+
+    /**
+     * @OA\Get(
+     *     path="/api/dashboard",
+     *     security={{"bearerAuth":{}}},
+     *     summary="Retrieve the dashboard page data for the authenticated user",
+     *     operationId="getDashboard",
+     *     tags={"Dashboard"},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Returns the user dashboard data",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="status_code", type="integer", example=200),
+     *             @OA\Property(
+     *                 property="data",
+     *                 type="object",
+     *                 @OA\Property(property="title", type="string", example="Dashboard"),
+     *                 @OA\Property(property="username", type="string", example="user")
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="status_code", type="integer", example=401),
+     *             @OA\Property(
+     *                 property="data",
+     *                 type="object",
+     *                 @OA\Property(property="error", type="string", example="Unauthorized")
+     *             )
+     *         )
+     *     )
+     * )
+     */
+    public function get() {
+        // get the token from the request header
+        $headers = apache_request_headers();
+
+        if (!isset($headers['Authorization'])) {
+            return ResponseHandler::getResponseHandler()->sendResponse(401, ['error' => 'Unauthorized']);
+        }
+
+        try {
+            $token = str_replace('Bearer ', '', $headers['Authorization']);
+            
+            // decode the token
+            $payload = JWT::getJWT()->decode($token);
+
+            // send the data
+            return ResponseHandler::getResponseHandler()->sendResponse(200, [
+                'data' => [
+                    'title' => 'Dashboard',
+                    'username' => $payload['username']
+                ]
+            ]);
+        } catch (\InvalidArgumentException $e) {
+            return ResponseHandler::getResponseHandler()->sendResponse(401, ['error' => 'Unauthorized']);
+        }
+    }
+}
