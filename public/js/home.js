@@ -7,7 +7,7 @@ function onYouTubePlayerReady() {
         return;
     }
 
-    player = new YT.Player("player", {
+    player = new YT.Player("video-player", {
         height: "360",
         width: "640",
         videoId: "aChw3aOVpNs",

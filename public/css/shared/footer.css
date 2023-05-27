@@ -2,18 +2,30 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-gap: 1vw;
-    padding: 1vw;
-    font-size: 0.8rem;
-    background-color: #333;
-    background: linear-gradient(185deg, #3c3e4f, #262a3e);
-    color: #fff;
-    box-shadow: 0 -0.2vw 0.5vw rgba(0, 0, 0, 0.1);
+    padding: 0.5vw;
+    font-size: 1rem;
+    background: #8B3A3A;
+    color: #ceb98d;
 }
 
 .footer-info,
-.footer-contact {
+.footer-contact,
+.footer-social {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer-info i {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.footer-info h3 {
+    display: flex;
     justify-content: center;
     align-items: center;
 }
@@ -22,27 +34,32 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1vw;
+    gap: 0.25vw;
 }
 
 .footer-info-list li,
 .footer-contact li {
+    width: 100%;
     list-style: none;
     margin-bottom: 0.5vw;
 }
 
 .footer-info-list li a,
 .footer-contact li a {
-    color: #fff;
+    width: 100%;
+    text-align: center;
+    color: #ceb98d;
     text-decoration: none;
 }
 
-.footer-contact p {
-    margin-bottom: 1vw;
+.footer-contact-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.footer-contact p a {
-    margin-left: 2vw;
+.footer-contact-list i {
+    height: 100%;
 }
 
 .footer-social {
@@ -60,7 +77,7 @@
 .footer-info-list li a,
 .footer-contact li a,
 .footer-contact p a {
-    color: #fff;
+    color: #ceb98d;
     text-decoration: none;
     display: inline-block;
     padding: 0.5vw;
@@ -73,14 +90,14 @@
 .footer-info-list li a:hover,
 .footer-contact li a:hover,
 .footer-contact p a:hover {
-    background-image: linear-gradient(135deg, #262a3e, #2b2d42);
-    color: #fff;
+    background-color: #C44C51;
+    color: #ceb98d;
     box-shadow: 0 0 1vw 0.25vw rgba(0, 0, 0, 0.3);
     animation: shake 0.5s;
 }
 
 .footer-social a {
-    color: #fff;
+    color: #ceb98d;
     font-size: 1.5vw;
     transition: color 0.3s, transform 0.3s;
 }
@@ -113,22 +130,28 @@
 .footer i {
     font-size: 1.5vw;
     margin-right: 0.5vw;
+    color: #ceb98d;
 }
 
 @keyframes shake {
+
     0%,
     100% {
         transform: translate(0, 0);
     }
+
     20% {
         transform: translate(-0.25vw, -0.25vw);
     }
+
     40% {
         transform: translate(0.25vw, -0.25vw);
     }
+
     60% {
         transform: translate(-0.25vw, -0.25vw);
     }
+
     80% {
         transform: translate(0.25vw, -0.25vw);
     }
@@ -140,6 +163,7 @@
         padding: 3vw 2vw;
         font-size: 3vw;
     }
+
     .footer i {
         font-size: 3vw;
         margin-right: 0.5vw;

@@ -1,6 +1,5 @@
 const loginForm = document.querySelector('form');
 
-console.log("login.js loaded")
 
 loginForm.addEventListener('submit', async(event) => {
 
@@ -16,34 +15,26 @@ loginForm.addEventListener('submit', async(event) => {
     };
 
     try {
-        const response = await fetch('/api/auth/login', {
+        const response = await fetch('/api/login', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-                'Accept': 'application/json',
+                'Content-Type': 'application/json',
             },
-            body: new URLSearchParams(data)
+            body: JSON.stringify(data),
         });
-
-        console.log("HEY");
 
         let result;
         try {
-
             result = await response.json();
-            console.log("RESULT: " + result.status_code);
-            console.log(result.data);
 
         } catch (error) {
             console.error("Failed to parse JSON response", error);
             return;
         }
 
-        console.log("RESULT: " + result);
-
         if (response.ok) {
             // The login was successful
-            localStorage.setItem('jwt', result.data);
+            localStorage.setItem('jwt', result.data.token);
 
             // Redirect to the dashboard
             window.location.href = "/dashboard";

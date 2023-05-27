@@ -7,7 +7,7 @@ use PDOException;
 use PDOStatement;
 
 class Database {
-    private static ?Database $instance = null;
+private static ?Database $instance = null;
     private PDO $connection;
 
     private function __construct() {
@@ -16,7 +16,7 @@ class Database {
 
     private function initConnection(): void {
         $host = 'localhost';
-        $dbname = 'ans';
+        $dbname = 'web';
         $username = 'root';
         $password = '';
 

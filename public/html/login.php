@@ -43,7 +43,7 @@
                     <button type="submit">Log In</button>
             </form>
             <div class="signup-link">
-                <p>Don't have an account? <a href="/auth/register">Sign up</a></p>
+                <p>Don't have an account? <a href="/register">Sign up</a></p>
                 <p>Forgot your password? <a href="/reset">Reset password</a></p>
             </div>
         </div>

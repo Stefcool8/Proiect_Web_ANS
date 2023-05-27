@@ -1,20 +1,52 @@
 <?php
-
+// DONE
 namespace App\Controllers;
 
-use App\Utils\ViewLoader;
 use App\Utils\ResponseHandler;
 
 /**
+ * Controller for the home page.
+ * 
  * @OA\Info(title="AutoParkExplorer API", version="1.0")
  * 
+ * @OA\SecurityScheme(
+ *     securityScheme="bearerAuth",
+ *     in="header",
+ *     name="Authorization",
+ *     type="http",
+ *     scheme="bearer",
+ *     bearerFormat="JWT",
+ * )
  */
 class HomeController {
 
     /**
      * @OA\Get(
      *     path="/api/home",
-     *     @OA\Response(response="200", description="This method returns the data for the home page.")
+     *     summary="Retrieve homepage data",
+     *     operationId="getHome",
+     *     tags={"Home"},
+     *     @OA\Response(
+     *         response=200,
+     *         description="OK",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                 property="status_code",
+     *                 type="integer",
+     *                 example=200
+     *             ),
+     *             @OA\Property(
+     *                 property="data",
+     *                 type="object",
+     *                 @OA\Property(
+     *                     property="title",
+     *                     type="string",
+     *                     example="Open source tool for data visualization"
+     *                 )
+     *             )
+     *         )
+     *     ),
      * )
      */
     public function get() {
@@ -24,6 +56,3 @@ class HomeController {
         ]);
     }
 }
-
-// mysecretpassword!2002
-// Cabo0Y2FsHbRDVQbYWf6j2myOhk3E4Na
