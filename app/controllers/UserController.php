@@ -82,6 +82,7 @@ class UserController {
 
             // create the user
             $db->insert('user', [
+                'isAdmin' => 0,
                 'name' => $body['name'],
                 'password' => password_hash($body['password'], PASSWORD_DEFAULT),
                 'email' => $body['email'],

@@ -54,14 +54,16 @@
         
         <div class="user-list">
             <?php foreach ($result['data'] as $user) : ?>
-                <div class="project project-1">
+             
+                <div class="project project-1" data-user="<?php echo htmlentities(json_encode($user)); ?>">
                     <p><?php echo "Username: ".$user['username']; ?> <?php echo "|     UUID:".$user['uuid'];?></p>
                     <div class ="button-area">
                     <a href="/project/1" class="button">View Profile</a>
                     <a href="/project/1/edit" class="button">Modify Profile</a>
-                    <a href="/project/<?=$user['uuid']?>/delete" class="button">Delete User</a>
+                    <a  class="button">Delete User</a>
                     </div>
                 </div>
+                
             <?php endforeach; ?>
         </div>
             
@@ -111,8 +113,8 @@
     </main>
 
     <?php require_once __DIR__ . '/shared/footer.php'; ?>
-
     <script src="/public/js/viewUsers.js"></script>
+    
 </body>
 
 </html>
