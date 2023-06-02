@@ -160,6 +160,7 @@ public function getUsers(){
         $userArray = [];
         foreach ($users as $user) {
             $userArray[] = [
+                'isAdmin' => $user['isAdmin'],
                 'uuid' => $user['uuid'],
                 'name' => $user['name'],
                 'email' => $user['email'],

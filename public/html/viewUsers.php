@@ -32,7 +32,13 @@
         <div class="page-name">
             <p>
                 <?php
-                    echo "There are " . count($result['data']). " users registered.";
+                        $countUsers = count($result['data']);
+                        if($countUsers == 1){
+                            echo "There are only " . count($result['data']). " user registered.";
+                        }else{
+                            echo "There are " . count($result['data']). " users registered.";
+                        }
+                    
                 ?>
             </p>
         </div>
@@ -58,8 +64,8 @@
                 <div class="project project-1" data-user="<?php echo htmlentities(json_encode($user)); ?>">
                     <p><?php echo "Username: ".$user['username']; ?> <?php echo "|     UUID:".$user['uuid'];?></p>
                     <div class ="button-area">
-                    <a href="/project/1" class="button">View Profile</a>
-                    <a href="/project/1/edit" class="button">Modify Profile</a>
+                    <a  class="button">View Profile</a>
+                    <a  class="button">Modify Profile</a>
                     <a  class="button">Delete User</a>
                     </div>
                 </div>
