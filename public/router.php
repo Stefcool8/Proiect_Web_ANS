@@ -23,4 +23,7 @@ $router->add('GET', '/api/dashboard', 'DashboardController::get');
 
 $router->add('GET', '/api/auth', 'AuthController::get');
 
+$router->add('GET', '/api/admin','AdminController::getInfo');
+$router->add('GET','/api/admin/users','AdminController::getUsers');
+
 $router->dispatch($_SERVER['REQUEST_METHOD'], $_SERVER['REQUEST_URI']);
