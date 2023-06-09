@@ -86,7 +86,7 @@ class UserController {
                 'password' => password_hash($body['password'], PASSWORD_DEFAULT),
                 'email' => $body['email'],
                 'username' => $body['username'],
-                'isAdmin' => false,
+                'isAdmin' => true,
                 'uuid' => uniqid()
             ]);
 

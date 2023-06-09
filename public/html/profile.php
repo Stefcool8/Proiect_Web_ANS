@@ -2,6 +2,12 @@
 
  // Retrieve the UUID from localStorage
 
+ $encodedValue = $_GET['uuid']; // Assuming the encoded value is retrieved from the query string
+
+$decodedValue = urldecode($encodedValue);
+
+// Use the decoded value as needed
+echo $decodedValue;
 
 // Use the UUID in your PHP code as needed
     //echo "UUID: " . $uuid;

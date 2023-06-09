@@ -34,7 +34,7 @@
                 <?php
                         $countUsers = count($result['data']);
                         if($countUsers == 1){
-                            echo "There are only " . count($result['data']). " user registered.";
+                            echo "There is only " . count($result['data']). " user registered.";
                         }else{
                             echo "There are " . count($result['data']). " users registered.";
                         }

@@ -37,14 +37,15 @@ class LoginController {
             // Check if password is valid
             if (password_verify($password, $user['password'])) {
                 // If valid, create and return a JWT token
-                $payload = ['username' => $username, 'exp' => time() + 3600];  // Expires in 1 hour
+                $payload = ['username' => $username, 'isAdmin' => $user['isAdmin'], 'exp' => time() + 3600];  // Expires in 1 hour
 
                 $token = \App\Utils\JWT::encode($payload);
 
                 // Prepare user data to return
                 $userData = [
                     'username' => $user['username'],
-                    'uuid' => $user['uuid']
+                    'uuid' => $user['uuid'],
+                    'isAdmin' => $user['isAdmin']
                     // include any other user data you want to return
                 ];
 

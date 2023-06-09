@@ -5,8 +5,8 @@ var viewProfileButtons = document.querySelectorAll(
     ".user-list .button-area a:first-child"
 );
 
-deleteButtons.forEach(function (button) {
-    button.addEventListener("click", async (event) => {
+deleteButtons.forEach(function(button) {
+    button.addEventListener("click", async(event) => {
         event.preventDefault();
         var userRow = event.target.closest(".project");
         var userData = JSON.parse(userRow.dataset.user);
@@ -38,9 +38,9 @@ deleteButtons.forEach(function (button) {
 });
 
 // Iterate over each "View Profile" button
-viewProfileButtons.forEach(function (button) {
+viewProfileButtons.forEach(function(button) {
     // Add a click event listener to each button
-    button.addEventListener("click", async (event) => {
+    button.addEventListener("click", async(event) => {
         event.preventDefault();
         var userRow = event.target.closest(".project");
         var userData = JSON.parse(userRow.dataset.user);
@@ -59,12 +59,8 @@ viewProfileButtons.forEach(function (button) {
 
             if (response.ok) {
                 // The view was successful
-
-                localStorage.setItem("uuid", uuid);
-                document.cookie = "uuid=" + encodeURIComponent(uuid);
-                // Redirect to the dashboard
-                window.location.href = "/profile";
-                //window.location.href = "/profile." + encodeURIComponent(uuid);
+                const URL = "/user/" + uuid;
+                window.location.href = URL;
             } else {
                 // Handle the error
                 console.error(result.message);
@@ -78,7 +74,7 @@ viewProfileButtons.forEach(function (button) {
 
 var userlistContainer = document.querySelector(".user-list");
 
-userlistContainer.addEventListener("click", function (event) {
+userlistContainer.addEventListener("click", function(event) {
     // Check if the click occurred within the "user-list" region
     if (event.target.closest(".user-list")) {
         // Code to handle the click on the "user-list" region

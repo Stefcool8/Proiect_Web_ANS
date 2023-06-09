@@ -1,18 +1,18 @@
 <?php 
 
- // Retrieve the UUID from localStorage
+ 
 
+    $currentUrl = $_SERVER['REQUEST_URI'];
 
-// Use the UUID in your PHP code as needed
-    //echo "UUID: " . $uuid;
+// Parse the URL to extract the userID
+    $parts = explode('/', $currentUrl);
+    $userID = end($parts);
+
     require_once __DIR__ . '/shared/general.php';
-    $uuid = $_COOKIE['uuid'];
-    //echo $uuid;
-    $urlAPI = 'user/'.$uuid;
+    $urlAPI = 'user/'.$userID;
     $result = fetch_data($urlAPI, [
         'data' => []
     ]);
-//var_dump($result);
 
 ?>
 
@@ -42,7 +42,7 @@
 
             <div class="user-visual">
                 <div class="user-banner">
-                    <img src="./public/assets/img/banner.jpg" alt="User Banner">
+                    <img src="/public/assets/img/banner.jpg" alt="User Banner">
                 </div>
                 <div class="user-picture-and-controls">
                     <div class="user-picture">
