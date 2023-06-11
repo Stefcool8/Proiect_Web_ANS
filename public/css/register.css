@@ -1,160 +1,157 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+.register {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
 
-.register-main-content {
-    min-height: calc(100vh - 120px);
+.register .main-content {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 10px;
+    flex-grow: 1;
+    padding: 2vh;
 }
 
-.register-container {
-    max-width: 700px;
-    width: 100%;
-    background-color: #fff;
-    padding: 25px 30px;
-    border-radius: 5px;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
-    margin: 60px 0;
-}
-
-.register-container .register-title {
-    font-size: 25px;
-    font-weight: 500;
-    position: relative;
-}
-
-.register-container .register-title::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    height: 3px;
-    width: 30px;
-    border-radius: 5px;
-}
-
-.register-content form .register-user-details {
+.register .container {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     justify-content: space-between;
-    margin: 20px 0 12px 0;
-}
-
-.register-container form .register-user-details .register-input-box {
-    margin-bottom: 15px;
-    width: calc(100% / 2 - 20px);
-}
-
-.register-container form .register-input-box label.register-details {
-    display: block;
-    font-weight: 500;
-    margin-bottom: 5px;
-}
-
-.register-user-details .register-input-box input {
-    height: 45px;
-    width: 100%;
-    outline: none;
-    font-size: 16px;
-    border-radius: 5px;
-    padding-left: 15px;
-    border: 1px solid #ccc;
-    border-bottom-width: 2px;
-    transition: all 0.3s ease;
-    box-sizing: border-box;
-}
-
-.register-user-details .register-input-box input:focus,
-.register-user-details .register-input-box input:valid {
-    border-color: #9b59b6;
-}
-
-.register-container form .register-gender-details .register-gender-title {
-    font-size: 20px;
-    font-weight: 500;
-}
-
-.register-container form .register-category {
-    display: flex;
-    width: 80%;
-    margin: 14px 0;
-    justify-content: space-between;
-}
-
-.register-container form .register-category label {
-    display: flex;
     align-items: center;
-    cursor: pointer;
-}
-
-.register-container form .register-category label .register-dot {
-    height: 18px;
-    width: 18px;
-    border-radius: 50%;
-    margin-right: 10px;
-    background: #d9d9d9;
-    border: 5px solid transparent;
-    transition: all 0.3s ease;
-}
-
-#dot-1:checked ~ .register-category label .one,
-#dot-2:checked ~ .register-category label .two,
-#dot-3:checked ~ .register-category label .three {
-    background: #9b59b6;
-    border-color: #d9d9d9;
-}
-
-.register-container form input[type="radio"] {
-    display: none;
-}
-
-.register-container form .register-button {
-    height: 45px;
-    margin: 35px 0;
-    max-width: 50%;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.register-container form .register-button input {
-    height: 100%;
     width: 100%;
-    border-radius: 5px;
+    max-width: 40vw;
+    background-color: white;
+    padding: 4vh;
+    border-radius: 2vh;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    color: black;
+    min-height: 40vh;
+}
+
+.register form {
+    width: 100%;
+}
+
+.register h2 {
+    text-align: center;
+    margin-bottom: 1vh;
+    font-size: 4vh;
+    border-bottom: 2px solid #ccc;
+    padding-bottom: 1vh;
+    color: #8B3A3A;
+}
+
+.register .input-group {
+    margin-bottom: 1vh;
+    width: 100%;
+}
+
+.register label {
+    display: block;
+    margin-bottom: 0.5vh;
+    font-size: 3vh;
+    color: #8B3A3A;
+}
+
+.register input[type="text"],
+.register input[type="password"],
+.register input[type="email"] {
+    width: 100%;
+    padding: 0.5vh;
+    border-radius: 1vh;
+    border: 1px solid #ccc;
+    font-size: 3vh;
+    transition: border 0.3s, box-shadow 0.3s;
+}
+
+.register button {
+    display: block;
+    width: 100%;
+    padding: 1vh;
+    background-color: #416a59;
+    color: white;
+    font-size: 3vh;
     border: none;
-    font-size: 18px;
-    font-weight: 500;
-    letter-spacing: 1px;
+    border-radius: 2vh;
     cursor: pointer;
-    transition: all 0.3s ease;
-    background-color: #9b59b6;
-    color: #ffffff;
+    transition: all 0.3s;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    margin-top: 2vh;
 }
 
-.register-container form .register-button input:hover {
-    background-color: #8e44ad;
+.register input[type="text"]:hover,
+.register input[type="password"]:hover,
+.register input[type="email"]:hover {
+    border: 1px solid #73a24e;
 }
 
-@media (max-width: 584px) {
-    .register-container {
-        max-width: 100%;
-        padding: 25px 15px;
-        margin: 50px 0;
-    }
-    .register-container form .register-user-details .register-input-box {
-        margin-bottom: 15px;
-        width: 100%;
-    }
-    .register-container form .register-category {
-        width: 100%;
-    }
-    .register-content form .register-user-details {
-        max-height: none;
-    }
+.register input[type="text"]:focus,
+.register input[type="password"]:focus,
+.register input[type="email"]:focus {
+    outline: none;
+    border: 1px solid #73a24e;
+    box-shadow: 0 0 5px #73a24e;
+    border: 1px solid #73a24e;
 }
 
-@media (max-width: 459px) {
-    .register-container .register-content .register-category {
-        flex-direction: column;
+.register button:hover {
+    background-color: #73a24e;
+    transform: scale(1.02);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.register button:active {
+    background-color: #6a9649;
+    transform: scale(0.98);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.register .login-link {
+    text-align: center;
+    margin-top: 1vh;
+    font-size: 1vh;
+}
+
+.login-link p {
+    font-size: 2vh;
+    margin: 0;
+    color: #8B3A3A;
+}
+
+.login-link a {
+    text-decoration: none;
+    font-size: 2vh;
+    color: #391e1e;
+}
+
+@media screen and (max-width: 826px) {
+
+    .register .container {
+        max-width: 80vw;
+    }
+
+    .register h2 {
+        font-size: 6vw;
+    }
+
+    .register label {
+        font-size: 4vw;
+    }
+
+    .register input[type="text"],
+    .register input[type="password"],
+    .register input[type="email"] {
+        font-size: 4vw;
+    }
+
+    .register button {
+        font-size: 4vw;
+    }
+
+    .register .login-link p {
+        font-size: 3vw;
+    }
+
+    .register .login-link a {
+        font-size: 3vw;
     }
 }

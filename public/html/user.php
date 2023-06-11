@@ -5,13 +5,13 @@
 
 // Use the UUID in your PHP code as needed
     //echo "UUID: " . $uuid;
-    require_once __DIR__ . '/shared/general.php';
-    $uuid = $_COOKIE['uuid'];
-    //echo $uuid;
-    $urlAPI = 'user/'.$uuid;
-    $result = fetch_data($urlAPI, [
-        'data' => []
-    ]);
+    // require_once __DIR__ . '/shared/general.php';
+    // $uuid = $_COOKIE['uuid'];
+    // //echo $uuid;
+    // $urlAPI = 'user/'.$uuid;
+    // $result = fetch_data($urlAPI, [
+    //     'data' => []
+    // ]);
 //var_dump($result);
 
 ?>

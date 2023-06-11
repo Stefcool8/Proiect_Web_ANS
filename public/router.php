@@ -21,9 +21,10 @@ $router->add('DELETE', '/api/user/{uuid}', 'UserController::delete');
 
 $router->add('GET', '/api/dashboard', 'DashboardController::get');
 
-$router->add('GET', '/api/auth', 'AuthController::get');
-
 $router->add('GET', '/api/admin','AdminController::getInfo');
 $router->add('GET','/api/admin/users','AdminController::getUsers');
+
+// Auth routes
+$router->add('GET', '/api/auth', 'AuthController::get');
 
 $router->dispatch($_SERVER['REQUEST_METHOD'], $_SERVER['REQUEST_URI']);
