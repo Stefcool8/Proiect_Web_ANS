@@ -80,7 +80,7 @@
     margin: 0.75em 0;
 }
 
-#nav-wrapper span.gradient {
+#nav-wrapper div.gradient {
     background: #bc4749;
     background: -webkit-linear-gradient(45deg, #bc4749, #ff5858);
     background: linear-gradient(45deg, #bc4749, #ff5858);
@@ -90,7 +90,7 @@
     margin-right: auto;
 }
 
-#nav-wrapper span.gradient:hover {
+#nav-wrapper div.gradient:hover {
     animation-name: logo-hover;
     animation-duration: 0.3s;
     animation-fill-mode: forwards;
@@ -141,7 +141,7 @@
     padding-right: 2em;
 }
 
-@media (min-width: 800px) {
+@media (min-width: 768px) {
     #nav-wrapper {
         overflow: hidden;
     }
@@ -174,7 +174,7 @@
         background: #bc4749;
         background: -webkit-linear-gradient(45deg, #bc4749, #ff5858);
         background: linear-gradient(45deg, #bc4749, #ff5858);
-        color: #fff;
+        color: white;
     }
 
     #nav-wrapper .nav-link-span {

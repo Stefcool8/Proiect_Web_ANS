@@ -40,7 +40,6 @@ class AboutController {
      * )
      */
     public function get() {
-        // send the view
         ResponseHandler::getResponseHandler()->sendResponse(200, [
             'title' => 'About Us',
         ]);

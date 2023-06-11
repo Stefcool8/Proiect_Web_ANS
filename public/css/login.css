@@ -23,7 +23,7 @@
     padding: 4vh;
     border-radius: 2vh;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-    color: black;
+    color: #414141;
     min-height: 40vh;
 }
 
@@ -37,7 +37,7 @@
     font-size: 4vh;
     border-bottom: 2px solid #ccc;
     padding-bottom: 1vh;
-    color: #8B3A3A;
+    color: #416a59;
 }
 
 .login .input-group {
@@ -49,7 +49,7 @@
     display: block;
     margin-bottom: 0.5vh;
     font-size: 3vh;
-    color: #8B3A3A;
+    color: #416a59;
 }
 
 .login input[type="text"],
@@ -60,6 +60,14 @@
     border: 1px solid #ccc;
     font-size: 3vh;
     transition: border 0.3s, box-shadow 0.3s;
+}
+
+.login input[type="text"]:hover,
+.login input[type="text"]:focus,
+.login input[type="password"]:hover,
+.login input[type="password"]:focus {
+    border: 1px solid #416a59;
+    box-shadow: 0 0 5px #416a59;
 }
 
 .login button {
@@ -77,27 +85,14 @@
     margin-top: 2vh;
 }
 
-.login input[type="text"]:hover,
-.login input[type="password"]:hover {
-    border: 1px solid #73a24e;
-}
-
-.login input[type="text"]:focus,
-.login input[type="password"]:focus {
-    outline: none;
-    border: 1px solid #73a24e;
-    box-shadow: 0 0 5px #73a24e;
-    border: 1px solid #73a24e;
-}
-
 .login button:hover {
-    background-color: #73a24e;
+    background-color: #2d4534;
     transform: scale(1.02);
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .login button:active {
-    background-color: #6a9649;
+    background-color: #2d4534;
     transform: scale(0.98);
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
@@ -108,20 +103,19 @@
     font-size: 1vh;
 }
 
-.signup-link p {
+.login .signup-link p {
     font-size: 2vh;
     margin: 0;
-    color: #8B3A3A;
+    color: #416a59;
 }
 
-.signup-link a {
+.login .signup-link a {
     text-decoration: none;
     font-size: 2vh;
-    color: #391e1e;
+    color: #2d4534;
 }
 
 @media screen and (max-width: 826px) {
-
     .login .container {
         max-width: 80vw;
     }
@@ -135,19 +129,42 @@
     }
 
     .login input[type="text"],
-    .login input[type="password"] {
-        font-size: 4vw;
-    }
-
+    .login input[type="password"],
     .login button {
         font-size: 4vw;
     }
 
-    .login .signup-link p {
-        font-size: 3vw;
-    }
-
+    .login .signup-link p,
     .login .signup-link a {
         font-size: 3vw;
+    }
+}
+
+.error-message {
+    color: #b00020;
+    background-color: #ffe9e9;
+    font-size: 0.75em;
+    font-weight: bold;
+    margin: 1em 0;
+    padding: 0.25em;
+    border-radius: 10px;
+    width: 100%;
+    text-align: center;
+    border: 2px solid #b00020;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.error-message.invisible {
+    display: none;
+}
+
+.error-message.visible {
+    display: block;
+}
+
+@media screen and (min-width: 768px) {
+    .error-message {
+        width: auto;
+        padding: 1.5em;
     }
 }

@@ -21,14 +21,11 @@
 
     <link rel="stylesheet" href="/public/css/index.css">
     <link rel="stylesheet" href="/public/css/shared/navbar.css">
+        <link rel="stylesheet" href="/public/css/shared/footer.css">
     <link rel="stylesheet" href="/public/css/home.css">
-    <!-- <link rel="stylesheet" href="/public/css/shared/footer.css"> -->
 
     <!-- javascript libraries -->
     <script src="https://www.youtube.com/iframe_api"></script>
-
-    <!-- import JQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -85,7 +82,7 @@
             </div>
         </section>
     </main>
-    <!-- <?php require_once __DIR__ . '/shared/footer.php'; ?> -->
+    <?php require_once __DIR__ . '/shared/footer.php'; ?>
 
     <script src="/public/js/home.js"></script>
 </body>

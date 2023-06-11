@@ -7,7 +7,7 @@ use App\Utils\ResponseHandler;
 use App\Utils\JWT;
 
 /**
- * Controller for the Dashboard page.
+ * Controller for the Dashboard page
  * 
  */
 class DashboardController {

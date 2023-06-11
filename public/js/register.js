@@ -1,19 +1,28 @@
-// Select the form
+// select the form
 const form = document.querySelector("form");
 
-// Listen for form submit
+// listen for form submit
 form.addEventListener("submit", async (e) => {
-    // Prevent default form submission
     e.preventDefault();
 
-    // Create a FormData instance from the form
-    const formData = new FormData(form);
+    const name = document.getElementById("name").value;
+    const email = document.getElementById("email").value;
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+    const confirmPassword = document.getElementById("confirmPassword").value;
 
-    // Convert FormData to JSON
-    const data = Object.fromEntries(formData.entries());
+    if (password !== confirmPassword) {
+        showError("Passwords do not match.");
+        return;
+    }
 
-    console.log(data);
-    // Send POST request
+    const data = {
+        name: name,
+        email: email,
+        username: username,
+        password: password,
+    };
+
     try {
         const response = await fetch("/api/user", {
             method: "POST",
@@ -22,24 +31,28 @@ form.addEventListener("submit", async (e) => {
             },
             body: JSON.stringify(data),
         });
-        // Get the JSON response
+
+        // get the JSON response
         const result = await response.json();
 
-        console.log(result);
-
-        // Handle response
         if (response.ok) {
-            console.log("Registration successful:", result);
-            // redirect or update UI as necessary
-
-            // Redirect to the login page
+            // redirect to the login page
             window.location.href = "/login";
         } else {
-            console.error("Registration error:", result);
-            // show error to the user
+            showError(result.data.error);
         }
     } catch (err) {
-        console.error("Fetch error:", err);
-        // show error to the user
+        showError(err.message);
     }
 });
+
+// show the error message
+function showError(message) {
+    const errorDiv = document.querySelector(".error-message");
+    errorDiv.textContent = message;
+    errorDiv.classList.add("visible");
+
+    setTimeout(() => {
+        errorDiv.classList.remove("visible");
+    }, 3000);
+}

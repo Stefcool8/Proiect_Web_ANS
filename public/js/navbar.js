@@ -45,6 +45,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         signOutLink.addEventListener("click", (e) => {
             e.preventDefault();
             localStorage.removeItem("jwt");
+            localStorage.removeItem("uuid");
             window.location.href = "/";
         });
     } catch (error) {

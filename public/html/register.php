@@ -19,45 +19,42 @@
 </head>
 
 <body>
-    <?php require_once __DIR__ . '/shared/navbar.php'; ?>
-
-    <div class="register">
-        <main class="main-content">
-            <div class="container">
-                <h2>Register</h2>
-                <form action="/auth/register" method="post">
-                    <div class="input-group">
-                        <label for="name">Full Name</label>
-                        <input type="text" id="name" name="name" required>
-                    </div>
-                    <div class="input-group">
-                        <label for="username">Username</label>
-                        <input type="text" id="username" name="username" required>
-                    </div>
-                    <div class="input-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    <div class="input-group">
-                        <label for="password">Password</label>
-                        <input type="password" id="password" name="password" required>
-                    </div>
-                    <div class="input-group">
-                        <label for="confirmPassword">Confirm Password</label>
-                        <input type="password" id="confirmPassword" name="confirmPassword" required>
-                    </div>
-                    <button type="submit">Register</button>
-                    <div class="login-link">
-                        <p>Already have an account? <a href="/login">Log in</a></p>
-                    </div>  
-                </form>
-            </div>
-        </main>
-    </div>
-
-    <?php require_once __DIR__ . '/shared/footer.php'; ?>
-
-    <script src="/public/js/register.js"></script>
+<?php require_once __DIR__ . '/shared/navbar.php'; ?>
+<div class="register">
+    <main class="main-content">
+        <div class="container">
+            <h2>Register</h2>
+            <form action="/auth/register" method="post">
+                <div id="error-message" class="error-message invisible"></div>
+                <div class="input-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="input-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="input-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <div class="input-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" required>
+                </div>
+                <button type="submit">Register</button>
+                <div class="login-link">
+                    <p>Already have an account? <a href="/login">Log in</a></p>
+                </div>  
+            </form>
+        </div>
+    </main>
+</div>
+<?php require_once __DIR__ . '/shared/footer.php'; ?>
+<script src="/public/js/register.js"></script>
 </body>
-
 </html>
