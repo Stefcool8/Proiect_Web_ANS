@@ -2,7 +2,6 @@
 // DONE
 namespace App\Controllers;
 
-use App\Utils\ViewLoader;
 use App\Utils\ResponseHandler;
 
 /**

@@ -2,7 +2,8 @@
 
 namespace App\Controllers;
 
-use App\Utils\ViewLoader;
+use App\Utils\Database;
+use App\Utils\JWT;
 use App\Utils\ResponseHandler;
 
 
@@ -27,7 +28,7 @@ class LoginController {
         $username = $body['username'];
         $password = $body['password'];
 
-        $database = \App\Utils\Database::getInstance();
+        $database = Database::getInstance();
 
         // Fetch user record
         $user = $database->fetchOne('SELECT * FROM user WHERE username = :username', ['username' => $username]);
@@ -39,7 +40,7 @@ class LoginController {
                 // If valid, create and return a JWT token
                 $payload = ['username' => $username, 'exp' => time() + 3600];  // Expires in 1 hour
 
-                $token = \App\Utils\JWT::encode($payload);
+                $token = JWT::encode($payload);
 
                 // Prepare user data to return
                 $userData = [
