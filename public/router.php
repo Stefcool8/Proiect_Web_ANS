@@ -26,4 +26,6 @@ $router->add('GET', '/api/auth', 'AuthController::get');
 $router->add('GET', '/api/admin','AdminController::getInfo');
 $router->add('GET','/api/admin/users','AdminController::getUsers');
 
+$router->add('POST', '/api/password/reset', 'PasswordController::forgotPassword');
+
 $router->dispatch($_SERVER['REQUEST_METHOD'], $_SERVER['REQUEST_URI']);
