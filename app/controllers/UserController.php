@@ -1,10 +1,10 @@
 <?php
 // DONE
-namespace App\controllers;
+namespace App\Controllers;
 
+use App\Utils\ViewLoader;
 use App\Utils\ResponseHandler;
 use App\Utils\Database;
-use Exception;
 
 /** 
  * Controller for User operations.
@@ -68,7 +68,7 @@ class UserController {
 
         // validate the request body
         if (!isset($body['name']) || !isset($body['email']) || !isset($body['password']) || !isset($body['username'])) {
-            ResponseHandler::getResponseHandler()->sendResponse(400, ['error' => 'Invalid request body.']);
+            return ResponseHandler::getResponseHandler()->sendResponse(400, ['error' => 'Invalid request body.']);
         }
 
         try {
@@ -77,7 +77,7 @@ class UserController {
             $existingUser = $db->fetchOne("SELECT * FROM user WHERE username = :username", ['username' => $body['username']]);
             
             if ($existingUser) {
-                ResponseHandler::getResponseHandler()->sendResponse(409, ["error" => "Username already exists"]);
+                return ResponseHandler::getResponseHandler()->sendResponse(409, ["error" => "Username already exists"]);
             }
 
             // create the user
@@ -91,10 +91,10 @@ class UserController {
             ]);
 
             // send the data
-            ResponseHandler::getResponseHandler()->sendResponse(200, ["message" => "User created successfully"]);
-        } catch (Exception $e) {
+            return ResponseHandler::getResponseHandler()->sendResponse(200, ["message" => "User created successfully"]);
+        } catch (\Exception $e) {
             // Handle potential exception during database insertion
-            ResponseHandler::getResponseHandler()->sendResponse(500, ["error" => "Internal Server Error"]);
+            return ResponseHandler::getResponseHandler()->sendResponse(500, ["error" => "Internal Server Error"]);
         }
     }
 
@@ -148,7 +148,7 @@ class UserController {
             $user = $db->fetchOne("SELECT * FROM user WHERE uuid = :uuid", ['uuid' => $uuid]);
 
             if (!$user) {
-                ResponseHandler::getResponseHandler()->sendResponse(404, ['error' => 'User not found']);
+                return ResponseHandler::getResponseHandler()->sendResponse(404, ['error' => 'User not found']);
             }
 
             // TODO: Verify if the user has the correct permissions to delete this user
@@ -156,10 +156,10 @@ class UserController {
 
             $db->delete('user', ['uuid' => $uuid]);
 
-            ResponseHandler::getResponseHandler()->sendResponse(204, ['message' => 'User deleted successfully']);
-        } catch (Exception $e) {
+            return ResponseHandler::getResponseHandler()->sendResponse(204, ['message' => 'User deleted successfully']);
+        } catch (\Exception $e) {
             // Handle potential exception during database deletion
-            ResponseHandler::getResponseHandler()->sendResponse(500, ["error" => "Internal Server Error"]);
+            return ResponseHandler::getResponseHandler()->sendResponse(500, ["error" => "Internal Server Error"]);
         }
     }
 
@@ -212,10 +212,10 @@ class UserController {
             $user = $db->fetchOne("SELECT * FROM user WHERE uuid = :uuid", ['uuid' => $uuid]);
 
             if (!$user) {
-                ResponseHandler::getResponseHandler()->sendResponse(404, ['error' => 'User not found']);
+                return ResponseHandler::getResponseHandler()->sendResponse(404, ['error' => 'User not found']);
             }
 
-            ResponseHandler::getResponseHandler()->sendResponse(200, [
+            return ResponseHandler::getResponseHandler()->sendResponse(200, [
                 'data' => [
                     'uuid' => $user['uuid'],
                     'isAdmin' => $user['isAdmin'],
@@ -225,9 +225,9 @@ class UserController {
                 ]
             ]);
 
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             // Handle potential exception during database deletion
-            ResponseHandler::getResponseHandler()->sendResponse(500, ["error" => "Internal Server Error"]);
+            return ResponseHandler::getResponseHandler()->sendResponse(500, ["error" => "Internal Server Error"]);
         }
     }
 

@@ -1,9 +1,8 @@
 <?php
 
-namespace App\controllers;
+namespace App\Controllers;
 
-use App\Utils\Database;
-use App\Utils\JWT;
+use App\Utils\ViewLoader;
 use App\Utils\ResponseHandler;
 
 
@@ -28,7 +27,7 @@ class LoginController {
         $username = $body['username'];
         $password = $body['password'];
 
-        $database = Database::getInstance();
+        $database = \App\Utils\Database::getInstance();
 
         // Fetch user record
         $user = $database->fetchOne('SELECT * FROM user WHERE username = :username', ['username' => $username]);
@@ -40,7 +39,7 @@ class LoginController {
                 // If valid, create and return a JWT token
                 $payload = ['username' => $username, 'exp' => time() + 3600];  // Expires in 1 hour
 
-                $token = JWT::encode($payload);
+                $token = \App\Utils\JWT::encode($payload);
 
                 // Prepare user data to return
                 $userData = [
@@ -53,13 +52,16 @@ class LoginController {
                     'user' => $userData,
                     'token' => $token,
                 ]);
+                return;
             } else {
                 // If password is not valid, return an error
                 ResponseHandler::getResponseHandler()->sendResponse(401, ['error' => 'Invalid password']);
+                return;
             }
         } else {
             // If user doesn't exist, return an error
             ResponseHandler::getResponseHandler()->sendResponse(404, ['error' => 'User not found']);
+            return;
         }
     }
 

@@ -1,10 +1,10 @@
 <?php
 // DONE
-namespace App\controllers;
+namespace App\Controllers;
 
+use App\Utils\ViewLoader;
 use App\Utils\ResponseHandler;
 use App\Utils\JWT;
-use InvalidArgumentException;
 
 /**
  * Controller for the user authentication.
@@ -64,7 +64,7 @@ class AuthController {
         try {
             // decode the token
             $payload = JWT::getJWT()->decode($token);
-        } catch (InvalidArgumentException $e) {
+        } catch (\InvalidArgumentException $e) {
             ResponseHandler::getResponseHandler()->sendResponse(401, [
                 'error' => 'Unauthorized'
             ]);

@@ -1,8 +1,6 @@
 <?php 
 
-namespace App\utils;
-
-use InvalidArgumentException;
+namespace App\Utils;
 
 class JWT {
 
@@ -40,7 +38,7 @@ class JWT {
     public static function decode(string $token): array {
         
         if (preg_match("/^(?<header>.+)\.(?<payload>.+)\.(?<signature>.+)$/", $token, $matches) !== 1) {
-            throw new InvalidArgumentException('Invalid token format');
+            throw new \InvalidArgumentException('Invalid token format');
         }
 
         $signature = hash_hmac('sha256', "$matches[header].$matches[payload]", 'secret', true);
@@ -48,7 +46,7 @@ class JWT {
         $signatureFromToken = self::base64urlDecode($matches['signature']);
 
         if (!hash_equals($signature, $signatureFromToken)) {
-            throw new InvalidArgumentException('Invalid signature');
+            throw new \InvalidArgumentException('Invalid signature');
         }
 
         $payload = self::base64urlDecode($matches['payload']);

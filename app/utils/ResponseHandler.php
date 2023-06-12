@@ -1,6 +1,6 @@
 <?php
 
-namespace App\utils;
+namespace App\Utils;
 
 class ResponseHandler {
 
@@ -48,10 +48,10 @@ class ResponseHandler {
 
     /**
      * Sends a JSON response.
-     *
+     * 
      * @param int $statusCode HTTP status code.
-     * @param array $data Data to be sent.
-     *
+     * @param string $data Data to be sent.
+     * 
      * @return void
      */
     public static function sendResponse(int $statusCode, array $data): void {
