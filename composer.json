@@ -12,6 +12,8 @@
         }
     },
     "require": {
-        "zircote/swagger-php": "^4.7"
+        "zircote/swagger-php": "^4.7",
+        "ext-json": "*",
+      "ext-pdo": "*"
     }
 }

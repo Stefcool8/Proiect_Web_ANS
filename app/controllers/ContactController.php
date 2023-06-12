@@ -1,8 +1,7 @@
 <?php
 // DONE
-namespace App\Controllers;
+namespace App\controllers;
 
-use App\Utils\ViewLoader;
 use App\Utils\ResponseHandler;
 
 /**

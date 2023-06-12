@@ -1,11 +1,10 @@
 <?php
 // DONE
-namespace App\Controllers;
+namespace App\controllers;
 
-use App\Utils\ViewLoader;
 use App\Utils\ResponseHandler;
-use App\Utils\JWT;
 use App\Utils\Database;
+use Exception;
 
 /**
  * Controller for the Admin page.
@@ -125,7 +124,7 @@ class AdminController {
             $users = $db->fetchAll("SELECT * FROM user ");
 
             if (empty($users)) {
-                return ResponseHandler::getResponseHandler()->sendResponse(404, ['error' => 'Users not found']);
+                ResponseHandler::getResponseHandler()->sendResponse(404, ['error' => 'Users not found']);
             }
 
             $userArray = [];
@@ -139,11 +138,11 @@ class AdminController {
                 ];
             }
 
-            return ResponseHandler::getResponseHandler()->sendResponse(200, ['data' => $userArray]);
+            ResponseHandler::getResponseHandler()->sendResponse(200, ['data' => $userArray]);
 
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             // Handle potential exception during database deletion
-            return ResponseHandler::getResponseHandler()->sendResponse(500, ["error" => "Internal Server Error"]);
+            ResponseHandler::getResponseHandler()->sendResponse(500, ["error" => "Internal Server Error"]);
         }
     }
 
