@@ -52,6 +52,7 @@ class LoginController {
                 ResponseHandler::getResponseHandler()->sendResponse(200, [
                     'user' => $userData,
                     'token' => $token,
+                    //'uuid' => $user['uuid']
                 ]);
                 return;
             } else {

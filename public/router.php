@@ -23,6 +23,7 @@ $router->add('GET', '/api/dashboard', 'DashboardController::get');
 
 $router->add('GET', '/api/auth', 'AuthController::get');
 $router->add('GET','/api/auth/admin','AuthController::getAdmin');
+$router->add('POST','/api/auth/verifyAccess','AuthController::verifyAccess');
 
 $router->add('GET', '/api/admin','AdminController::getInfo');
 $router->add('GET','/api/admin/users','AdminController::getUsers');

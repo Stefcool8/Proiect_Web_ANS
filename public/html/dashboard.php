@@ -25,7 +25,7 @@
             <p>Dashboard, Hello</p>
         </div>
         <div>
-            <a href="/profile" class="view-profile-btn">View Profile</a>
+            <a href="/user" class="view-profile-btn">View Profile</a>
             <a href="/upload" class="create-project-btn">Create new project</a>
         </div>
                 
@@ -75,6 +75,13 @@
     <?php require_once __DIR__ . '/shared/footer.php'; ?>
 
     <script src="/public/js/dashboard.js"></script>
+    <script>
+        let user = JSON.parse(localStorage.getItem("user"));
+        //console.log(user);
+        //console.log(user.uuid);
+        const userLink = document.querySelector(".view-profile-btn");
+        userLink.href = "/user/" + user.uuid;   
+    </script>
 </body>
 
 </html>

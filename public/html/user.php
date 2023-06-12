@@ -9,6 +9,7 @@
     $userID = end($parts);
 
     require_once __DIR__ . '/shared/general.php';
+    
     $urlAPI = 'user/'.$userID;
     $result = fetch_data($urlAPI, [
         'data' => []
@@ -93,10 +94,6 @@
               <?php require_once __DIR__ . '/shared/footer.php'; ?>
         </div>
     </div>
-    <script>
-    var uuid = localStorage.getItem('uuid');
-    console.log(uuid);
-
-</script>
+    <script src="/public/js/user.js"></script>
 </body>
 </html>

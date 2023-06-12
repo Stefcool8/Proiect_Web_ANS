@@ -1,3 +1,31 @@
+document.addEventListener('DOMContentLoaded', async() => {
+    const token = localStorage.getItem('jwt');
+    if (!token) {
+        window.location.href = "/login";
+    }
+    try {
+        const response = await fetch('/api/auth/admin', {
+            method: 'GET',
+            headers: {
+                'Authorization': 'Bearer ' + token,
+                'Content-Type': 'application/json',
+            },
+        });
+
+        const result = await response.json();
+        console.log(result);
+
+        if (response.status === 401) {
+            // Unauthorized access, redirect to login page
+            window.location.href = "/home";
+            return;
+        }
+    } catch (error) {
+        // Handle any errors
+        console.error(error);
+    }
+});
+
 var deleteButtons = document.querySelectorAll(
     ".user-list .button-area a:last-child"
 );

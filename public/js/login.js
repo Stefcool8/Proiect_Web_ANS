@@ -34,8 +34,10 @@ loginForm.addEventListener('submit', async(event) => {
 
         if (response.ok) {
             // The login was successful
+            console.log(result.data);
             localStorage.setItem('jwt', result.data.token);
-
+            localStorage.setItem("user", JSON.stringify(result.data.user));
+            //console.log(result.data.user);
             // if (result.data.user['isAdmin'] == true) {
             // Redirect to the dashboard
             if (!result.data.user['isAdmin']) {
@@ -43,6 +45,7 @@ loginForm.addEventListener('submit', async(event) => {
             } else {
                 window.location.href = "/admin";
             }
+
             //}
         } else {
             // Handle the error
