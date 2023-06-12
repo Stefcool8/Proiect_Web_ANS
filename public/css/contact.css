@@ -1,0 +1,116 @@
+.contact-page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.main-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    padding: 2vh;
+}
+
+.contact-form-container {
+    width: 100%;
+    max-width: 75vh;
+    background-color: white;
+    padding: 4vh;
+    border-radius: 2vh;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    color: black;
+}
+
+.contact-form-container h2 {
+    text-align: center;
+    margin-bottom: 1vh;
+    font-size: 4vh;
+    border-bottom: 2px solid #ccc;
+    padding-bottom: 1vh;
+}
+
+.form-group {
+    margin-bottom: 1vh;
+}
+
+.contact-page label {
+    display: block;
+    margin-bottom: 0.5vh;
+    font-size: 3vh;
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.5vh;
+    border-radius: 2vh;
+    border: 1px solid #ccc;
+    font-size: 3vh;
+    box-sizing: border-box;
+    transition: all 0.3s;
+    resize: none;
+}
+
+.form-control:focus {
+    outline: none;
+    border: 1px solid #777;
+    box-shadow: 0 0 5px #777;
+}
+
+.submit-btn {
+    display: block;
+    width: 100%;
+    padding: 1vh;
+    background-color: #333;
+    color: white;
+    font-size: 3vh;
+    border: none;
+    border-radius: 2vh;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+}
+
+.alert {
+    text-align: center;
+    padding: 1vh;
+    margin-bottom: 1vh;
+    border-radius: 2vh;
+}
+
+.alert-danger {
+    color: white;
+    background-color: #ff3633;
+}
+
+.alert-success {
+    color: white;
+    background-color: #33ff9c;
+}
+
+.submit-btn:hover {
+    background-color: #444;
+    transform: scale(1.02);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.submit-btn:active {
+    background-color: #555;
+    transform: scale(0.98);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+@media screen and (max-width: 600px) {
+    .contact-form-container {
+        padding: 1rem;
+    }
+    h2 {
+        font-size: 3.5vh;
+    }
+
+    label,
+    .form-control,
+    .submit-btn {
+        font-size: 2.5vh;
+    }
+}

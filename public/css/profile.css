@@ -1,0 +1,180 @@
+.profile .main-content .user-visual {
+    position: relative;
+    width: 100%;
+    height: 20vw;
+}
+
+.profile .main-content .user-visual .user-banner {
+    max-width: 100%;
+    height: 70%;
+    overflow: hidden;
+}
+
+.profile .main-content .user-visual .user-banner img {
+    max-width: 100%;
+    height: auto;
+}
+
+.profile .main-content .user-visual .user-picture-and-controls {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 10vw;
+    display: flex;
+    bottom: 0;
+    z-index: 1;
+    background-color: transparent;
+}
+
+.profile .main-content .user-visual .user-picture-and-controls .user-picture {
+    width: 10vw;
+    height: 10vw;
+    border-radius: 50%;
+    background-image: url("../img/user.jpg");
+    background-size: cover;
+    background-position: center;
+    border-style: solid;
+    border-color: black;
+}
+
+.profile .main-content .user-visual .user-picture-and-controls .user-name-and-email {
+    max-width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transform: translateY(10%);
+    margin-left: 2vw;
+}
+
+.profile .main-content .user-visual .user-picture-and-controls .user-name-and-email h1 {
+    font-size: 2vw;
+}
+
+.profile .main-content .user-visual .user-picture-and-controls .user-name-and-email h5 {
+    font-size: 1vw;
+}
+
+.profile .main-content .user-visual .user-picture-and-controls .controls {
+    max-width: 100%;
+    height: auto;
+    display: flex;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    transform: translateY(10%);
+}
+
+.profile .main-content .user-visual .user-picture-and-controls .controls button {
+    margin-right: 2vw;
+    background-image: linear-gradient(to bottom right, cyan, #192a56);
+    color: #fff; 
+    border-radius: 20px; 
+    border: none; 
+    padding: 10px 20px; 
+    font-size: 1.3vw;
+    font-weight: bold;
+    cursor: pointer;
+    width: 10vw;
+}
+
+.profile .main-content .user-visual .user-picture-and-controls .controls button:hover {
+    background-image: linear-gradient(to bottom right, #192a56, cyan);
+}
+
+.profile .main-content .user-details {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2vw;
+    margin-top: 5vw;
+    font-size: 1.5vw;
+}
+
+.profile .main-content .user-details .input-group {
+    display: flex;
+    flex-direction: row;
+    align-items: right;
+    justify-content: space-between;
+    padding: 0.5vw;
+}
+
+.profile .main-content .user-details .input-group select {
+    width: 30vw;
+    height: 100%;
+    border-style: solid;
+    border-color: white;
+    background-color: transparent;
+    padding: 0.5vw;
+    border-radius: 5vw;
+    cursor: pointer;
+    color: white;
+    order: 2;
+    font-size: 1vw;
+}
+
+.profile .main-content .user-details .input-group select option {
+    color: black;
+}
+
+.profile .main-content .user-details .input-group label {
+    margin-right: 5vw;
+    text-align: left;
+    order: 1;
+}
+
+.profile .main-content .user-details .input-group input[type="text"], input[type="email"], textarea {
+    width: 30vw;
+    text-align: left;
+    order: 2;
+    font-size: 1vw;
+}
+
+/* Media query for small screens */
+@media only screen and (max-width: 768px) {
+    .profile .main-content .user-visual .user-picture-and-controls {
+        height: 13vw;
+    }
+    .profile .main-content .user-visual .user-picture-and-controls .user-picture {
+        height: 20vw;
+        width: 20vw;
+    }
+    .profile .main-content .user-visual .user-picture-and-controls .user-name-and-email h1 {
+        font-size: 4vw;
+    }
+    .profile .main-content .user-visual .user-picture-and-controls .user-name-and-email h5 {
+        font-size: 2vw;
+    }
+    .profile .main-content .user-visual .user-picture-and-controls .user-name-and-email {
+        transform: translateY(40%);
+    }
+    .profile .main-content .user-visual .user-picture-and-controls .controls {
+        transform: translateY(70%);
+    }
+    .profile .main-content .user-visual .user-picture-and-controls .controls button {
+        font-size: 2vw;
+        text-align: center;
+        padding: 1.5vw 2vw;
+    }
+    .profile .main-content .user-details {
+        font-size: 3vw;
+    }
+    .profile .main-content .user-details .input-group {
+        flex-direction: column; /* stack the label and input elements vertically */
+        align-items: flex-start; /* align elements to the left edge of the container */
+    }
+    .profile .main-content .user-details .input-group input[type="text"], input[type="email"], textarea {
+        width: 50vw;
+        font-size: 2.5vw;
+    }
+    .profile .main-content .user-details .input-group select {
+        width: 50vw;
+        font-size: 2.5vw;
+    }
+}
