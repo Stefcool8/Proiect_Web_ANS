@@ -6,6 +6,7 @@ use App\Utils\Database;
 use App\Utils\JWT;
 use App\Utils\ResponseHandler;
 
+use Exception;
 use SendGrid;
 use SendGrid\Mail\Mail;
 use SendGrid\Mail\TypeException;
@@ -101,4 +102,27 @@ class PasswordController {
             ResponseHandler::getResponseHandler()->sendResponse(401, ['error' => 'User not found']);
         }
     }
+
+    public function resetPassword() {
+        $body = json_decode(file_get_contents('php://input'), true);
+        $token = $body['token'];
+        $password = $body['password'];
+
+        try {
+            $decoded = JWT::getJWT()->decode($token);
+
+            $db = Database::getInstance();
+            $user = $db->fetchOne('SELECT * FROM user WHERE email = :email', ['email' => $decoded['email']]);
+
+            if ($user) {
+                $db->update('user', ['password' => password_hash($password, PASSWORD_DEFAULT)], ['id' => $user['id']]);
+                ResponseHandler::getResponseHandler()->sendResponse(200, ['message' => 'Password reset successfully']);
+            } else {
+                ResponseHandler::getResponseHandler()->sendResponse(401, ['error' => 'User not found']);
+            }
+        } catch (Exception $e) {
+            ResponseHandler::getResponseHandler()->sendResponse(401, ['error' => 'Invalid token: ' . $e->getMessage()]);
+        }
+    }
+
 }

@@ -52,16 +52,13 @@ class LoginController {
                     'user' => $userData,
                     'token' => $token,
                 ]);
-                return;
             } else {
                 // If password is not valid, return an error
                 ResponseHandler::getResponseHandler()->sendResponse(401, ['error' => 'Invalid password']);
-                return;
             }
         } else {
             // If user doesn't exist, return an error
             ResponseHandler::getResponseHandler()->sendResponse(404, ['error' => 'User not found']);
-            return;
         }
     }
 

@@ -5,7 +5,7 @@ namespace App\Utils;
 class ResponseHandler {
 
     // singleton instance
-    private static $responseHandler;
+    private static ?ResponseHandler $responseHandler = null;
 
     // singleton pattern
     private function __construct() {}
