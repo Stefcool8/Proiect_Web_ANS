@@ -6,6 +6,10 @@ use App\Utils\Database;
 use App\Utils\JWT;
 use App\Utils\ResponseHandler;
 
+use SendGrid;
+use SendGrid\Mail\Mail;
+use SendGrid\Mail\TypeException;
+
 /**
  * Controller for password operations
  *
@@ -68,19 +72,31 @@ class PasswordController {
 
         if ($user) {
             $token = JWT::encode(['email' => $email, 'exp' => time() + 3600]);  // Expires in 1 hour
+            $url = 'http://localhost/password/reset?token=' . $token;
 
-            $url = 'http://localhost:8080/password/reset?token=' . $token;
+            $template = file_get_contents('../public/assets/templates/password-reset.html');
+            $template = str_replace('{url_placeholder}', $url, $template);
 
-            // Send email with reset link
-            $to = $email;
-            $subject = 'Password reset';
-            $message = "Click on the link below to reset your password:\n\n$url";
-            $headers = 'From: ans.web.mail10@gmail.com' . "\r\n" .
-                'Reply-To:' . $email . "\r\n" . 'X-Mailer: PHP/' . phpversion();
+            try {
+                $mail = new Mail();
+                $mail->setFrom('ans.web.mail10@gmail.com', 'ANS Web');
+                $mail->setSubject('Password Reset');
+                $mail->addTo($email, $user['name']);
+                $mail->addContent(
+                    "text/html",
+                    $template
+                );
+                $sendgrid = new SendGrid(getenv('SENDGRID_API_KEY'));
+                $response = $sendgrid->send($mail);
 
-            mail($to, $subject, $message, $headers);
-
-            ResponseHandler::getResponseHandler()->sendResponse(200, ['message' => 'Password reset link sent to your email']);
+                if ($response->statusCode() === 202) {
+                    ResponseHandler::getResponseHandler()->sendResponse(200, ['message' => 'Password reset link sent successfully']);
+                } else {
+                    ResponseHandler::getResponseHandler()->sendResponse(500, ['error' => 'Internal Server Error' . $response->body()]);
+                }
+            } catch (TypeException $e) {
+                ResponseHandler::getResponseHandler()->sendResponse(500, ['error' => 'Internal Server Error' . $e->getMessage()]);
+            }
         } else {
             ResponseHandler::getResponseHandler()->sendResponse(401, ['error' => 'User not found']);
         }

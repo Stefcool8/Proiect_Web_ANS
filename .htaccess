@@ -1,3 +1,5 @@
+SetEnv SENDGRID_API_KEY "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"
+
 RewriteEngine On
 
 # Redirect the root URL to /home
