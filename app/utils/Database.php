@@ -18,7 +18,7 @@ private static ?Database $instance = null;
         $host = 'localhost';
         $dbname = 'web';
         $username = 'root';
-        $password = '';
+        $password = 'password';
 
         try {
             $this->connection = new PDO(
