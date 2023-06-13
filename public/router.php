@@ -12,7 +12,7 @@ $router->add('GET', '/api/about', 'AboutController::get');
 $router->add('GET','/api/login','LoginController::get');
 $router->add('POST','/api/login', 'LoginController::login');
 
-$router->add('GET', '/api/contact', 'ContactController::get');
+$router->add('POST', '/api/contact', 'ContactController::create');
 
 // User routes
 $router->add('POST', '/api/user', 'UserController::create');

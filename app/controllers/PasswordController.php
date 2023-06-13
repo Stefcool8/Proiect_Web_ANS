@@ -5,11 +5,9 @@ namespace App\Controllers;
 use App\Utils\Database;
 use App\Utils\JWT;
 use App\Utils\ResponseHandler;
+use App\Utils\EmailSender;
 
 use Exception;
-use SendGrid;
-use SendGrid\Mail\Mail;
-use SendGrid\Mail\TypeException;
 
 /**
  * Controller for password operations
@@ -78,26 +76,14 @@ class PasswordController {
             $template = file_get_contents('../public/assets/templates/password-reset.html');
             $template = str_replace('{url_placeholder}', $url, $template);
 
-            try {
-                $mail = new Mail();
-                $mail->setFrom('ans.web.mail10@gmail.com', 'ANS Web');
-                $mail->setSubject('Password Reset');
-                $mail->addTo($email, $user['name']);
-                $mail->addContent(
-                    "text/html",
-                    $template
-                );
-                $sendgrid = new SendGrid(getenv('SENDGRID_API_KEY'));
-                $response = $sendgrid->send($mail);
+            $clientEmailSent = EmailSender::sendEmail($email, $user['name'], 'Password Reset', $template);
 
-                if ($response->statusCode() === 202) {
-                    ResponseHandler::getResponseHandler()->sendResponse(200, ['message' => 'Password reset link sent successfully']);
-                } else {
-                    ResponseHandler::getResponseHandler()->sendResponse(500, ['error' => 'Internal Server Error' . $response->body()]);
-                }
-            } catch (TypeException $e) {
-                ResponseHandler::getResponseHandler()->sendResponse(500, ['error' => 'Internal Server Error' . $e->getMessage()]);
+            if ($clientEmailSent) {
+                ResponseHandler::getResponseHandler()->sendResponse(200, ['message' => 'Password reset link sent successfully']);
+            } else {
+                exit;
             }
+
         } else {
             ResponseHandler::getResponseHandler()->sendResponse(401, ['error' => 'User not found']);
         }

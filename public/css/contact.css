@@ -57,6 +57,10 @@
     box-shadow: 0 0 5px #777;
 }
 
+.user-cannot-see {
+    display: none
+}
+
 .submit-btn {
     display: block;
     width: 100%;
@@ -112,5 +116,9 @@
     .form-control,
     .submit-btn {
         font-size: 2.5vh;
+    }
+
+    .user-cannot-see {
+        display: none;
     }
 }
