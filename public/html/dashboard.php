@@ -24,15 +24,15 @@
         <div class="page-name">
             <p>Dashboard, Hello</p>
         </div>
-        <div>
-            <a href="/profile" class="view-profile-btn">View Profile</a>
+        <div class="profile-project-button-area">
+            <a href="/user" class="view-profile-btn">View Profile</a>
             <a href="/upload" class="create-project-btn">Create new project</a>
         </div>
                 
         <div class="project-area">
                     
             <div class = "project project-1">
-                <p>Project Name 1</p>
+                <p class = "project-name">Project Name 1</p>
                 <div class ="button-area">
                     <a href="/project/1" class="button">View</a>
                     <a href="/project/1/edit" class="button">Modify</a>
@@ -41,7 +41,7 @@
             </div>
 
             <div class = "project project-2">
-                <p>Project Name 2</p>
+                <p class = "project-name">Project Name 2</p>
                 <div class ="button-area">
                     <a href="/project/2" class="button">View</a>
                     <a href="/project/2/edit" class="button">Modify</a>
@@ -50,7 +50,7 @@
             </div>
                 
             <div class = "project project-3">
-                <p>Project Name 3</p>
+                <p class = "project-name">Project Name 3</p>
                 <div class ="button-area">
                     <a href="/project/3" class="button">View</a>
                     <a href="/project/3/edit" class="button">Modify</a>
@@ -59,7 +59,7 @@
             </div>
 
             <div class = "project project-4">
-                <p>Project Name 4</p>
+                <p class = "project-name">Project Name 4</p>
                 <div class ="button-area">
                     <a href="/project/4" class="button">View</a>
                     <a href="/project/4/edit" class="button">Modify</a>
@@ -75,6 +75,16 @@
     <?php require_once __DIR__ . '/shared/footer.php'; ?>
 
     <script src="/public/js/dashboard.js"></script>
+    <script>
+        console.log("HEY");
+console.log(localStorage.getItem("user"));
+let user = JSON.parse(localStorage.getItem("user"));
+
+const userLink = document.querySelector(".view-profile-btn");
+userLink.href = "/user/" + user.uuid;
+
+console.log(user.uuid);
+        </script>
 </body>
 
 </html>

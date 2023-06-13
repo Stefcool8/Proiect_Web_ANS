@@ -1,0 +1,88 @@
+$primary-color: #416a59;
+$secondary-color: #f2f2f2;
+$overlay-color: rgba(0, 0, 0, 0.7);
+$box-shadow-color: rgba(0, 0, 0, 0.15);
+$text-color: white;
+
+.about {
+    .main-content {
+        padding: 5vh;
+        min-height: calc(100vh - 120px);
+        display: grid;
+        grid-template-rows: auto auto auto;
+        gap: 2vh;
+    }
+
+    .show {
+        text-align: center;
+        position: relative;
+        margin: auto;
+        width: 90%;
+        height: 100%;
+        font-size: 4vw;
+        justify-content: center;
+        line-height: 8rem;
+        color: $text-color;
+    }
+
+    .central-area,
+    .left-zone,
+    .right-zone,
+    .middle-zone {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2vh;
+        width: 100%;
+        padding: 2vh;
+        background-color: $primary-color;
+        border-radius: 5px;
+        box-shadow: 0 4px 10px $box-shadow-color;
+        transition: all 0.3s ease;
+
+        &:hover {
+            box-shadow: 0 6px 20px $box-shadow-color;
+            transform: translateY(-1px);
+        }
+    }
+
+    .three-zones {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2vh;
+    }
+
+    #more,
+    #more1,
+    #more2,
+    #more3 {
+        display: none;
+        color: $text-color;
+    }
+
+    #myBtn,
+    #myBtn1,
+    #myBtn2,
+    #myBtn3 {
+        width: 12rem;
+        background-color: $secondary-color;
+        color: $overlay-color;
+        border: none;
+        cursor: pointer;
+        padding: 15px;
+        transition: all 0.3s ease;
+        font-size: 1.1rem;
+
+        &:hover {
+            background-color: lighten($primary-color, 10%);
+        }
+    }
+
+    @media screen and (max-width: 768px) {
+        .show {
+            font-size: 6vw;
+            line-height: 5rem;
+        }
+    }
+}

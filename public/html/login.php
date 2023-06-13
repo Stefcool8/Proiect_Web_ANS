@@ -11,7 +11,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Form</title>
+    <title><?= $data['title'] ?></title>
 
     <!-- css libraries -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -26,12 +26,13 @@
 </head>
 
 <body>
-    <?php require_once __DIR__ . '/shared/navbar.php'; ?>
+<?php require_once __DIR__ . '/shared/navbar.php'; ?>
 <div class="login">
     <main class="main-content">
         <div class="container">
             <h2><?= htmlspecialchars($data["title"]) ?></h2>
             <form action="/auth/login" method="post">
+                <div class="error-message hidden"></div>
                 <div class="input-group">
                     <label for="username">Username</label>
                         <input type="text" id="username" name="username" required>
@@ -48,11 +49,8 @@
             </div>
         </div>
     </main>
-    
 </div>
-
-    <?php require_once  __DIR__ . '/shared/footer.php'; ?>
-        <script src="/public/js/login.js"></script>
+<?php require_once  __DIR__ . '/shared/footer.php'; ?>
+<script src="/public/js/login.js"></script>
 </body>
-
 </html>
