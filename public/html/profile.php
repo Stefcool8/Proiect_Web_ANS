@@ -1,19 +1,16 @@
-<?php 
+<?php
 
- // Retrieve the UUID from localStorage
+$currentUrl = $_SERVER['REQUEST_URI'];
 
+// Parse the URL to extract the userID
+$parts = explode('/', $currentUrl);
+$userID = end($parts);
 
-// Use the UUID in your PHP code as needed
-    //echo "UUID: " . $uuid;
-    require_once __DIR__ . '/shared/general.php';
-    $uuid = $_COOKIE['uuid'];
-    //echo $uuid;
-    $urlAPI = 'user/'.$uuid;
-    $result = fetch_data($urlAPI, [
-        'data' => []
-    ]);
-//var_dump($result);
-
+require_once __DIR__ . '/shared/general.php';
+$urlAPI = 'user/'.$userID;
+$result = fetch_data($urlAPI, [
+    'data' => []
+]);
 ?>
 
 

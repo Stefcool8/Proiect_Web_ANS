@@ -18,6 +18,7 @@ $router->add('POST', '/api/contact', 'ContactController::create');
 $router->add('POST', '/api/user', 'UserController::create');
 $router->add('GET', '/api/user/{uuid}', 'UserController::get');
 $router->add('DELETE', '/api/user/{uuid}', 'UserController::delete');
+$router->add('PUT', '/api/user/{uuid}', 'UserController::update');
 
 $router->add('GET', '/api/dashboard', 'DashboardController::get');
 
