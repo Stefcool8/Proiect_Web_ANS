@@ -108,6 +108,7 @@
     .contact-form-container {
         padding: 1rem;
     }
+
     h2 {
         font-size: 3.5vh;
     }
@@ -116,9 +117,5 @@
     .form-control,
     .submit-btn {
         font-size: 2.5vh;
-    }
-
-    .user-cannot-see {
-        display: none;
     }
 }

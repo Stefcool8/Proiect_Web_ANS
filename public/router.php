@@ -7,25 +7,26 @@ use App\Utils\Router;
 $router = Router::getRouter();
 
 $router->add('GET', '/api/home', 'HomeController::get');
-$router->add('GET', '/api/about', 'AboutController::get');
-
-$router->add('GET','/api/login','LoginController::get');
-$router->add('POST','/api/login', 'LoginController::login');
-
 $router->add('POST', '/api/contact', 'ContactController::create');
 
-// User routes
+$router->add('GET', '/api/dashboard', 'DashboardController::get');
+$router->add('GET', '/api/admin','AdminController::getInfo');
+$router->add('GET','/api/admin/users','AdminController::getUsers');
+
 $router->add('POST', '/api/user', 'UserController::create');
 $router->add('GET', '/api/user/{uuid}', 'UserController::get');
 $router->add('DELETE', '/api/user/{uuid}', 'UserController::delete');
 $router->add('PUT', '/api/user/{uuid}', 'UserController::update');
 
-$router->add('GET', '/api/dashboard', 'DashboardController::get');
+// about us route
+$router->add('GET', '/api/about', 'AboutController::get');
 
+// login route
+$router->add('GET','/api/login','LoginController::get');
+$router->add('POST','/api/login', 'LoginController::login');
+
+// auth routes
 $router->add('GET', '/api/auth', 'AuthController::get');
-
-$router->add('GET', '/api/admin','AdminController::getInfo');
-$router->add('GET','/api/admin/users','AdminController::getUsers');
 
 $router->add('POST', '/api/password/reset', 'PasswordController::forgotPassword');
 $router->add('PUT', '/api/password/reset', 'PasswordController::resetPassword');

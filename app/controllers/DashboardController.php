@@ -7,7 +7,7 @@ use App\Utils\JWT;
 use InvalidArgumentException;
 
 /**
- * Controller for the Dashboard page.
+ * Controller for the Dashboard page
  * 
  */
 class DashboardController {

@@ -1,61 +1,84 @@
-document.addEventListener('DOMContentLoaded', async () => {
-    const token = localStorage.getItem('jwt');
-    
+document.addEventListener("DOMContentLoaded", async () => {
+    // get the jwt token from local storage
+    const token = localStorage.getItem("jwt");
+
+    // if there is no token, return and do nothing
     if (!token) {
         return;
     }
 
     try {
-        const response = await fetch('/api/auth', {
-            method: 'GET',
+        // send a request to the server to get the user's info
+        const response = await fetch("/api/auth", {
+            method: "GET",
             headers: {
-                'Authorization': 'Bearer ' + token,
-                'Content-Type': 'application/json',
+                Authorization: "Bearer " + token,
+                "Content-Type": "application/json",
             },
         });
 
-        if (response.ok) {
-            // If the token is valid, change the navbar links
-            const signInLink = document.querySelector('.navigation-links .nav-item a[href="/login"]');
-            
-            if (!signInLink) {
-                console.error('Sign in link not found');
-                return;
-            }
-            
-            signInLink.href = "/dashboard";
-            signInLink.textContent = "Dashboard";
-
-            // Assuming there's an 'i' element within the 'a' element
-            const icon = signInLink.querySelector('i');
-            if (icon) {
-                icon.className = "fas fa-tachometer-alt";
-            }
-
-            // Add sign out link
-            const signOutLink = document.createElement('li');
-            signOutLink.className = "nav-item";
-            signOutLink.innerHTML = '<a href="/logout">Sign Out<i class="fas fa-sign-out-alt"></i></a>';
-            
-            const navLinks = document.querySelector('.navigation-links');
-            if (!navLinks) {
-                console.error('Navigation links not found');
-                return;
-            }
-            navLinks.appendChild(signOutLink);
-
-            // Add event listener to the Sign Out link
-            signOutLink.querySelector('a').addEventListener('click', (e) => {
-                e.preventDefault();
-                // Remove the JWT token from the localStorage
-                localStorage.removeItem('jwt');
-                // Redirect to the home page
-                window.location.href = '/home';
-            });
+        // if the response is not ok, return and do nothing
+        if (!response.ok) {
+            return;
         }
 
+        const useNowLink = document.querySelector('a[href="/login"]');
+        const navRight = document.querySelector("#nav .right");
+
+        if (!useNowLink || !navRight) {
+            console.error("Required elements not found");
+            return;
+        }
+
+        // update 'Use it now' link to 'Dashboard'
+        useNowLink.href = "/dashboard";
+        useNowLink.querySelector(".u-nav").textContent = "Dashboard";
+
+        // create and append sign-out link
+        const signOutLink = document.createElement("a");
+        signOutLink.className = "nav-link";
+        signOutLink.href = "/logout";
+        signOutLink.innerHTML = `<span class="nav-link-span"><span class="u-nav">Sign Out</span></span>`;
+        navRight.appendChild(signOutLink);
+
+        // add event listener to the 'Sign Out' link, to remove the jwt token from local storage
+        signOutLink.addEventListener("click", (e) => {
+            e.preventDefault();
+            localStorage.removeItem("jwt");
+            localStorage.removeItem("uuid");
+            window.location.href = "/";
+        });
     } catch (error) {
-        // Handle any errors
         console.error(error);
     }
+});
+
+const util = {
+    mobileMenu: () => $("#nav").toggleClass("nav-visible"),
+    windowResize: () =>
+        $(window).width() > 800 && $("#nav").removeClass("nav-visible"),
+    scrollEvent: () => {
+        const scrollPosition = $(document).scrollTop();
+
+        $.each(util.scrollMenuIds, function (i) {
+            const link = util.scrollMenuIds[i],
+                container = $(link).attr("href"),
+                containerOffset = $(container).offset().top,
+                containerHeight = $(container).outerHeight(),
+                containerBottom = containerOffset + containerHeight;
+
+            $(link).toggleClass(
+                "active",
+                scrollPosition < containerBottom - 20 &&
+                    scrollPosition >= containerOffset - 20
+            );
+        });
+    },
+};
+
+$(document).ready(function () {
+    util.scrollMenuIds = $("a.nav-link[href]");
+    $("#menu").on("click", util.mobileMenu);
+    $(window).on("resize", util.windowResize);
+    $(document).on("scroll", util.scrollEvent);
 });

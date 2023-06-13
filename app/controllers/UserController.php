@@ -6,9 +6,9 @@ use App\Utils\ResponseHandler;
 use App\Utils\Database;
 use Exception;
 
-/**
- * Controller for User operations.
- *
+/** 
+ * Controller for User operations
+ * 
  */
 class UserController {
 
@@ -53,6 +53,14 @@ class UserController {
      *         )
      *     ),
      *     @OA\Response(
+     *         response=488,
+     *         description="Email already exists",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status_code", type="integer", example=488),
+     *             @OA\Property(property="error", type="string", example="Email already exists")
+     *         )
+     *     ), 
+     *     @OA\Response(
      *          response=500,
      *          description="Internal Server Error",
      *          @OA\JsonContent(
@@ -73,13 +81,21 @@ class UserController {
         }
 
         try {
-            // Check if username exists
             $db = Database::getInstance();
+
             $existingUser = $db->fetchOne("SELECT * FROM user WHERE username = :username", ['username' => $body['username']]);
 
+            // check if username exists
             if ($existingUser) {
                 ResponseHandler::getResponseHandler()->sendResponse(409, ["error" => "Username already exists"]);
                 exit;
+            }
+
+            $existingUser = $db->fetchOne("SELECT * FROM user WHERE email = :email", ['email' => $body['email']]);
+
+            // check if email exists
+            if ($existingUser) {
+                ResponseHandler::getResponseHandler()->sendResponse(488, ["error" => "Email already exists"]);
             }
 
             // create the user
