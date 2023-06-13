@@ -75,7 +75,7 @@ class UserController {
         $body = json_decode(file_get_contents('php://input'), true);
 
         // validate the request body
-        if (!isset($body['name']) || !isset($body['email']) || !isset($body['password']) || !isset($body['username'])) {
+        if (!isset($body['firstName']) || !isset($body['lastName']) || !isset($body['email']) || !isset($body['password']) || !isset($body['username'])) {
             ResponseHandler::getResponseHandler()->sendResponse(400, ['error' => 'Invalid request body.']);
             exit;
         }
@@ -100,7 +100,8 @@ class UserController {
 
             // create the user
             $db->insert('user', [
-                'name' => $body['name'],
+                'firstName' => $body['firstName'],
+                'lastName' => $body['lastName'],
                 'password' => password_hash($body['password'], PASSWORD_DEFAULT),
                 'email' => $body['email'],
                 'username' => $body['username'],
@@ -239,7 +240,8 @@ class UserController {
                 'data' => [
                     'uuid' => $user['uuid'],
                     'isAdmin' => $user['isAdmin'],
-                    'name' => $user['name'],
+                    'firstName' => $user['firstName'],
+                    'lastName' => $user['lastName'],
                     'email' => $user['email'],
                     'username' => $user['username']
                 ]

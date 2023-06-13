@@ -24,11 +24,15 @@
     <main class="main-content">
         <div class="container">
             <h2>Register</h2>
-            <form action="/auth/register" method="post">
+            <form>
                 <div id="error-message" class="error-message invisible"></div>
                 <div class="input-group">
-                    <label for="name">Full Name</label>
-                    <input type="text" id="name" name="name" required>
+                    <label for="first-name">First name</label>
+                    <input type="text" id="first-name" name="first-name" required>
+                </div>
+                <div class="input-group">
+                    <label for="last-name">Last name</label>
+                    <input type="text" id="last-name" name="last-name" required>
                 </div>
                 <div class="input-group">
                     <label for="username">Username</label>
