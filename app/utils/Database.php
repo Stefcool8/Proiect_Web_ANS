@@ -8,7 +8,7 @@ use PDOStatement;
 
 class Database {
 private static ?Database $instance = null;
-    private PDO $connection;
+    private ?PDO $connection;
 
     private function __construct() {
         $this->initConnection();
@@ -18,7 +18,7 @@ private static ?Database $instance = null;
         $host = 'localhost';
         $dbname = 'web';
         $username = 'root';
-        $password = '';
+        $password = 'password';
 
         try {
             $this->connection = new PDO(
@@ -53,26 +53,26 @@ private static ?Database $instance = null;
     public function insert(string $table, array $data): void {
         $columns = implode(', ', array_keys($data));
         $placeholders = ':' . implode(', :', array_keys($data));
-        $sql = "INSERT INTO {$table} ({$columns}) VALUES ({$placeholders})";
+        $sql = "INSERT INTO $table ($columns) VALUES ($placeholders)";
         $this->query($sql, $data);
     }
 
     public function update(string $table, array $data, array $conditions): void {
-        $set = implode(', ', array_map(fn($col) => "{$col} = :{$col}", array_keys($data)));
-        $where = implode(' AND ', array_map(fn($col) => "{$col} = :{$col}_cond", array_keys($conditions)));
-        $sql = "UPDATE {$table} SET {$set} WHERE {$where}";
+        $set = implode(', ', array_map(fn($col) => "$col = :$col", array_keys($data)));
+        $where = implode(' AND ', array_map(fn($col) => "$col = :{$col}_cond", array_keys($conditions)));
+        $sql = "UPDATE $table SET $set WHERE $where";
 
         $params = array_merge(
-            array_combine(array_map(fn($col) => ":{$col}", array_keys($data)), $data),
+            array_combine(array_map(fn($col) => ":$col", array_keys($data)), $data),
             array_combine(array_map(fn($col) => ":{$col}_cond", array_keys($conditions)), $conditions)
         );
 
-        $this->query($sql, $params);
+        $this->query($sql, (array)$params);
     }
 
     public function delete(string $table, array $conditions): void {
-        $where = implode(' AND ', array_map(fn($col) => "{$col} = :{$col}", array_keys($conditions)));
-        $sql = "DELETE FROM {$table} WHERE {$where}";
+        $where = implode(' AND ', array_map(fn($col) => "$col = :$col", array_keys($conditions)));
+        $sql = "DELETE FROM $table WHERE $where";
         $this->query($sql, $conditions);
     }
 
