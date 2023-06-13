@@ -30,6 +30,8 @@ loginForm.addEventListener("submit", async (event) => {
             // the login was successful
             localStorage.setItem("jwt", result.data.token);
 
+            localStorage.setItem("user", JSON.stringify(result.data.user));
+
             // redirect to dashboard
             window.location.href = "/dashboard";
         } else {

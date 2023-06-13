@@ -1,180 +1,127 @@
 .central-area {
-    padding: 4vh 0;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-    width: 100%;
-}
+  padding: 2rem 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  width: 100%; }
 
 .page-name {
-    font-size: 2rem;
-    font-weight: bold;
-    color: white;
-    margin-bottom: 1rem;
-}
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: white; }
 
-.create-project-btn {
-    color: white;
-    background-color: rgb(58, 23, 61);
-    text-align: center;
-    font-size: 1.25rem;
-    cursor: pointer;
-    padding: 0.5rem 1.5rem;
-    transition: all 0.3s;
-    border-radius: 2vh;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    text-decoration: none;
-    /* Added */
-    margin-left: 1rem;
-}
-
-.create-project-btn:hover {
-    transform: scale(1.05);
-}
-
-.view-profile-btn {
-    color: white;
-    background-color: rgb(58, 23, 61);
-    text-align: center;
-    font-size: 1.25rem;
-    cursor: pointer;
-    padding: 0.5rem 1.5rem;
-    transition: all 0.3s;
-    border-radius: 2vh;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    text-decoration: none;
-    /*margin-left: 1rem;*/
-}
-
-.view-profile-btn:hover {
-    transform: scale(1.05);
-}
-
+.create-project-btn,
+.view-profile-btn,
 .view-users-btn {
-    color: white;
-    background-color: rgb(58, 23, 61);
-    text-align: center;
-    font-size: 1.25rem;
-    cursor: pointer;
-    padding: 0.5rem 1.5rem;
-    transition: all 0.3s;
-    border-radius: 2vh;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    text-decoration: none;
-    margin-left: 1rem;
-}
-
-.view-users-btn:hover {
-    transform: scale(1.1);
-}
-
-.project-area {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 100%;
-    width: 80%;
-    gap: 3vh;
-    text-align: center;
-    position: relative;
-    margin: auto;
-    justify-content: flex-start;
-}
-
-.project {
-    background-color: rgba(255, 255, 255, 0.95);
-    height: 100%;
-    width: 100%;
-    gap: 2vh;
-    text-align: center;
-    line-height: 8vh;
-    color: rgb(83, 15, 89);
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding: 2vh;
-    border-radius: 2vh;
-}
+  margin-top: 1rem;
+  margin-left: 0.5rem;
+  font-size: 1.25rem;
+  min-width: 10rem;
+  max-width: 100%;
+  padding: 1rem;
+  color: white;
+  background: linear-gradient(45deg, #ca6c6e, #bc4749);
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s;
+  border-radius: 1vh;
+  text-decoration: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: inline-flex;
+  justify-content: center;
+  align-items: center; }
+  .create-project-btn:hover,
+  .view-profile-btn:hover,
+  .view-users-btn:hover {
+    transform: scale(1.05);
+    background: linear-gradient(45deg, #bc4749, #983839); }
 
 .button-area {
-    display: flex;
-    justify-content: space-around;
-    gap: 1vh;
-    align-items: center;
-}
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  min-height: 8rem;
+  max-height: 20%;
+  justify-content: space-around;
+  gap: 1rem;
+  padding: 1rem; }
+
+.project-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  width: 80%;
+  gap: 3rem;
+  text-align: center;
+  position: relative;
+  margin: auto;
+  justify-content: flex-start; }
+
+.project {
+  background-color: #416a59;
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  line-height: 1.5rem;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1.5rem;
+  border-radius: 1vh; }
+
+.profile-project-button-area {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  gap: 3rem;
+  align-items: center; }
 
 .button {
-    color: white;
-    background-color: rgb(58, 23, 61);
-    text-align: center;
-    font-size: 2vh;
-    cursor: pointer;
-    float: none;
-    width: 40vh;
-    padding: 0.25rem 1rem;
-    transition: all 0.3s;
-    border-radius: 2vh;
-    text-decoration: none;
-}
-
-.button:hover {
+  font-size: 1.25rem;
+  min-width: 10rem;
+  max-width: 100%;
+  padding: 1rem;
+  color: white;
+  background: linear-gradient(45deg, #ca6c6e, #bc4749);
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s;
+  border-radius: 1vh;
+  text-decoration: none;
+  box-shadow: none;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center; }
+  .button:hover {
     transform: scale(1.05);
-}
+    background: linear-gradient(45deg, #bc4749, #983839); }
+
+.project-name {
+  font-size: 2rem;
+  font-weight: bold;
+  padding: 1rem;
+  color: white; }
 
 @media screen and (max-width: 767px) {
-    .central-area {
-        flex-direction: column;
-    }
-
-    .page-name {
-        font-size: 1.5rem;
-        line-height: 1vh;
-    }
-
-    .project {
-        line-height: 4vh;
-    }
-
-    .button {
-        width: 100%;
-        font-size: 1.25rem;
-    }
-}
-
-@media screen and (max-width: 576px) {
-    .central-area {
-        padding: 2vh 0;
-    }
-
-    .page-name {
-        font-size: 1rem;
-        line-height: 1vh;
-    }
-
-    .project-area {
-        gap: 2vh;
-    }
-
-    .button {
-        padding: 1rem 1.25rem;
-        font-size: 1rem;
-    }
-}
-
-@media screen and (max-width: 375px) {
-    .page-name {
-        font-size: 1rem;
-        line-height: 12vh;
-    }
-
-    .project-area {
-        gap: 1vh;
-    }
-
-    .button {
-        padding: 0.5rem 1rem;
-        font-size: 1rem;
-    }
-}
+  .central-area {
+    padding: 1rem; }
+  .profile-project-button-area {
+    flex-direction: column;
+    gap: 1rem; }
+  .create-project-btn,
+  .view-profile-btn,
+  .view-users-btn,
+  .button {
+    margin-top: 0.5rem;
+    font-size: 1.25rem;
+    padding: 0.2rem;
+    min-width: 100%; }
+  .button-area {
+    flex-direction: column;
+    gap: 1rem; }
+  .project-name {
+    font-size: 1rem; } }

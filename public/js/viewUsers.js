@@ -49,41 +49,13 @@ viewProfileButtons.forEach(function (button) {
         console.log("UUID:", uuid);
 
         try {
-            const apiUrl = "/api/user/" + uuid;
-            const response = await fetch(apiUrl, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            });
-
-            if (response.ok) {
-                // The view was successful
-
-                localStorage.setItem("uuid", uuid);
-                document.cookie = "uuid=" + encodeURIComponent(uuid);
-                // Redirect to the dashboard
-                window.location.href = "/profile";
-                //window.location.href = "/profile." + encodeURIComponent(uuid);
-            } else {
-                // Handle the error
-                console.error(result.message);
-            }
+            // Redirect to the dashboard
+            console.log("/user/" + encodeURIComponent(uuid));
+            window.location.href = "/user/" + encodeURIComponent(uuid);
+            //window.location.href = "/profile." + encodeURIComponent(uuid);
         } catch (error) {
             // Handle any errors
             console.error(error);
         }
     });
-});
-
-var userlistContainer = document.querySelector(".user-list");
-
-userlistContainer.addEventListener("click", function (event) {
-    // Check if the click occurred within the "user-list" region
-    if (event.target.closest(".user-list")) {
-        // Code to handle the click on the "user-list" region
-
-        // Example: Log a message to the console
-        console.log("Clicked on the user-list region");
-    }
 });
