@@ -5,7 +5,8 @@ const form = document.querySelector("form");
 form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    const name = document.getElementById("name").value;
+    const firstName = document.getElementById("first-name").value;
+    const lastName = document.getElementById("last-name").value;
     const email = document.getElementById("email").value;
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
@@ -17,7 +18,8 @@ form.addEventListener("submit", async (e) => {
     }
 
     const data = {
-        name: name,
+        firstName: firstName,
+        lastName: lastName,
         email: email,
         username: username,
         password: password,
