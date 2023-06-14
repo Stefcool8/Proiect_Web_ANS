@@ -52,7 +52,7 @@ class ViewLoader {
      */
     public function loadView(string $viewPath, array $data = [], string $location = 'default'): string {
         if (!isset($this->locations[$location])) {
-            throw new InvalidArgumentException("Location {$location} does not exist.");
+            throw new InvalidArgumentException("Location $location does not exist.");
         }
 
         $output = $this->renderView('navbar', $data, "shared");
@@ -77,7 +77,7 @@ class ViewLoader {
         $path = $this->locations[$location] . $viewName . '.php';
 
         if (!file_exists($path)) {
-            throw new InvalidArgumentException("View file {$path} does not exist.");
+            throw new InvalidArgumentException("View file $path does not exist.");
         }
 
         // replace variables in the view
