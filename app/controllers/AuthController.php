@@ -137,6 +137,7 @@ class AuthController {
             ResponseHandler::getResponseHandler()->sendResponse(401, [
                 'error' => 'Unauthorized'
             ]);
+            exit;
         }
 
         $authHeader = $headers['Authorization'];
@@ -145,10 +146,11 @@ class AuthController {
         try {
             // decode the token
             $payload = JWT::getJWT()->decode($token);
-        } catch (\InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $e) {
             ResponseHandler::getResponseHandler()->sendResponse(401, [
                 'error' => 'Unauthorized'
             ]);
+            exit;
         }
         if (!$payload['isAdmin']) {
             ResponseHandler::getResponseHandler()->sendResponse(401, [
@@ -208,6 +210,7 @@ class AuthController {
             ResponseHandler::getResponseHandler()->sendResponse(401, [
                 'error' => 'Unauthorized'
             ]);
+            exit;
         }
 
         $authHeader = $headers['Authorization'];
@@ -216,10 +219,11 @@ class AuthController {
         try {
             // decode the token
             $payload = JWT::getJWT()->decode($token);
-        } catch (\InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $e) {
             ResponseHandler::getResponseHandler()->sendResponse(401, [
                 'error' => 'Unauthorized'
             ]);
+            exit;
         }
         if (!$payload['isAdmin']) {
 
@@ -239,7 +243,6 @@ class AuthController {
                 ResponseHandler::getResponseHandler()->sendResponse(401, [
                     'error' => 'Unauthorized'
                 ]);
-                return;
             }
             else{
                 ResponseHandler::getResponseHandler()->sendResponse(200, [
@@ -250,6 +253,7 @@ class AuthController {
                     ]
                 ]);
             }
+            return;
         }
         ResponseHandler::getResponseHandler()->sendResponse(200, [
             'data' => [

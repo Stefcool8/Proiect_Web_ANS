@@ -125,6 +125,7 @@ class AdminController {
 
             if (empty($users)) {
                 ResponseHandler::getResponseHandler()->sendResponse(404, ['error' => 'Users not found']);
+                exit;
             }
 
             $userArray = [];

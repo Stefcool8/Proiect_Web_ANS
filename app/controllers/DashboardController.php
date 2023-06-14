@@ -55,6 +55,7 @@ class DashboardController {
 
         if (!isset($headers['Authorization'])) {
             ResponseHandler::getResponseHandler()->sendResponse(401, ['error' => 'Unauthorized']);
+            exit;
         }
 
         try {

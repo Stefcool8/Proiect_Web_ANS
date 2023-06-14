@@ -96,6 +96,7 @@ class UserController {
             // check if email exists
             if ($existingUser) {
                 ResponseHandler::getResponseHandler()->sendResponse(488, ["error" => "Email already exists"]);
+                exit;
             }
 
             // create the user
