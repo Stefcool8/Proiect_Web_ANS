@@ -83,6 +83,13 @@
     <?php require_once __DIR__ . '/shared/footer.php'; ?>
 
     <script src="/public/js/admin.js"></script>
+    <script>
+        let user = JSON.parse(localStorage.getItem("user"));
+        //console.log(user);
+        //console.log(user.uuid);
+        const userLink = document.querySelector(".view-profile-btn");
+        userLink.href = "/user/" + user.uuid;   
+    </script>
 </body>
 
 </html>

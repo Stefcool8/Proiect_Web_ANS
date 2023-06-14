@@ -76,15 +76,12 @@
 
     <script src="/public/js/dashboard.js"></script>
     <script>
-        console.log("HEY");
-console.log(localStorage.getItem("user"));
-let user = JSON.parse(localStorage.getItem("user"));
-
-const userLink = document.querySelector(".view-profile-btn");
-userLink.href = "/user/" + user.uuid;
-
-console.log(user.uuid);
-        </script>
+        let user = JSON.parse(localStorage.getItem("user"));
+        //console.log(user);
+        //console.log(user.uuid);
+        const userLink = document.querySelector(".view-profile-btn");
+        userLink.href = "/user/" + user.uuid;
+    </script>
 </body>
 
 </html>
