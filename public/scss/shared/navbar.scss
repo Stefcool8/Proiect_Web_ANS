@@ -3,17 +3,30 @@ $color-secondary: #ff5858;
 $color-neutral-lt: #ceb98d;
 $color-neutral-med: #dfca9e;
 $color-neutral-dk: #444;
+$sections: (
+        "home": #ddd,
+        "about": #aaa,
+        "work": #888,
+        "contact": #666
+);
 $a-tags: "a, a:active, a:hover, a:visited";
 $a-tags-no-hov: "a:link, a:visited, a:active";
-$headings-font: "Saira Semi Condensed", sans-serif;
+$headings-font: "Roboto Condensed", sans-serif;
 $shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
+
+@mixin animation($name, $duration: 0.3s, $timing-function: cubic-bezier(0.17, 0.57, 0.31, 0.85)) {
+    animation-name: $name;
+    animation-duration: $duration;
+    animation-fill-mode: forwards;
+    animation-timing-function: $timing-function;
+}
 
 @mixin main-gradient {
     background: $color-primary;
     background: -webkit-linear-gradient(
-        45deg,
-        $color-primary,
-        $color-secondary
+                    45deg,
+                    $color-primary,
+                    $color-secondary
     );
     background: linear-gradient(45deg, $color-primary, $color-secondary);
 }
@@ -57,20 +70,10 @@ $shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
         height: 100vh;
     }
 
-    #home {
-        background-color: #ddd;
-    }
-
-    #about {
-        background-color: #aaa;
-    }
-
-    #work {
-        background-color: #888;
-    }
-
-    #contact {
-        background-color: #666;
+    @each $name, $color in $sections {
+        ##{$name} {
+            background-color: $color;
+        }
     }
 
     .skew {
@@ -119,10 +122,7 @@ $shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
         margin-right: auto;
 
         &:hover {
-            animation-name: logo-hover;
-            animation-duration: 0.3s;
-            animation-fill-mode: forwards;
-            animation-timing-function: cubic-bezier(0.17, 0.57, 0.31, 0.85);
+            @include animation(logo-hover);
         }
     }
 
@@ -221,7 +221,7 @@ $shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
 
     @keyframes logo-hover {
         20% {
-            padding-right: 0em;
+            padding-right: 0;
         }
         100% {
             padding-right: 5em;

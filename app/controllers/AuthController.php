@@ -80,7 +80,7 @@ class AuthController {
 
         try {
             // decode the token
-            $payload = JWT::getJWT()->decode($token);
+            JWT::getJWT()->decode($token);
         } catch (InvalidArgumentException $e) {
             ResponseHandler::getResponseHandler()->sendResponse(401, [
                 'error' => 'Unauthorized'
@@ -93,7 +93,6 @@ class AuthController {
             'message' => 'Authorized'
         ]);
     }
-
 
    /**
  * This is the OpenAPI documentation for the verifyAdmin() function.

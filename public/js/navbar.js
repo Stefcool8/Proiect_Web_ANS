@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             return;
         }
 
-        const useNowLink = document.querySelector('a[href="/login"]');
+        const useNowLink = document.querySelector("a[href='/login']");
         const navRight = document.querySelector("#nav .right");
 
         if (!useNowLink || !navRight) {
@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         signOutLink.addEventListener("click", (e) => {
             e.preventDefault();
             localStorage.removeItem("jwt");
-            localStorage.removeItem("uuid");
+            localStorage.removeItem("user");
             window.location.href = "/";
         });
     } catch (error) {
@@ -53,10 +53,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 });
 
+const $nav = $("#nav");
+
+// utils for navbar
 const util = {
-    mobileMenu: () => $("#nav").toggleClass("nav-visible"),
+    mobileMenu: () => $nav.toggleClass("nav-visible"),
     windowResize: () =>
-        $(window).width() > 800 && $("#nav").removeClass("nav-visible"),
+        $(window).width() > 800 && $nav.removeClass("nav-visible"),
     scrollEvent: () => {
         const scrollPosition = $(document).scrollTop();
 
@@ -67,15 +70,12 @@ const util = {
                 containerHeight = $(container).outerHeight(),
                 containerBottom = containerOffset + containerHeight;
 
-            $(link).toggleClass(
-                "active",
-                scrollPosition < containerBottom - 20 &&
-                    scrollPosition >= containerOffset - 20
-            );
+            $(link).toggleClass("active",scrollPosition < containerBottom - 20 && scrollPosition >= containerOffset - 20);
         });
     },
 };
 
+// add event listeners for navbar
 $(document).ready(function () {
     util.scrollMenuIds = $("a.nav-link[href]");
     $("#menu").on("click", util.mobileMenu);
