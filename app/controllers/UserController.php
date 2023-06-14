@@ -2,12 +2,12 @@
 // DONE
 namespace App\Controllers;
 
-use App\Utils\ViewLoader;
 use App\Utils\ResponseHandler;
 use App\Utils\Database;
+use Exception;
 
 /** 
- * Controller for User operations.
+ * Controller for User operations
  * 
  */
 class UserController {
@@ -53,6 +53,14 @@ class UserController {
      *         )
      *     ),
      *     @OA\Response(
+     *         response=488,
+     *         description="Email already exists",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status_code", type="integer", example=488),
+     *             @OA\Property(property="error", type="string", example="Email already exists")
+     *         )
+     *     ), 
+     *     @OA\Response(
      *          response=500,
      *          description="Internal Server Error",
      *          @OA\JsonContent(
@@ -67,22 +75,33 @@ class UserController {
         $body = json_decode(file_get_contents('php://input'), true);
 
         // validate the request body
-        if (!isset($body['name']) || !isset($body['email']) || !isset($body['password']) || !isset($body['username'])) {
-            return ResponseHandler::getResponseHandler()->sendResponse(400, ['error' => 'Invalid request body.']);
+        if (!isset($body['firstName']) || !isset($body['lastName']) || !isset($body['email']) || !isset($body['password']) || !isset($body['username'])) {
+            ResponseHandler::getResponseHandler()->sendResponse(400, ['error' => 'Invalid request body.']);
+            exit;
         }
 
         try {
-            // Check if username exists
             $db = Database::getInstance();
+
             $existingUser = $db->fetchOne("SELECT * FROM user WHERE username = :username", ['username' => $body['username']]);
-            
+
+            // check if username exists
             if ($existingUser) {
-                return ResponseHandler::getResponseHandler()->sendResponse(409, ["error" => "Username already exists"]);
+                ResponseHandler::getResponseHandler()->sendResponse(409, ["error" => "Username already exists"]);
+                exit;
+            }
+
+            $existingUser = $db->fetchOne("SELECT * FROM user WHERE email = :email", ['email' => $body['email']]);
+
+            // check if email exists
+            if ($existingUser) {
+                ResponseHandler::getResponseHandler()->sendResponse(488, ["error" => "Email already exists"]);
             }
 
             // create the user
             $db->insert('user', [
-                'name' => $body['name'],
+                'firstName' => $body['firstName'],
+                'lastName' => $body['lastName'],
                 'password' => password_hash($body['password'], PASSWORD_DEFAULT),
                 'email' => $body['email'],
                 'username' => $body['username'],
@@ -91,21 +110,21 @@ class UserController {
             ]);
 
             // send the data
-            return ResponseHandler::getResponseHandler()->sendResponse(200, ["message" => "User created successfully"]);
-        } catch (\Exception $e) {
+            ResponseHandler::getResponseHandler()->sendResponse(200, ["message" => "User created successfully"]);
+        } catch (Exception $e) {
             // Handle potential exception during database insertion
-            return ResponseHandler::getResponseHandler()->sendResponse(500, ["error" => "Internal Server Error"]);
+            ResponseHandler::getResponseHandler()->sendResponse(500, ["error" => "Internal Server Error"]);
         }
     }
 
-        /**
+    /**
      * @OA\Delete(
      *     path="/api/user/{uuid}",
      *     summary="Delete a user",
      *     operationId="deleteUser",
      *     tags={"User"},
      *     security={{"bearerAuth":{}}},
-     * 
+     *
      *     @OA\Parameter(
      *         name="uuid",
      *         in="path",
@@ -148,7 +167,8 @@ class UserController {
             $user = $db->fetchOne("SELECT * FROM user WHERE uuid = :uuid", ['uuid' => $uuid]);
 
             if (!$user) {
-                return ResponseHandler::getResponseHandler()->sendResponse(404, ['error' => 'User not found']);
+                ResponseHandler::getResponseHandler()->sendResponse(404, ['error' => 'User not found']);
+                exit;
             }
 
             // TODO: Verify if the user has the correct permissions to delete this user
@@ -156,10 +176,10 @@ class UserController {
 
             $db->delete('user', ['uuid' => $uuid]);
 
-            return ResponseHandler::getResponseHandler()->sendResponse(204, ['message' => 'User deleted successfully']);
-        } catch (\Exception $e) {
+            ResponseHandler::getResponseHandler()->sendResponse(204, ['message' => 'User deleted successfully']);
+        } catch (Exception $e) {
             // Handle potential exception during database deletion
-            return ResponseHandler::getResponseHandler()->sendResponse(500, ["error" => "Internal Server Error"]);
+            ResponseHandler::getResponseHandler()->sendResponse(500, ["error" => "Internal Server Error"]);
         }
     }
 
@@ -169,7 +189,7 @@ class UserController {
      *     summary="Retrieve user information",
      *     operationId="getUser",
      *     tags={"User"},
-     * 
+     *
      *     @OA\Parameter(
      *         name="uuid",
      *         in="path",
@@ -212,23 +232,57 @@ class UserController {
             $user = $db->fetchOne("SELECT * FROM user WHERE uuid = :uuid", ['uuid' => $uuid]);
 
             if (!$user) {
-                return ResponseHandler::getResponseHandler()->sendResponse(404, ['error' => 'User not found']);
+                ResponseHandler::getResponseHandler()->sendResponse(404, ['error' => 'User not found']);
+                exit;
             }
 
-            return ResponseHandler::getResponseHandler()->sendResponse(200, [
+            ResponseHandler::getResponseHandler()->sendResponse(200, [
                 'data' => [
                     'uuid' => $user['uuid'],
                     'isAdmin' => $user['isAdmin'],
-                    'name' => $user['name'],
+                    'firstName' => $user['firstName'],
+                    'lastName' => $user['lastName'],
                     'email' => $user['email'],
                     'username' => $user['username']
                 ]
             ]);
 
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             // Handle potential exception during database deletion
-            return ResponseHandler::getResponseHandler()->sendResponse(500, ["error" => "Internal Server Error"]);
+            ResponseHandler::getResponseHandler()->sendResponse(500, ["error" => "Internal Server Error"]);
         }
     }
 
+    public function update($uuid)
+    {
+        try {
+            $db = Database::getInstance();
+            $user = $db->fetchOne("SELECT * FROM user WHERE uuid = :uuid", ['uuid' => $uuid]);
+
+            if (!$user) {
+                ResponseHandler::getResponseHandler()->sendResponse(404, ['error' => 'User not found']);
+                exit;
+            }
+        } catch (Exception $e) {
+            // Handle potential exception during database handling
+            ResponseHandler::getResponseHandler()->sendResponse(500, ["error" => "Internal Server Error"]);
+            exit;
+        }
+
+        $data = json_decode(file_get_contents('php://input'), true);
+
+        $firstName = $data['firstName'];
+        $lastName = $data['lastName'];
+        $username = $data['username'];
+        $email = $data['email'];
+
+        $db->update('user', [
+            'firstName' => $firstName,
+            'lastName' => $lastName,
+            'username' => $username,
+            'email' => $email
+        ], ['uuid' => $uuid]);
+
+        ResponseHandler::getResponseHandler()->sendResponse(200, ['message' => 'User updated successfully']);
+    }
 }

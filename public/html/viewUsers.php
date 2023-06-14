@@ -44,20 +44,6 @@
         </div>
 
         <div class="project-area">
-
-
-        <?php
-        /*foreach ($result as $user) {
-            echo "UUID: " . $user['uuid'] . "<br>";
-            echo "Name: " . $user['name'] . "<br>";
-            echo "Email: " . $user['email'] . "<br>";
-            echo "Username: ".$user['username']."<br>";
-        }
-        */
-        ?>
-
-
-
         <div class="user-list">
             <?php foreach ($result['data'] as $user) : ?>
 

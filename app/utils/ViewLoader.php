@@ -2,6 +2,8 @@
 
 namespace App\Utils;
 
+use InvalidArgumentException;
+
 /**
  * Class for loading views.
  *
@@ -46,11 +48,11 @@ class ViewLoader {
      *
      * @return string
      *
-     * @throws \InvalidArgumentException If the given location does not exist.
+     * @throws InvalidArgumentException If the given location does not exist.
      */
     public function loadView(string $viewPath, array $data = [], string $location = 'default'): string {
         if (!isset($this->locations[$location])) {
-            throw new \InvalidArgumentException("Location {$location} does not exist.");
+            throw new InvalidArgumentException("Location {$location} does not exist.");
         }
 
         $output = $this->renderView('navbar', $data, "shared");
@@ -69,13 +71,13 @@ class ViewLoader {
      *
      * @return string Rendered view content.
      *
-     * @throws \InvalidArgumentException If the view file does not exist.
+     * @throws InvalidArgumentException If the view file does not exist.
      */
     private function renderView(string $viewName, array $data, string $location): string {
         $path = $this->locations[$location] . $viewName . '.php';
 
         if (!file_exists($path)) {
-            throw new \InvalidArgumentException("View file {$path} does not exist.");
+            throw new InvalidArgumentException("View file {$path} does not exist.");
         }
 
         // replace variables in the view

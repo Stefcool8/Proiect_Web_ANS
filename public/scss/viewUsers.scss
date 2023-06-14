@@ -1,0 +1,144 @@
+$primary-color: #bc4749;
+$background-color: #416a59;
+$font-color: white;
+$white-color: white;
+$button-transform: scale(1.05);
+
+// Mixins
+@mixin flexible-button($boxShadow: none) {
+    font-size: 1.25rem;
+    min-width: 10rem; //use rem
+    max-width: 100%; //use percentage
+    padding: 1rem;
+    color: $white-color;
+    background: linear-gradient(
+        45deg,
+        lighten($primary-color, 10%),
+        $primary-color
+    );
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    border-radius: 1vh;
+    text-decoration: none;
+    box-shadow: $boxShadow;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+
+    &:hover {
+        transform: $button-transform;
+        background: linear-gradient(
+            45deg,
+            $primary-color,
+            darken($primary-color, 10%)
+        );
+    }
+}
+
+.central-area {
+    padding: 2rem 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    width: 100%;
+}
+
+.page-name {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: $font-color;
+}
+
+.create-project-btn,
+.view-profile-btn {
+    @include flexible-button(0 4px 6px rgba(0, 0, 0, 0.1));
+}
+
+.button-area {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    min-height: 8rem;
+    max-height: 20%;
+    justify-content: space-around;
+    gap: 1rem;
+    padding: 1rem;
+}
+
+.project-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    width: 80%;
+    gap: 3rem;
+    text-align: center;
+    position: relative;
+    margin: auto;
+    justify-content: flex-start;
+}
+
+.project {
+    background-color: $background-color;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    line-height: 1.5rem;
+    color: $font-color;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 1.5rem;
+    border-radius: 1vh;
+    margin-top: 1rem;
+}
+
+.profile-project-button-area {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    gap: 3rem;
+    align-items: center;
+}
+
+.button {
+    @include flexible-button;
+}
+
+.project-name {
+    font-size: 2rem;
+    font-weight: bold;
+    padding: 1rem;
+    color: $font-color;
+}
+
+@media screen and (max-width: 767px) {
+    .central-area {
+        padding: 1rem;
+    }
+
+    .profile-project-button-area {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .create-project-btn,
+    .view-profile-btn,
+    .button {
+        font-size: 1.25rem;
+        padding: 0.2rem;
+        min-width: 100%;
+    }
+
+    .button-area {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .project-name {
+        font-size: 1rem;
+    }
+}

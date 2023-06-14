@@ -2,12 +2,12 @@
 // DONE
 namespace App\Controllers;
 
-use App\Utils\ViewLoader;
 use App\Utils\ResponseHandler;
 use App\Utils\JWT;
+use InvalidArgumentException;
 
 /**
- * Controller for the Dashboard page.
+ * Controller for the Dashboard page
  * 
  */
 class DashboardController {
@@ -54,7 +54,7 @@ class DashboardController {
         $headers = apache_request_headers();
 
         if (!isset($headers['Authorization'])) {
-            return ResponseHandler::getResponseHandler()->sendResponse(401, ['error' => 'Unauthorized']);
+            ResponseHandler::getResponseHandler()->sendResponse(401, ['error' => 'Unauthorized']);
         }
 
         try {
@@ -63,15 +63,15 @@ class DashboardController {
             // decode the token
             $payload = JWT::getJWT()->decode($token);
             // send the data
-            return ResponseHandler::getResponseHandler()->sendResponse(200, [
+            ResponseHandler::getResponseHandler()->sendResponse(200, [
                 'data' => [
                     'title' => 'Dashboard',
                     'username' => $payload['username'],
                     'isAdmin' => $payload['isAdmin']
                 ]
             ]);
-        } catch (\InvalidArgumentException $e) {
-            return ResponseHandler::getResponseHandler()->sendResponse(401, ['error' => 'Unauthorized']);
+        } catch (InvalidArgumentException $e) {
+            ResponseHandler::getResponseHandler()->sendResponse(401, ['error' => 'Unauthorized']);
         }
     }
 }

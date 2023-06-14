@@ -30,8 +30,8 @@
     <div class="contact-page">
         <main class="main-content">
             <div class="contact-form-container">
-                <h2><?= htmlspecialchars($data["title"]) ?></h2>
-                <form method="POST" id="contact-form">
+                <h2>Contact Us</h2>
+                <form id="contact-form" method="POST">
                     <div class="alert" id="form-alert" style="display:none; transition: opacity 1s;"></div>
                     <div class="form-group">
                         <label for="name">Name</label>
@@ -49,7 +49,12 @@
                         <label for="message">Message</label>
                         <textarea id="message" name="message" rows="5" class="form-control" required></textarea>
                     </div>
-        
+
+                    <div class="user-cannot-see"> <!-- Honeypot -->
+                        <label for="nickname" aria-hidden="true"> Nickname </label>
+                        <input type="text" name="nickname" id="nickname" tabindex="-1" autocomplete="off">
+                    </div>
+
                     <button type="submit" id="submit" name="submit" class="submit-btn">Send Message</button>
                 </form>
             </div>

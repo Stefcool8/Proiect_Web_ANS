@@ -1,63 +1,31 @@
-function myFunction() {
-    var dots = document.getElementById("dots");
-    var moreText = document.getElementById("more");
-    var buttonnText = document.getElementById("myBtn");
+function toggleReadMore(dotsId, moreTextId, buttonId) {
+    var dots = document.getElementById(dotsId);
+    var moreText = document.getElementById(moreTextId);
+    var button = document.getElementById(buttonId);
 
     if (dots.style.display === "none") {
         dots.style.display = "inline";
-        buttonnText.innerHTML = "Read more";
+        button.innerHTML = "Read more";
         moreText.style.display = "none";
     } else {
         dots.style.display = "none";
-        buttonnText.innerHTML = "Read less";
+        button.innerHTML = "Read less";
         moreText.style.display = "inline";
     }
 }
 
-function myFunction1() {
-    var dots = document.getElementById("dots1");
-    var moreText = document.getElementById("more1");
-    var buttonnText = document.getElementById("myBtn1");
+document.getElementById("myBtn").onclick = function () {
+    toggleReadMore("dots", "more", "myBtn");
+};
 
-    if (dots.style.display === "none") {
-        dots.style.display = "inline";
-        buttonnText.innerHTML = "Read more";
-        moreText.style.display = "none";
-    } else {
-        dots.style.display = "none";
-        buttonnText.innerHTML = "Read less";
-        moreText.style.display = "inline";
-    }
-}
+document.getElementById("myBtn1").onclick = function () {
+    toggleReadMore("dots1", "more1", "myBtn1");
+};
 
-function myFunction2() {
-    var dots = document.getElementById("dots2");
-    var moreText = document.getElementById("more2");
-    var buttonnText = document.getElementById("myBtn2");
+document.getElementById("myBtn2").onclick = function () {
+    toggleReadMore("dots2", "more2", "myBtn2");
+};
 
-    if (dots.style.display === "none") {
-        dots.style.display = "inline";
-        buttonnText.innerHTML = "Read more";
-        moreText.style.display = "none";
-    } else {
-        dots.style.display = "none";
-        buttonnText.innerHTML = "Read less";
-        moreText.style.display = "inline";
-    }
-}
-
-function myFunction3() {
-    var dots = document.getElementById("dots3");
-    var moreText = document.getElementById("more3");
-    var buttonnText = document.getElementById("myBtn3");
-
-    if (dots.style.display === "none") {
-        dots.style.display = "inline";
-        buttonnText.innerHTML = "Read more";
-        moreText.style.display = "none";
-    } else {
-        dots.style.display = "none";
-        buttonnText.innerHTML = "Read less";
-        moreText.style.display = "inline";
-    }
-}
+document.getElementById("myBtn3").onclick = function () {
+    toggleReadMore("dots3", "more3", "myBtn3");
+};

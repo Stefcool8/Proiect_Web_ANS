@@ -5,7 +5,7 @@ namespace App\Utils;
 class ResponseHandler {
 
     // singleton instance
-    private static $responseHandler;
+    private static ?ResponseHandler $responseHandler = null;
 
     // singleton pattern
     private function __construct() {}
@@ -48,10 +48,10 @@ class ResponseHandler {
 
     /**
      * Sends a JSON response.
-     * 
+     *
      * @param int $statusCode HTTP status code.
-     * @param string $data Data to be sent.
-     * 
+     * @param array $data Data to be sent.
+     *
      * @return void
      */
     public static function sendResponse(int $statusCode, array $data): void {

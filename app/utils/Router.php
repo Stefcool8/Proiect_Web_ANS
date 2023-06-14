@@ -141,7 +141,7 @@ class Router {
         $pattern = preg_replace('/{(\w+)}/', '(?P<$1>[^/]+)', $pattern);
 
         // return the converted regular expression pattern
-        return "@^{$pattern}$@D";
+        return "@^$pattern$@D";
     }
 
 }

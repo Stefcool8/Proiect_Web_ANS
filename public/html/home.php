@@ -20,9 +20,9 @@
     <link rel="icon" href="/public/assets/img/favicon.png">
 
     <link rel="stylesheet" href="/public/css/index.css">
-    <link rel="stylesheet" href="/public/css/home.css">
     <link rel="stylesheet" href="/public/css/shared/navbar.css">
-    <link rel="stylesheet" href="/public/css/shared/footer.css">
+        <link rel="stylesheet" href="/public/css/shared/footer.css">
+    <link rel="stylesheet" href="/public/css/home.css">
 
     <!-- javascript libraries -->
     <script src="https://www.youtube.com/iframe_api"></script>

@@ -1,104 +1,86 @@
 .about .main-content {
-    padding: 4vh;
-    min-height: calc(100vh - 114px);
+    padding: 5vh;
+    min-height: calc(100vh - 120px);
     display: grid;
     grid-template-rows: auto auto auto;
-    gap: 1vh;
+    gap: 2vh;
 }
 
 .about .show {
     text-align: center;
     position: relative;
     margin: auto;
-    width: 100%;
+    width: 90%;
     height: 100%;
-    font-size: 5vw;
+    font-size: 4vw;
     justify-content: center;
-    line-height: 10rem;
-}
-
-.about .my-element {
-    background-image: linear-gradient(45deg, rgb(57, 57, 87), rgb(58, 23, 61));
-    background-repeat: no-repeat;
-    background-size: 100%;
-    background-position: 0 center;
-    height: 100%;
+    line-height: 8rem;
+    color: white;
 }
 
 .about .central-area,
-.about .three-zones,
 .about .left-zone,
 .about .right-zone,
 .about .middle-zone {
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 2vh;
-    background-color: rgba(0, 0, 0, 0.5);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-}
-
-.about .central-area {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 1vh;
+    gap: 2vh;
     width: 100%;
-    height: auto;
+    padding: 2vh;
+    background-color: #416a59;
+    border-radius: 5px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+}
+
+.about .central-area:hover,
+.about .left-zone:hover,
+.about .right-zone:hover,
+.about .middle-zone:hover {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    transform: translateY(-1px);
 }
 
 .about .three-zones {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1vh;
+    gap: 2vh;
 }
 
-.about .left-zone,
-.about .right-zone,
-.about .middle-zone {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 1vh;
-    width: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
-}
-
-#more {
+.about #more,
+.about #more1,
+.about #more2,
+.about #more3 {
     display: none;
+    color: white;
 }
 
-#more1 {
-    display: none;
+.about #myBtn,
+.about #myBtn1,
+.about #myBtn2,
+.about #myBtn3 {
+    width: 12rem;
+    background-color: #f2f2f2;
+    color: rgba(0, 0, 0, 0.7);
+    border: none;
+    cursor: pointer;
+    padding: 15px;
+    transition: all 0.3s ease;
+    font-size: 1.1rem;
 }
 
-#more2 {
-    display: none;
-}
-
-#more3 {
-    display: none;
-}
-
-#myBtn {
-    width: 10rem;
-}
-
-#myBtn1 {
-    width: 10rem;
-}
-
-#myBtn2 {
-    width: 10rem;
-}
-
-#myBtn3 {
-    width: 10rem;
+.about #myBtn:hover,
+.about #myBtn1:hover,
+.about #myBtn2:hover,
+.about #myBtn3:hover {
+    background-color: #548a74;
 }
 
 @media screen and (max-width: 768px) {
     .about .show {
-        font-size: 8vw;
+        font-size: 6vw;
+        line-height: 5rem;
     }
 }

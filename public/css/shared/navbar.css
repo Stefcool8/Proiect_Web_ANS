@@ -1,131 +1,129 @@
-.navbar {
-    display: flex;
-    align-items: center;
-    padding: 0.5rem;
-    background: #8B3A3A;
-}
-
-.logo-container {
-    display: flex;
-    width: 100%;
-}
-
-.logo-link img {
-    height: auto;
-    width: 7vw;
-    transition: all 0.3s ease;
-}
-
-.logo-link img:hover {
-    transform: scale(1.1) rotate(10deg);
-    filter: drop-shadow(0.2vh 0.4vh 0.6vh rgba(0, 0, 0, 1));
-}
-
-.navigation-links {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    list-style-type: none;
-}
-
-.nav-item {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0 1rem;
-    white-space: nowrap;
-}
-
-.navigation-links i {
-    margin-left: 1vw;
-}
-
-.navigation-links a {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #ceb98d;
-    text-decoration: none;
-    text-align: center;
-    font-size: 1.25rem;
-    padding: 1.5vh;
-    position: relative;
-    overflow: hidden;
-    transition: all 0.5s ease;
-}
-
-.navigation-links a:hover {
-    border-radius: 1.5vh;
-    transform: scale(1.05);
-    letter-spacing: 0.1vh;
-    color: #ceb98d;
-    background-color: #C44C51;
-    box-shadow: 0 0.2vh 0.5vh rgba(0, 0, 0, 1);
-}
-
-.navigation-links a::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 0.5vh;
+#nav-wrapper {
+  z-index: 1;
+  overflow: hidden;
+  width: 100%;
+  margin: 0 auto; }
+  #nav-wrapper button {
+    background: none;
+    box-shadow: none;
+    border: none;
+    cursor: pointer; }
+  #nav-wrapper button:focus,
+  #nav-wrapper input:focus {
+    outline: 0; }
+  #nav-wrapper html {
+    scroll-behavior: smooth; }
+  #nav-wrapper section {
+    height: 100vh; }
+  #nav-wrapper #home {
+    background-color: #ddd; }
+  #nav-wrapper #about {
+    background-color: #aaa; }
+  #nav-wrapper #work {
+    background-color: #888; }
+  #nav-wrapper #contact {
+    background-color: #666; }
+  #nav-wrapper .skew {
+    transform: skew(-20deg); }
+  #nav-wrapper .un-skew {
+    transform: skew(20deg); }
+  #nav-wrapper #nav {
     background-color: #ceb98d;
-    transform: translateX(-100%);
-    transition: transform 0.3s ease;
-}
+    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    font-family: "Saira Semi Condensed", sans-serif;
+    height: 4em;
+    overflow: hidden; }
+    #nav-wrapper #nav.nav-visible {
+      height: 100%;
+      overflow: auto; }
+  #nav-wrapper .nav {
+    display: flex;
+    height: 4em;
+    line-height: 4em;
+    flex-grow: 1; }
+  #nav-wrapper .nav-link {
+    padding: 0 1em; }
+  #nav-wrapper .logo {
+    padding: 0 1em;
+    margin: 0.75em 0; }
+  #nav-wrapper div.gradient {
+    background: #bc4749;
+    background: -webkit-linear-gradient(45deg, #bc4749, #ff5858);
+    background: linear-gradient(45deg, #bc4749, #ff5858);
+    padding: 0 1em;
+    position: relative;
+    right: 1em;
+    margin-right: auto; }
+    #nav-wrapper div.gradient:hover {
+      animation-name: logo-hover;
+      animation-duration: 0.3s;
+      animation-fill-mode: forwards;
+      animation-timing-function: cubic-bezier(0.17, 0.57, 0.31, 0.85); }
+  #nav-wrapper h1.logo {
+    font-weight: 300;
+    font-size: 1.75em;
+    line-height: 0.75em;
+    color: #dfca9e; }
+  #nav-wrapper h1.logo a, #nav-wrapper a:active, #nav-wrapper a:hover, #nav-wrapper a:visited {
+    text-decoration: none;
+    color: white; }
+  #nav-wrapper .nav-link {
+    text-transform: uppercase;
+    text-align: center;
+    border-top: 0.5px solid #dfca9e; }
+  #nav-wrapper a:link, #nav-wrapper a:visited, #nav-wrapper a:active {
+    text-decoration: none;
+    color: white; }
+  #nav-wrapper a:hover {
+    text-decoration: underline; }
+  #nav-wrapper .right {
+    display: flex;
+    flex-direction: column;
+    height: 100%; }
+  #nav-wrapper .btn-nav {
+    color: white;
+    padding-left: 2em;
+    padding-right: 2em; }
+  @media (min-width: 768px) {
+    #nav-wrapper {
+      overflow: hidden; }
+      #nav-wrapper #nav {
+        overflow: hidden;
+        flex-direction: row; }
+      #nav-wrapper .nav-link {
+        border-top: none; }
+      #nav-wrapper .right {
+        overflow: hidden;
+        flex-direction: row;
+        justify-content: flex-end;
+        position: relative;
+        left: 1.5em;
+        height: auto; }
+      #nav-wrapper .btn-nav {
+        display: none; }
+      #nav-wrapper .nav a:link.active, #nav-wrapper a:visited.active, #nav-wrapper a:active.active {
+        background: #bc4749;
+        background: -webkit-linear-gradient(45deg, #bc4749, #ff5858);
+        background: linear-gradient(45deg, #bc4749, #ff5858);
+        color: white; }
+      #nav-wrapper .nav-link-span {
+        transform: skew(20deg);
+        display: inline-block; }
+      #nav-wrapper .nav-link {
+        transform: skew(-20deg);
+        color: #777;
+        text-decoration: none; }
+        #nav-wrapper .nav-link:last-child {
+          padding-right: 3em; }
+      #nav-wrapper a:hover.nav-link:not(.active) {
+        color: #444;
+        background: #dfca9e;
+        background: linear-gradient(45deg, #ceb98d, #ddd); } }
 
-.navigation-links a:hover::after {
-    transform: translateX(0%);
-}
-
-@media screen and (max-width: 826px) {
-
-    .navbar {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .logo-container {
-        justify-content: center;
-        width: 100%;
-    }
-
-    .logo-link img {
-        width: 10vw;
-        height: auto;
-        max-width: 200px;
-    }
-
-    .navigation-links {
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .nav-item {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 30%;
-        margin-top: 1rem;
-    }
-
-    .navigation-links a {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 0.5rem;
-    }
-}
-
-@media screen and (min-width: 1824px) {
-    .logo-link img {
-        width: 5vw;
-    }
-
-    .navigation-links a {
-        padding: 0.5rem 2rem;
-        font-size: 1.5rem;
-    }
-}
+@keyframes logo-hover {
+  20% {
+    padding-right: 0em; }
+  100% {
+    padding-right: 5em; } }
