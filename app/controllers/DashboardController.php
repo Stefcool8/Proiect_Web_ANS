@@ -1,9 +1,9 @@
 <?php
 // DONE
-namespace App\Controllers;
+namespace App\controllers;
 
-use App\Utils\ResponseHandler;
-use App\Utils\JWT;
+use App\utils\ResponseHandler;
+use App\utils\JWT;
 use InvalidArgumentException;
 
 /**

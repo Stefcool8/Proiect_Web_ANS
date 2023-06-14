@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Controllers;
+namespace App\controllers;
 
-use App\Utils\Database;
-use App\Utils\JWT;
-use App\Utils\ResponseHandler;
-use App\Utils\EmailSender;
+use App\utils\Database;
+use App\utils\JWT;
+use App\utils\ResponseHandler;
+use App\utils\EmailSender;
 
 use Exception;
 

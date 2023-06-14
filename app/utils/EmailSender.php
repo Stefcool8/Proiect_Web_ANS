@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Utils;
+namespace App\utils;
 
 use SendGrid;
 use SendGrid\Mail\Mail;
