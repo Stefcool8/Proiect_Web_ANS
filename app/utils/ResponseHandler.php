@@ -24,29 +24,6 @@ class ResponseHandler {
     }
 
     /**
-     * Sends a View response.
-     * 
-     * @param int $statusCode HTTP status code.
-     * @param string $content Content of the response.
-     * @param array $scripts Scripts to be loaded.
-     * 
-     * @return void
-     */
-    public static function sendView(int $statusCode, string $content, array $scripts = []): void {
-        $response = [
-            "status_code" => $statusCode,
-            "content" => $content,
-            "scripts" => $scripts
-        ];
-
-        header('Content-Type: application/json');
-        http_response_code($statusCode);
-
-        echo json_encode($response);
-        exit();
-    }
-
-    /**
      * Sends a JSON response.
      *
      * @param int $statusCode HTTP status code.
