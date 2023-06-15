@@ -5,6 +5,7 @@ namespace App\controllers;
 use App\utils\ResponseHandler;
 use App\utils\JWT;
 use InvalidArgumentException;
+use App\Utils\Database;
 
 /**
  * Controller for the Dashboard page
@@ -30,7 +31,9 @@ class DashboardController {
      *                 type="object",
      *                 @OA\Property(property="title", type="string", example="Dashboard"),
      *                 @OA\Property(property="username", type="string", example="user"),
-     *                 @OA\Property(property="isAdmin",type="boolean", example ="false")
+     *                 @OA\Property(property="isAdmin",type="boolean", example ="false"),
+     *                 @OA\Property(property="uuid",type="string", example ="userId")
+     *                  
      *             )
      *         )
      *     ),
@@ -64,11 +67,15 @@ class DashboardController {
             // decode the token
             $payload = JWT::getJWT()->decode($token);
             // send the data
+            $db = Database::getInstance();
+            $currentUser = $db->fetchOne("SELECT * FROM user WHERE username = :username", ['username' => $payload['username']]);
+            
             ResponseHandler::getResponseHandler()->sendResponse(200, [
                 'data' => [
                     'title' => 'Dashboard',
                     'username' => $payload['username'],
-                    'isAdmin' => $payload['isAdmin']
+                    'isAdmin' => $payload['isAdmin'],
+                    'uuid' => $currentUser['uuid']
                 ]
             ]);
         } catch (InvalidArgumentException $e) {

@@ -25,10 +25,17 @@ document.addEventListener('DOMContentLoaded', async() => {
         //console.log(result)
 
         if (response.ok) {
-            //console.log(result.data.data.username)
+            console.log(result);
             // Populate the dashboard with the user data
             document.querySelector('.page-name p').textContent = 'Dashboard, Hello ' + result.data.data.username;
             // Fill in other parts of the page using result.data
+            //let user = JSON.parse(localStorage.getItem("user"));
+            //console.log(user);
+            //console.log(user.uuid);
+            const userLink = document.querySelector(".view-profile-btn");
+            //userLink.href = "/user/" + user.uuid;
+            userLink.href = "/user/" + result.data.data.uuid;
+
         } else {
             // Handle the error
             console.error(result.message);
