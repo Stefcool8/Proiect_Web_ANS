@@ -47,7 +47,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 });
 
 const $nav = $("#nav");
-
 const util = {
     mobileMenu: () => $nav.toggleClass("nav-visible"),
     windowResize: () => $(window).width() > 800 && $nav.removeClass("nav-visible"),
@@ -72,7 +71,6 @@ const util = {
             }
         });
     },
-
 };
 
 $(document).ready(function () {
