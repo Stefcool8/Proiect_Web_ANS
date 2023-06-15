@@ -1,9 +1,8 @@
-<?php 
-    require_once __DIR__ . '/shared/general.php';
-    $data = fetch_data('login', [
-        'title' => 'Default title'
-    ]);
-
+<?php
+require_once __DIR__ . '/shared/general.php';
+$data = fetch_data('login', [
+    'title' => 'Default title'
+]);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,8 +23,9 @@
     <link rel="stylesheet" href="/public/css/shared/footer.css">
     <link rel="stylesheet" href="/public/css/login.css">
 </head>
-
 <body>
+<script src="/public/js/helper/logged.js">
+</script>
 <?php require_once __DIR__ . '/shared/navbar.php'; ?>
 <div class="login">
     <main class="main-content">
@@ -33,15 +33,16 @@
             <h2><?= htmlspecialchars($data["title"]) ?></h2>
             <form action="/auth/login" method="post">
                 <div class="error-message hidden"></div>
+                <div class="success-message hidden"></div>
                 <div class="input-group">
                     <label for="username">Username</label>
-                        <input type="text" id="username" name="username" required>
-                    </div>
-                    <div class="input-group">
-                        <label for="password">Password</label>
-                        <input type="password" id="password" name="password" required>
-                    </div>
-                    <button type="submit">Log In</button>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit">Log In</button>
             </form>
             <div class="signup-link">
                 <p>Don't have an account? <a href="/register">Sign up</a></p>
@@ -50,7 +51,7 @@
         </div>
     </main>
 </div>
-<?php require_once  __DIR__ . '/shared/footer.php'; ?>
+<?php require_once __DIR__ . '/shared/footer.php'; ?>
 <script src="/public/js/login.js"></script>
 </body>
 </html>
