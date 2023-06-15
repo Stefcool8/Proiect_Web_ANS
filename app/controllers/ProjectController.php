@@ -6,6 +6,7 @@ use App\Utils\ResponseHandler;
 use App\Utils\Database;
 use App\Utils\JWT;
 use Exception;
+use InvalidArgumentException;
 
 
 /** 
@@ -86,7 +87,7 @@ use Exception;
         try {
             // decode the token
             $payload = JWT::getJWT()->decode($token);
-        } catch (\InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $e) {
             ResponseHandler::getResponseHandler()->sendResponse(401, [
                 'error' => 'Unauthorized'
             ]);
@@ -208,7 +209,7 @@ use Exception;
         try {
             // decode the token
             $payload = JWT::getJWT()->decode($token);
-        } catch (\InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $e) {
             ResponseHandler::getResponseHandler()->sendResponse(401, [
                 'error' => 'Unauthorized'
             ]);
@@ -308,7 +309,7 @@ use Exception;
         try {
             // decode the token
             $payload = JWT::getJWT()->decode($token);
-        } catch (\InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $e) {
             ResponseHandler::getResponseHandler()->sendResponse(401, [
                 'error' => 'Unauthorized'
             ]);
@@ -358,5 +359,58 @@ use Exception;
             exit;
         }
     }
+
+    public function gets() {
+        $headers = apache_request_headers();
+
+        if (!isset($headers['Authorization'])) {
+            ResponseHandler::getResponseHandler()->sendResponse(401, [
+                'error' => 'Unauthorized'
+            ]);
+        }
+
+        $authHeader = $headers['Authorization'];
+        $token = str_replace('Bearer ', '', $authHeader);
+
+        try {
+            // decode the token
+            $payload = JWT::getJWT()->decode($token);
+        } catch (InvalidArgumentException $e) {
+            ResponseHandler::getResponseHandler()->sendResponse(401, [
+                'error' => 'Unauthorized'
+            ]);
+            exit;
+        }
+        try {
+            $db = Database::getInstance();
+
+            $currentUser = $db->fetchOne("SELECT * FROM user WHERE username = :username", ['username' => $payload['username']]);
+
+            // fetch all projects for this user
+            $projects = $db->fetchAll("SELECT * FROM project WHERE uuidUser = :uuidUser", ['uuidUser' => $currentUser['uuid']]);
+
+            // if there are no projects, return a message indicating this
+            if (!$projects) {
+                ResponseHandler::getResponseHandler()->sendResponse(404, ['error' => 'No projects found for this user']);
+                exit;
+            }
+
+            // build the project data for the response
+            $projectData = [];
+            foreach($projects as $project) {
+                $projectData[] = [
+                    'name' => $project['name'],
+                    'chart' => $project['chart'],
+                    'uuid' => $project['uuid']
+                ];
+            }
+
+            ResponseHandler::getResponseHandler()->sendResponse(200, ['projects' => $projectData]);
+
+        } catch (Exception $e) {
+            ResponseHandler::getResponseHandler()->sendResponse(500, ["error" => "Internal Server Error"]);
+        }
+    }
+
  }
 
