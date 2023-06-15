@@ -28,7 +28,7 @@
     <link rel="stylesheet" href="/public/css/user.css">
     <link rel="stylesheet" href="/public/css/shared/footer.css">
     <link rel="icon" href="/public/assets/img/favicon.png">
-    <script src="/public/js/navbar.js" defer></script>
+    <script src="/public/js/shared/navbar.js" defer></script>
     <script src="/public/js/footer.js" defer></script>
     <title>User Profile</title>
 </head>

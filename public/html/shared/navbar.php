@@ -16,4 +16,4 @@
         </div>
     </nav>
 </header>
-<script src="/public/js/navbar.js"></script>
+<script src="/public/js/shared/navbar.js"></script>

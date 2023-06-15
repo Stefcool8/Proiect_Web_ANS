@@ -6,13 +6,18 @@ use App\Utils\Router;
 
 $router = Router::getRouter();
 
+// home routes
 $router->add('GET', '/api/home', 'HomeController::get');
+
+// contact routes
 $router->add('POST', '/api/contact', 'ContactController::create');
 
+// dashboard routes
 $router->add('GET', '/api/dashboard', 'DashboardController::get');
 $router->add('GET', '/api/admin','AdminController::getInfo');
 $router->add('GET','/api/admin/users','AdminController::getUsers');
 
+// user routes
 $router->add('POST', '/api/user', 'UserController::create');
 $router->add('GET', '/api/user/{uuid}', 'UserController::get');
 $router->add('DELETE', '/api/user/{uuid}', 'UserController::delete');
@@ -34,6 +39,7 @@ $router->add('GET', '/api/auth', 'AuthController::get');
 $router->add('GET','/api/auth/admin','AuthController::getAdmin');
 $router->add('POST','/api/auth/verifyAccess','AuthController::verifyAccess');
 
+// password routes
 $router->add('POST', '/api/password/reset', 'PasswordController::forgotPassword');
 $router->add('PUT', '/api/password/reset', 'PasswordController::resetPassword');
 
