@@ -78,6 +78,7 @@ use Exception;
             ResponseHandler::getResponseHandler()->sendResponse(401, [
                 'error' => 'Unauthorized'
             ]);
+            exit;
         }
 
         $authHeader = $headers['Authorization'];
@@ -90,6 +91,7 @@ use Exception;
             ResponseHandler::getResponseHandler()->sendResponse(401, [
                 'error' => 'Unauthorized'
             ]);
+            exit;
         }
        
         try {
@@ -107,6 +109,7 @@ use Exception;
         } catch (Exception $e) {
             // Handle potential exception during database insertion
             ResponseHandler::getResponseHandler()->sendResponse(500, ["error" => "Internal Server Error"]);
+            exit;
         }
 
 
@@ -137,9 +140,11 @@ use Exception;
 
             // send the data
             ResponseHandler::getResponseHandler()->sendResponse(200, ["message" => "Project created successfully"]);
+            exit;
         } catch (Exception $e) {
             // Handle potential exception during database insertion
             ResponseHandler::getResponseHandler()->sendResponse(500, ["error" => "Internal Server Error"]);
+            exit;
         }
     }
 
@@ -222,6 +227,12 @@ use Exception;
 
             $currentUser = $db->fetchOne("SELECT * FROM user WHERE username = :username", ['username' => $payload['username']]);
             
+            if($currentUser['isAdmin']){
+                $db->delete('project', ['uuid' => $uuid]);
+                ResponseHandler::getResponseHandler()->sendResponse(204, ['message' => 'Project deleted successfully']);
+                exit;
+            }
+
             if($currentUser['uuid'] != $project['uuidUser']){
                 ResponseHandler::getResponseHandler()->sendResponse(401, [
                     'error' => 'Unauthorized'
@@ -232,9 +243,11 @@ use Exception;
 
             $db->delete('project', ['uuid' => $uuid]);
             ResponseHandler::getResponseHandler()->sendResponse(204, ['message' => 'Project deleted successfully']);
+            exit;
         } catch (Exception $e) {
             // Handle potential exception during database deletion
             ResponseHandler::getResponseHandler()->sendResponse(500, ["error" => "Internal Server Error"]);
+            exit;
         }
     }
 
@@ -313,6 +326,17 @@ use Exception;
 
             $currentUser = $db->fetchOne("SELECT * FROM user WHERE username = :username", ['username' => $payload['username']]);
             
+            if($currentUser['isAdmin']){
+                ResponseHandler::getResponseHandler()->sendResponse(200, [
+                    'data' => [
+                        'name' => $project['name'],
+                        'chart' => $project['chart'],
+                        'uuidUser' => $project['uuidUser']
+                    ]
+                ]);
+                exit;
+            }
+
             if($currentUser['uuid'] != $project['uuidUser']){
                 ResponseHandler::getResponseHandler()->sendResponse(401, [
                     'error' => 'Unauthorized'
@@ -327,10 +351,12 @@ use Exception;
                     'uuidUser' => $project['uuidUser']
                 ]
             ]);
+            exit;
 
         } catch (Exception $e) {
             // Handle potential exception during database deletion
             ResponseHandler::getResponseHandler()->sendResponse(500, ["error" => "Internal Server Error"]);
+            exit;
         }
     }
  }
