@@ -1,8 +1,8 @@
-<?php 
-    require_once __DIR__ . '/shared/general.php';
-    $data = fetch_data('about', [
-        'title' => 'Default title'
-    ]);
+<?php
+require_once __DIR__ . '/shared/general.php';
+$data = fetch_data('about', [
+    'title' => 'Default title'
+]);
 
 ?>
 <!DOCTYPE html>
@@ -26,16 +26,17 @@
 </head>
 <body>
 <?php require_once __DIR__ . '/shared/navbar.php'; ?>
-<div class="about" style="color: white;" >
+<div class="about" style="color: white;">
     <div class="main-content">
         <div class="show">
-            <div class= "my-element">
-                <p><?= htmlspecialchars($data["title"]) ?> </p>      
+            <div class="my-element">
+                <p><?= htmlspecialchars($data["title"]) ?> </p>
             </div>
         </div>
         <div class="central-area">
             <p>Information about us</p>
-            <p>The creation of this application was a collective work of the following students from group A1: Martinescu Nicolae, Nastasiu Stefan si Cobaschi Emanuel-Aser. <span id="dots"></span><span id="more">The team was created as a result of a very good friendship and collaboration during the studying years.We managed to build up this software product with the aim of creating an interactive, easy-to-use application that allows an attractive visualization of some data selections based on certain criteria, in the automotive field. 
+            <p>The creation of this application was a collective work of the following students from group A1:
+                Martinescu Nicolae, Nastasiu Stefan si Cobaschi Emanuel-Aser. <span id="dots"></span><span id="more">The team was created as a result of a very good friendship and collaboration during the studying years.We managed to build up this software product with the aim of creating an interactive, easy-to-use application that allows an attractive visualization of some data selections based on certain criteria, in the automotive field.
             So, the user can create certain new viewing instances, from the desired categories, based on selected criteria.Also,he has the possibility to export these visualizations in certain familiar formats.
             </span></p>
             <button id="myBtn">Read more</button>
@@ -43,8 +44,8 @@
         <div class="three-zones">
             <div class="left-zone">
                 <p>Nicolae's contribution</p>
-                <p>Nicolae managed to do the following tasks:</p><span id ="dots1"></span>
-                    <span id="more1">
+                <p>Nicolae managed to do the following tasks:</p><span id="dots1"></span>
+                <span id="more1">
                         Create and managing a Jira project for displaying the tasks on a Kanban board <br>
                         Make research on UI/UX design tools, especially Figma <br>
                         Help in creating Pain diagrams with the main pages of our Application <br>
@@ -62,7 +63,7 @@
             <div class="middle-zone">
                 <p>Stefan's contribution</p>
                 <p>Stefan managed to do the following tasks:</p><span id="dots2"></span>
-                    <span id="more2">
+                <span id="more2">
                         Participate in creating the ER diagram for our database  <br>
                         Help in creating class diagrams for the database  <br>
                         Write PHP scripts to handle requests from the client-side  <br>
@@ -76,7 +77,7 @@
             <div class="right-zone">
                 <p>Emanuel's contribution</p>
                 <p>Emanuel managed to do the following tasks:</p><span id="dots3"></span>
-                    <span id="more3">
+                <span id="more3">
                         Design the ER diagram for our database  <br>
                         Write SQL scripts to create the database and insert data into it  <br>
                         Write PHP scripts to handle requests from the client-side  <br>

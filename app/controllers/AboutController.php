@@ -5,7 +5,7 @@ namespace App\Controllers;
 use App\Utils\ResponseHandler;
 
 /**
- * Controller for the about us page.
+ * Controller for the about us page
  * 
  */
 class AboutController {
