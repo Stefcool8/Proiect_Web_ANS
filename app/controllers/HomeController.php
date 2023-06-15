@@ -50,7 +50,6 @@ class HomeController {
      * )
      */
     public function get() {
-        // send the view
         ResponseHandler::getResponseHandler()->sendResponse(200, [
             'title' => 'Open source tool for data visualization',
         ]);

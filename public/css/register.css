@@ -1,174 +1,160 @@
 .register {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
-
 .register .main-content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-grow: 1;
-    padding: 2vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+  padding: 1.25rem;
 }
-
 .register .container {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    max-width: 40vw;
-    background-color: white;
-    padding: 4vh;
-    border-radius: 2vh;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-    color: #414141;
-    min-height: 40vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 50rem;
+  background-color: white;
+  padding: 2.5rem;
+  border-radius: 1.25rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  color: #416a59;
+  min-height: 40vh;
 }
-
 .register form {
-    width: 100%;
+  width: 100%;
 }
-
 .register h2 {
-    text-align: center;
-    margin-bottom: 1vh;
-    font-size: 4vh;
-    border-bottom: 2px solid #ccc;
-    padding-bottom: 1vh;
-    color: #416a59;
+  text-align: center;
+  margin-bottom: 0.5rem;
+  font-size: 2.5rem;
+  border-bottom: 2px solid #ccc;
+  padding-bottom: 0.5rem;
+  color: #416a59;
 }
-
 .register .input-group {
-    margin-bottom: 1vh;
-    width: 100%;
+  margin-bottom: 0.5rem;
+  width: 100%;
 }
-
 .register label {
-    display: block;
-    margin-bottom: 0.5vh;
-    font-size: 3vh;
-    color: #416a59;
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 2rem;
+  color: #416a59;
 }
-
-.register input[type="text"],
-.register input[type="password"],
-.register input[type="email"] {
-    width: 100%;
-    padding: 0.5vh;
-    border-radius: 1vh;
-    border: 1px solid #ccc;
-    font-size: 3vh;
-    transition: border 0.3s, box-shadow 0.3s;
+.register input[type=text],
+.register input[type=password],
+.register input[type=email] {
+  width: 100%;
+  padding: 0.3rem;
+  border-radius: 0.6rem;
+  border: 1px solid #ccc;
+  font-size: 2rem;
+  transition: border 0.3s, box-shadow 0.3s;
 }
-
-.register input[type="text"]:hover,
-.register input[type="text"]:focus,
-.register input[type="password"]:hover,
-.register input[type="password"]:focus,
-.register input[type="email"]:hover,
-.register input[type="email"]:focus {
-    border: 1px solid #416a59;
-    box-shadow: 0 0 5px #416a59;
+.register input[type=text]:hover, .register input[type=text]:focus,
+.register input[type=password]:hover,
+.register input[type=password]:focus,
+.register input[type=email]:hover,
+.register input[type=email]:focus {
+  border: 1px solid #416a59;
+  box-shadow: 0 0 5px #416a59;
 }
-
 .register button {
-    display: block;
-    width: 100%;
-    padding: 1vh;
-    background-color: #416a59;
-    color: white;
-    font-size: 3vh;
-    border: none;
-    border-radius: 2vh;
-    cursor: pointer;
-    transition: all 0.3s;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
-    margin-top: 2vh;
+  display: block;
+  width: 100%;
+  padding: 0.5rem;
+  background-color: #416a59;
+  color: white;
+  font-size: 2rem;
+  border: none;
+  border-radius: 1.25rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  margin-top: 2vh;
 }
-
 .register button:hover {
-    background-color: #2d4534;
-    transform: scale(1.02);
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  background-color: #2d4534;
+  transform: scale(1.02);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
-
 .register button:active {
-    background-color: #2d4534;
-    transform: scale(0.98);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  background-color: #2d4534;
+  transform: scale(0.98);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
-
 .register .login-link {
-    text-align: center;
-    margin-top: 1vh;
-    font-size: 1vh;
+  text-align: center;
+  margin-top: 0.5rem;
+  font-size: 0.5rem;
 }
-
 .register .login-link p {
-    font-size: 2vh;
-    margin: 0;
-    color: #416a59;
+  font-size: 1rem;
+  margin: 0;
+  color: #416a59;
 }
-
 .register .login-link a {
-    text-decoration: none;
-    font-size: 2vh;
-    color: #2d4534;
+  text-decoration: none;
+  font-size: 0.75rem;
+  color: #2d4534;
+}
+@media screen and (max-width: 826px) {
+  .register .container {
+    max-width: 80vw;
+  }
+  .register h2 {
+    font-size: 2rem;
+  }
+  .register label {
+    font-size: 1rem;
+  }
+  .register input[type=text],
+  .register input[type=password],
+  .register input[type=email],
+  .register button {
+    font-size: 1rem;
+  }
+  .register .login-link p,
+  .register .login-link a {
+    font-size: 1rem;
+  }
 }
 
-@media screen and (max-width: 826px) {
-    .register .container {
-        max-width: 80vw;
-    }
-
-    .register h2 {
-        font-size: 6vw;
-    }
-
-    .register label {
-        font-size: 4vw;
-    }
-
-    .register input[type="text"],
-    .register input[type="password"],
-    .register input[type="email"],
-    .register button {
-        font-size: 4vw;
-    }
-
-    .register .login-link p,
-    .register .login-link a {
-        font-size: 3vw;
-    }
+.error-message,
+.success-message {
+  font-weight: bold;
+  margin: 1rem 0;
+  padding: 0.3rem;
+  border-radius: 10px;
+  width: 100%;
+  text-align: center;
+  border: 1px solid;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s;
+}
+.error-message.hidden,
+.success-message.hidden {
+  display: none;
+}
+.error-message.visible,
+.success-message.visible {
+  display: block;
 }
 
 .error-message {
-    color: #b00020;
-    background-color: #ffe9e9;
-    font-size: 0.75em;
-    font-weight: bold;
-    margin: 1em 0;
-    padding: 0.25em;
-    border-radius: 10px;
-    width: 100%;
-    text-align: center;
-    border: 2px solid #b00020;
-    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+  color: #b00020;
+  background-color: #ffe9e9;
+  border-color: #b00020;
 }
 
-.error-message.invisible {
-    display: none;
+.success-message {
+  color: #33ff9c;
+  background-color: #e9ffe9;
+  border-color: #33ff9c;
 }
 
-.error-message.visible {
-    display: block;
-}
-
-@media screen and (min-width: 768px) {
-    .error-message {
-        width: auto;
-        padding: 1.5em;
-    }
-}
+/*# sourceMappingURL=register.css.map */

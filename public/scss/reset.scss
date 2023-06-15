@@ -6,7 +6,7 @@ $border-color: #ccc;
 $alert-danger: #b00020;
 $alert-success: #33ff9c;
 
-.register {
+.reset {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -59,8 +59,6 @@ $alert-success: #33ff9c;
         color: $primary-color;
     }
 
-    input[type="text"],
-    input[type="password"],
     input[type="email"] {
         width: 100%;
         padding: 0.3rem;
@@ -131,8 +129,6 @@ $alert-success: #33ff9c;
         label {
             font-size: 1rem;
         }
-        input[type="text"],
-        input[type="password"],
         input[type="email"],
         button {
             font-size: 1rem;
@@ -150,7 +146,7 @@ $alert-success: #33ff9c;
 .success-message {
     font-weight: bold;
     margin: 1rem 0;
-    padding: 0.3rem;
+    padding: 0.4rem;
     border-radius: 10px;
     width: 100%;
     text-align: center;
