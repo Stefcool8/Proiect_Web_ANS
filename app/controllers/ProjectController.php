@@ -302,7 +302,6 @@ use Exception;
             ]);
             exit;
         }
-
         try {
             $db = Database::getInstance();
             $project = $db->fetchOne("SELECT * FROM project WHERE uuid = :uuid", ['uuid' => $uuid]);
@@ -311,7 +310,7 @@ use Exception;
                 ResponseHandler::getResponseHandler()->sendResponse(404, ['error' => 'Project not found']);
                 exit;
             }
-            
+
             $currentUser = $db->fetchOne("SELECT * FROM user WHERE username = :username", ['username' => $payload['username']]);
             
             if($currentUser['uuid'] != $project['uuidUser']){
@@ -335,3 +334,4 @@ use Exception;
         }
     }
  }
+
