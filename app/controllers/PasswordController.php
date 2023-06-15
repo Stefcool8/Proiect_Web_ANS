@@ -15,52 +15,7 @@ use Exception;
  */
 class PasswordController {
 
-    /**
-     * @OA\Post(
-     *     path="/api/password/reset",
-     *     summary="Send password reset link to user",
-     *     operationId="forgotPassword",
-     *     tags={"Password"},
-     *     @OA\RequestBody(
-     *          description="User email",
-     *          required=true,
-     *          @OA\JsonContent(
-     *          @OA\Property(property="email", type="string", example="user@gmail.com")
-     *    )
-     * ),
-     *     @OA\Response(
-     *          response=200,
-     *     description="Password reset link sent successfully",
-     *     @OA\JsonContent(
-     *     @OA\Property(property="status_code", type="integer", example=200),
-     *     @OA\Property(property="message", type="string", example="Password reset link sent successfully")
-     *    )
-     * ),
-     *     @OA\Response(
-     *     response=400,
-     *     description="Invalid request body",
-     *     @OA\JsonContent(
-     *     @OA\Property(property="status_code", type="integer", example=400),
-     *     @OA\Property(property="error", type="string", example="Invalid request body")
-     *   )
-     * ),
-     *     @OA\Response(
-     *     response=404,
-     *     description="User not found",
-     *     @OA\JsonContent(
-     *     @OA\Property(property="status_code", type="integer", example=404),
-     *     @OA\Property(property="error", type="string", example="User not found")
-     *  )
-     * ),
-     *     @OA\Response(
-     *     response=500,
-     *     description="Internal Server Error",
-     *     @OA\JsonContent(
-     *     @OA\Property(property="status_code", type="integer", example=500),
-     *     @OA\Property(property="error", type="string", example="Internal Server Error")
-     * )
-     * )
-     */
+
     public function forgotPassword()
     {
         $body = json_decode(file_get_contents('php://input'), true);
