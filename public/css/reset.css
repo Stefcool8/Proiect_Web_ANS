@@ -1,16 +1,16 @@
-.login {
+.reset {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
 }
-.login .main-content {
+.reset .main-content {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-grow: 1;
   padding: 1.25rem;
 }
-.login .container {
+.reset .container {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -24,10 +24,10 @@
   color: #416a59;
   min-height: 40vh;
 }
-.login form {
+.reset form {
   width: 100%;
 }
-.login h2 {
+.reset h2 {
   text-align: center;
   margin-bottom: 0.5rem;
   font-size: 2.5rem;
@@ -35,18 +35,17 @@
   padding-bottom: 0.5rem;
   color: #416a59;
 }
-.login .input-group {
+.reset .input-group {
   margin-bottom: 0.5rem;
   width: 100%;
 }
-.login label {
+.reset label {
   display: block;
   margin-bottom: 0.5rem;
   font-size: 2rem;
   color: #416a59;
 }
-.login input[type=text],
-.login input[type=password] {
+.reset input[type=email] {
   width: 100%;
   padding: 0.3rem;
   border-radius: 0.6rem;
@@ -54,13 +53,11 @@
   font-size: 2rem;
   transition: border 0.3s, box-shadow 0.3s;
 }
-.login input[type=text]:hover, .login input[type=text]:focus,
-.login input[type=password]:hover,
-.login input[type=password]:focus {
+.reset input[type=email]:hover, .reset input[type=email]:focus {
   border: 1px solid #416a59;
   box-shadow: 0 0 5px #416a59;
 }
-.login button {
+.reset button {
   display: block;
   width: 100%;
   padding: 0.5rem;
@@ -74,49 +71,48 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
   margin-top: 2vh;
 }
-.login button:hover {
+.reset button:hover {
   background-color: #2d4534;
   transform: scale(1.02);
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
-.login button:active {
+.reset button:active {
   background-color: #2d4534;
   transform: scale(0.98);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
-.login .signup-link {
+.reset .login-link {
   text-align: center;
   margin-top: 0.5rem;
   font-size: 0.5rem;
 }
-.login .signup-link p {
+.reset .login-link p {
   font-size: 1rem;
   margin: 0;
   color: #416a59;
 }
-.login .signup-link a {
+.reset .login-link a {
   text-decoration: none;
   font-size: 0.75rem;
   color: #2d4534;
 }
 @media screen and (max-width: 826px) {
-  .login .container {
+  .reset .container {
     max-width: 80vw;
   }
-  .login h2 {
+  .reset h2 {
     font-size: 2rem;
   }
-  .login label {
+  .reset label {
     font-size: 1rem;
   }
-  .login input[type=text],
-  .login input[type=password],
-  .login button {
+  .reset input[type=email],
+  .reset button {
     font-size: 1rem;
   }
-  .login .signup-link p,
-  .login .signup-link a {
-    font-size: 0.75rem;
+  .reset .login-link p,
+  .reset .login-link a {
+    font-size: 1rem;
   }
 }
 
@@ -124,7 +120,7 @@
 .success-message {
   font-weight: bold;
   margin: 1rem 0;
-  padding: 0.25rem;
+  padding: 0.4rem;
   border-radius: 10px;
   width: 100%;
   text-align: center;
@@ -153,4 +149,4 @@
   border-color: #33ff9c;
 }
 
-/*# sourceMappingURL=login.css.map */
+/*# sourceMappingURL=reset.css.map */

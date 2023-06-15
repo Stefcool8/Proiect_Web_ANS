@@ -1,23 +1,15 @@
-function validateResetData(password, confirmPassword) {
-    if (!password) {
-        return "New password is required";
-    }
-    if (!confirmPassword) {
-        return "Confirm password is required";
-    }
-    if (password !== confirmPassword) {
-        return "Passwords do not match";
+function validateResetData(email) {
+    if (!email) {
+        return "Email is required";
     }
     return null;
 }
 
 async function fetchResetData(data) {
-    const token = document.getElementById('token').value;
     try {
         const response = await fetch('/api/password/reset', {
-            method: 'PUT',
+            method: 'POST',
             headers: {
-                Authorization: `Bearer ${token}`,
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(data),
@@ -29,10 +21,22 @@ async function fetchResetData(data) {
     }
 }
 
+function handleResetResponse(response) {
+    if (response && response.hasOwnProperty("status_code") && response.status_code === 200) {
+        // the reset was successful
+        showMessage(successMessage, response.data.message);
+        submitButton.disabled = true;
+        setTimeout(() => {
+            window.location.href = "/home";
+        }, 3000);
+    } else {
+        showMessage(errorMessage, response.data.error);
+    }
+}
+
 function showMessage(element, message) {
     element.textContent = message;
     element.classList.add("visible");
-
     setTimeout(() => {
         hideMessage(element);
     }, 3000);
@@ -40,19 +44,6 @@ function showMessage(element, message) {
 
 function hideMessage(element) {
     element.classList.remove("visible");
-}
-
-function handleResetResponse(response) {
-    if (response && response.hasOwnProperty("status_code") && response.status_code === 200) {
-        showMessage(successMessage, "Password reset successful. Redirecting...");
-        submitButton.disabled = true;
-        setTimeout(() => {
-            window.location.href = "/home";
-        }, 3000);
-
-    } else {
-        showMessage(errorMessage, response.data.error);
-    }
 }
 
 const resetForm = document.querySelector("form");
@@ -63,14 +54,14 @@ const submitButton = document.querySelector("button");
 resetForm.addEventListener('submit', async (event) => {
     event.preventDefault();
 
-    const password = document.getElementById('password').value;
-    const confirmPassword = document.getElementById('confirm-password').value;
+    // get the email
+    const email = document.getElementById('email').value;
 
     const data = {
-        password: password,
+        email: email
     };
 
-    const error = validateResetData(password, confirmPassword);
+    const error = validateResetData(email);
     if (error) {
         showMessage(errorMessage, error);
         return;

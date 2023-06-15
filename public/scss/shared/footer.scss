@@ -18,130 +18,119 @@ $github-color: #171515;
     font-size: 1rem;
     background: linear-gradient(45deg, $footer-color, $footer-secondary-color);
     color: $font-color;
-}
 
-.footer-info,
-.footer-contact,
-.footer-social {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
+    h3 {
+        margin-bottom: 0.5vw;
+    }
 
-.footer-contact-list p {
-    display: flex;
-    align-items: center;
-}
-
-.footer-contact-list i {
-    height: auto;
-    margin-right: 0.5vw;
-}
-
-.footer-info i {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-}
-
-.footer-info h3 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.footer-info-list,
-.footer-contact-list {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.25vw;
-}
-
-.footer-info-list li,
-.footer-contact li {
-    width: 100%;
-    list-style: none;
-    margin-bottom: 0.5vw;
-}
-
-.footer-info-list li a,
-.footer-contact li a {
-    width: 100%;
-    text-align: center;
-    color: $font-color;
-    text-decoration: none;
-}
-
-.footer-social {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    gap: 1vw;
-}
-
-.footer h3 {
-    margin-bottom: 0.5vw;
-}
-
-.footer-info-list li a,
-.footer-contact li a,
-.footer-contact p a {
-    color: $font-color;
-    text-decoration: none;
-    display: inline-block;
-    padding: 0.5vw;
-    background-color: transparent;
-    border-radius: 0.5vw;
-    position: relative;
-    transition: all 0.3s ease;
-
-    &:hover {
-        background-color: $hover-color;
+    i {
+        font-size: 1.5vw;
+        margin-right: 0.5vw;
         color: $font-color;
-        box-shadow: 0 0 1vw 0.25vw rgba(0, 0, 0, 0.3);
-        animation: shake $shake-duration;
-    }
-}
-
-.footer-social a {
-    color: $font-color;
-    font-size: 1.5vw;
-    transition: color 0.3s, transform 0.3s;
-
-    &:hover {
-        transform: scale(1.2);
     }
 
-    &:hover i.fab.fa-facebook-f {
-        color: $facebook-color;
+    .footer-info,
+    .footer-contact,
+    .footer-social {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
 
-    &:hover i.fab.fa-twitter {
-        color: $twitter-color;
+    .footer-contact-list {
+        p {
+            display: flex;
+            align-items: center;
+        }
+
+        i {
+            height: auto;
+            margin-right: 0.5vw;
+        }
     }
 
-    &:hover i.fab.fa-instagram {
-        color: $instagram-color;
+    .footer-info {
+        h3, i {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
     }
 
-    &:hover i.fab.fa-linkedin-in {
-        color: $linkedin-color;
+    .footer-info-list,
+    .footer-contact-list {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.25vw;
+
+        li {
+            width: 100%;
+            list-style: none;
+            margin-bottom: 0.5vw;
+
+            a {
+                width: 100%;
+                text-align: center;
+                color: $font-color;
+                text-decoration: none;
+                display: inline-block;
+                padding: 0.5vw;
+                background-color: transparent;
+                border-radius: 0.5vw;
+                position: relative;
+                transition: all 0.3s ease;
+
+                &:hover {
+                    background-color: $hover-color;
+                    color: $font-color;
+                    box-shadow: 0 0 1vw 0.25vw rgba(0, 0, 0, 0.3);
+                    animation: shake $shake-duration;
+                }
+            }
+        }
     }
 
-    &:hover i.fab.fa-github {
-        color: $github-color;
-        transform: scale(1.2);
-    }
-}
+    .footer-social {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 1vw;
 
-.footer i {
-    font-size: 1.5vw;
-    margin-right: 0.5vw;
-    color: $font-color;
+        a {
+            color: $font-color;
+            font-size: 1.5vw;
+            transition: color 0.3s, transform 0.3s;
+
+            &:hover {
+                transform: scale(1.2);
+            }
+
+            &:hover i.fab.fa-facebook-f {
+                color: $facebook-color;
+            }
+
+            &:hover i.fab.fa-twitter {
+                color: $twitter-color;
+            }
+
+            &:hover i.fab.fa-instagram {
+                color: $instagram-color;
+            }
+
+            &:hover i.fab.fa-linkedin-in {
+                color: $linkedin-color;
+            }
+
+            &:hover i.fab.fa-github {
+                color: $github-color;
+                transform: scale(1.2);
+            }
+        }
+    }
 }
 
 @keyframes shake {
@@ -167,15 +156,15 @@ $github-color: #171515;
     }
 }
 
-@media screen and (max-width: 826px) {
+@media screen and (max-width: 768px) {
     .footer {
         grid-template-columns: 1fr;
         padding: 3vw 2vw;
         font-size: 3vw;
-    }
 
-    .footer i {
-        font-size: 3vw;
-        margin-right: 0.5vw;
+        i {
+            font-size: 3vw;
+            margin-right: 0.5vw;
+        }
     }
 }

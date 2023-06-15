@@ -1,9 +1,61 @@
-// select the form
-const form = document.querySelector("form");
+function validateRegisterData(firstName, lastName, email, username, password, confirmPassword) {
+    if (!firstName || !lastName || !email || !username || !password) {
+        return "All fields are required";
+    }
+    if (password !== confirmPassword) {
+        return "Passwords do not match";
+    }
+    return null;
+}
 
-// listen for form submit
-form.addEventListener("submit", async (e) => {
-    e.preventDefault();
+async function fetchRegisterData(data) {
+    try {
+        const response = await fetch('/api/user', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        });
+        return await response.json();
+    } catch (error) {
+        console.error(error);
+        return null;
+    }
+}
+
+function handleRegisterResponse(response) {
+    if (response && response.hasOwnProperty("status_code") && response.status_code === 200) {
+        showMessage(successMessage, "Successfully registered. Redirecting...");
+        registerButton.disabled = true;
+        setTimeout(() => {
+            window.location.href = "/login";
+        }, 3000);
+    } else {
+        showMessage(errorMessage, response.data.error);
+    }
+}
+
+function showMessage(element, message) {
+    element.textContent = message;
+    element.classList.add("visible");
+
+    setTimeout(() => {
+        hideMessage(element);
+    }, 3000);
+}
+
+function hideMessage(element) {
+    element.classList.remove("visible");
+}
+
+const registerForm = document.querySelector("form");
+const errorMessage = document.querySelector(".error-message");
+const successMessage = document.querySelector(".success-message");
+const registerButton = document.querySelector("button");
+
+registerForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
 
     const firstName = document.getElementById("first-name").value;
     const lastName = document.getElementById("last-name").value;
@@ -11,11 +63,6 @@ form.addEventListener("submit", async (e) => {
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
     const confirmPassword = document.getElementById("confirmPassword").value;
-
-    if (password !== confirmPassword) {
-        showError("Passwords do not match.");
-        return;
-    }
 
     const data = {
         firstName: firstName,
@@ -25,36 +72,18 @@ form.addEventListener("submit", async (e) => {
         password: password,
     };
 
-    try {
-        const response = await fetch("/api/user", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(data),
-        });
-
-        // get the JSON response
-        const result = await response.json();
-
-        if (response.ok) {
-            // redirect to the login page
-            window.location.href = "/login";
-        } else {
-            showError(result.data.error);
-        }
-    } catch (err) {
-        showError(err.message);
+    const error = validateRegisterData(firstName, lastName, email, username, password, confirmPassword);
+    if (error) {
+        showMessage(errorMessage, error);
+        return;
     }
+
+    const response = await fetchRegisterData(data);
+
+    if (!response) {
+        showMessage(errorMessage, "An error occurred. Please try again later");
+        return;
+    }
+
+    handleRegisterResponse(response);
 });
-
-// show the error message
-function showError(message) {
-    const errorDiv = document.querySelector(".error-message");
-    errorDiv.textContent = message;
-    errorDiv.classList.add("visible");
-
-    setTimeout(() => {
-        errorDiv.classList.remove("visible");
-    }, 3000);
-}

@@ -22,3 +22,4 @@
         <a href="/"><i class="fab fa-github"></i></a>
     </div>
 </footer>
+<script src="/public/js/shared/footer.js"></script>

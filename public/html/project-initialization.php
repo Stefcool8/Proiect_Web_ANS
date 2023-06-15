@@ -37,7 +37,6 @@
                     <label for="project-name">Project Name:</label>
                     <input type="text" id="project-name" name="project-name" required>
                 </div>
-                <!-- menu with 3 options: barChart, lineChart, pieChart -->
                 <div class="input-group">
                     <label for="chart-type">Chart Type:</label>
                     <select id="chart-type" name="chart-type" required>
