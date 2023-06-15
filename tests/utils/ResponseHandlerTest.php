@@ -3,8 +3,6 @@
 namespace utils;
 
 use App\utils\ResponseHandler;
-use PHPUnit\Event\Runtime\PHPUnit;
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 class ResponseHandlerTest extends TestCase
@@ -26,18 +24,68 @@ class ResponseHandlerTest extends TestCase
         // Arrange
         $statusCode = 200;
         $data = ['message' => 'Success'];
-        $expectedResponse = [
+        $response = [
             "status_code" => $statusCode,
             "data" => $data
         ];
+        /** @var ResponseHandler|mixed $expectedResponse */
+        $expectedResponse = json_encode($response);
 
         // Act
         ob_start();
         ResponseHandler::sendResponse($statusCode, $data);
+        /** @var string|mixed $output */
         $output = ob_get_clean();
 
         // Assert
         $this->assertJson($output);
-        $this->assertEquals(json_encode($expectedResponse), $output);
+        $this->assertEquals($expectedResponse, $output);
     }
+
+    public function testSendResponse_SendsCorrectResponseWithDifferentStatusCode()
+    {
+        // Arrange
+        $statusCode = 400;
+        $data = ['error' => 'Bad request'];
+        $response = [
+            "status_code" => $statusCode,
+            "data" => $data
+        ];
+        /** @var ResponseHandler|mixed $expectedResponse */
+        $expectedResponse = json_encode($response);
+
+        // Act
+        ob_start();
+        ResponseHandler::sendResponse($statusCode, $data);
+        /** @var string|mixed $output */
+        $output = ob_get_clean();
+
+        // Assert
+        $this->assertJson($output);
+        $this->assertEquals($expectedResponse, $output);
+    }
+
+    public function testSendResponse_SendsCorrectResponseWithDifferentData()
+    {
+        // Arrange
+        $statusCode = 200;
+        $data = ['message' => 'Success', 'data' => ['id' => 1, 'name' => 'John Doe']];
+        $response = [
+            "status_code" => $statusCode,
+            "data" => $data
+        ];
+        /** @var ResponseHandler|mixed $expectedResponse */
+        $expectedResponse = json_encode($response);
+
+        // Act
+        ob_start();
+        ResponseHandler::sendResponse($statusCode, $data);
+        /** @var string|mixed $output */
+        $output = ob_get_clean();
+
+        // Assert
+        $this->assertJson($output);
+        $this->assertEquals($expectedResponse, $output);
+    }
+
 }
