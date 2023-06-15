@@ -18,7 +18,6 @@
     <link rel="stylesheet" href="/public/css/reset.css">
 </head>
 <body>
-<script src="/public/js/helper/logged.js">
 </script>
 <?php require_once __DIR__ . '/shared/navbar.php'; ?>
 <div class="reset">
