@@ -2,8 +2,8 @@
 
 namespace App\Controllers;
 
-use App\Utils\ResponseHandler;
-use App\Utils\EmailSender;
+use App\utils\ResponseHandler;
+use App\utils\EmailSender;
 
 /**
  * Controller for the Contact page
@@ -120,13 +120,13 @@ class ContactController {
         $template = str_replace('{message_placeholder}', $message, $template);
 
         // send email to client
-        $clientEmailSent = EmailSender::sendEmail($email, $name, 'Contact request submitted at ANS', $template);
+        $clientEmailSent = EmailSender::getEmailSender()->sendEmail($email, $name, 'Contact request submitted at ANS', $template);
         if (!$clientEmailSent) {
             ResponseHandler::getResponseHandler()->sendResponse(500, ['error' => 'Internal server error']);
         }
 
         // send email to admin
-        $adminEmailSent = EmailSender::sendEmail('ans.web.mail10@gmail.com', 'ANS Web', '[ANS] Contact request', $template);
+        $adminEmailSent = EmailSender::getEmailSender()->sendEmail('ans.web.mail10@gmail.com', 'ANS Web', '[ANS] Contact request', $template);
         if ($adminEmailSent) {
             ResponseHandler::getResponseHandler()->sendResponse(200, ['message' => 'Contact request submitted successfully']);
         } else {

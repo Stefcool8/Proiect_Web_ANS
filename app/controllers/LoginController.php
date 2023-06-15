@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Controllers;
+namespace App\controllers;
 
-use App\Utils\Database;
-use App\Utils\JWT;
-use App\Utils\ResponseHandler;
+use App\utils\Database;
+use App\utils\JWT;
+use App\utils\ResponseHandler;
 
 class LoginController {
 

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Controllers;
+namespace App\controllers;
 
-use App\Utils\Database;
-use App\Utils\JWT;
-use App\Utils\ResponseHandler;
-use App\Utils\EmailSender;
+use App\utils\Database;
+use App\utils\JWT;
+use App\utils\ResponseHandler;
+use App\utils\EmailSender;
 
 use Exception;
 
@@ -57,7 +57,7 @@ class PasswordController {
             $template = file_get_contents('../public/assets/templates/password-reset.html');
             $template = str_replace('{url_placeholder}', $url, $template);
 
-            $clientEmailSent = EmailSender::sendEmail($email, $user['username'], 'Password Reset', $template);
+            $clientEmailSent = EmailSender::getEmailSender()->sendEmail($email, $user['username'], 'Password Reset', $template);
 
             if ($clientEmailSent) {
                 ResponseHandler::getResponseHandler()->sendResponse(200, ['message' => 'Password reset link sent successfully']);
