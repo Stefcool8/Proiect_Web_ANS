@@ -18,6 +18,10 @@ $router->add('GET', '/api/user/{uuid}', 'UserController::get');
 $router->add('DELETE', '/api/user/{uuid}', 'UserController::delete');
 $router->add('PUT', '/api/user/{uuid}', 'UserController::update');
 
+$router->add('POST','/api/project','ProjectController::create');
+$router->add('DELETE', '/api/project/{uuid}', 'ProjectController::delete');
+$router->add('GET','/api/project/{uuid}','ProjectController::get');
+
 // about us route
 $router->add('GET', '/api/about', 'AboutController::get');
 
