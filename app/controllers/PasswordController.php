@@ -15,9 +15,35 @@ use Exception;
  */
 class PasswordController {
 
-
-    public function forgotPassword()
-    {
+    /**
+     * @OA\Post(
+     *     path="/api/password/reset",
+     *     summary="Request a password reset",
+     *     tags={"Password"},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         description="Email address of user",
+     *         @OA\JsonContent(
+     *            @OA\Property(property="email", type="string", format="email", example="user@example.com")
+     *         ),
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Password reset link sent successfully",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="Password reset link sent successfully")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="User not found",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="error", type="string", example="User not found")
+     *         )
+     *     )
+     * )
+     */
+    public function forgotPassword() {
         $body = json_decode(file_get_contents('php://input'), true);
         $email = $body['email'];
 
