@@ -1,9 +1,9 @@
 <?php
 // DONE
-namespace App\Controllers;
+namespace App\controllers;
 
-use App\Utils\ResponseHandler;
-use App\Utils\JWT;
+use App\utils\ResponseHandler;
+use App\utils\JWT;
 use InvalidArgumentException;
 
 /**
@@ -55,6 +55,7 @@ class DashboardController {
 
         if (!isset($headers['Authorization'])) {
             ResponseHandler::getResponseHandler()->sendResponse(401, ['error' => 'Unauthorized']);
+            exit;
         }
 
         try {

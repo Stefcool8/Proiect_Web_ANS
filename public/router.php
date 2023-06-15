@@ -39,4 +39,6 @@ $router->add('POST','/api/auth/verifyAccess','AuthController::verifyAccess');
 $router->add('POST', '/api/password/reset', 'PasswordController::forgotPassword');
 $router->add('PUT', '/api/password/reset', 'PasswordController::resetPassword');
 
+$router->add('POST', '/api/test', 'TestController::test');
+
 $router->dispatch($_SERVER['REQUEST_METHOD'], $_SERVER['REQUEST_URI']);

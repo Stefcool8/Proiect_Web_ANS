@@ -1,9 +1,9 @@
 <?php
 // DONE
-namespace App\Controllers;
+namespace App\controllers;
 
-use App\Utils\ResponseHandler;
-use App\Utils\Database;
+use App\utils\ResponseHandler;
+use App\utils\Database;
 use Exception;
 
 /**
@@ -125,6 +125,7 @@ class AdminController {
 
             if (empty($users)) {
                 ResponseHandler::getResponseHandler()->sendResponse(404, ['error' => 'Users not found']);
+                exit;
             }
 
             $userArray = [];

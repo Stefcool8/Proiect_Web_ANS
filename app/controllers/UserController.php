@@ -1,9 +1,9 @@
 <?php
 // DONE
-namespace App\Controllers;
+namespace App\controllers;
 
-use App\Utils\ResponseHandler;
-use App\Utils\Database;
+use App\utils\ResponseHandler;
+use App\utils\Database;
 use Exception;
 
 /** 
@@ -96,6 +96,7 @@ class UserController {
             // check if email exists
             if ($existingUser) {
                 ResponseHandler::getResponseHandler()->sendResponse(488, ["error" => "Email already exists"]);
+                exit;
             }
 
             // create the user
@@ -269,11 +270,31 @@ class UserController {
 
         $data = json_decode(file_get_contents('php://input'), true);
 
+        // Verify if the required fields are present
+        if (empty($data['firstName']) || empty($data['lastName']) || empty($data['username']) || empty($data['email'])) {
+            ResponseHandler::getResponseHandler()->sendResponse(400, ['error' => 'Missing required fields']);
+            exit;
+        }
+
+        // Verify if the username and email are not already taken
+        $user = $db->fetchOne("SELECT * FROM user WHERE username = :username", ['username' => $data['username']]);
+        if ($user && $user['uuid'] != $uuid) {
+            ResponseHandler::getResponseHandler()->sendResponse(400, ['error' => 'Username already exists']);
+            exit;
+        }
+        $user = $db->fetchOne("SELECT * FROM user WHERE email = :email", ['email' => $data['email']]);
+        if ($user && $user['uuid'] != $uuid) {
+            ResponseHandler::getResponseHandler()->sendResponse(400, ['error' => 'Email already exists']);
+            exit;
+        }
+
+        // Get the data
         $firstName = $data['firstName'];
         $lastName = $data['lastName'];
         $username = $data['username'];
         $email = $data['email'];
 
+        // Update the user
         $db->update('user', [
             'firstName' => $firstName,
             'lastName' => $lastName,
