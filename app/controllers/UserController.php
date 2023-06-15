@@ -109,10 +109,8 @@ class UserController {
                 'uuid' => uniqid()
             ]);
 
-            // send the data
             ResponseHandler::getResponseHandler()->sendResponse(200, ["message" => "User created successfully"]);
         } catch (Exception $e) {
-            // Handle potential exception during database insertion
             ResponseHandler::getResponseHandler()->sendResponse(500, ["error" => "Internal Server Error"]);
         }
     }
