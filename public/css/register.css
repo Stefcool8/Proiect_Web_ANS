@@ -101,19 +101,19 @@
 
 .register .login-link {
     text-align: center;
-    margin-top: 1vh;
-    font-size: 1vh;
+    margin-top: 0.5rem;
+    font-size: 0.5rem;
 }
 
 .register .login-link p {
-    font-size: 2vh;
+    font-size: 1rem;
     margin: 0;
     color: #416a59;
 }
 
 .register .login-link a {
     text-decoration: none;
-    font-size: 2vh;
+    font-size: 0.75rem;
     color: #2d4534;
 }
 
@@ -139,7 +139,7 @@
 
     .register .login-link p,
     .register .login-link a {
-        font-size: 3vw;
+        font-size: 1rem;
     }
 }
 

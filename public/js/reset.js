@@ -27,7 +27,7 @@ function handleResetResponse(response) {
         showMessage(successMessage, response.data.message);
         submitButton.disabled = true;
         setTimeout(() => {
-            window.location.href = "/login";
+            window.location.href = "/home";
         }, 3000);
     } else {
         showMessage(errorMessage, response.data.error);
