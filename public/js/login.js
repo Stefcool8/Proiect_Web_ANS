@@ -2,24 +2,27 @@ const loginForm = document.querySelector("form");
 const errorMessage = document.querySelector(".error-message");
 let result;
 
-loginForm.addEventListener("submit", async (event) => {
+
+loginForm.addEventListener('submit', async(event) => {
+
     event.preventDefault();
 
     // get the username and password
-    const username = document.getElementById("username").value;
-    const password = document.getElementById("password").value;
+    console.log("loginForm submit");
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
 
     const data = {
         username: username,
-        password: password,
+        password: password
     };
 
     try {
         // send the username and password to the backend
-        const response = await fetch("/api/login", {
-            method: "POST",
+        const response = await fetch('/api/login', {
+            method: 'POST',
             headers: {
-                "Content-Type": "application/json",
+                'Content-Type': 'application/json',
             },
             body: JSON.stringify(data),
         });
@@ -37,6 +40,7 @@ loginForm.addEventListener("submit", async (event) => {
         } else {
             showError(result.data.error);
         }
+
     } catch (error) {
         console.error(error);
         showError("An error occurred. Please try again later.");

@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Controllers;
+namespace App\controllers;
 
-use App\Utils\ResponseHandler;
-use App\Utils\JWT;
+use App\utils\ResponseHandler;
+use App\utils\JWT;
 use InvalidArgumentException;
+use App\utils\Database;
 
 /**
  * Controller for user authentication
@@ -79,7 +80,7 @@ class AuthController {
 
         try {
             // decode the token
-            $payload = JWT::getJWT()->decode($token);
+            JWT::getJWT()->decode($token);
         } catch (InvalidArgumentException $e) {
             ResponseHandler::getResponseHandler()->sendResponse(401, [
                 'error' => 'Unauthorized'
@@ -92,4 +93,174 @@ class AuthController {
             'message' => 'Authorized'
         ]);
     }
+
+   /**
+ * This is the OpenAPI documentation for the verifyAdmin() function.
+ *
+ * @OA\Get(
+ *     path="/api/auth/admin",
+ *     operationId="verifyAdmin",
+ *     tags={"Authentication"},
+ *     summary="Validate the admin's token",
+ *     description="Endpoint for verifying admin privileges.",
+ *     security={{"bearerAuth": {}}},
+ *     @OA\Response(
+ *         response=200,
+ *         description="Successful response",
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(property="data", type="object",
+ *                 @OA\Property(property="title", type="string", example="Admin"),
+ *                 @OA\Property(property="isAdmin", type="boolean"),
+ *                 @OA\Property(property="username",type="string")
+ *             )
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=401,
+ *         description="Unauthorized",
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(property="error", type="string", example="Unauthorized")
+ *         )
+ *     )
+ * )
+ */
+
+    public function getAdmin() {
+
+        // get the token from the request header
+        $headers = apache_request_headers();
+
+        if (!isset($headers['Authorization'])) {
+            ResponseHandler::getResponseHandler()->sendResponse(401, [
+                'error' => 'Unauthorized'
+            ]);
+            exit;
+        }
+
+        $authHeader = $headers['Authorization'];
+        $token = str_replace('Bearer ', '', $authHeader);
+
+        try {
+            // decode the token
+            $payload = JWT::getJWT()->decode($token);
+        } catch (InvalidArgumentException $e) {
+            ResponseHandler::getResponseHandler()->sendResponse(401, [
+                'error' => 'Unauthorized'
+            ]);
+            exit;
+        }
+        if (!$payload['isAdmin']) {
+            ResponseHandler::getResponseHandler()->sendResponse(401, [
+                'error' => 'Unauthorized'
+            ]);
+        }
+        ResponseHandler::getResponseHandler()->sendResponse(200, [
+            'data' => [
+                'title' => 'Admin',
+                'isAdmin' => $payload['isAdmin'],
+                'username' =>$payload['username']
+            ]
+        ]);
+    }
+
+
+   /**
+ * This is the OpenAPI documentation for the verifyAccess() function.
+ *
+ * @OA\Post(
+ *     path="/api/auth/verifyAccess",
+ *     operationId="verifyAccess",
+ *     tags={"Authentication"},
+ *     summary="Validate the admin's token",
+ *     description="Endpoint for verifying admin privileges.",
+ *     security={{"bearerAuth": {}}},
+ *     @OA\Response(
+ *         response=200,
+ *         description="Successful response",
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(property="data", type="object",
+ *                 @OA\Property(property="title", type="string", example="Admin"),
+ *                 @OA\Property(property="isAdmin", type="boolean"),
+ *                 @OA\Property(property="username",type="string")
+ *             )
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=401,
+ *         description="Unauthorized",
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(property="error", type="string", example="Unauthorized")
+ *         )
+ *     )
+ * )
+ */
+    public function verifyAccess() {
+
+        $body = json_decode(file_get_contents('php://input'), true);
+        $uuid = $body['uuid'];
+        // get the token from the request header
+        $headers = apache_request_headers();
+
+        if (!isset($headers['Authorization'])) {
+            ResponseHandler::getResponseHandler()->sendResponse(401, [
+                'error' => 'Unauthorized'
+            ]);
+            exit;
+        }
+
+        $authHeader = $headers['Authorization'];
+        $token = str_replace('Bearer ', '', $authHeader);
+
+        try {
+            // decode the token
+            $payload = JWT::getJWT()->decode($token);
+        } catch (InvalidArgumentException $e) {
+            ResponseHandler::getResponseHandler()->sendResponse(401, [
+                'error' => 'Unauthorized'
+            ]);
+            exit;
+        }
+        if (!$payload['isAdmin']) {
+
+            $db = Database::getInstance();
+            $currentUser = $db->fetchOne("SELECT * FROM user WHERE username = :username", ['username' => $payload['username']]);
+            /*ResponseHandler::getResponseHandler()->sendResponse(200, [
+                'data' => [
+                    'title' => 'DB',
+                    'isAdmin' => $currentUser['isAdmin'],
+                    'username' =>$currentUser['username'],
+                    'CurrentUserUUID' =>$currentUser['uuid'],
+                    'uuid' => $uuid,
+                ]
+            ]);
+            */
+            if($currentUser['uuid'] != $uuid){
+                ResponseHandler::getResponseHandler()->sendResponse(401, [
+                    'error' => 'Unauthorized'
+                ]);
+            }
+            else{
+                ResponseHandler::getResponseHandler()->sendResponse(200, [
+                    'data' => [
+                        'title' => 'HELLo',
+                        'isAdmin' => $payload['isAdmin'],
+                        'username' =>$payload['username']
+                    ]
+                ]);
+            }
+            return;
+        }
+        ResponseHandler::getResponseHandler()->sendResponse(200, [
+            'data' => [
+                'title' => 'Admin',
+                'isAdmin' => $payload['isAdmin'],
+                'username' =>$payload['username']
+            ]
+        ]);
+    }
+
 }

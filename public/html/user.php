@@ -1,7 +1,10 @@
-<?php
+<?php 
+
+
+
     $currentUrl = $_SERVER['REQUEST_URI'];
 
-    // Parse the URL to extract the userID
+// Parse the URL to extract the userID
     $parts = explode('/', $currentUrl);
     $userID = end($parts);
 
@@ -11,6 +14,7 @@
     $result = fetch_data($urlAPI, [
         'data' => []
     ]);
+
 ?>
 
 <!DOCTYPE html>
@@ -139,10 +143,6 @@
 
         <?php require_once __DIR__ . '/shared/footer.php'; ?>
     </div>
-
-    <script>
-        var uuid = localStorage.getItem('uuid');
-        console.log(uuid);
-    </script>
+    <script src="/public/js/user.js"></script>
 </body>
 </html>

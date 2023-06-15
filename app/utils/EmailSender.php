@@ -1,13 +1,25 @@
 <?php
 
-namespace App\Utils;
+namespace App\utils;
 
 use SendGrid;
 use SendGrid\Mail\Mail;
 use SendGrid\Mail\TypeException;
 
 class EmailSender {
-    public static function sendEmail(string $receiverEmail, string $receiverName, string $subject, string $content): bool {
+    private static ?EmailSender $emailSender = null;
+
+    private function __construct() {}
+
+    public static function getEmailSender(): EmailSender {
+        if (self::$emailSender == null) {
+            self::$emailSender = new EmailSender();
+        }
+
+        return self::$emailSender;
+    }
+
+    public function sendEmail(string $receiverEmail, string $receiverName, string $subject, string $content): bool {
         try {
             $mail = new Mail();
             $mail->setFrom('ans.web.mail10@gmail.com', 'ANS Web');

@@ -3,7 +3,9 @@
 <header id="nav-wrapper">
     <nav id="nav">
         <div class="nav left">
-            <div class="gradient skew"><h1 class="logo un-skew"><a href="/">ANS</a></h1></div>
+            <div class="gradient skew">
+                <h1 class="logo un-skew"><a href="/">ANS</a></h1>
+            </div>
             <button id="menu" class="btn-nav"><span class="fas fa-bars"></span></button>
         </div>
         <div class="nav right">
