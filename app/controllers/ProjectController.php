@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Utils\ResponseHandler;
 use App\Utils\Database;
+use App\Utils\JWT;
 use Exception;
 
 
@@ -64,11 +65,53 @@ use Exception;
      * )
      */
     public function create() {
+
         // get the request body
         $body = json_decode(file_get_contents('php://input'), true);
+        
+         
+        //$uuid = $body['uuid'];
+        // get the token from the request header
+        $headers = apache_request_headers();
+
+        if (!isset($headers['Authorization'])) {
+            ResponseHandler::getResponseHandler()->sendResponse(401, [
+                'error' => 'Unauthorized'
+            ]);
+        }
+
+        $authHeader = $headers['Authorization'];
+        $token = str_replace('Bearer ', '', $authHeader);
+
+        try {
+            // decode the token
+            $payload = JWT::getJWT()->decode($token);
+        } catch (\InvalidArgumentException $e) {
+            ResponseHandler::getResponseHandler()->sendResponse(401, [
+                'error' => 'Unauthorized'
+            ]);
+        }
+       
+        try {
+            $db = Database::getInstance();
+
+            $existingUser = $db->fetchOne("SELECT * FROM user WHERE username = :username", ['username' => $payload['username']]);
+
+            if(!$existingUser){
+                ResponseHandler::getResponseHandler()->sendResponse(409, ["error" => "User assigned does not exist"]);
+                exit;
+            }
+
+            $uuidUser = $existingUser['uuid']; 
+           
+        } catch (Exception $e) {
+            // Handle potential exception during database insertion
+            ResponseHandler::getResponseHandler()->sendResponse(500, ["error" => "Internal Server Error"]);
+        }
+
 
         // validate the request body
-        if (!isset($body['name']) || !isset($body['chart']) || !isset($body['uuidUser'])) {
+        if (!isset($body['name']) || !isset($body['chart'])) {
             ResponseHandler::getResponseHandler()->sendResponse(400, ['error' => 'Invalid request body.']);
             exit;
         }
@@ -76,15 +119,7 @@ use Exception;
         try {
             $db = Database::getInstance();
 
-            $existingUser = $db->fetchOne("SELECT * FROM user WHERE uuid = :uuidUser", ['uuidUser' => $body['uuidUser']]);
-
-            if(!$existingUser){
-                ResponseHandler::getResponseHandler()->sendResponse(409, ["error" => "User assigned does not exist"]);
-                exit;
-            }
-
-
-            $existingProject = $db->fetchOne("SELECT * FROM project WHERE name = :name AND uuidUser = :uuidUser", ['name' => $body['name'],'uuidUser' =>$body['uuidUser']]);
+            $existingProject = $db->fetchOne("SELECT * FROM project WHERE name = :name AND uuidUser = :uuidUser", ['name' => $body['name'],'uuidUser' =>$uuidUser]);
 
             // check if project exists
             if ($existingProject) {
@@ -96,7 +131,7 @@ use Exception;
             $db->insert('project', [
                 'name' => $body['name'],
                 'chart' => $body['chart'],
-                'uuidUser' => $body['uuidUser'],
+                'uuidUser' => $uuidUser,
                 'uuid' => uniqid()
             ]);
 
@@ -153,6 +188,29 @@ use Exception;
      * )
      */
     public function delete($uuid) {
+
+        $headers = apache_request_headers();
+
+        if (!isset($headers['Authorization'])) {
+            ResponseHandler::getResponseHandler()->sendResponse(401, [
+                'error' => 'Unauthorized'
+            ]);
+            exit;
+        }
+
+        $authHeader = $headers['Authorization'];
+        $token = str_replace('Bearer ', '', $authHeader);
+
+        try {
+            // decode the token
+            $payload = JWT::getJWT()->decode($token);
+        } catch (\InvalidArgumentException $e) {
+            ResponseHandler::getResponseHandler()->sendResponse(401, [
+                'error' => 'Unauthorized'
+            ]);
+            exit;
+        }
+
         try {
             $db = Database::getInstance();
             $project = $db->fetchOne("SELECT * FROM project WHERE uuid = :uuid", ['uuid' => $uuid]);
@@ -161,6 +219,15 @@ use Exception;
                 ResponseHandler::getResponseHandler()->sendResponse(404, ['error' => 'Project not found']);
                 exit;
             }
+
+            $currentUser = $db->fetchOne("SELECT * FROM user WHERE username = :username", ['username' => $payload['username']]);
+            
+            if($currentUser['uuid'] != $project['uuidUser']){
+                ResponseHandler::getResponseHandler()->sendResponse(401, [
+                    'error' => 'Unauthorized'
+                ]);
+                exit;
+            } 
 
 
             $db->delete('project', ['uuid' => $uuid]);
@@ -213,6 +280,29 @@ use Exception;
      * )
      */
     public function get($uuid) {
+
+        $headers = apache_request_headers();
+
+        if (!isset($headers['Authorization'])) {
+            ResponseHandler::getResponseHandler()->sendResponse(401, [
+                'error' => 'Unauthorized'
+            ]);
+            exit;
+        }
+
+        $authHeader = $headers['Authorization'];
+        $token = str_replace('Bearer ', '', $authHeader);
+
+        try {
+            // decode the token
+            $payload = JWT::getJWT()->decode($token);
+        } catch (\InvalidArgumentException $e) {
+            ResponseHandler::getResponseHandler()->sendResponse(401, [
+                'error' => 'Unauthorized'
+            ]);
+            exit;
+        }
+
         try {
             $db = Database::getInstance();
             $project = $db->fetchOne("SELECT * FROM project WHERE uuid = :uuid", ['uuid' => $uuid]);
@@ -221,6 +311,15 @@ use Exception;
                 ResponseHandler::getResponseHandler()->sendResponse(404, ['error' => 'Project not found']);
                 exit;
             }
+            
+            $currentUser = $db->fetchOne("SELECT * FROM user WHERE username = :username", ['username' => $payload['username']]);
+            
+            if($currentUser['uuid'] != $project['uuidUser']){
+                ResponseHandler::getResponseHandler()->sendResponse(401, [
+                    'error' => 'Unauthorized'
+                ]);
+                exit;
+            } 
 
             ResponseHandler::getResponseHandler()->sendResponse(200, [
                 'data' => [
