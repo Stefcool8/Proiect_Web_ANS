@@ -1,3 +1,9 @@
+<?php
+$currentPage = isset($_GET['page']) ? $_GET['page'] : 1;
+// Utilizează valoarea $currentPage cum ai nevoie
+echo "Current Page: " . $currentPage;
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -30,7 +36,6 @@
         </div>
                 
         <div class="project-area">
-                    
             <div class = "project project-1">
                 <p class = "project-name">Project Name 1</p>
                 <div class ="button-area">
@@ -66,7 +71,13 @@
                     <a href="/project/4/delete" class="button">Delete</a>
                 </div>
             </div>
-                    
+
+           <div class ="button-area-next-previous">
+               <a href="/dashboard?page=<?php echo urlencode($currentPage-1);  ?>" class="button button-previous">Previous Page</a>
+               <a href="/dashboard?page=<?php echo urlencode($currentPage+1);  ?>" class="button button-next">Next Page</a>
+
+           </div>
+
         </div>
             
 

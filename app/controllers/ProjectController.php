@@ -72,28 +72,8 @@ use Exception;
          
         //$uuid = $body['uuid'];
         // get the token from the request header
-        $headers = apache_request_headers();
+        $payload = $this->getPayload();
 
-        if (!isset($headers['Authorization'])) {
-            ResponseHandler::getResponseHandler()->sendResponse(401, [
-                'error' => 'Unauthorized'
-            ]);
-            exit;
-        }
-
-        $authHeader = $headers['Authorization'];
-        $token = str_replace('Bearer ', '', $authHeader);
-
-        try {
-            // decode the token
-            $payload = JWT::getJWT()->decode($token);
-        } catch (\InvalidArgumentException $e) {
-            ResponseHandler::getResponseHandler()->sendResponse(401, [
-                'error' => 'Unauthorized'
-            ]);
-            exit;
-        }
-       
         try {
             $db = Database::getInstance();
 
@@ -194,27 +174,7 @@ use Exception;
      */
     public function delete($uuid) {
 
-        $headers = apache_request_headers();
-
-        if (!isset($headers['Authorization'])) {
-            ResponseHandler::getResponseHandler()->sendResponse(401, [
-                'error' => 'Unauthorized'
-            ]);
-            exit;
-        }
-
-        $authHeader = $headers['Authorization'];
-        $token = str_replace('Bearer ', '', $authHeader);
-
-        try {
-            // decode the token
-            $payload = JWT::getJWT()->decode($token);
-        } catch (\InvalidArgumentException $e) {
-            ResponseHandler::getResponseHandler()->sendResponse(401, [
-                'error' => 'Unauthorized'
-            ]);
-            exit;
-        }
+        $payload = $this->getPayload();
 
         try {
             $db = Database::getInstance();
@@ -294,27 +254,7 @@ use Exception;
      */
     public function get($uuid) {
 
-        $headers = apache_request_headers();
-
-        if (!isset($headers['Authorization'])) {
-            ResponseHandler::getResponseHandler()->sendResponse(401, [
-                'error' => 'Unauthorized'
-            ]);
-            exit;
-        }
-
-        $authHeader = $headers['Authorization'];
-        $token = str_replace('Bearer ', '', $authHeader);
-
-        try {
-            // decode the token
-            $payload = JWT::getJWT()->decode($token);
-        } catch (\InvalidArgumentException $e) {
-            ResponseHandler::getResponseHandler()->sendResponse(401, [
-                'error' => 'Unauthorized'
-            ]);
-            exit;
-        }
+        $payload = $this->getPayload();
         try {
             $db = Database::getInstance();
             $project = $db->fetchOne("SELECT * FROM project WHERE uuid = :uuid", ['uuid' => $uuid]);
@@ -359,5 +299,34 @@ use Exception;
             exit;
         }
     }
+
+     /**
+      * @return array|void
+      */
+     public function getPayload()
+     {
+         $headers = apache_request_headers();
+
+         if (!isset($headers['Authorization'])) {
+             ResponseHandler::getResponseHandler()->sendResponse(401, [
+                 'error' => 'Unauthorized'
+             ]);
+             exit;
+         }
+
+         $authHeader = $headers['Authorization'];
+         $token = str_replace('Bearer ', '', $authHeader);
+
+         try {
+             // decode the token
+             $payload = JWT::getJWT()->decode($token);
+         } catch (\InvalidArgumentException $e) {
+             ResponseHandler::getResponseHandler()->sendResponse(401, [
+                 'error' => 'Unauthorized'
+             ]);
+             exit;
+         }
+         return $payload;
+     }
  }
 

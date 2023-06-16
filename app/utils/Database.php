@@ -35,7 +35,13 @@ private static ?Database $instance = null;
 
     private function query(string $sql, array $params = []): PDOStatement {
         $stmt = $this->connection->prepare($sql);
-        $stmt->execute($params);
+        //make parameter bindind
+        //This ensures that the values are treated as data and not as executable SQL code. 
+        //Binding the parameters correctly prevents SQL injection by automatically handling proper escaping and quoting of the input values.
+        foreach ($params as $param => $value) {
+            $stmt->bindValue(':' . $param, $value);
+        }
+        $stmt->execute();
         return $stmt;
     }
 
@@ -53,8 +59,12 @@ private static ?Database $instance = null;
     public function insert(string $table, array $data): void {
         $columns = implode(', ', array_keys($data));
         $placeholders = ':' . implode(', :', array_keys($data));
+
+        //fn - shorthand for anonymus function 
+        $params = array_combine(array_map(fn($col) => ":$col", array_keys($data)), $data);
+
         $sql = "INSERT INTO $table ($columns) VALUES ($placeholders)";
-        $this->query($sql, $data);
+        $this->query($sql, $params);
     }
 
     public function update(string $table, array $data, array $conditions): void {
@@ -69,6 +79,20 @@ private static ?Database $instance = null;
 
         $this->query($sql, (array)$params);
     }
+
+    public function join(string $table1, string $table2, array $joinConditions, array $params = []): array {
+        $joinClauses = [];
+        foreach ($joinConditions as $condition) {
+            $joinClauses[] = $condition['table1Column'] . ' ' . $condition['operator'] . ' ' . $condition['table2Column'];
+        }
+        $joinClause = implode(' AND ', $joinClauses);
+    
+        $sql = "SELECT * FROM $table1 JOIN $table2 ON $joinClause";
+        $stmt = $this->query($sql, $params);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+   
 
     public function delete(string $table, array $conditions): void {
         $where = implode(' AND ', array_map(fn($col) => "$col = :$col", array_keys($conditions)));
