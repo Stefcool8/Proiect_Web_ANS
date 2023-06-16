@@ -1,88 +1,58 @@
-function validateProjectData(projectName, chartType) {
-    if (!projectName) {
-        return "Project name is required";
-    }
-    if (!chartType) {
-        return "Chart type is required";
-    }
-    return null;
-}
+const loginForm = document.querySelector("form");
+const errorMessage = document.querySelector(".error-message");
+let result;
 
-async function fetchProjectData(data) {
+
+loginForm.addEventListener('submit', async(event) => {
+
+    event.preventDefault();
+
+    // get the username and password
+    console.log("loginForm submit");
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+
+    const data = {
+        username: username,
+        password: password
+    };
+
     try {
-        const token = localStorage.getItem("jwt");
-        const response = await fetch('/api/project', {
+        // send the username and password to the backend
+        const response = await fetch('/api/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + token,
             },
             body: JSON.stringify(data),
         });
-        return await response.json();
+
+        result = await response.json();
+
+        if (response.ok) {
+            // the login was successful
+            localStorage.setItem("jwt", result.data.token);
+
+            localStorage.setItem("user", JSON.stringify(result.data.user));
+
+            // redirect to dashboard
+            window.location.href = "/dashboard";
+        } else {
+            showError(result.data.error);
+        }
+
     } catch (error) {
         console.error(error);
-        return null;
+        showError("An error occurred. Please try again later.");
     }
-}
+});
 
-function handleProjectResponse(response) {
-
-    if (response && response.hasOwnProperty("status_code") && response.status_code === 200) {
-        // the project creation was successful
-        showMessage(successMessage, "Project successfully created. Redirecting...");
-        submitButton.disabled = true;
-        setTimeout(() => {
-            window.location.href = "/dashboard";
-        }, 3000);
-
-    } else {
-        showMessage(errorMessage, response.data.error);
-    }
-}
-
-function showMessage(element, message) {
-    element.textContent = message;
-    element.classList.add("visible");
+function showError(message) {
+    const errorDiv = document.querySelector(".error-message");
+    errorDiv.textContent = message;
+    errorDiv.classList.add("visible");
 
     setTimeout(() => {
-        hideMessage(element);
+        errorDiv.classList.remove("visible");
     }, 3000);
 }
-
-function hideMessage(element) {
-    element.classList.remove("visible");
-}
-
-const projectForm = document.querySelector("form");
-const errorMessage = document.querySelector(".error-message");
-const successMessage = document.querySelector(".success-message");
-const submitButton = document.querySelector("button");
-
-projectForm.addEventListener('submit', async (event) => {
-    event.preventDefault();
-
-    // get the project name and chart type
-    const projectName = document.getElementById('project-name').value;
-    const chartType = document.getElementById('chart-type').value;
-
-    const data = {
-        project_name: projectName,
-        chart_type: chartType
-    };
-
-    const error = validateProjectData(projectName, chartType);
-    if (error) {
-        showMessage(errorMessage, error);
-        return;
-    }
-
-    const response = await fetchProjectData(data);
-
-    if (!response) {
-        showMessage(errorMessage, "An error occurred. Please try again later.");
-        return;
-    }
-
-    handleProjectResponse(response);
-});
