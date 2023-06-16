@@ -15,13 +15,14 @@ $router->add('POST', '/api/contact', 'ContactController::create');
 // dashboard routes
 $router->add('GET', '/api/dashboard', 'DashboardController::get');
 $router->add('GET', '/api/admin','AdminController::getInfo');
-$router->add('GET','/api/admin/users','AdminController::getUsers');
+
 
 // user routes
 $router->add('POST', '/api/user', 'UserController::create');
 $router->add('GET', '/api/user/{uuid}', 'UserController::get');
 $router->add('DELETE', '/api/user/{uuid}', 'UserController::delete');
 $router->add('PUT', '/api/user/{uuid}', 'UserController::update');
+$router->add('GET','/api/user','UserController::gets');
 
 // project routes
 $router->add('GET', '/api/project', 'ProjectController::gets');

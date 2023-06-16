@@ -1,6 +1,6 @@
 <?php 
     require_once __DIR__ . '/shared/general.php';
-    $result = fetch_data('admin/users', [
+    $result = fetch_data('user', [
         'data' => []
     ]);
     //var_dump($result);

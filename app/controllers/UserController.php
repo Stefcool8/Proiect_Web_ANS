@@ -182,7 +182,7 @@ class UserController extends Controller {
             $user = $db->fetchOne("SELECT * FROM user WHERE uuid = :uuid", ['uuid' => $uuid]);
             $currentUser = $db->fetchOne("SELECT * FROM user WHERE username = :username",['username' => $payload['username']]);
 
-            
+
 
             if($currentUser['isAdmin'] || (($currentUser['uuid'] == $uuid) && $user)){
                 $db->delete('user', ['uuid' => $uuid]);
@@ -204,7 +204,7 @@ class UserController extends Controller {
     }
 
     public function get($uuid) {
-        $payload = this->getPayload();
+        $payload = $this->getPayload();
         if(!$payload){
             ResponseHandler::getResponseHandler()->sendResponse(401, [
                 'error' => 'Unauthorized'
@@ -243,6 +243,8 @@ class UserController extends Controller {
             ResponseHandler::getResponseHandler()->sendResponse(500, ["error" => "Internal Server Error"]);
         }
     }
+
+
 
     public function update($uuid)
     {
@@ -312,5 +314,108 @@ class UserController extends Controller {
         ], ['uuid' => $uuid]);
 
         ResponseHandler::getResponseHandler()->sendResponse(200, ['message' => 'User updated successfully']);
+    }
+    /**
+     * @OA\Get(
+     *     path="/api/user",
+     *     summary="Retrieve list of users",
+     *     operationId="getUsers",
+     *     tags={"User"},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                 property="status_code",
+     *                 type="integer",
+     *                 example=200
+     *             ),
+     *             @OA\Property(
+     *                 property="data",
+     *                 type="array",
+     *                 @OA\Items(
+     *                     type="object",
+     *                     @OA\Property(
+     *                         property="uuid",
+     *                         type="string",
+     *                         example="user-123"
+     *                     ),
+     *                     @OA\Property(
+     *                         property="name",
+     *                         type="string",
+     *                         example="John Doe"
+     *                     ),
+     *                     @OA\Property(
+     *                         property="email",
+     *                         type="string",
+     *                         example="johndoe@example.com"
+     *                     ),
+     *                     @OA\Property(
+     *                         property="username",
+     *                         type="string",
+     *                         example="johndoe"
+     *                     )
+     *                 )
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Users not found",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                 property="error",
+     *                 type="string",
+     *                 example="Users not found"
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=500,
+     *         description="Internal Server Error",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                 property="error",
+     *                 type="string",
+     *                 example="Internal Server Error"
+     *             )
+     *         )
+     *     )
+     * )
+     */
+
+
+    public function gets(){
+        try {
+            $db = Database::getInstance();
+
+            $users = $db->fetchAll("SELECT * FROM user ");
+
+            if (empty($users)) {
+                ResponseHandler::getResponseHandler()->sendResponse(404, ['error' => 'Users not found']);
+                exit;
+            }
+
+            $userArray = [];
+            foreach ($users as $user) {
+                $userArray[] = [
+                    'isAdmin' => $user['isAdmin'],
+                    'uuid' => $user['uuid'],
+                    'firstName' => $user['firstName'],
+                    'lastName' => $user['lastName'],
+                    'email' => $user['email'],
+                    'username' => $user['username']
+                ];
+            }
+
+            ResponseHandler::getResponseHandler()->sendResponse(200, ['data' => $userArray]);
+
+        } catch (Exception $e) {
+            // Handle potential exception during database deletion
+            ResponseHandler::getResponseHandler()->sendResponse(500, ["error" => "Internal Server Error"]);
+        }
     }
 }

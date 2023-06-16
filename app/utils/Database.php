@@ -48,7 +48,7 @@ private static ?Database $instance = null;
         $stmt = $this->connection->prepare($sql);
         $stmt->execute($params);
         return $stmt;
-       */
+*/
     }
 
     public function fetchAll(string $sql, array $params = []): array {

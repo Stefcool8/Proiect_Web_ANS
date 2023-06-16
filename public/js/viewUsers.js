@@ -26,19 +26,19 @@ document.addEventListener('DOMContentLoaded', async() => {
     }
 });
 
-var deleteButtons = document.querySelectorAll(
+const deleteButtons = document.querySelectorAll(
     ".user-list .button-area a:last-child"
 );
-var viewProfileButtons = document.querySelectorAll(
+const viewProfileButtons = document.querySelectorAll(
     ".user-list .button-area a:first-child"
 );
 
 deleteButtons.forEach(function(button) {
     button.addEventListener("click", async(event) => {
         event.preventDefault();
-        var userRow = event.target.closest(".project");
-        var userData = JSON.parse(userRow.dataset.user);
-        var uuid = userData.uuid;
+        const userRow = event.target.closest(".project");
+        const userData = JSON.parse(userRow.dataset.user);
+        const uuid = userData.uuid;
         console.log("Deleted button clicked");
         console.log("UUID:", uuid);
 
@@ -70,9 +70,9 @@ viewProfileButtons.forEach(function(button) {
     // Add a click event listener to each button
     button.addEventListener("click", async(event) => {
         event.preventDefault();
-        var userRow = event.target.closest(".project");
-        var userData = JSON.parse(userRow.dataset.user);
-        var uuid = userData.uuid;
+        const userRow = event.target.closest(".project");
+        const userData = JSON.parse(userRow.dataset.user);
+        const uuid = userData.uuid;
         console.log("View Button clicked");
         console.log("UUID:", uuid);
 
@@ -100,7 +100,7 @@ viewProfileButtons.forEach(function(button) {
     });
 });
 
-var userlistContainer = document.querySelector(".user-list");
+const userlistContainer = document.querySelector(".user-list");
 
 userlistContainer.addEventListener("click", function(event) {
     // Check if the click occurred within the "user-list" region
