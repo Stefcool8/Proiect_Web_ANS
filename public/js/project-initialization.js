@@ -5,6 +5,14 @@ const chartTypeSelect = document.getElementById("chart-type");
 let yearCheckboxContainer = null;
 let barsSelect = null;
 let seriesSelect = null;
+const columns = [
+    "JUDET",
+    "CATEGORIE_NATIONALA",
+    "CATEGORIA_COMUNITARA",
+    "MARCA",
+    "DESCRIERE_COMERCIALA",
+    "TOTAL"
+];
 
 function showMessage(element, message) {
     element.textContent = message;
@@ -49,6 +57,30 @@ function removeSeriesSelect() {
     }
 }
 
+function getSelectedYears() {
+    // Get the selected years
+    const selectedYears = [];
+    const yearCheckboxes = document.querySelectorAll('input[type="checkbox"]');
+    for (let i = 0; i < yearCheckboxes.length; i++) {
+        if (yearCheckboxes[i].checked) {
+            selectedYears.push(yearCheckboxes[i].value);
+        }
+    }
+
+    return selectedYears;
+}
+
+function getChartCode() {
+    switch (chartTypeSelect.value) {
+        case 'barChart':
+            return 0;
+        case 'lineChart':
+            return 1;
+        case 'pieChart':
+            return 2;
+    }
+}
+
 function addYearsToCheckboxContainer() {
     // Generate checkboxes for years 2012 to 2021
     for (let year = 2012; year <= 2021; year++) {
@@ -72,16 +104,6 @@ function addYearsToCheckboxContainer() {
 }
 
 function addBarsToSelectMenu() {
-    // Hardcode the bars labels into an array
-    const bars = [
-        "JUDET",
-        "CATEGORIE_NATIONALA",
-        "CATEGORIA_COMUNITARA",
-        "MARCA",
-        "DESCRIERE_COMERCIALA",
-        "TOTAL"
-    ];
-
     // add an empty option to the select menu
     const emptyOption = document.createElement('option');
     emptyOption.value = '';
@@ -91,20 +113,17 @@ function addBarsToSelectMenu() {
     barsSelect.appendChild(emptyOption);
 
     // Iterate over the bars array and create an option for each bar
-    for (let i = 0; i < bars.length; i++) {
+    for (let i = 0; i < columns.length; i++) {
         const barOption = document.createElement('option');
-        barOption.value = bars[i];
-        barOption.textContent = bars[i];
+        barOption.value = columns[i];
+        barOption.textContent = columns[i];
         barsSelect.appendChild(barOption);
     }
 }
 
 function addSeriesToSelectMenu() {
     // Hardcode the series labels into an array
-    const series = [
-        "JUDET",
-        "CATEGORIE_NATIONALA"
-    ];
+    const series = [columns[0], columns[1]];
 
     // add an empty option to the select menu
     const emptyOption = document.createElement('option');
@@ -248,15 +267,30 @@ projectInitializationForm.addEventListener("submit", async (event) => {
     }
 
     const projectName = document.getElementById("project-name").value;
-    const chartType = document.getElementById("chart-type").value;
+    const chartCode = getChartCode(chartTypeSelect.value);
+    const years = getSelectedYears();
 
     console.log(projectName);
-    console.log(chartType);
+    console.log(chartCode);
+    console.log(years);
 
     const data = {
         name: projectName,
-        chart: chartType,
+        chart: chartCode,
+        years: years
     };
+
+    if (chartCode === 0) {
+        const barCode = columns.indexOf(barsSelect.value);
+        const series = columns.indexOf(seriesSelect.value);
+
+        console.log(barCode);
+        console.log(series);
+
+        // add the bars and series to the data object
+        data.bars = barCode;
+        data.series = series;
+    }
 
     const token = localStorage.getItem('jwt');
     if (!token) {

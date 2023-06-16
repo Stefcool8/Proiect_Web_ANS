@@ -97,6 +97,8 @@ select * from bar_chart;
 select * from optional_conditions;
 select * from years;
 
+delete from project where id = 9;
+
 drop table user cascade;
 drop table project cascade;
 drop table bar_chart cascade;

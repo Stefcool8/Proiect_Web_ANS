@@ -106,7 +106,7 @@ use InvalidArgumentException;
 
             // check if project exists
             if ($existingProject) {
-                ResponseHandler::getResponseHandler()->sendResponse(409, ["error" => "Porject already exists"]);
+                ResponseHandler::getResponseHandler()->sendResponse(409, ["error" => "Project already exists"]);
                 exit;
             }
 
