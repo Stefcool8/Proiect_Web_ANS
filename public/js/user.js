@@ -1,5 +1,3 @@
-console.log("HEY");
-
 document.addEventListener('DOMContentLoaded', async() => {
     const token = localStorage.getItem('jwt');
     const url = window.location.href;

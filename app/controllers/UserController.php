@@ -182,47 +182,46 @@ class UserController {
         }
     }
 
+
     /**
      * @OA\Get(
-     *     path="/api/user/{uuid}",
-     *     summary="Retrieve user information",
+     *     path="/user/{uuid}",
+     *     summary="Get user information",
+     *     description="Get the details of a user by UUID.",
      *     operationId="getUser",
-     *     tags={"User"},
-     *
-     *     @OA\Parameter(
-     *         name="uuid",
-     *         in="path",
-     *         description="UUID of the user to retrieve",
-     *         required=true,
-     *         @OA\Schema(
-     *             type="string"
-     *         )
-     *     ),
-     *     @OA\Response(response="200", description="User found", @OA\JsonContent(
-     *         @OA\Property(property="data", type="object",
-     *             @OA\Property(property="isAdmin", type="boolean"),
-     *             @OA\Property(property="uuid", type="string"),
-     *             @OA\Property(property="name", type="string"),
-     *             @OA\Property(property="email", type="string"),
-     *             @OA\Property(property="username", type="string")
-     *         )
-     *     )),
+     *     tags={"user"},
      *     @OA\Response(
-     *         response="404",
+     *         response=200,
+     *         description="Successful operation",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="data", type="object",
+     *                 example={
+     *                     "firstName": "John",
+     *                     "lastName": "Doe",
+     *                     "email": "john.doe@example.com",
+     *                     "username": "johndoe",
+     *                     "uuid": "123e4567-e89b-12d3-a456-426614174000",
+     *                     "isAdmin": false,
+     *                     "bio": "This is John Doe's bio."
+     *                 }
+     *             )
+     *         ),
+     *     ),
+     *     @OA\Response(
+     *         response=404,
      *         description="User not found",
      *         @OA\JsonContent(
-     *             @OA\Property(property="status_code", type="integer", example=404),
-     *             @OA\Property(property="error", type="string", example="User not found")
-     *         )
+     *             @OA\Property(property="error", type="string", example="User not found"),
+     *         ),
      *     ),
      *     @OA\Response(
-     *         response="500",
-     *         description="Internal Server Error",
+     *         response=500,
+     *         description="Internal server error",
      *         @OA\JsonContent(
-     *             @OA\Property(property="status_code", type="integer", example=500),
-     *             @OA\Property(property="error", type="string", example="Internal Server Error")
-     *        )
-     *    )
+     *             @OA\Property(property="error", type="string", example="Internal Server Error"),
+     *         ),
+     *     ),
      * )
      */
     public function get($uuid) {
@@ -237,12 +236,13 @@ class UserController {
 
             ResponseHandler::getResponseHandler()->sendResponse(200, [
                 'data' => [
-                    'uuid' => $user['uuid'],
-                    'isAdmin' => $user['isAdmin'],
                     'firstName' => $user['firstName'],
                     'lastName' => $user['lastName'],
                     'email' => $user['email'],
-                    'username' => $user['username']
+                    'username' => $user['username'],
+                    'uuid' => $user['uuid'],
+                    'isAdmin' => $user['isAdmin'],
+                    'bio' => $user['bio'],
                 ]
             ]);
 

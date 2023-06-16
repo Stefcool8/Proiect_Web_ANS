@@ -1,18 +1,13 @@
 <?php
-
 $currentUrl = $_SERVER['REQUEST_URI'];
-
-// Parse the URL to extract the userID
 $parts = explode('/', $currentUrl);
 $userID = end($parts);
 
 require_once __DIR__ . '/shared/general.php';
-
 $urlAPI = 'user/' . $userID;
 $result = fetch_data($urlAPI, [
     'data' => []
 ]);
-
 ?>
 
 <!DOCTYPE html>
@@ -38,13 +33,11 @@ $result = fetch_data($urlAPI, [
 
     <div class="main-content">
         <div class="user-visual">
-            <div class="user-banner">
-                <img src="/public/assets/img/banner.jpg" alt="User Banner">
-            </div>
+
 
             <div class="user-picture-and-controls">
                 <div class="user-picture">
-                    <!-- User picture content goes here -->
+                    <img src="/public/assets/img/user.jpg" alt="AAA">
                 </div>
 
                 <div class="user-name-and-email">
@@ -62,18 +55,23 @@ $result = fetch_data($urlAPI, [
 
         <div class="user-details">
             <div class="input-group">
-                <label>Full Name</label>
-                <p> <?php echo $result['data']['name'] ?> </p>
+                <label>First name</label>
+                <p class="data"> <?php echo $result['data']['firstName'] ?> </p>
+            </div>
+
+            <div class="input-group">
+                <label>Last name</label>
+                <p class="data"> <?php echo $result['data']['lastName'] ?> </p>
             </div>
 
             <div class="input-group">
                 <label>Email</label>
-                <p> <?php echo $result['data']['email'] ?> </p>
+                <p class="data"> <?php echo $result['data']['email'] ?> </p>
             </div>
 
             <div class="input-group">
                 <label>Username</label>
-                <p> <?php echo $result['data']['username'] ?> </p>
+                <p class="data"> <?php echo $result['data']['username'] ?> </p>
             </div>
         </div>
     </div>
