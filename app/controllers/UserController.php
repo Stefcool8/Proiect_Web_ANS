@@ -182,7 +182,7 @@ class UserController extends Controller {
             $user = $db->fetchOne("SELECT * FROM user WHERE uuid = :uuid", ['uuid' => $uuid]);
             $currentUser = $db->fetchOne("SELECT * FROM user WHERE username = :username",['username' => $payload['username']]);
 
-            
+
 
             if($currentUser['isAdmin'] || (($currentUser['uuid'] == $uuid) && $user)){
                 $db->delete('user', ['uuid' => $uuid]);
@@ -203,8 +203,50 @@ class UserController extends Controller {
         }
     }
 
+
+    /**
+     * @OA\Get(
+     *     path="/user/{uuid}",
+     *     summary="Get user information",
+     *     description="Get the details of a user by UUID.",
+     *     operationId="getUser",
+     *     tags={"user"},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="data", type="object",
+     *                 example={
+     *                     "firstName": "John",
+     *                     "lastName": "Doe",
+     *                     "email": "john.doe@example.com",
+     *                     "username": "johndoe",
+     *                     "uuid": "123e4567-e89b-12d3-a456-426614174000",
+     *                     "isAdmin": false,
+     *                     "bio": "This is John Doe's bio."
+     *                 }
+     *             )
+     *         ),
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="User not found",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="error", type="string", example="User not found"),
+     *         ),
+     *     ),
+     *     @OA\Response(
+     *         response=500,
+     *         description="Internal server error",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="error", type="string", example="Internal Server Error"),
+     *         ),
+     *     ),
+     * )
+     */
     public function get($uuid) {
-        $payload = this->getPayload();
+        $payload = $this->getPayload();
         if(!$payload){
             ResponseHandler::getResponseHandler()->sendResponse(401, [
                 'error' => 'Unauthorized'
