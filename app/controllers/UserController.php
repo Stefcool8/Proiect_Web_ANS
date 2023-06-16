@@ -1,5 +1,5 @@
 <?php
-// DONE
+
 namespace App\controllers;
 
 use App\utils\ResponseHandler;
@@ -22,7 +22,8 @@ class UserController extends Controller {
      *         description="User data",
      *         required=true,
      *         @OA\JsonContent(
-     *             @OA\Property(property="name", type="string", example="John Doe"),
+     *             @OA\Property(property="firstName", type="string", example="John"),
+     *             @OA\Property(property="lastName", type="string", example="Doe"),
      *             @OA\Property(property="email", type="string", example="john@example.com"),
      *             @OA\Property(property="password", type="string", example="SecureP@ssword123"),
      *             @OA\Property(property="username", type="string", example="johnDoe")
@@ -59,7 +60,7 @@ class UserController extends Controller {
      *             @OA\Property(property="status_code", type="integer", example=488),
      *             @OA\Property(property="error", type="string", example="Email already exists")
      *         )
-     *     ), 
+     *     ),
      *     @OA\Response(
      *          response=500,
      *          description="Internal Server Error",
@@ -72,13 +73,12 @@ class UserController extends Controller {
      */
     public function create() {
         // get the request body
-
         $body = json_decode(file_get_contents('php://input'), true);
 
         $payload = $this->getPayload();
         if($payload){
             ResponseHandler::getResponseHandler()->sendResponse(401, [
-                'error' => 'You can not create a new player before logging out.'
+                'error' => 'You can not create a new user while logged in'
             ]);
             exit;
         }
@@ -115,7 +115,7 @@ class UserController extends Controller {
                 'password' => password_hash($body['password'], PASSWORD_DEFAULT),
                 'email' => $body['email'],
                 'username' => $body['username'],
-                'isAdmin' => true,
+                'isAdmin' => false,
                 'uuid' => uniqid()
             ]);
 
@@ -139,7 +139,8 @@ class UserController extends Controller {
      *         description="UUID of the user to be deleted",
      *         required=true,
      *         @OA\Schema(
-     *             type="string"
+     *             type="string",
+     *             example="648c882816eda"
      *         )
      *     ),
      *     @OA\Response(response="204", description="User successfully deleted."),
@@ -171,6 +172,7 @@ class UserController extends Controller {
      */
     public function delete($uuid) {
         $payload = $this->getPayload();
+
         if(!$payload){
             ResponseHandler::getResponseHandler()->sendResponse(401, [
                 'error' => 'Unauthorized'
@@ -181,8 +183,6 @@ class UserController extends Controller {
             $db = Database::getInstance();
             $user = $db->fetchOne("SELECT * FROM user WHERE uuid = :uuid", ['uuid' => $uuid]);
             $currentUser = $db->fetchOne("SELECT * FROM user WHERE username = :username",['username' => $payload['username']]);
-
-
 
             if($currentUser['isAdmin'] || (($currentUser['uuid'] == $uuid) && $user)){
                 $db->delete('user', ['uuid' => $uuid]);
@@ -203,14 +203,25 @@ class UserController extends Controller {
         }
     }
 
-
     /**
      * @OA\Get(
-     *     path="/user/{uuid}",
+     *     path="/api/user/{uuid}",
      *     summary="Get user information",
      *     description="Get the details of a user by UUID.",
      *     operationId="getUser",
-     *     tags={"user"},
+     *     tags={"User"},
+     *     security={{"bearerAuth":{}}},
+     *
+     *     @OA\Parameter(
+     *         name="uuid",
+     *         in="path",
+     *         description="UUID of the user to retrieve",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string",
+     *             example="648c882816eda"
+     *         )
+     *     ),
      *     @OA\Response(
      *         response=200,
      *         description="Successful operation",
@@ -218,12 +229,12 @@ class UserController extends Controller {
      *             type="object",
      *             @OA\Property(property="data", type="object",
      *                 example={
+     *                     "uuid": "648c882816eda",
+     *                     "isAdmin": false,
      *                     "firstName": "John",
      *                     "lastName": "Doe",
      *                     "email": "john.doe@example.com",
      *                     "username": "johndoe",
-     *                     "uuid": "123e4567-e89b-12d3-a456-426614174000",
-     *                     "isAdmin": false,
      *                     "bio": "This is John Doe's bio."
      *                 }
      *             )
@@ -234,6 +245,13 @@ class UserController extends Controller {
      *         description="User not found",
      *         @OA\JsonContent(
      *             @OA\Property(property="error", type="string", example="User not found"),
+     *         ),
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="error", type="string", example="Unauthorized"),
      *         ),
      *     ),
      *     @OA\Response(
@@ -266,7 +284,8 @@ class UserController extends Controller {
                         'firstName' => $user['firstName'],
                         'lastName' => $user['lastName'],
                         'email' => $user['email'],
-                        'username' => $user['username']
+                        'username' => $user['username'],
+                        'bio' => $user['bio']
                     ]
                 ]);
                 exit;
@@ -279,16 +298,12 @@ class UserController extends Controller {
 
             ResponseHandler::getResponseHandler()->sendResponse(401, ['error' => 'Unauthorized']);
 
-
         } catch (Exception $e) {
-            // Handle potential exception during database deletion
             ResponseHandler::getResponseHandler()->sendResponse(500, ["error" => "Internal Server Error"]);
         }
     }
 
-    public function update($uuid)
-    {
-
+    public function update($uuid) {
         $payload = $this->getPayload();
         if(!$payload){
             ResponseHandler::getResponseHandler()->sendResponse(401, [

@@ -32,7 +32,7 @@ echo "Current Page: " . $currentPage;
     </div>
     <div class="profile-project-button-area">
         <a href="/user" class="view-profile-btn">View Profile</a>
-        <a href="/upload" class="create-project-btn">Create new project</a>
+        <a href="/project-initialization" class="create-project-btn">Create new project</a>
     </div>
 
     <div class="project-area">

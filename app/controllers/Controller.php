@@ -1,20 +1,16 @@
 <?php
-// DONE
 namespace App\Controllers;
 
-use App\Utils\ResponseHandler;
-use App\Utils\Database;
 use App\Utils\JWT;
-use Exception;
 use InvalidArgumentException;
-
 
 class Controller {
     /**
-     * @return array|void
+     * Method to get the payload from the request
+     *
+     * @return array
      */
-    protected function getPayload()
-    {
+    protected function getPayload(): ?array {
         $headers = apache_request_headers();
 
         if (!isset($headers['Authorization'])) {
@@ -27,10 +23,9 @@ class Controller {
         try {
             // decode the token
             $payload = JWT::getJWT()->decode($token);
-        } catch (\InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $e) {
             return null;
         }
         return $payload;
     }
-
 }
