@@ -32,7 +32,9 @@
     <main class="main-content">
         <div class="container">
             <h2>Create New Project</h2>
-            <form>
+            <form id="project-initialization-form">
+                <div class="error-message hidden"></div>
+                <div class="success-message hidden"></div>
                 <div class="input-group">
                     <label for="project-name">Project Name:</label>
                     <input type="text" id="project-name" name="project-name" required>

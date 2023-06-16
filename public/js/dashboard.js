@@ -1,6 +1,6 @@
 // dashboard.js
 
-document.addEventListener('DOMContentLoaded', async() => {
+document.addEventListener('DOMContentLoaded', async () => {
     const token = localStorage.getItem('jwt');
     if (!token) {
         window.location.href = "/login";
@@ -45,4 +45,69 @@ document.addEventListener('DOMContentLoaded', async() => {
         // Handle any errors
         console.error(error);
     }
+
+    // fetch the projects
+    try {
+        const response = await fetch('/api/project', {
+            method: 'GET',
+            headers: {
+                Authorization: 'Bearer ' + token,
+                'Content-Type': 'application/json',
+            }
+        });
+
+        if (response.ok) {
+
+            const result = await response.json();
+            console.log(result);
+            // Get the parent container where the project cards will be appended
+            const projectContainer = document.querySelector('.project-area');
+
+            // Iterate over the list of projects
+            result.data.projects.forEach(project => {
+                // Create a new project card
+                const projectCard = document.createElement('div');
+                projectCard.classList.add('project');
+                projectCard.classList.add(`project-${project.uuid}`); // Assign a unique class for this project
+
+                // Create the project name element
+                const projectName = document.createElement('p');
+                projectName.classList.add('project-name');
+                projectName.textContent = project.name;
+
+                // Create the button area
+                const buttonArea = document.createElement('div');
+                buttonArea.classList.add('button-area');
+
+                // Create the view button
+                const viewButton = document.createElement('a');
+                viewButton.classList.add('button');
+                viewButton.href = `/project/${project.uuid}`;
+                viewButton.textContent = 'View';
+
+                // Create the delete button
+                const deleteButton = document.createElement('a');
+                deleteButton.classList.add('button');
+                deleteButton.href = `/project/${project.uuid}/delete`;
+                deleteButton.textContent = 'Delete';
+
+                // Append the project name and buttons to the project card
+                projectCard.appendChild(projectName);
+                buttonArea.appendChild(viewButton);
+                buttonArea.appendChild(deleteButton);
+                projectCard.appendChild(buttonArea);
+
+                // Append the project card to the parent container
+                projectContainer.appendChild(projectCard);
+            });
+
+
+        } else {
+            // Handle the error
+            console.error(result.message);
+        }
+    } catch (error) {
+
+    }
+
 });

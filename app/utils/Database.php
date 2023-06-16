@@ -34,6 +34,7 @@ private static ?Database $instance = null;
     }
 
     private function query(string $sql, array $params = []): PDOStatement {
+
         $stmt = $this->connection->prepare($sql);
         //make parameter bindind
         //This ensures that the values are treated as data and not as executable SQL code. 
@@ -43,6 +44,11 @@ private static ?Database $instance = null;
         }
         $stmt->execute();
         return $stmt;
+       /*
+        $stmt = $this->connection->prepare($sql);
+        $stmt->execute($params);
+        return $stmt;
+       */
     }
 
     public function fetchAll(string $sql, array $params = []): array {
@@ -57,15 +63,23 @@ private static ?Database $instance = null;
     }
 
     public function insert(string $table, array $data): void {
-        $columns = implode(', ', array_keys($data));
-        $placeholders = ':' . implode(', :', array_keys($data));
+        /*$columns = implode(', ', array_keys($data));
+        //$placeholders = ':' . implode(', :', array_keys($data));
 
         //fn - shorthand for anonymus function 
         $params = array_combine(array_map(fn($col) => ":$col", array_keys($data)), $data);
 
         $sql = "INSERT INTO $table ($columns) VALUES ($placeholders)";
+
         $this->query($sql, $params);
-    }
+    */
+
+        $columns = implode(', ', array_keys($data));
+        $placeholders = ':' . implode(', :', array_keys($data));
+        $sql = "INSERT INTO $table ($columns) VALUES ($placeholders)";
+        $this->query($sql, $data);
+
+        }
 
     public function update(string $table, array $data, array $conditions): void {
         $set = implode(', ', array_map(fn($col) => "$col = :$col", array_keys($data)));

@@ -20,6 +20,9 @@ RewriteRule ^(.*)$ /public/html/$1.php [L]
 # Rule for /user/{uuid}
 RewriteRule ^user/([^/]+)$ /public/html/user.php [L]
 
+# Rule for /project/{uuid}
+RewriteRule ^project/([^/]+)$ /public/html/project.php [L]
+
 # Rule for /password/reset?=token
 RewriteRule ^password/reset /public/html/reset-password.php [L]
 

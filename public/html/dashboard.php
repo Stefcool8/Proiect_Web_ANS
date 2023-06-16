@@ -25,68 +25,31 @@ echo "Current Page: " . $currentPage;
 </head>
 
 <body>
-    <?php require_once __DIR__ . '/shared/navbar.php'; ?>
-        <main class = "central-area">
-        <div class="page-name">
-            <p>Dashboard, Hello</p>
-        </div>
-        <div class="profile-project-button-area">
-            <a href="/user" class="view-profile-btn">View Profile</a>
-            <a href="/upload" class="create-project-btn">Create new project</a>
-        </div>
-                
-        <div class="project-area">
-            <div class = "project project-1">
-                <p class = "project-name">Project Name 1</p>
-                <div class ="button-area">
-                    <a href="/project/1" class="button">View</a>
-                    <a href="/project/1/edit" class="button">Modify</a>
-                    <a href="/project/1/delete" class="button">Delete</a>
-                </div>
-            </div>
+<?php require_once __DIR__ . '/shared/navbar.php'; ?>
+<main class="central-area">
+    <div class="page-name">
+        <p>Dashboard, Hello</p>
+    </div>
+    <div class="profile-project-button-area">
+        <a href="/user" class="view-profile-btn">View Profile</a>
+        <a href="/upload" class="create-project-btn">Create new project</a>
+    </div>
 
-            <div class = "project project-2">
-                <p class = "project-name">Project Name 2</p>
-                <div class ="button-area">
-                    <a href="/project/2" class="button">View</a>
-                    <a href="/project/2/edit" class="button">Modify</a>
-                    <a href="/project/2/delete" class="button">Delete</a>
-                </div>
-            </div>
-                
-            <div class = "project project-3">
-                <p class = "project-name">Project Name 3</p>
-                <div class ="button-area">
-                    <a href="/project/3" class="button">View</a>
-                    <a href="/project/3/edit" class="button">Modify</a>
-                    <a href="/project/3/delete" class="button">Delete</a>
-                </div>
-            </div>
+    <div class="project-area">
 
-            <div class = "project project-4">
-                <p class = "project-name">Project Name 4</p>
-                <div class ="button-area">
-                    <a href="/project/4" class="button">View</a>
-                    <a href="/project/4/edit" class="button">Modify</a>
-                    <a href="/project/4/delete" class="button">Delete</a>
-                </div>
-            </div>
+    </div>
+    <div class="button-area-next-previous">
+        <a href="/dashboard?page=<?php echo urlencode($currentPage - 1); ?>" class="button button-previous">Previous
+            Page</a>
+        <a href="/dashboard?page=<?php echo urlencode($currentPage + 1); ?>" class="button button-next">Next Page</a>
+    </div>
 
-           <div class ="button-area-next-previous">
-               <a href="/dashboard?page=<?php echo urlencode($currentPage-1);  ?>" class="button button-previous">Previous Page</a>
-               <a href="/dashboard?page=<?php echo urlencode($currentPage+1);  ?>" class="button button-next">Next Page</a>
+</main>
 
-           </div>
+<?php require_once __DIR__ . '/shared/footer.php'; ?>
 
-        </div>
-            
+<script src="/public/js/dashboard.js"></script>
 
-    </main>
-
-    <?php require_once __DIR__ . '/shared/footer.php'; ?>
-
-    <script src="/public/js/dashboard.js"></script>
-   
 </body>
 
 </html>
