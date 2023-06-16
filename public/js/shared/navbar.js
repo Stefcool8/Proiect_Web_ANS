@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     try {
-        const response = await fetch("/api/auth", {
+        let response = await fetch("/api/auth", {
             method: "GET",
             headers: {
                 Authorization: "Bearer " + token,
@@ -18,8 +18,8 @@ document.addEventListener("DOMContentLoaded", async () => {
             return;
         }
 
-        const useNowLink = document.querySelector("a[href='/login']");
-        const navRight = document.querySelector("#nav .right");
+        let useNowLink = document.querySelector("a[href='/login']");
+        let navRight = document.querySelector("#nav .right");
 
         if (!useNowLink || !navRight) {
             console.error("Required elements not found");
@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         useNowLink.href = "/dashboard";
         useNowLink.querySelector(".u-nav").textContent = "Dashboard";
 
-        const signOutLink = document.createElement("a");
+        let signOutLink = document.createElement("a");
         signOutLink.className = "nav-link";
         signOutLink.href = "/logout";
         signOutLink.innerHTML = `<span class="nav-link-span"><span class="u-nav">Sign Out</span></span>`;
@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 });
 
-const $nav = $("#nav");
+let $nav = $("#nav");
 const util = {
     mobileMenu: () => $nav.toggleClass("nav-visible"),
     windowResize: () => $(window).width() > 800 && $nav.removeClass("nav-visible"),
