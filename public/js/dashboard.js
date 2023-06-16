@@ -56,6 +56,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
         });
 
+        console.log(response);
         if (response.ok) {
 
             const result = await response.json();
