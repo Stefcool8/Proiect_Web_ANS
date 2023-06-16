@@ -79,13 +79,13 @@
   animation-fill-mode: forwards;
   animation-timing-function: cubic-bezier(0.17, 0.57, 0.31, 0.85);
 }
-#nav-wrapper h1.logo {
+#nav-wrapper div.logo {
   font-weight: 300;
   font-size: 1.75em;
   line-height: 0.75em;
   color: #dfca9e;
 }
-#nav-wrapper h1.logo a, #nav-wrapper a:active, #nav-wrapper a:hover, #nav-wrapper a:visited {
+#nav-wrapper div.logo a, #nav-wrapper a:active, #nav-wrapper a:hover, #nav-wrapper a:visited {
   text-decoration: none;
   color: white;
 }

@@ -21,8 +21,8 @@
                     <img src="/public/assets/img/user.jpg" alt="User Picture">
                 </div>
                 <div class="user-name-and-email">
-                    <h1 class="header-username"></h1>
-                    <h5 class="header-email"></h5>
+                    <h1 class="header-username">Username</h1>
+                    <h5 class="header-email">Email</h5>
                 </div>
                 <div class="controls">
                     <button class="modify">Modify Account</button>
@@ -31,7 +31,7 @@
                 </div>
             </div>
         </div>
-        <article class="user-details">
+        <div class="user-details">
             <div class="input-group">
                 <label>First name</label>
                 <p class="data first-name"></p>
@@ -54,7 +54,7 @@
                     <textarea class="data bio" disabled></textarea>
                 </label>
             </div>
-        </article>
+        </div>
     </div>
 </div>
 <?php require_once __DIR__ . '/shared/footer.php'; ?>

@@ -4,7 +4,7 @@
     <nav id="nav">
         <div class="nav left">
             <div class="gradient skew">
-                <h1 class="logo un-skew"><a href="/">ANS</a></h1>
+                <div class="logo un-skew"><a href="/">ANS</a></div>
             </div>
             <button id="menu" class="btn-nav"><span class="fas fa-bars"></span></button>
         </div>

@@ -126,14 +126,14 @@ $shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
         }
     }
 
-    h1.logo {
+    div.logo {
         font-weight: 300;
         font-size: 1.75em;
         line-height: 0.75em;
         color: $color-neutral-med;
     }
 
-    h1.logo #{$a-tags} {
+    div.logo #{$a-tags} {
         text-decoration: none;
         color: white;
     }
