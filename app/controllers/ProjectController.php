@@ -12,7 +12,6 @@ use Exception;
  * Controller for Project operations
  * 
  */
-
  class ProjectController {
 
      /**

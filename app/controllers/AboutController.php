@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Controllers;
+namespace App\controllers;
 
-use App\Utils\ResponseHandler;
+use App\utils\ResponseHandler;
 
 /**
- * Controller for the about us page.
+ * Controller for the about us page
  * 
  */
 class AboutController {

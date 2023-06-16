@@ -1,0 +1,152 @@
+.reset {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.reset .main-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+  padding: 1.25rem;
+}
+.reset .container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 50rem;
+  background-color: white;
+  padding: 2.5rem;
+  border-radius: 1.25rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  color: #416a59;
+  min-height: 40vh;
+}
+.reset form {
+  width: 100%;
+}
+.reset h2 {
+  text-align: center;
+  margin-bottom: 0.5rem;
+  font-size: 2.5rem;
+  border-bottom: 2px solid #ccc;
+  padding-bottom: 0.5rem;
+  color: #416a59;
+}
+.reset .input-group {
+  margin-bottom: 0.5rem;
+  width: 100%;
+}
+.reset label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 2rem;
+  color: #416a59;
+}
+.reset input[type=email] {
+  width: 100%;
+  padding: 0.3rem;
+  border-radius: 0.6rem;
+  border: 1px solid #ccc;
+  font-size: 2rem;
+  transition: border 0.3s, box-shadow 0.3s;
+}
+.reset input[type=email]:hover, .reset input[type=email]:focus {
+  border: 1px solid #416a59;
+  box-shadow: 0 0 5px #416a59;
+}
+.reset button {
+  display: block;
+  width: 100%;
+  padding: 0.5rem;
+  background-color: #416a59;
+  color: white;
+  font-size: 2rem;
+  border: none;
+  border-radius: 1.25rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  margin-top: 2vh;
+}
+.reset button:hover {
+  background-color: #2d4534;
+  transform: scale(1.02);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+.reset button:active {
+  background-color: #2d4534;
+  transform: scale(0.98);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+.reset .login-link {
+  text-align: center;
+  margin-top: 0.5rem;
+  font-size: 0.5rem;
+}
+.reset .login-link p {
+  font-size: 1rem;
+  margin: 0;
+  color: #416a59;
+}
+.reset .login-link a {
+  text-decoration: none;
+  font-size: 0.75rem;
+  color: #2d4534;
+}
+@media screen and (max-width: 826px) {
+  .reset .container {
+    max-width: 80vw;
+  }
+  .reset h2 {
+    font-size: 2rem;
+  }
+  .reset label {
+    font-size: 1rem;
+  }
+  .reset input[type=email],
+  .reset button {
+    font-size: 1rem;
+  }
+  .reset .login-link p,
+  .reset .login-link a {
+    font-size: 1rem;
+  }
+}
+
+.error-message,
+.success-message {
+  font-weight: bold;
+  margin: 1rem 0;
+  padding: 0.4rem;
+  border-radius: 10px;
+  width: 100%;
+  text-align: center;
+  border: 1px solid;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s;
+}
+.error-message.hidden,
+.success-message.hidden {
+  display: none;
+}
+.error-message.visible,
+.success-message.visible {
+  display: block;
+}
+
+.error-message {
+  color: #b00020;
+  background-color: #ffe9e9;
+  border-color: #b00020;
+}
+
+.success-message {
+  color: #33ff9c;
+  background-color: #e9ffe9;
+  border-color: #33ff9c;
+}
+
+/*# sourceMappingURL=reset.css.map */

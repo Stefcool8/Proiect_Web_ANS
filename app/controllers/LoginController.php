@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Controllers;
+namespace App\controllers;
 
-use App\Utils\Database;
-use App\Utils\JWT;
-use App\Utils\ResponseHandler;
+use App\utils\Database;
+use App\utils\JWT;
+use App\utils\ResponseHandler;
 
 class LoginController {
 
@@ -46,12 +46,14 @@ class LoginController {
      *                 @OA\Property(
      *                     property="username",
      *                     description="The user's username",
-     *                     type="string"
+     *                     type="string",
+     *                     example="nicolaee3"
      *                 ),
      *                 @OA\Property(
      *                     property="password",
      *                     description="The user's password",
-     *                     type="string"
+     *                     type="string",
+     *                     example="parola"
      *                 )
      *             )
      *         )
@@ -116,37 +118,35 @@ class LoginController {
 
         $database = Database::getInstance();
 
-        // Fetch user record
+        // fetch user record
         $user = $database->fetchOne('SELECT * FROM user WHERE username = :username', ['username' => $username]);
 
-        // Check if user exists
+        // check if user exists
         if ($user) {
-            // Check if password is valid
+            // check if password is valid
             if (password_verify($password, $user['password'])) {
-                // If valid, create and return a JWT token
-                $payload = ['username' => $username, 'isAdmin' => $user['isAdmin'], 'exp' => time() + 3600];  // Expires in 1 hour
+                // if valid, create and return a JWT token
+                $payload = ['username' => $username, 'isAdmin' => $user['isAdmin'], 'exp' => time() + 3600];
 
                 $token = JWT::encode($payload);
 
-                // Prepare user data to return
+                // prepare user data to return
                 $userData = [
                     'username' => $user['username'],
                     'uuid' => $user['uuid'],
                     'isAdmin' => $user['isAdmin']
-                    // include any other user data you want to return
                 ];
 
                 ResponseHandler::getResponseHandler()->sendResponse(200, [
                     'user' => $userData,
                     'token' => $token,
-                    //'uuid' => $user['uuid']
                 ]);
             } else {
-                // If password is not valid, return an error
+                // if password is not valid, return an error
                 ResponseHandler::getResponseHandler()->sendResponse(401, ['error' => 'Invalid password']);
             }
         } else {
-            // If user doesn't exist, return an error
+            // if user doesn't exist, return an error
             ResponseHandler::getResponseHandler()->sendResponse(404, ['error' => 'User not found']);
         }
     }

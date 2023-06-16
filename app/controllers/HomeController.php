@@ -1,8 +1,8 @@
 <?php
 // DONE
-namespace App\Controllers;
+namespace App\controllers;
 
-use App\Utils\ResponseHandler;
+use App\utils\ResponseHandler;
 
 /**
  * Controller for the home page.
@@ -50,7 +50,6 @@ class HomeController {
      * )
      */
     public function get() {
-        // send the view
         ResponseHandler::getResponseHandler()->sendResponse(200, [
             'title' => 'Open source tool for data visualization',
         ]);

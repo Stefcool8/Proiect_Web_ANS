@@ -1,14 +1,68 @@
+function validateLoginData(username, password) {
+    if (!username) {
+        return "Username is required";
+    }
+    if (!password) {
+        return "Password is required";
+    }
+    return null;
+}
+
+async function fetchLoginData(data) {
+    try {
+        const response = await fetch('/api/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        });
+        return await response.json();
+    } catch (error) {
+        console.error(error);
+        return null;
+    }
+}
+
+function handleLoginResponse(response) {
+
+    if (response && response.hasOwnProperty("status_code") && response.status_code === 200) {
+        // the login was successful
+        localStorage.setItem("jwt", response.data.token);
+        localStorage.setItem("user", JSON.stringify(response.data.user));
+        showMessage(successMessage, "Successfully logged in. Redirecting...");
+        submitButton.disabled = true;
+        setTimeout(() => {
+            window.location.href = "/dashboard";
+        }, 3000);
+
+    } else {
+        showMessage(errorMessage, response.data.error);
+    }
+}
+
+function showMessage(element, message) {
+    element.textContent = message;
+    element.classList.add("visible");
+
+    setTimeout(() => {
+        hideMessage(element);
+    }, 3000);
+}
+
+function hideMessage(element) {
+    element.classList.remove("visible");
+}
+
 const loginForm = document.querySelector("form");
 const errorMessage = document.querySelector(".error-message");
-let result;
+const successMessage = document.querySelector(".success-message");
+const submitButton = document.querySelector("button");
 
-
-loginForm.addEventListener('submit', async(event) => {
-
+loginForm.addEventListener('submit', async (event) => {
     event.preventDefault();
 
     // get the username and password
-    console.log("loginForm submit");
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
 
@@ -17,42 +71,18 @@ loginForm.addEventListener('submit', async(event) => {
         password: password
     };
 
-    try {
-        // send the username and password to the backend
-        const response = await fetch('/api/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-        });
-
-        result = await response.json();
-
-        if (response.ok) {
-            // the login was successful
-            localStorage.setItem("jwt", result.data.token);
-
-            //localStorage.setItem("user", JSON.stringify(result.data.user));
-
-            // redirect to dashboard
-            window.location.href = "/dashboard";
-        } else {
-            showError(result.data.error);
-        }
-
-    } catch (error) {
-        console.error(error);
-        showError("An error occurred. Please try again later.");
+    const error = validateLoginData(username, password);
+    if (error) {
+        showMessage(errorMessage, error);
+        return;
     }
+
+    const response = await fetchLoginData(data);
+
+    if (!response) {
+        showMessage(errorMessage, "An error occurred. Please try again later.");
+        return;
+    }
+
+    handleLoginResponse(response);
 });
-
-function showError(message) {
-    const errorDiv = document.querySelector(".error-message");
-    errorDiv.textContent = message;
-    errorDiv.classList.add("visible");
-
-    setTimeout(() => {
-        errorDiv.classList.remove("visible");
-    }, 3000);
-}

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Controllers;
+namespace App\controllers;
 
-use App\Utils\Database;
-use App\Utils\JWT;
-use App\Utils\ResponseHandler;
-use App\Utils\EmailSender;
+use App\utils\Database;
+use App\utils\JWT;
+use App\utils\ResponseHandler;
+use App\utils\EmailSender;
 
 use Exception;
 
@@ -15,9 +15,35 @@ use Exception;
  */
 class PasswordController {
 
-
-    public function forgotPassword()
-    {
+    /**
+     * @OA\Post(
+     *     path="/api/password/reset",
+     *     summary="Request a password reset",
+     *     tags={"Password"},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         description="Email address of user",
+     *         @OA\JsonContent(
+     *            @OA\Property(property="email", type="string", format="email", example="user@example.com")
+     *         ),
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Password reset link sent successfully",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="Password reset link sent successfully")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="User not found",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="error", type="string", example="User not found")
+     *         )
+     *     )
+     * )
+     */
+    public function forgotPassword() {
         $body = json_decode(file_get_contents('php://input'), true);
         $email = $body['email'];
 
@@ -31,7 +57,7 @@ class PasswordController {
             $template = file_get_contents('../public/assets/templates/password-reset.html');
             $template = str_replace('{url_placeholder}', $url, $template);
 
-            $clientEmailSent = EmailSender::sendEmail($email, $user['username'], 'Password Reset', $template);
+            $clientEmailSent = EmailSender::getEmailSender()->sendEmail($email, $user['username'], 'Password Reset', $template);
 
             if ($clientEmailSent) {
                 ResponseHandler::getResponseHandler()->sendResponse(200, ['message' => 'Password reset link sent successfully']);
@@ -44,12 +70,45 @@ class PasswordController {
         }
     }
 
+    /**
+     * @OA\Put(
+     *     path="/api/password/reset",
+     *     tags={"Password"},
+     *     summary="Reset user password",
+     *     description="This can only be done by the logged in user.",
+     *     operationId="resetPassword",
+     *     security={{"bearerAuth":{}}},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         description="User password reset",
+     *         @OA\JsonContent(
+     *             required={"password"},
+     *             @OA\Property(property="password", type="string", format="password", example="password123", description="The new password"),
+     *         ),
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Password reset successfully",
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="User not found, Unauthorized or Invalid token",
+     *     )
+     * )
+     */
     public function resetPassword() {
         $body = json_decode(file_get_contents('php://input'), true);
-        $token = $body['token'];
         $password = $body['password'];
 
+        // get the token from the request header
+        $headers = apache_request_headers();
+
+        if (!isset($headers['Authorization'])) {
+            ResponseHandler::getResponseHandler()->sendResponse(401, ['error' => 'Unauthorized']);
+        }
+
         try {
+            $token = str_replace('Bearer ', '', $headers['Authorization']);
             $decoded = JWT::getJWT()->decode($token);
 
             $db = Database::getInstance();

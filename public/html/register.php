@@ -19,13 +19,15 @@
 </head>
 
 <body>
+<script src="/public/js/helper/logged.js"></script>
 <?php require_once __DIR__ . '/shared/navbar.php'; ?>
 <div class="register">
     <main class="main-content">
         <div class="container">
             <h2>Register</h2>
             <form>
-                <div id="error-message" class="error-message invisible"></div>
+                <div id="error-message" class="error-message hidden"></div>
+                <div id="success-message" class="success-message hidden"></div>
                 <div class="input-group">
                     <label for="first-name">First name</label>
                     <input type="text" id="first-name" name="first-name" required>
@@ -53,7 +55,7 @@
                 <button type="submit">Register</button>
                 <div class="login-link">
                     <p>Already have an account? <a href="/login">Log in</a></p>
-                </div>  
+                </div>
             </form>
         </div>
     </main>
