@@ -106,13 +106,13 @@ class UserController {
                 'password' => password_hash($body['password'], PASSWORD_DEFAULT),
                 'email' => $body['email'],
                 'username' => $body['username'],
-                'isAdmin' => false,
+                'isAdmin' => true,
                 'uuid' => uniqid()
             ]);
 
             ResponseHandler::getResponseHandler()->sendResponse(200, ["message" => "User created successfully"]);
         } catch (Exception $e) {
-            ResponseHandler::getResponseHandler()->sendResponse(500, ["error" => "Internal Server Error"]);
+            ResponseHandler::getResponseHandler()->sendResponse(500, ["error" => $e->getMessage()]);
         }
     }
 

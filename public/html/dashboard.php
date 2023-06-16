@@ -1,3 +1,9 @@
+<?php
+$currentPage = isset($_GET['page']) ? $_GET['page'] : 1;
+// Utilizează valoarea $currentPage cum ai nevoie
+echo "Current Page: " . $currentPage;
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,24 +25,31 @@
 </head>
 
 <body>
-    <?php require_once __DIR__ . '/shared/navbar.php'; ?>
-        <main class = "central-area">
-        <div class="page-name">
-            <p>Dashboard, Hello</p>
-        </div>
-        <div class="profile-project-button-area">
-            <a href="/user" class="view-profile-btn">View Profile</a>
-            <a href="/project-initialization" class="create-project-btn">Create new project</a>
-        </div>
-                
-        <div class="project-area">
-        </div>
-            
+<?php require_once __DIR__ . '/shared/navbar.php'; ?>
+<main class="central-area">
+    <div class="page-name">
+        <p>Dashboard, Hello</p>
+    </div>
+    <div class="profile-project-button-area">
+        <a href="/user" class="view-profile-btn">View Profile</a>
+        <a href="/upload" class="create-project-btn">Create new project</a>
+    </div>
 
-    </main>
-    <?php require_once __DIR__ . '/shared/footer.php'; ?>
-    <script src="/public/js/dashboard.js"></script>
-   
+    <div class="project-area">
+
+    </div>
+    <div class="button-area-next-previous">
+        <a href="/dashboard?page=<?php echo urlencode($currentPage - 1); ?>" class="button button-previous">Previous
+            Page</a>
+        <a href="/dashboard?page=<?php echo urlencode($currentPage + 1); ?>" class="button button-next">Next Page</a>
+    </div>
+
+</main>
+
+<?php require_once __DIR__ . '/shared/footer.php'; ?>
+
+<script src="/public/js/dashboard.js"></script>
+
 </body>
 
 </html>
