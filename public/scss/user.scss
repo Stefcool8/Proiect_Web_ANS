@@ -161,3 +161,36 @@ body {
         }
     }
 }
+
+.error-message,
+.success-message {
+    font-weight: bold;
+    margin: 1rem 0;
+    padding: 0.3rem;
+    border-radius: 10px;
+    width: 100%;
+    text-align: center;
+    border: 1px solid;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s;
+
+    &.hidden {
+        display: none;
+    }
+
+    &.visible {
+        display: block;
+    }
+}
+
+.error-message {
+    color: $alert-danger;
+    background-color: #ffe9e9;
+    border-color: $alert-danger;
+}
+
+.success-message {
+    color: $alert-success;
+    background-color: #e9ffe9;
+    border-color: $alert-success;
+}

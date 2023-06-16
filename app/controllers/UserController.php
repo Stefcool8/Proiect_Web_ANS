@@ -2,6 +2,7 @@
 
 namespace App\controllers;
 
+use App\utils\JWT;
 use App\utils\ResponseHandler;
 use App\utils\Database;
 use Exception;
@@ -326,23 +327,20 @@ class UserController extends Controller {
                 exit;
             }
 
-
-
         } catch (Exception $e) {
-            // Handle potential exception during database handling
             ResponseHandler::getResponseHandler()->sendResponse(500, ["error" => "Internal Server Error"]);
             exit;
         }
 
         $data = json_decode(file_get_contents('php://input'), true);
 
-        // Verify if the required fields are present
+        // verify if the required fields are present
         if (empty($data['firstName']) || empty($data['lastName']) || empty($data['username']) || empty($data['email'])) {
             ResponseHandler::getResponseHandler()->sendResponse(400, ['error' => 'Missing required fields']);
             exit;
         }
 
-        // Verify if the username and email are not already taken
+        // verify if the username and email are not already taken
         $user = $db->fetchOne("SELECT * FROM user WHERE username = :username", ['username' => $data['username']]);
         if ($user && $user['uuid'] != $uuid) {
             ResponseHandler::getResponseHandler()->sendResponse(400, ['error' => 'Username already exists']);
@@ -354,20 +352,35 @@ class UserController extends Controller {
             exit;
         }
 
-        // Get the data
+        // get the data
         $firstName = $data['firstName'];
         $lastName = $data['lastName'];
         $username = $data['username'];
         $email = $data['email'];
+        $bio = $data['bio'];
 
-        // Update the user
+        // update the user
         $db->update('user', [
             'firstName' => $firstName,
             'lastName' => $lastName,
             'username' => $username,
-            'email' => $email
+            'email' => $email,
+            'bio' => $bio,
         ], ['uuid' => $uuid]);
 
-        ResponseHandler::getResponseHandler()->sendResponse(200, ['message' => 'User updated successfully']);
+        $token = JWT::getJWT()->encode([
+            'username' => $username,
+            'exp' => time() + 3600
+        ]);
+
+        ResponseHandler::getResponseHandler()->sendResponse(200, [
+            'message' => 'User updated successfully',
+            'token' => $token,
+            "user" => [
+                "username" => $username,
+                "uuid" => $uuid,
+                "isAdmin" => $user['isAdmin'],
+            ]
+        ]);
     }
 }
