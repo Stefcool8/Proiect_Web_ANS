@@ -182,49 +182,6 @@ class UserController {
         }
     }
 
-    /**
-     * @OA\Get(
-     *     path="/api/user/{uuid}",
-     *     summary="Retrieve user information",
-     *     operationId="getUser",
-     *     tags={"User"},
-     *
-     *     @OA\Parameter(
-     *         name="uuid",
-     *         in="path",
-     *         description="UUID of the user to retrieve",
-     *         required=true,
-     *         @OA\Schema(
-     *             type="string"
-     *         )
-     *     ),
-     *     @OA\Response(response="200", description="User found", @OA\JsonContent(
-     *         @OA\Property(property="data", type="object",
-     *             @OA\Property(property="isAdmin", type="boolean"),
-     *             @OA\Property(property="uuid", type="string"),
-     *             @OA\Property(property="name", type="string"),
-     *             @OA\Property(property="email", type="string"),
-     *             @OA\Property(property="username", type="string")
-     *         )
-     *     )),
-     *     @OA\Response(
-     *         response="404",
-     *         description="User not found",
-     *         @OA\JsonContent(
-     *             @OA\Property(property="status_code", type="integer", example=404),
-     *             @OA\Property(property="error", type="string", example="User not found")
-     *         )
-     *     ),
-     *     @OA\Response(
-     *         response="500",
-     *         description="Internal Server Error",
-     *         @OA\JsonContent(
-     *             @OA\Property(property="status_code", type="integer", example=500),
-     *             @OA\Property(property="error", type="string", example="Internal Server Error")
-     *        )
-     *    )
-     * )
-     */
     public function get($uuid) {
         try {
             $db = Database::getInstance();

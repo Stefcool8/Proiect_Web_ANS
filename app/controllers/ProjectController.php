@@ -213,7 +213,7 @@ use InvalidArgumentException;
 
     /**
      * @OA\Get(
-     *     path="/api/user/{uuid}",
+     *     path="/api/project/{uuid}",
      *     summary="Retrieve project information",
      *     operationId="getProject",
      *     tags={"Project"},
