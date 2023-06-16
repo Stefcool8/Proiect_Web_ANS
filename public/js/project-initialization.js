@@ -2,7 +2,8 @@ const projectInitializationForm = document.getElementById("project-initializatio
 const errorMessage = document.querySelector(".error-message");
 const successMessage = document.querySelector(".success-message");
 const chartTypeSelect = document.getElementById("chart-type");
-/*const yearCheckboxContainer = document.getElementById('year-checkboxes');*/
+let yearCheckboxContainer = null;
+let barsSelect = null;
 
 function showMessage(element, message) {
     element.textContent = message;
@@ -17,7 +18,7 @@ function hideMessage(element) {
     element.classList.remove("visible");
 }
 
-function addYearsToCheckboxContainer(yearCheckboxContainer) {
+function addYearsToCheckboxContainer() {
     // Generate checkboxes for years 2012 to 2021
     for (let year = 2012; year <= 2021; year++) {
         const yearItem = document.createElement('div');
@@ -39,8 +40,51 @@ function addYearsToCheckboxContainer(yearCheckboxContainer) {
     }
 }
 
+function addBarsToSelectMenu() {
+    // Hardcode the bars labels into an array
+    const bars = [
+        "JUDET",
+        "CATEGORIE_NATIONALA",
+        "CATEGORIA_COMUNITARA",
+        "MARCA",
+        "DESCRIERE_COMERCIALA",
+        "TOTAL"
+    ];
+
+    // Iterate over the bars array and create an option for each bar
+    for (let i = 0; i < bars.length; i++) {
+        const barOption = document.createElement('option');
+        barOption.value = bars[i];
+        barOption.textContent = bars[i];
+        barsSelect.appendChild(barOption);
+    }
+}
+
+function createBarsSelect() {
+    // create the div for the bars
+    const inputGroup = document.createElement('div');
+    inputGroup.classList.add('input-group');
+
+    const barsLabel = document.createElement('label');
+    barsLabel.htmlFor = 'bars';
+    barsLabel.textContent = 'Bars:';
+
+    barsSelect = document.createElement('select');
+    barsSelect.classList.add('bars-select');
+    barsSelect.id = 'bars-select';
+    barsSelect.name = 'bars';
+    barsSelect.required = true; // Set the required attribute to true
+    addBarsToSelectMenu();
+
+    inputGroup.appendChild(barsLabel);
+    inputGroup.appendChild(barsSelect);
+
+    // add the div to the form before the create button
+    projectInitializationForm.insertBefore(inputGroup, projectInitializationForm.lastElementChild);
+}
+
 chartTypeSelect.addEventListener("change", () => {
-    if (chartTypeSelect.value !== "") {
+    if (yearCheckboxContainer == null) {
         // create the div for the years
         const inputGroup = document.createElement('div');
         inputGroup.classList.add('input-group');
@@ -49,10 +93,41 @@ chartTypeSelect.addEventListener("change", () => {
         label.htmlFor = 'years';
         label.textContent = 'Years:';
 
-        const yearCheckboxContainer = document.createElement('div');
+        yearCheckboxContainer = document.createElement('div');
         yearCheckboxContainer.classList.add('year-checkbox-container');
         yearCheckboxContainer.id = 'year-checkboxes';
-        addYearsToCheckboxContainer(yearCheckboxContainer);
+        addYearsToCheckboxContainer();
+
+        // add an event listener to the year checkbox container
+        yearCheckboxContainer.addEventListener('change', (event) => {
+            if (event.target.matches('input[type="checkbox"]')) {
+                if (event.target.checked) {
+                    // Checkbox is selected
+                    if (barsSelect == null) {
+                        // populate the bars select
+                        createBarsSelect();
+                    }
+                } else {
+                    // Checkbox is deselected
+                    // remove the bars select and its label if all years are deselected
+                    const yearCheckboxes = document.querySelectorAll('input[type="checkbox"]');
+                    let allUnchecked = true;
+                    for (let i = 0; i < yearCheckboxes.length; i++) {
+                        if (yearCheckboxes[i].checked) {
+                            allUnchecked = false;
+                            break;
+                        }
+                    }
+
+                    if (barsSelect != null && allUnchecked) {
+                        // remove the bars select and its label
+                        barsSelect.remove();
+                        barsSelect = null;
+                        document.querySelector('label[for="bars"]').remove();
+                    }
+                }
+            }
+        });
 
         inputGroup.appendChild(label);
         inputGroup.appendChild(yearCheckboxContainer);
@@ -64,6 +139,21 @@ chartTypeSelect.addEventListener("change", () => {
 
 projectInitializationForm.addEventListener("submit", async (event) => {
     event.preventDefault();
+
+    // Check if at least one year is selected
+    const yearCheckboxes = document.querySelectorAll('input[type="checkbox"]');
+    let isYearSelected = false;
+    for (let i = 0; i < yearCheckboxes.length; i++) {
+        if (yearCheckboxes[i].checked) {
+            isYearSelected = true;
+            break;
+        }
+    }
+
+    if (!isYearSelected) {
+        showMessage(errorMessage, "Please select at least one year");
+        return;
+    }
 
     const projectName = document.getElementById("project-name").value;
     const chartType = document.getElementById("chart-type").value;

@@ -22,7 +22,7 @@ CREATE TABLE `project` (
     `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `name` varchar(128) NOT NULL,
     `chart` int(11) NOT NULL,
-    `uuidUser` varchar(256) NOT NULL,
+    `uuidUser` varchar(256) NOT NULL REFERENCES `user`(`uuid`),
     `uuid` varchar(256) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -97,9 +97,9 @@ select * from bar_chart;
 select * from optional_conditions;
 select * from years;
 
-drop table user;
-drop table project;
-drop table bar_chart;
-drop table optional_conditions;
-drop table years;
+drop table user cascade;
+drop table project cascade;
+drop table bar_chart cascade;
+drop table optional_conditions cascade;
+drop table years cascade;
 
