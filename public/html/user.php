@@ -1,15 +1,3 @@
-<?php
-$currentUrl = $_SERVER['REQUEST_URI'];
-$parts = explode('/', $currentUrl);
-$userID = end($parts);
-
-require_once __DIR__ . '/shared/general.php';
-$urlAPI = 'user/' . $userID;
-$result = fetch_data($urlAPI, [
-    'data' => []
-]);
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,28 +9,21 @@ $result = fetch_data($urlAPI, [
     <link rel="stylesheet" href="/public/css/user.css">
     <link rel="stylesheet" href="/public/css/shared/footer.css">
     <link rel="icon" href="/public/assets/img/favicon.png">
-    <script src="/public/js/shared/navbar.js" defer></script>
-    <script src="/public/js/footer.js" defer></script>
     <title>User Profile</title>
 </head>
 <body>
+<?php require_once __DIR__ . '/shared/navbar.php'; ?>
 <div class="profile">
-    <div class="header">
-        <?php require_once __DIR__ . '/shared/navbar.php'; ?>
-    </div>
-
     <div class="main-content">
         <div class="user-visual">
-
-
             <div class="user-picture-and-controls">
                 <div class="user-picture">
-                    <img src="/public/assets/img/user.jpg" alt="AAA">
+                    <img src="/public/assets/img/user.jpg" alt="User Picture">
                 </div>
 
                 <div class="user-name-and-email">
-                    <h1> <?php echo $result['data']['username'] ?></h1>
-                    <h5> <?php echo $result['data']['email'] ?> </h5>
+                    <h1 class="username1"></h1>
+                    <h5 class="email1"></h5>
                 </div>
 
                 <div class="controls">
@@ -53,31 +34,30 @@ $result = fetch_data($urlAPI, [
             </div>
         </div>
 
-        <div class="user-details">
+        <article class="user-details">
             <div class="input-group">
                 <label>First name</label>
-                <p class="data"> <?php echo $result['data']['firstName'] ?> </p>
+                <p class="data first-name"></p>
             </div>
 
             <div class="input-group">
                 <label>Last name</label>
-                <p class="data"> <?php echo $result['data']['lastName'] ?> </p>
+                <p class="data last-name"></p>
             </div>
 
             <div class="input-group">
                 <label>Email</label>
-                <p class="data"> <?php echo $result['data']['email'] ?> </p>
+                <p class="data email"></p>
             </div>
 
             <div class="input-group">
                 <label>Username</label>
-                <p class="data"> <?php echo $result['data']['username'] ?> </p>
+                <p class="data username"></p>
             </div>
-        </div>
+        </article>
     </div>
-
-    <?php require_once __DIR__ . '/shared/footer.php'; ?>
 </div>
+<?php require_once __DIR__ . '/shared/footer.php'; ?>
 <script src="/public/js/user.js"></script>
 </body>
 </html>

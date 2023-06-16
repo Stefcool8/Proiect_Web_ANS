@@ -13,7 +13,7 @@ use InvalidArgumentException;
  * Controller for Project operations
  * 
  */
- class ProjectController {
+ class ProjectController extends Controller{
 
      /**
      * @OA\Post(
@@ -68,11 +68,13 @@ use InvalidArgumentException;
 
         // get the request body
         $body = json_decode(file_get_contents('php://input'), true);
-        
-         
-        //$uuid = $body['uuid'];
-        // get the token from the request header
         $payload = $this->getPayload();
+        if(!$payload){
+            ResponseHandler::getResponseHandler()->sendResponse(401, [
+                'error' => 'Unauthorized'
+            ]);
+            exit;
+        }
 
         try {
             $db = Database::getInstance();
@@ -91,7 +93,6 @@ use InvalidArgumentException;
             ResponseHandler::getResponseHandler()->sendResponse(500, ["error" => "Internal Server Error"]);
             exit;
         }
-
 
         // validate the request body
         if (!isset($body['name']) || !isset($body['chart'])) {
@@ -176,6 +177,13 @@ use InvalidArgumentException;
 
         $payload = $this->getPayload();
 
+        if(!$payload){
+            ResponseHandler::getResponseHandler()->sendResponse(401, [
+                'error' => 'Unauthorized'
+            ]);
+            exit;
+        }
+
         try {
             $db = Database::getInstance();
             $project = $db->fetchOne("SELECT * FROM project WHERE uuid = :uuid", ['uuid' => $uuid]);
@@ -213,7 +221,7 @@ use InvalidArgumentException;
 
     /**
      * @OA\Get(
-     *     path="/api/user/{uuid}",
+     *     path="/api/project/{uuid}",
      *     summary="Retrieve project information",
      *     operationId="getProject",
      *     tags={"Project"},
@@ -255,6 +263,12 @@ use InvalidArgumentException;
     public function get($uuid) {
 
         $payload = $this->getPayload();
+        if(!$payload){
+            ResponseHandler::getResponseHandler()->sendResponse(401, [
+                'error' => 'Unauthorized'
+            ]);
+            exit;
+        }
         try {
             $db = Database::getInstance();
             $project = $db->fetchOne("SELECT * FROM project WHERE uuid = :uuid", ['uuid' => $uuid]);
@@ -300,51 +314,9 @@ use InvalidArgumentException;
         }
     }
 
-     /**
-      * @return array|void
-      */
-     public function getPayload()
-     {
-         $headers = apache_request_headers();
-
-         if (!isset($headers['Authorization'])) {
-             ResponseHandler::getResponseHandler()->sendResponse(401, [
-                 'error' => 'Unauthorized'
-             ]);
-             exit;
-         }
-
-         $authHeader = $headers['Authorization'];
-         $token = str_replace('Bearer ', '', $authHeader);
-
-         try {
-             // decode the token
-             $payload = JWT::getJWT()->decode($token);
-         } catch (\InvalidArgumentException $e) {
-             ResponseHandler::getResponseHandler()->sendResponse(401, [
-                 'error' => 'Unauthorized'
-             ]);
-             exit;
-         }
-         return $payload;
-     }
-
     public function gets() {
-        $headers = apache_request_headers();
-
-        if (!isset($headers['Authorization'])) {
-            ResponseHandler::getResponseHandler()->sendResponse(401, [
-                'error' => 'Unauthorized'
-            ]);
-        }
-
-        $authHeader = $headers['Authorization'];
-        $token = str_replace('Bearer ', '', $authHeader);
-
-        try {
-            // decode the token
-            $payload = JWT::getJWT()->decode($token);
-        } catch (InvalidArgumentException $e) {
+        $payload = $this->getPayload();
+        if(!$payload){
             ResponseHandler::getResponseHandler()->sendResponse(401, [
                 'error' => 'Unauthorized'
             ]);

@@ -10,7 +10,7 @@ use Exception;
  * Controller for User operations
  * 
  */
-class UserController {
+class UserController extends Controller {
 
     /**
      * @OA\Post(
@@ -72,7 +72,16 @@ class UserController {
      */
     public function create() {
         // get the request body
+
         $body = json_decode(file_get_contents('php://input'), true);
+
+        $payload = $this->getPayload();
+        if($payload){
+            ResponseHandler::getResponseHandler()->sendResponse(401, [
+                'error' => 'You can not create a new player before logging out.'
+            ]);
+            exit;
+        }
 
         // validate the request body
         if (!isset($body['firstName']) || !isset($body['lastName']) || !isset($body['email']) || !isset($body['password']) || !isset($body['username'])) {
@@ -161,21 +170,33 @@ class UserController {
      * )
      */
     public function delete($uuid) {
+        $payload = $this->getPayload();
+        if(!$payload){
+            ResponseHandler::getResponseHandler()->sendResponse(401, [
+                'error' => 'Unauthorized'
+            ]);
+            exit;
+        }
         try {
             $db = Database::getInstance();
             $user = $db->fetchOne("SELECT * FROM user WHERE uuid = :uuid", ['uuid' => $uuid]);
+            $currentUser = $db->fetchOne("SELECT * FROM user WHERE username = :username",['username' => $payload['username']]);
+
+
+
+            if($currentUser['isAdmin'] || (($currentUser['uuid'] == $uuid) && $user)){
+                $db->delete('user', ['uuid' => $uuid]);
+                ResponseHandler::getResponseHandler()->sendResponse(
+                    204, ['message' => 'User deleted successfully']
+                );
+                exit;
+            }
 
             if (!$user) {
                 ResponseHandler::getResponseHandler()->sendResponse(404, ['error' => 'User not found']);
                 exit;
             }
-
-            // TODO: Verify if the user has the correct permissions to delete this user
-            // If not, return ResponseHandler::getResponseHandler()->sendResponse(401, ['error' => 'Unauthorized']);
-
-            $db->delete('user', ['uuid' => $uuid]);
-
-            ResponseHandler::getResponseHandler()->sendResponse(204, ['message' => 'User deleted successfully']);
+            ResponseHandler::getResponseHandler()->sendResponse(401, ['error' => 'Unauthorized']);
         } catch (Exception $e) {
             // Handle potential exception during database deletion
             ResponseHandler::getResponseHandler()->sendResponse(500, ["error" => "Internal Server Error"]);
@@ -225,26 +246,39 @@ class UserController {
      * )
      */
     public function get($uuid) {
+        $payload = $this->getPayload();
+        if(!$payload){
+            ResponseHandler::getResponseHandler()->sendResponse(401, [
+                'error' => 'Unauthorized'
+            ]);
+            exit;
+        }
         try {
             $db = Database::getInstance();
             $user = $db->fetchOne("SELECT * FROM user WHERE uuid = :uuid", ['uuid' => $uuid]);
+            $currentUser = $db->fetchOne("SELECT * FROM user WHERE username = :username",['username' => $payload['username']]);
+
+            if($currentUser['isAdmin'] || (($currentUser['uuid'] == $uuid) && $user)){
+                ResponseHandler::getResponseHandler()->sendResponse(200, [
+                    'data' => [
+                        'uuid' => $user['uuid'],
+                        'isAdmin' => $user['isAdmin'],
+                        'firstName' => $user['firstName'],
+                        'lastName' => $user['lastName'],
+                        'email' => $user['email'],
+                        'username' => $user['username']
+                    ]
+                ]);
+                exit;
+            }
 
             if (!$user) {
                 ResponseHandler::getResponseHandler()->sendResponse(404, ['error' => 'User not found']);
                 exit;
             }
 
-            ResponseHandler::getResponseHandler()->sendResponse(200, [
-                'data' => [
-                    'firstName' => $user['firstName'],
-                    'lastName' => $user['lastName'],
-                    'email' => $user['email'],
-                    'username' => $user['username'],
-                    'uuid' => $user['uuid'],
-                    'isAdmin' => $user['isAdmin'],
-                    'bio' => $user['bio'],
-                ]
-            ]);
+            ResponseHandler::getResponseHandler()->sendResponse(401, ['error' => 'Unauthorized']);
+
 
         } catch (Exception $e) {
             // Handle potential exception during database deletion
@@ -254,14 +288,31 @@ class UserController {
 
     public function update($uuid)
     {
+
+        $payload = $this->getPayload();
+        if(!$payload){
+            ResponseHandler::getResponseHandler()->sendResponse(401, [
+                'error' => 'Unauthorized'
+            ]);
+            exit;
+        }
         try {
             $db = Database::getInstance();
             $user = $db->fetchOne("SELECT * FROM user WHERE uuid = :uuid", ['uuid' => $uuid]);
+            $currentUser = $db->fetchOne("SELECT * FROM user WHERE username = :username", ['username' => $payload['username']]);
+
+            if(!$currentUser['isAdmin'] && (($currentUser['uuid'] != $uuid) && $user)){
+                ResponseHandler::getResponseHandler()->sendResponse(401, ['error' => 'Unauthorized']);
+                exit;
+            }
 
             if (!$user) {
                 ResponseHandler::getResponseHandler()->sendResponse(404, ['error' => 'User not found']);
                 exit;
             }
+
+
+
         } catch (Exception $e) {
             // Handle potential exception during database handling
             ResponseHandler::getResponseHandler()->sendResponse(500, ["error" => "Internal Server Error"]);

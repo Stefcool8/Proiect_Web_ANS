@@ -11,7 +11,7 @@ use App\Utils\Database;
  * Controller for the Dashboard page
  * 
  */
-class DashboardController {
+class DashboardController extends Controller {
 
     /**
      * @OA\Get(
@@ -54,19 +54,14 @@ class DashboardController {
      */
     public function get() {
         // get the token from the request header
-        $headers = apache_request_headers();
 
-        if (!isset($headers['Authorization'])) {
+        $payload = $this->getPayload();
+        if(!$payload){
             ResponseHandler::getResponseHandler()->sendResponse(401, ['error' => 'Unauthorized']);
             exit;
         }
-
         try {
-            $token = str_replace('Bearer ', '', $headers['Authorization']);
-            
-            // decode the token
-            $payload = JWT::getJWT()->decode($token);
-            // send the data
+
             $db = Database::getInstance();
             $currentUser = $db->fetchOne("SELECT * FROM user WHERE username = :username", ['username' => $payload['username']]);
             
