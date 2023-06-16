@@ -23,7 +23,7 @@ class CSVParser {
     public function getJsonRowFormat(string $csvFile): string {
         if ($handle = fopen($csvFile, 'r')) {
             // get column headers
-            $header = fgetcsv($handle);
+            $header = fgetcsv($handle, 1000);
 
             $data = [];
             while ($row = fgetcsv($handle)) {
@@ -41,9 +41,14 @@ class CSVParser {
     /**
      * @throws Exception
      */
-    public function getJsonColumnFormat(string $csvFile): array {
+    public function getJsonColumnFormat(string $csvFile): string {
         try {
-            $rows = json_decode($this->getJsonRowFormat($csvFile), true);
+            $rowsJson = $this->getJsonRowFormat($csvFile);
+            $rows = json_decode($rowsJson, true);
+
+            if ($rows === null) {
+                throw new Exception("Error decoding JSON: " . json_last_error_msg());
+            }
 
             // transpose rows to columns
             $columns = [];
@@ -53,7 +58,7 @@ class CSVParser {
                 }
             }
 
-            return $columns;
+            return json_encode($columns, JSON_PRETTY_PRINT);
         } catch (Exception $e) {
             throw new Exception("Error parsing CSV file: " . $e->getMessage());
         }
@@ -62,10 +67,11 @@ class CSVParser {
     /**
      * @throws Exception
      */
-    public function getJsonFromColumn(string $csvFile, string $columnName): array {
+    public function getJsonFromColumn(string $csvFile, int $columnNumber): string {
         try {
-            $columns = $this->getJsonColumnFormat($csvFile);
-            return $columns[$columnName];
+            $columns = json_decode($this->getJsonColumnFormat($csvFile), true);
+            $array = array_values($columns);
+            return json_encode($array[$columnNumber], JSON_PRETTY_PRINT);
         } catch (Exception $e) {
             throw new Exception("Error parsing CSV file: " . $e->getMessage());
         }
@@ -74,11 +80,11 @@ class CSVParser {
     /**
      * @throws Exception
      */
-    public function getJsonFromRow(string $csvFile, int $rowNumber): array
-    {
+    public function getJsonFromRow(string $csvFile, int $rowNumber): string {
         try {
             $rows = json_decode($this->getJsonRowFormat($csvFile), true);
-            return $rows[$rowNumber];
+            $array = array_values($rows);
+            return json_encode($array[$rowNumber], JSON_PRETTY_PRINT);
         } catch (Exception $e) {
             throw new Exception("Error parsing CSV file: " . $e->getMessage());
         }

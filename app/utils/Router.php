@@ -10,7 +10,6 @@ namespace App\utils;
  */
 class Router {
 
-    
     // default controller namespace locations
     private array $locations = [
         'default' => 'App\Controllers\\'
@@ -90,7 +89,6 @@ class Router {
         // no matching route found, return a 404 status
         header("HTTP/1.1 404 Not Found");
         header("Location: /404");
-        exit();
     }
 
     /**

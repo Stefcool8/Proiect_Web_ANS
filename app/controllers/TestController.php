@@ -16,7 +16,7 @@ class TestController {
                 try {
                     $tmpFilePath = $csvFile['tmp_name'];
 
-                    $json = CSVParser::getCSVParser()->getJsonColumnFormat($tmpFilePath);
+                    $json = CSVParser::getCSVParser()->getJsonRowFormat($tmpFilePath);
                     var_dump($json);
                 } catch (Exception $e) {
                     echo "Error parsing CSV file: " . $e->getMessage();
