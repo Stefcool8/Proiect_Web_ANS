@@ -11,7 +11,7 @@ use App\utils\Database;
  * Controller for user authentication
  *
  */
-class AuthController {
+class AuthController{
 
     /**
      * @OA\Get(

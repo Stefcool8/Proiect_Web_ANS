@@ -10,7 +10,7 @@ use Exception;
  * Controller for User operations
  * 
  */
-class UserController {
+class UserController extends Controller {
 
     /**
      * @OA\Post(
@@ -72,7 +72,16 @@ class UserController {
      */
     public function create() {
         // get the request body
+
         $body = json_decode(file_get_contents('php://input'), true);
+
+        $payload = $this->getPayload();
+        if($payload){
+            ResponseHandler::getResponseHandler()->sendResponse(401, [
+                'error' => 'You can not create a new player before logging out.'
+            ]);
+            exit;
+        }
 
         // validate the request body
         if (!isset($body['firstName']) || !isset($body['lastName']) || !isset($body['email']) || !isset($body['password']) || !isset($body['username'])) {
@@ -161,90 +170,73 @@ class UserController {
      * )
      */
     public function delete($uuid) {
+        $payload = $this->getPayload();
+        if(!$payload){
+            ResponseHandler::getResponseHandler()->sendResponse(401, [
+                'error' => 'Unauthorized'
+            ]);
+            exit;
+        }
         try {
             $db = Database::getInstance();
             $user = $db->fetchOne("SELECT * FROM user WHERE uuid = :uuid", ['uuid' => $uuid]);
+            $currentUser = $db->fetchOne("SELECT * FROM user WHERE username = :username",['username' => $payload['username']]);
+
+            
+
+            if($currentUser['isAdmin'] || (($currentUser['uuid'] == $uuid) && $user)){
+                $db->delete('user', ['uuid' => $uuid]);
+                ResponseHandler::getResponseHandler()->sendResponse(
+                    204, ['message' => 'User deleted successfully']
+                );
+                exit;
+            }
 
             if (!$user) {
                 ResponseHandler::getResponseHandler()->sendResponse(404, ['error' => 'User not found']);
                 exit;
             }
-
-            // TODO: Verify if the user has the correct permissions to delete this user
-            // If not, return ResponseHandler::getResponseHandler()->sendResponse(401, ['error' => 'Unauthorized']);
-
-            $db->delete('user', ['uuid' => $uuid]);
-
-            ResponseHandler::getResponseHandler()->sendResponse(204, ['message' => 'User deleted successfully']);
+            ResponseHandler::getResponseHandler()->sendResponse(401, ['error' => 'Unauthorized']);
         } catch (Exception $e) {
             // Handle potential exception during database deletion
             ResponseHandler::getResponseHandler()->sendResponse(500, ["error" => "Internal Server Error"]);
         }
     }
 
-    /**
-     * @OA\Get(
-     *     path="/api/user/{uuid}",
-     *     summary="Retrieve user information",
-     *     operationId="getUser",
-     *     tags={"User"},
-     *
-     *     @OA\Parameter(
-     *         name="uuid",
-     *         in="path",
-     *         description="UUID of the user to retrieve",
-     *         required=true,
-     *         @OA\Schema(
-     *             type="string"
-     *         )
-     *     ),
-     *     @OA\Response(response="200", description="User found", @OA\JsonContent(
-     *         @OA\Property(property="data", type="object",
-     *             @OA\Property(property="isAdmin", type="boolean"),
-     *             @OA\Property(property="uuid", type="string"),
-     *             @OA\Property(property="name", type="string"),
-     *             @OA\Property(property="email", type="string"),
-     *             @OA\Property(property="username", type="string")
-     *         )
-     *     )),
-     *     @OA\Response(
-     *         response="404",
-     *         description="User not found",
-     *         @OA\JsonContent(
-     *             @OA\Property(property="status_code", type="integer", example=404),
-     *             @OA\Property(property="error", type="string", example="User not found")
-     *         )
-     *     ),
-     *     @OA\Response(
-     *         response="500",
-     *         description="Internal Server Error",
-     *         @OA\JsonContent(
-     *             @OA\Property(property="status_code", type="integer", example=500),
-     *             @OA\Property(property="error", type="string", example="Internal Server Error")
-     *        )
-     *    )
-     * )
-     */
     public function get($uuid) {
+        $payload = this->getPayload();
+        if(!$payload){
+            ResponseHandler::getResponseHandler()->sendResponse(401, [
+                'error' => 'Unauthorized'
+            ]);
+            exit;
+        }
         try {
             $db = Database::getInstance();
             $user = $db->fetchOne("SELECT * FROM user WHERE uuid = :uuid", ['uuid' => $uuid]);
+            $currentUser = $db->fetchOne("SELECT * FROM user WHERE username = :username",['username' => $payload['username']]);
+
+            if($currentUser['isAdmin'] || (($currentUser['uuid'] == $uuid) && $user)){
+                ResponseHandler::getResponseHandler()->sendResponse(200, [
+                    'data' => [
+                        'uuid' => $user['uuid'],
+                        'isAdmin' => $user['isAdmin'],
+                        'firstName' => $user['firstName'],
+                        'lastName' => $user['lastName'],
+                        'email' => $user['email'],
+                        'username' => $user['username']
+                    ]
+                ]);
+                exit;
+            }
 
             if (!$user) {
                 ResponseHandler::getResponseHandler()->sendResponse(404, ['error' => 'User not found']);
                 exit;
             }
 
-            ResponseHandler::getResponseHandler()->sendResponse(200, [
-                'data' => [
-                    'uuid' => $user['uuid'],
-                    'isAdmin' => $user['isAdmin'],
-                    'firstName' => $user['firstName'],
-                    'lastName' => $user['lastName'],
-                    'email' => $user['email'],
-                    'username' => $user['username']
-                ]
-            ]);
+            ResponseHandler::getResponseHandler()->sendResponse(401, ['error' => 'Unauthorized']);
+
 
         } catch (Exception $e) {
             // Handle potential exception during database deletion
@@ -254,14 +246,31 @@ class UserController {
 
     public function update($uuid)
     {
+
+        $payload = $this->getPayload();
+        if(!$payload){
+            ResponseHandler::getResponseHandler()->sendResponse(401, [
+                'error' => 'Unauthorized'
+            ]);
+            exit;
+        }
         try {
             $db = Database::getInstance();
             $user = $db->fetchOne("SELECT * FROM user WHERE uuid = :uuid", ['uuid' => $uuid]);
+            $currentUser = $db->fetchOne("SELECT * FROM user WHERE username = :username", ['username' => $payload['username']]);
+
+            if(!$currentUser['isAdmin'] && (($currentUser['uuid'] != $uuid) && $user)){
+                ResponseHandler::getResponseHandler()->sendResponse(401, ['error' => 'Unauthorized']);
+                exit;
+            }
 
             if (!$user) {
                 ResponseHandler::getResponseHandler()->sendResponse(404, ['error' => 'User not found']);
                 exit;
             }
+
+
+
         } catch (Exception $e) {
             // Handle potential exception during database handling
             ResponseHandler::getResponseHandler()->sendResponse(500, ["error" => "Internal Server Error"]);

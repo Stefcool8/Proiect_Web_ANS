@@ -13,7 +13,7 @@ use Exception;
  * Controller for password operations
  *
  */
-class PasswordController {
+class PasswordController{
 
     /**
      * @OA\Post(
