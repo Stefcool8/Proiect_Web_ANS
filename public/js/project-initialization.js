@@ -1,6 +1,8 @@
 const projectInitializationForm = document.getElementById("project-initialization-form");
 const errorMessage = document.querySelector(".error-message");
 const successMessage = document.querySelector(".success-message");
+const chartTypeSelect = document.getElementById("chart-type");
+/*const yearCheckboxContainer = document.getElementById('year-checkboxes');*/
 
 function showMessage(element, message) {
     element.textContent = message;
@@ -14,6 +16,51 @@ function showMessage(element, message) {
 function hideMessage(element) {
     element.classList.remove("visible");
 }
+
+function addYearsToCheckboxContainer(yearCheckboxContainer) {
+    // Generate checkboxes for years 2012 to 2021
+    for (let year = 2012; year <= 2021; year++) {
+        const yearItem = document.createElement('div');
+        yearItem.classList.add('year-item');
+
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.id = `year-${year}`;
+        checkbox.name = 'year';
+        checkbox.value = year.toString();
+
+        const label = document.createElement('label');
+        label.htmlFor = `year-${year}`;
+        label.textContent = year.toString();
+
+        yearItem.appendChild(checkbox);
+        yearItem.appendChild(label);
+        yearCheckboxContainer.appendChild(yearItem);
+    }
+}
+
+chartTypeSelect.addEventListener("change", () => {
+    if (chartTypeSelect.value !== "") {
+        // create the div for the years
+        const inputGroup = document.createElement('div');
+        inputGroup.classList.add('input-group');
+
+        const label = document.createElement('label');
+        label.htmlFor = 'years';
+        label.textContent = 'Years:';
+
+        const yearCheckboxContainer = document.createElement('div');
+        yearCheckboxContainer.classList.add('year-checkbox-container');
+        yearCheckboxContainer.id = 'year-checkboxes';
+        addYearsToCheckboxContainer(yearCheckboxContainer);
+
+        inputGroup.appendChild(label);
+        inputGroup.appendChild(yearCheckboxContainer);
+
+        // add the div to the form before the create button
+        projectInitializationForm.insertBefore(inputGroup, projectInitializationForm.lastElementChild);
+    }
+});
 
 projectInitializationForm.addEventListener("submit", async (event) => {
     event.preventDefault();
