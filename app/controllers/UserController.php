@@ -203,7 +203,6 @@ class UserController extends Controller {
         }
     }
 
-
     /**
      * @OA\Get(
      *     path="/user/{uuid}",

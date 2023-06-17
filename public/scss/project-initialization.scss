@@ -75,6 +75,36 @@ $alert-success: #33ff9c;
     }
   }
 
+  #chart-type option:first-child {
+    display: none;
+  }
+
+  .year-checkbox-container {
+    display: flex; /* Change the display property to flex */
+    flex-wrap: wrap; /* Allow wrapping to the next line when needed */
+    column-gap: 2rem; /* Use gap property for spacing between items */
+    row-gap: 1rem; /* Use gap property for spacing between items */
+
+    .year-item {
+      display: flex;
+      align-items: center;
+
+      input[type="checkbox"] {
+        min-height: 1.5rem; /* Set a minimum height */
+        min-width: 1.5rem; /* Set a minimum width */
+        margin-right: 0.5rem; /* Add some spacing between checkbox and label */
+      }
+
+      input[type="checkbox"]:checked + label {
+        font-weight: bold; /* Make the text bold */
+      }
+
+      label {
+        font-size: 1.2rem;
+      }
+    }
+  }
+
   button {
     display: block;
     width: 100%;
