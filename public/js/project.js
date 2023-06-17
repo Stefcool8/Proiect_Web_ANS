@@ -100,7 +100,6 @@ async function fetchProjectDetails(uuid) {
             },
         });
 
-
         if (response.ok) {
             const project = await response.json();
 

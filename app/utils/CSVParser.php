@@ -17,6 +17,19 @@ class CSVParser {
         return self::$csvParser;
     }
 
+    function sanitizeCSV(string $csvFile): void {
+        $data = file_get_contents($csvFile);
+
+        // Remove "\"
+        $data = str_replace("\\", "", $data);
+
+        // Replace all ";" with ","
+        $data = str_replace(";", ",", $data);
+
+        // Write the sanitized data back to the file
+        file_put_contents($csvFile, $data);
+    }
+
     /**
      * @throws Exception
      */
@@ -24,9 +37,13 @@ class CSVParser {
         if ($handle = fopen($csvFile, 'r')) {
             // get column headers
             $header = fgetcsv($handle, 1000);
+            // remove BOM from headers
+            $header = array_map(function($element) {
+                return trim($element, "\xEF\xBB\xBF");
+            }, $header);
 
             $data = [];
-            while ($row = fgetcsv($handle)) {
+            while ($row = fgetcsv($handle, 1000)) {
                 $data[] = array_combine($header, $row);
             }
 
@@ -87,6 +104,26 @@ class CSVParser {
             return json_encode($array[$rowNumber], JSON_PRETTY_PRINT);
         } catch (Exception $e) {
             throw new Exception("Error parsing CSV file: " . $e->getMessage());
+        }
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function getHeader(string $csvFile): array {
+        if ($handle = fopen($csvFile, 'r')) {
+            // get column headers
+            $header = fgetcsv($handle, 1000);
+            // remove BOM from headers
+            $header = array_map(function($element) {
+                return trim($element, "\xEF\xBB\xBF");
+            }, $header);
+
+            fclose($handle);
+
+            return $header;
+        } else {
+            throw new Exception("Error opening CSV file.");
         }
     }
 }
