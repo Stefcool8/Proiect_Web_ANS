@@ -1,58 +1,69 @@
 const loginForm = document.querySelector("form");
 const errorMessage = document.querySelector(".error-message");
-let result;
+const successMessage = document.querySelector(".success-message");
 
-
-loginForm.addEventListener('submit', async(event) => {
-
+async function handleLoginFormSubmit(event) {
     event.preventDefault();
 
-    // get the username and password
-    console.log("loginForm submit");
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
-
-    const data = {
-        username: username,
-        password: password
+    const loginData = {
+        username: document.getElementById('username').value,
+        password: document.getElementById('password').value
     };
 
     try {
-        // send the username and password to the backend
-        const response = await fetch('/api/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-        });
-
-        result = await response.json();
-
-        if (response.ok) {
-            // the login was successful
-            localStorage.setItem("jwt", result.data.token);
-
-            localStorage.setItem("user", JSON.stringify(result.data.user));
-
-            // redirect to dashboard
-            window.location.href = "/dashboard";
-        } else {
-            showError(result.data.error);
-        }
-
+        const result = await sendLoginData(loginData);
+        handleSuccessfulLogin(result);
     } catch (error) {
         console.error(error);
-        showError("An error occurred. Please try again later.");
     }
-});
+}
 
-function showError(message) {
-    const errorDiv = document.querySelector(".error-message");
-    errorDiv.textContent = message;
-    errorDiv.classList.add("visible");
+async function sendLoginData(data) {
+    const response = await fetch('/api/login', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data),
+    });
+
+    const result = await response.json();
+
+    if (response.ok) {
+        return result;
+    } else {
+        showError(result.data.error);
+        throw new Error(result.data.error);
+    }
+}
+
+function handleSuccessfulLogin(result) {
+    localStorage.setItem("jwt", result.data.token);
+    localStorage.setItem("user", JSON.stringify(result.data.user));
+
+    showSuccess("Successfully logged in! Redirecting to dashboard...");
 
     setTimeout(() => {
-        errorDiv.classList.remove("visible");
+        window.location.href = "/dashboard";
     }, 3000);
 }
+
+function showError(message) {
+    errorMessage.textContent = message;
+    errorMessage.classList.add("visible");
+
+    setTimeout(() => {
+        errorMessage.classList.remove("visible");
+    }, 3000);
+}
+
+function showSuccess(message) {
+    successMessage.textContent = message;
+    successMessage.classList.add("visible");
+
+    setTimeout(() => {
+        successMessage.classList.remove("visible");
+    }, 3000);
+}
+
+loginForm.addEventListener('submit', handleLoginFormSubmit);
