@@ -107,48 +107,10 @@ class ProjectController {
 
             // check the chart type
             if ($body['chart'] == 0) {
-                // if the chart is a bar chart, check the bars
-                if (!isset($body['bars'])) {
-                    ResponseHandler::getResponseHandler()->sendResponse(400, ['error' => 'Invalid request body.']);
-                    exit;
-                }
-
-                // create the project
+                $this->createBarChartProject($db, $body, $uuidUser);
+            } else {
                 $this->createProject($db, $body, $uuidUser);
-
-                // get project uuid
-                $projectUuid = $db->fetchOne("SELECT uuid FROM project WHERE name = :name AND uuidUser = :uuidUser", ['name' => $body['name'],'uuidUser' =>$uuidUser]);
-
-                // insert in bar_chart table
-                $db->insert('bar_chart', [
-                    'uuidProject' => $projectUuid['uuid'],
-                    'bars' => $body['bars']
-                ]);
-
-                // insert in years table
-                foreach ($body['years'] as $year) {
-                    $db->insert('years', [
-                        'uuidProject' => $projectUuid['uuid'],
-                        'year' => $year
-                    ]);
-                }
-
-                // insert in optional_conditions table if series is set
-                if (isset($body['series'])) {
-                    $db->insert('optional_conditions', [
-                        'uuidProject' => $projectUuid['uuid'],
-                        'series' => $body['series']
-                    ]);
-                }
             }
-
-            // create the project
-            $db->insert('project', [
-                'name' => $body['name'],
-                'chart' => $body['chart'],
-                'uuidUser' => $uuidUser,
-                'uuid' => uniqid()
-            ]);
 
             // send the data
             ResponseHandler::getResponseHandler()->sendResponse(200, ["message" => "Project created successfully"]);
@@ -157,6 +119,43 @@ class ProjectController {
             // Handle potential exception during database insertion
             ResponseHandler::getResponseHandler()->sendResponse(500, ["error" => "Internal Server Error"]);
             exit;
+        }
+    }
+
+    public function createBarChartProject($db, $body, $uuidUser) {
+        // if the chart is a bar chart, check the bars
+        if (!isset($body['bars'])) {
+            ResponseHandler::getResponseHandler()->sendResponse(400, ['error' => 'Invalid request body.']);
+            exit;
+        }
+
+        // create the project
+        $this->createProject($db, $body, $uuidUser);
+
+        // get project uuid
+        $projectUuid = $db->fetchOne("SELECT uuid FROM project WHERE name = :name AND uuidUser = :uuidUser", ['name' => $body['name'],'uuidUser' =>$uuidUser]);
+
+        // insert in bar_chart table
+        $db->insert('bar_chart', [
+            'uuidProject' => $projectUuid['uuid'],
+            'bars' => $body['bars']
+        ]);
+
+        // insert in years table
+        foreach ($body['years'] as $year) {
+            $db->insert('years', [
+                'uuidProject' => $projectUuid['uuid'],
+                'year' => $year
+            ]);
+        }
+
+        // insert in optional_conditions table if series is set
+        if (isset($body['seriesCode'])) {
+            $db->insert('optional_conditions', [
+                'uuidProject' => $projectUuid['uuid'],
+                'optionalColumn' => $body['seriesCode'],
+                'optionalValue' => $body['seriesValue']
+            ]);
         }
     }
 

@@ -328,17 +328,21 @@ projectInitializationForm.addEventListener("submit", async (event) => {
 
     if (chartCode === 0) {
         const barCode = columns.indexOf(barsSelect.value);
-        const seriesCode = columns.indexOf(seriesSelect.value);
-        const seriesValue = seriesInput.value;
-
-        console.log(barCode);
-        console.log(seriesCode);
-        console.log(seriesValue);
-
-        // add the bars and series to the data object
+        // add the bars to the data object
         data.bars = barCode;
-        data.seriesCode = seriesCode;
-        data.seriesValue = seriesValue;
+        console.log(barCode);
+
+        if (seriesSelect.value !== '') {
+            const seriesCode = columns.indexOf(seriesSelect.value);
+            const seriesValue = seriesInput.value;
+
+            console.log(seriesCode);
+            console.log(seriesValue);
+
+            // add the series to the data object
+            data.seriesCode = seriesCode;
+            data.seriesValue = seriesValue;
+        }
     }
 
     const token = localStorage.getItem('jwt');
