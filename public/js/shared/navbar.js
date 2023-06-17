@@ -57,7 +57,7 @@ const util = {
             const href = $(link).attr("href");
             const container = $("#" + href.substring(1));
 
-            if(container.length) {
+            if (container.length) {
                 const containerOffset = container.offset().top;
                 const containerHeight = container.outerHeight();
                 const containerBottom = containerOffset + containerHeight;
