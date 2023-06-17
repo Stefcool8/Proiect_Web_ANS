@@ -13,6 +13,7 @@ use InvalidArgumentException;
  * Controller for Project operations
  * 
  */
+
  class ProjectController extends Controller{
 
      /**
@@ -65,9 +66,10 @@ use InvalidArgumentException;
      * )
      */
     public function create() {
-
         // get the request body
         $body = json_decode(file_get_contents('php://input'), true);
+
+        // get the token from the request header
         $payload = $this->getPayload();
         if(!$payload){
             ResponseHandler::getResponseHandler()->sendResponse(401, [
@@ -86,8 +88,7 @@ use InvalidArgumentException;
                 exit;
             }
 
-            $uuidUser = $existingUser['uuid']; 
-           
+            $uuidUser = $existingUser['uuid'];
         } catch (Exception $e) {
             // Handle potential exception during database insertion
             ResponseHandler::getResponseHandler()->sendResponse(500, ["error" => "Internal Server Error"]);
@@ -95,7 +96,7 @@ use InvalidArgumentException;
         }
 
         // validate the request body
-        if (!isset($body['name']) || !isset($body['chart'])) {
+        if (!isset($body['name']) || !isset($body['chart']) || !isset($body['years'])) {
             ResponseHandler::getResponseHandler()->sendResponse(400, ['error' => 'Invalid request body.']);
             exit;
         }
@@ -107,17 +108,16 @@ use InvalidArgumentException;
 
             // check if project exists
             if ($existingProject) {
-                ResponseHandler::getResponseHandler()->sendResponse(409, ["error" => "Porject already exists"]);
+                ResponseHandler::getResponseHandler()->sendResponse(409, ["error" => "Project already exists"]);
                 exit;
             }
 
-            // create the project
-            $db->insert('project', [
-                'name' => $body['name'],
-                'chart' => $body['chart'],
-                'uuidUser' => $uuidUser,
-                'uuid' => uniqid()
-            ]);
+            // check the chart type
+            if ($body['chart'] == 0) {
+                $this->createBarChartProject($db, $body, $uuidUser);
+            } else {
+                $this->createProject($db, $body, $uuidUser);
+            }
 
             // send the data
             ResponseHandler::getResponseHandler()->sendResponse(200, ["message" => "Project created successfully"]);
@@ -129,7 +129,53 @@ use InvalidArgumentException;
         }
     }
 
-     /**
+    public function createBarChartProject($db, $body, $uuidUser) {
+        // if the chart is a bar chart, check the bars
+        if (!isset($body['bars'])) {
+            ResponseHandler::getResponseHandler()->sendResponse(400, ['error' => 'Invalid request body.']);
+            exit;
+        }
+
+        // create the project
+        $this->createProject($db, $body, $uuidUser);
+
+        // get project uuid
+        $projectUuid = $db->fetchOne("SELECT uuid FROM project WHERE name = :name AND uuidUser = :uuidUser", ['name' => $body['name'],'uuidUser' =>$uuidUser]);
+
+        // insert in bar_chart table
+        $db->insert('bar_chart', [
+            'uuidProject' => $projectUuid['uuid'],
+            'bars' => $body['bars']
+        ]);
+
+        // insert in years table
+        foreach ($body['years'] as $year) {
+            $db->insert('years', [
+                'uuidProject' => $projectUuid['uuid'],
+                'year' => $year
+            ]);
+        }
+
+        // insert in optional_conditions table if series is set
+        if (isset($body['seriesCode'])) {
+            $db->insert('optional_conditions', [
+                'uuidProject' => $projectUuid['uuid'],
+                'optionalColumn' => $body['seriesCode'],
+                'optionalValue' => $body['seriesValue']
+            ]);
+        }
+    }
+
+    public function createProject($db, $body, $uuidUser){
+        $db->insert('project', [
+            'name' => $body['name'],
+            'chart' => $body['chart'],
+            'uuidUser' => $uuidUser,
+            'uuid' => uniqid()
+        ]);
+    }
+
+    /**
      * @OA\Delete(
      *     path="/api/project/{uuid}",
      *     summary="Delete a project",

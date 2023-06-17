@@ -6,15 +6,18 @@ use PDO;
 use PDOException;
 use PDOStatement;
 
-class Database {
-private static ?Database $instance = null;
+class Database
+{
+    private static ?Database $instance = null;
     private ?PDO $connection;
 
-    private function __construct() {
+    private function __construct()
+    {
         $this->initConnection();
     }
 
-    private function initConnection(): void {
+    private function initConnection(): void
+    {
         $host = 'localhost';
         $dbname = 'web';
         $username = 'root';
@@ -33,33 +36,43 @@ private static ?Database $instance = null;
         }
     }
 
-    private function query(string $sql, array $params = []): PDOStatement {
-
-        $stmt = $this->connection->prepare($sql);
-        //make parameter bindind
-        //This ensures that the values are treated as data and not as executable SQL code. 
-        //Binding the parameters correctly prevents SQL injection by automatically handling proper escaping and quoting of the input values.
-        foreach ($params as $param => $value) {
-            $stmt->bindValue(':' . $param, $value);
+    public static function getInstance(): Database
+    {
+        if (self::$instance === null) {
+            self::$instance = new Database();
         }
-        $stmt->execute();
-        return $stmt;
-       /*
-        $stmt = $this->connection->prepare($sql);
-        $stmt->execute($params);
-        return $stmt;
-*/
-    }
-
-    public function fetchAll(string $sql, array $params = []): array {
-        $stmt = $this->query($sql, $params);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return self::$instance;
     }
 
     public function fetchOne(string $sql, array $params = []): ?array {
         $stmt = $this->query($sql, $params);
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result ?: null;
+    }
+
+    private function query(string $sql, array $params = []): PDOStatement
+    {
+
+        $stmt = $this->connection->prepare($sql);
+        //make parameter bindind
+        //This ensures that the values are treated as data and not as executable SQL code.
+        //Binding the parameters correctly prevents SQL injection by automatically handling proper escaping and quoting of the input values.
+        foreach ($params as $param => $value) {
+            $stmt->bindValue(':' . $param, $value);
+        }
+
+        $stmt->execute();
+        return $stmt;
+        /*
+         $stmt = $this->connection->prepare($sql);
+         $stmt->execute($params);
+         return $stmt;
+        */
+    }
+
+    public function fetchAll(string $sql, array $params = []): array {
+        $stmt = $this->query($sql, $params);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function insert(string $table, array $data): void {
@@ -86,22 +99,12 @@ private static ?Database $instance = null;
         }
 
     public function update(string $table, array $data, array $conditions): void {
-       /* $set = implode(', ', array_map(fn($col) => "$col = :$col", array_keys($data)));
-        $where = implode(' AND ', array_map(fn($col) => "$col = :{$col}_cond", array_keys($conditions)));
-        $sql = "UPDATE $table SET $set WHERE $where";
-
-        $params = array_merge(
-            array_combine(array_map(fn($col) => ":$col", array_keys($data)), $data),
-            array_combine(array_map(fn($col) => ":{$col}_cond", array_keys($conditions)), $conditions)
-        );
-
-        $this->query($sql, (array)$params);
-       */
         $set = implode(', ', array_map(fn($col) => "$col = :$col", array_keys($data)));
         $where = implode(' AND ', array_map(fn($col) => "$col = :{$col}", array_keys($conditions)));
         $sql = "UPDATE $table SET $set WHERE $where";
         $this->query($sql, array_merge($data, $conditions));
     }
+
 
     public function join(string $table1, string $table2, array $joinConditions, array $params = []): array {
         $joinClauses = [];
@@ -109,13 +112,11 @@ private static ?Database $instance = null;
             $joinClauses[] = $condition['table1Column'] . ' ' . $condition['operator'] . ' ' . $condition['table2Column'];
         }
         $joinClause = implode(' AND ', $joinClauses);
-    
+
         $sql = "SELECT * FROM $table1 JOIN $table2 ON $joinClause";
         $stmt = $this->query($sql, $params);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-
-   
 
     public function delete(string $table, array $conditions): void {
         $where = implode(' AND ', array_map(fn($col) => "$col = :$col", array_keys($conditions)));
@@ -137,12 +138,5 @@ private static ?Database $instance = null;
 
     public function closeConnection(): void {
         $this->connection = null;
-    }
-
-    public static function getInstance(): Database {
-        if (self::$instance === null) {
-            self::$instance = new Database();
-        }
-        return self::$instance;
     }
 }

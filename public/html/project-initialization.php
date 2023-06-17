@@ -42,11 +42,16 @@
                 <div class="input-group">
                     <label for="chart-type">Chart Type:</label>
                     <select id="chart-type" name="chart-type" required>
+                        <option value="">Select Chart Type</option>
                         <option value="barChart">Bar Chart</option>
                         <option value="lineChart">Line Chart</option>
                         <option value="pieChart">Pie Chart</option>
                     </select>
                 </div>
+                <!--<div class="input-group">
+                    <label for="years">Years:</label>
+                    <div class="year-checkbox-container" id="year-checkboxes"></div>
+                </div>-->
                 <button type="submit">Create Project</button>
             </form>
         </div>

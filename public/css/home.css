@@ -152,7 +152,7 @@
   transform: scale(1.05);
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 826px) {
   .intro-section {
     grid-template-columns: 1fr;
     grid-template-rows: auto auto auto;

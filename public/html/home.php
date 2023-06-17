@@ -4,7 +4,6 @@ $data = fetch_data('home', [
     'title' => 'Default title'
 ]);
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,15 +18,14 @@ $data = fetch_data('home', [
     <!-- favicon -->
     <link rel="icon" href="/public/assets/img/favicon.png">
 
-    <link rel="stylesheet" href="/public/css/index.css">
     <link rel="stylesheet" href="/public/css/shared/navbar.css">
     <link rel="stylesheet" href="/public/css/shared/footer.css">
     <link rel="stylesheet" href="/public/css/home.css">
+    <link rel="stylesheet" href="/public/css/index.css">
 
     <!-- javascript libraries -->
     <script src="https://www.youtube.com/iframe_api"></script>
 </head>
-
 <body>
 <?php require_once __DIR__ . '/shared/navbar.php'; ?>
 <main class="main-content">
@@ -90,5 +88,4 @@ $data = fetch_data('home', [
 <?php require_once __DIR__ . '/shared/footer.php'; ?>
 <script src="/public/js/home.js"></script>
 </body>
-
 </html>

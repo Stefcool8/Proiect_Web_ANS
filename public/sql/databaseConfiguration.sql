@@ -14,7 +14,46 @@ CREATE TABLE `user` (
     `uuid` varchar(256) NOT NULL,
     `isAdmin` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-drop table user;
+
+--
+-- Table structure for `project` in database `web`
+--
+CREATE TABLE `project` (
+    `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `name` varchar(128) NOT NULL,
+    `chart` int(11) NOT NULL,
+    `uuidUser` varchar(256) NOT NULL REFERENCES `user`(`uuid`),
+    `uuid` varchar(256) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Table structure for 'bar_chart' in database 'web'
+--
+CREATE TABLE `bar_chart` (
+    `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `uuidProject` varchar(256) NOT NULL REFERENCES `project`(`uuid`),
+    `bars` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Table structure for 'optional_conditions' in database 'web'
+--
+CREATE TABLE `optional_conditions` (
+    `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `uuidProject` varchar(256) NOT NULL REFERENCES `project`(`uuid`),
+    `optionalColumn` int(11) NOT NULL,
+    `optionalValue` varchar(256) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Table structure for 'years' in database 'web'
+--
+CREATE TABLE `years` (
+    `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `uuidProject` varchar(256) NOT NULL REFERENCES `project`(`uuid`),
+    `year` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 --
 -- Inserting data in table `user`
 --
@@ -23,4 +62,45 @@ INSERT INTO `user` (`firstName`, `lastName`, `username`, `email`, `bio`, `passwo
     ('Nicolae', 'Martinescu', 'nicolae', 'martinescunicolaee3@gmail.com', 'I am nicu', 'nicu', '234', 0),
     ('Aser', 'Cobaschi', 'aser', 'cobaschiaser8@gmail.com', 'I am aser', 'aser', '345', 0);
 
+--
+-- Inserting data in table `user`
+--
+INSERT INTO `project` (`name`, `chart`, `uuidUser`,`uuid`) VALUES
+    ('Project1', 1, '123','project1'),
+    ('Project2', 2, '123','project2'),
+    ('Project3', 3, '123', 'project3');
+
+--
+-- Inserting data in table `bar_chart`
+--
+INSERT INTO `bar_chart` (`uuidProject`, `bars`) VALUES
+    ('project1', 3); -- 3 is the column index in the csv file (CATEGORIA_COMUNITARA)
+
+--
+-- Inserting data in table `optional_conditions`
+--
+INSERT INTO `optional_conditions` (`uuidProject`, `optionalColumn`, `optionalValue`) VALUES
+    ('project1', 1, 'ALBA'); -- 1 is the column index in the csv file (JUDET)
+
+--
+-- Inserting data in table `years`
+--
+INSERT INTO `years` (`uuidProject`, `year`) VALUES
+    ('project1', 2012),
+    ('project1', 2013);
+
+
 select * from user;
+select * from project;
+select * from bar_chart;
+select * from optional_conditions;
+select * from years;
+
+delete from project where id = 9;
+
+drop table user cascade;
+drop table project cascade;
+drop table bar_chart cascade;
+drop table optional_conditions cascade;
+drop table years cascade;
+

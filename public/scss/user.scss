@@ -12,7 +12,6 @@ body {
         flex-direction: column;
         min-height: 100vh;
 
-
         .main-content {
             display: flex;
             flex-direction: column;
@@ -30,7 +29,7 @@ body {
                 max-width: 50rem;
                 background-color: $white-color;
                 padding: 2.5rem;
-                border-radius: 1.25rem;
+                border-radius: 1.3rem;
                 box-shadow: 0 4px 10px $box-shadow-color;
                 color: $primary-color;
                 min-height: 40vh;
@@ -100,6 +99,11 @@ body {
                     color: $primary-color;
                 }
 
+                textarea {
+                    resize: none;
+                    overflow: scroll;
+                }
+
                 .data {
                     width: 100%;
                     padding: 0.3rem;
@@ -118,10 +122,10 @@ body {
                 color: $white-color;
                 font-size: 2rem;
                 border: none;
-                border-radius: 1.25rem;
+                border-radius: 1.3rem;
                 cursor: pointer;
                 transition: all 0.3s;
-                box-shadow: 0 2px 5px $box-shadow-color;
+                box-shadow: 0 2px 4px $box-shadow-color;
                 margin-top: 2vh;
 
                 &:hover {
@@ -136,38 +140,6 @@ body {
                     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
                 }
             }
-        }
-
-        .error-message, .success-message {
-            font-weight: bold;
-            margin: 1rem 0;
-            padding: 0.25rem;
-            border-radius: 10px;
-            width: 100%;
-            text-align: center;
-            border: 1px solid;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s;
-
-            &.hidden {
-                display: none;
-            }
-
-            &.visible {
-                display: block;
-            }
-        }
-
-        .error-message {
-            color: $alert-danger;
-            background-color: #ffe9e9;
-            border-color: $alert-danger;
-        }
-
-        .success-message {
-            color: $alert-success;
-            background-color: #e9ffe9;
-            border-color: $alert-success;
         }
 
         @media screen and (max-width: 826px) {
@@ -188,4 +160,37 @@ body {
             }
         }
     }
+}
+
+.error-message,
+.success-message {
+    font-weight: bold;
+    margin: 1rem 0;
+    padding: 0.3rem;
+    border-radius: 10px;
+    width: 100%;
+    text-align: center;
+    border: 1px solid;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s;
+
+    &.hidden {
+        display: none;
+    }
+
+    &.visible {
+        display: block;
+    }
+}
+
+.error-message {
+    color: $alert-danger;
+    background-color: #ffe9e9;
+    border-color: $alert-danger;
+}
+
+.success-message {
+    color: $alert-success;
+    background-color: #e9ffe9;
+    border-color: $alert-success;
 }

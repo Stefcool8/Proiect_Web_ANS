@@ -6,7 +6,6 @@ $data = fetch_data('login', [
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -31,7 +30,7 @@ $data = fetch_data('login', [
     <main class="main-content">
         <div class="container">
             <h2><?= htmlspecialchars($data["title"]) ?></h2>
-            <form action="/auth/login" method="post">
+            <form method="post">
                 <div class="error-message hidden"></div>
                 <div class="success-message hidden"></div>
                 <div class="input-group">

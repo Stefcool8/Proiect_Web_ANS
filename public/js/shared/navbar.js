@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", async () => {
     let token = localStorage.getItem("jwt");
-
     if (!token) {
         return;
     }
@@ -26,7 +25,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             return;
         }
 
-        useNowLink.href = "/dashboard?page=1";
+        useNowLink.href = "/dashboard";
         useNowLink.querySelector(".u-nav").textContent = "Dashboard";
 
         let signOutLink = document.createElement("a");
@@ -58,7 +57,7 @@ const util = {
             const href = $(link).attr("href");
             const container = $("#" + href.substring(1));
 
-            if(container.length) {
+            if (container.length) {
                 const containerOffset = container.offset().top;
                 const containerHeight = container.outerHeight();
                 const containerBottom = containerOffset + containerHeight;

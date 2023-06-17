@@ -133,4 +133,34 @@ class ContactController {
             ResponseHandler::getResponseHandler()->sendResponse(500, ['error' => 'Internal server error']);
         }
     }
+
+    /**
+     * @OA\Get(
+     *     path="/api/contact",
+     *     summary="Get the contact page",
+     *     tags={"Contact"},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Contact page",
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 required={"title"},
+     *                 @OA\Property(
+     *                     property="title",
+     *                     description="The title of the page",
+     *                     type="string",
+     *                     example="Contact Us"
+     *                 )
+     *             )
+     *         )
+     *     )
+     * )
+     */
+    public function get() {
+        ResponseHandler::getResponseHandler()->sendResponse(200, [
+            'title' => 'Contact Us',
+        ]);
+    }
 }

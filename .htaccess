@@ -29,6 +29,9 @@ RewriteRule ^password/reset /public/html/reset-password.php [L]
 #Rule for /viewProjects/{uuid}
 RewriteRule ^viewProjects/([^/]+)$ /public/html/viewProjects.php [L]
 
+# Rule for /user/edit/{uuid}
+RewriteRule ^user/edit/([^/]+)$ /public/html/user-edit.php [L]
+
 # If the request does not correspond to an existing file or directory or a .html file in the /public/html directory, forward it to router.php
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d

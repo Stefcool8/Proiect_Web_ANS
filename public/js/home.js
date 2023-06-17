@@ -1,6 +1,4 @@
-'use strict';
-
-const HomePage = (function () {
+const HomePage = (() => {
     let player;
 
     function onYouTubePlayerReady() {
@@ -44,6 +42,6 @@ const HomePage = (function () {
     }
 })();
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", () => {
     HomePage.onYouTubePlayerReady();
 });
