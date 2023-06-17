@@ -1,11 +1,11 @@
 <?php
-// DONE
+
 namespace App\controllers;
 
 use App\utils\ResponseHandler;
 
 /**
- * Controller for the home page.
+ * Controller for the home page
  * 
  * @OA\Info(title="AutoParkExplorer API", version="1.0")
  * 

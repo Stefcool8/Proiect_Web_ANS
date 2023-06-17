@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", async () => {
     let token = localStorage.getItem("jwt");
-
     if (!token) {
         return;
     }

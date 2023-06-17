@@ -63,7 +63,6 @@ registerForm.addEventListener('submit', async (event) => {
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
     const confirmPassword = document.getElementById("confirmPassword").value;
-
     const data = {
         firstName: firstName,
         lastName: lastName,
