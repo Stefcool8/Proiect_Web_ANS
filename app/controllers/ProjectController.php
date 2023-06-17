@@ -1,12 +1,10 @@
 <?php
 // DONE
-namespace App\Controllers;
+namespace App\controllers;
 
 use App\Utils\ResponseHandler;
 use App\Utils\Database;
-use App\Utils\JWT;
 use Exception;
-use InvalidArgumentException;
 
 
 /** 
@@ -307,7 +305,6 @@ use InvalidArgumentException;
      * )
      */
     public function get($uuid) {
-
         $payload = $this->getPayload();
         if(!$payload){
             ResponseHandler::getResponseHandler()->sendResponse(401, [
@@ -326,7 +323,7 @@ use InvalidArgumentException;
 
             $currentUser = $db->fetchOne("SELECT * FROM user WHERE username = :username", ['username' => $payload['username']]);
             
-            if($currentUser['isAdmin']){
+            /*if($currentUser['isAdmin']){
                 ResponseHandler::getResponseHandler()->sendResponse(200, [
                     'data' => [
                         'name' => $project['name'],
@@ -335,29 +332,61 @@ use InvalidArgumentException;
                     ]
                 ]);
                 exit;
-            }
+            }*/
 
             if($currentUser['uuid'] != $project['uuidUser']){
                 ResponseHandler::getResponseHandler()->sendResponse(401, [
                     'error' => 'Unauthorized'
                 ]);
                 exit;
-            } 
+            }
 
-            ResponseHandler::getResponseHandler()->sendResponse(200, [
-                'data' => [
-                    'name' => $project['name'],
-                    'chart' => $project['chart'],
-                    'uuidUser' => $project['uuidUser']
-                ]
-            ]);
-            exit;
+            if ($project['chart'] == 0) {
+                // send the project data for the bar chart
+                ResponseHandler::getResponseHandler()->sendResponse(200, [
+                    'data' => $this->getBarChartProject($db, $project)
+                ]);
+            } else {
+                ResponseHandler::getResponseHandler()->sendResponse(200, [
+                    'data' => [
+                        'name' => $project['name'],
+                        'chart' => $project['chart'],
+                        'uuidUser' => $project['uuidUser']
+                    ]
+                ]);
+            }
 
         } catch (Exception $e) {
             // Handle potential exception during database deletion
             ResponseHandler::getResponseHandler()->sendResponse(500, ["error" => "Internal Server Error"]);
             exit;
         }
+    }
+
+    public function getBarChartProject($db, $project): array {
+        $data = [];
+
+        $data['name'] = $project['name'];
+        $data['chart'] = $project['chart'];
+
+        // get the years for this project
+        $years = $db->fetchAll("SELECT * FROM years WHERE uuidProject = :uuidProject", ['uuidProject' => $project['uuid']]);
+        for ($i = 0; $i < count($years); $i++) {
+            $data['years'][$i] = $years[$i]['year'];
+        }
+
+        // get the bars for this project
+        $bars = $db->fetchOne("SELECT * FROM bar_chart WHERE uuidProject = :uuidProject", ['uuidProject' => $project['uuid']]);
+        $data['bars'] = $bars['bars'];
+
+        // check if there are optional conditions for this project
+        $optional = $db->fetchOne("SELECT * FROM optional_conditions WHERE uuidProject = :uuidProject", ['uuidProject' => $project['uuid']]);
+        if ($optional) {
+            $data['seriesCode'] = $optional['optionalColumn'];
+            $data['seriesValue'] = $optional['optionalValue'];
+        }
+
+        return $data;
     }
 
     public function gets() {

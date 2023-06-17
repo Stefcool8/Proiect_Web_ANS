@@ -11,8 +11,7 @@ const columns = [
     "CATEGORIE_NATIONALA",
     "CATEGORIA_COMUNITARA",
     "MARCA",
-    "DESCRIERE_COMERCIALA",
-    "TOTAL"
+    "DESCRIERE_COMERCIALA"
 ];
 
 function showMessage(element, message) {
@@ -151,7 +150,7 @@ function addSeriesToSelectMenu() {
 }
 
 function createSeriesInput() {
-// create the div for the series
+    // create the div for the series
     const inputGroup = document.createElement('div');
     inputGroup.classList.add('input-group');
 

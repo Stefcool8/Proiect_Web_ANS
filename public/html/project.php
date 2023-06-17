@@ -22,15 +22,19 @@
 <?php require_once __DIR__ . '/shared/navbar.php'; ?>
 <div class="project">
     <main class="main-content">
-        <div class="container">
+        <div class="container" id="project-container">
             <h2>Project</h2>
             <div class="input-group">
                 <label for="projectName">Project Name</label>
                 <input type="text" id="projectName" name="projectName" readonly>
             </div>
             <div class="input-group">
-                <label for="projectType">Project Type</label>
-                <input type="text" id="projectType" name="projectType" readonly>
+                <label for="chartType">Chart Type</label>
+                <input type="text" id="chartType" name="chartType" readonly>
+            </div>
+            <div class="input-group">
+                <label for="years">Years</label>
+                <input type="text" id="years" name="years" readonly>
             </div>
         </div>
     </main>
