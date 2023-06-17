@@ -370,6 +370,7 @@ class UserController extends Controller {
 
         $token = JWT::getJWT()->encode([
             'username' => $username,
+            'isAdmin' => $user['isAdmin'],
             'exp' => time() + 3600
         ]);
 

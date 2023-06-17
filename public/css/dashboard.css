@@ -12,6 +12,7 @@
   font-weight: bold;
   color: white; }
 
+.admin-panel-btn,
 .create-project-btn,
 .view-profile-btn {
   font-size: 1.25rem;

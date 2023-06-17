@@ -58,7 +58,7 @@ class DashboardController extends Controller {
         $payload = $this->getPayload();
         if(!$payload){
             ResponseHandler::getResponseHandler()->sendResponse(401, ['error' => 'Unauthorized']);
-            exit;
+            return;
         }
         try {
 
@@ -69,7 +69,7 @@ class DashboardController extends Controller {
                 'data' => [
                     'title' => 'Dashboard',
                     'username' => $payload['username'],
-                    'isAdmin' => $payload['isAdmin'],
+                    'isAdmin' => $currentUser['isAdmin'],
                     'uuid' => $currentUser['uuid']
                 ]
             ]);

@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', async () => {
     const token = localStorage.getItem('jwt');
     const url = window.location.href;
@@ -10,8 +9,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     const page = pageMatch ? parseInt(pageMatch[1]) : null;
     const pageSize = 4;
 
-    console.log(uuid);
-    console.log(page);
+    //console.log(uuid);
+    //console.log(page);
     // Show an error message if there is no uuid parameter in the URL
     if (!uuid) {
         alert("No UUID specified");
@@ -22,7 +21,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
     //let $uuid;
     try {
-        const firstApiURL = "/api/user/"+uuid;
+        const firstApiURL = "/api/user/" + uuid;
         const response1 = await fetch(firstApiURL, {
             method: 'GET',
             headers: {
@@ -50,7 +49,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             //console.log(user.uuid);
             const userLink = document.querySelector(".view-profile-btn");
             //userLink.href = "/user/" + user.uuid;
-            userLink.href = "/user/" +uuid;
+            userLink.href = "/user/" + uuid;
 
         } else {
             // Handle the error
@@ -73,7 +72,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
         });
 
-        console.log(uuid);
+        //console.log(uuid);
         console.log(response);
 
         const projectContainer = document.querySelector('.project-area');
@@ -83,6 +82,13 @@ document.addEventListener('DOMContentLoaded', async () => {
             alertCard.classList.add('project');
             alertCard.textContent = "This user has no projects"
             projectContainer.appendChild(alertCard);
+
+            const buttonPrevious = document.querySelector('.button-previous');
+            const buttonNext = document.querySelector('.button-next');
+            buttonPrevious.classList.add('hidden');
+            buttonNext.classList.add('hidden');
+
+
         }
 
         if (response.ok) {
@@ -94,8 +100,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             try {
                 const apiURL2 = "/api/project/user/" + uuid + "/" + page;
-                console.log("Hello");
-                console.log(apiURL2)
+                //console.log("Hello");
+                //console.log(apiURL2)
                 const actualProjects = await fetch(apiURL2, {
                     method: 'GET',
                     headers: {
@@ -105,34 +111,21 @@ document.addEventListener('DOMContentLoaded', async () => {
                 });
                 if (actualProjects.ok) {
                     const resultActualProjects = await actualProjects.json();
-                    console.log(resultActualProjects);
+                    //console.log(resultActualProjects);
                     resultActualProjects.data.projects.forEach(project => {
-                        console.log("Inside loop");
-                        // Create a new project card
                         const projectCard = document.createElement('div');
                         projectCard.classList.add('project');
                         projectCard.classList.add(`project-${project.uuid}`); // Assign a unique class for this project
-                        console.log("project-card created");
-                        // Create the project name element
                         const projectName = document.createElement('p');
                         projectName.classList.add('project-name');
                         projectName.textContent = project.name;
-                        console.log("project-name created");
-                        // Create the button area
                         const buttonArea = document.createElement('div');
                         buttonArea.classList.add('button-area');
-                        console.log("buttonArea created");
-                        // Create the view button
                         const viewButton = document.createElement('a');
                         viewButton.classList.add('button');
-                        //viewButton.href = `/project/${project.uuid}`;
                         viewButton.textContent = 'View';
-                        console.log("view-button created");
                         viewButton.addEventListener('click', async (event) => {
                             event.preventDefault();
-                            console.log('View Button clicked');
-                            console.log('UUID:${user.uuid}');
-
 
                             try {
                                 const apiUrl = `/api/project/${project.uuid}`;
@@ -162,14 +155,9 @@ document.addEventListener('DOMContentLoaded', async () => {
                         // Create the delete button
                         const deleteButton = document.createElement('a');
                         deleteButton.classList.add('button');
-                        //deleteButton.href = `/project/${project.uuid}/delete`;
                         deleteButton.textContent = 'Delete';
-                        console.log("delete-button created");
                         deleteButton.addEventListener('click', async (event) => {
                             event.preventDefault();
-                            console.log('Delete Button clicked');
-                            console.log('UUID:${user.uuid}');
-
                             try {
                                 const apiUrl = `/api/project/${project.uuid}`;
                                 const responseDELETE = await fetch(apiUrl, {
@@ -196,36 +184,20 @@ document.addEventListener('DOMContentLoaded', async () => {
 
                         // Append the project name and buttons to the project card
                         projectCard.appendChild(projectName);
-                        console.log("project-Name appended");
                         buttonArea.appendChild(viewButton);
-                        console.log("view button appended");
                         buttonArea.appendChild(deleteButton);
-                        console.log("delete button appended");
                         projectCard.appendChild(buttonArea);
-                        console.log("button area appended");
-                        // Append the project card to the parent container
                         projectContainer.appendChild(projectCard);
-                        console.log("projectCard appended");
                     });
-                    console.log(pageSize);
-                    console.log(result.data.projects.length);
                     const buttonPrevious = document.querySelector('.button-previous');
                     const buttonNext = document.querySelector('.button-next');
-                    console.log("previous button extracted");
-                    console.log("next button extracted");
-
                     if (page === 1) {
                         buttonPrevious.classList.add('hidden');
-                        console.log("page 1");
                     } else {
                         buttonPrevious.classList.remove('hidden');
                     }
 
-                    if (resultActualProjects.data.projects.length < pageSize || countProjects <=pageSize*page) {
-                        console.log(resultActualProjects.data.projects.length);
-                        console.log(pageSize);
-                        console.log(page);
-                        console.log(pageSize*page);
+                    if (resultActualProjects.data.projects.length < pageSize || countProjects <= pageSize * page) {
                         buttonNext.classList.add('hidden');
                     } else {
                         buttonNext.classList.remove('hidden');
@@ -236,10 +208,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                         window.location.href = `/viewProjects/${uuid}?page=${parseInt(page) - 1}`;
 
                     });
-
                     buttonNext.addEventListener('click', async (event) => {
                         event.preventDefault();
-                        console.log("Next button clicked");
                         window.location.href = `/viewProjects/${uuid}?page=${parseInt(page) + 1}`;
                     });
 
@@ -255,7 +225,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             // Handle the error
             console.error(result.message);
         }
-    }catch (error) {
+    } catch (error) {
 
     }
 

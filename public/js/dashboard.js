@@ -5,15 +5,18 @@ document.addEventListener('DOMContentLoaded', async () => {
     const url = window.location.href;
     const pageRegex = /page=(\d+)/;
     const match = url.match(pageRegex);
-    const page = match ? match[1] : null;
+    const page = match ? match[1] : "1";
+
+
 
     const pageSize = 4;
 
-    console.log(page); // Output: 2
+    //console.log(page); // Output: 2
     if (!token) {
         window.location.href = "/login";
     }
 
+    //console.log(token);
     let $uuid;
     try {
         const response = await fetch('/api/dashboard', {
@@ -31,10 +34,18 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
 
         const result = await response.json();
-        //console.log(result)
+        //console.log("Hello");
+        console.log(result)
         $uuid = result.data.data.uuid;
+        //console.log($uuid);
         if (response.ok) {
-            console.log(result);
+            const adminPanel = document.querySelector(".admin-panel-btn");
+            if(!result.data.data.isAdmin) {
+                adminPanel.classList.add('hidden');
+            }else{
+                adminPanel.classList.remove('hidden');
+            }
+           // console.log(result);
             // Populate the dashboard with the user data
             document.querySelector('.page-name p').textContent = 'Dashboard, Hello ' + result.data.data.username;
             // Fill in other parts of the page using result.data
@@ -58,7 +69,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // fetch the projects
     try {
+        //console.log($uuid);
         const apiURL = "/api/project/user/"+$uuid;
+        //console.log(apiURL);
         const response = await fetch(apiURL, {
             method: 'GET',
             headers: {
@@ -66,21 +79,33 @@ document.addEventListener('DOMContentLoaded', async () => {
                 'Content-Type': 'application/json',
             }
         });
+        const projectContainer = document.querySelector('.project-area');
 
-        console.log(response);
+        if(response.status === 404){
+            console.log("Nu am proiecte");
+            const alertCard = document.createElement('div');
+            alertCard.classList.add('project');
+            alertCard.textContent = "This user has no projects"
+            projectContainer.appendChild(alertCard);
+            const buttonPrevious = document.querySelector('.button-previous');
+            const buttonNext = document.querySelector('.button-next');
+            buttonPrevious.classList.add('hidden');
+            buttonNext.classList.add('hidden');
+        }
+
+        //console.log(response);
         if (response.ok) {
 
             const result = await response.json();
             console.log(result);
             // Get the parent container where the project cards will be appended
-            const projectContainer = document.querySelector('.project-area');
 
             const countProjects = result.data.projects.length;
 
 
             try{
                 const apiURL2 = "/api/project/user/"+$uuid+"/"+page;
-                console.log(apiURL2)
+                //console.log(apiURL2)
                 const actualProjects = await fetch(apiURL2, {
                     method: 'GET',
                     headers: {
@@ -90,7 +115,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 });
                 if(actualProjects.ok){
                     const resultActualProjects = await actualProjects.json();
-                    console.log(resultActualProjects);
+                    //console.log(resultActualProjects);
                     resultActualProjects.data.projects.forEach(project => {
                         // Create a new project card
                         const projectCard = document.createElement('div');
@@ -151,8 +176,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
                         deleteButton.addEventListener('click', async (event) => {
                             event.preventDefault();
-                            console.log('Delete Button clicked');
-                            console.log('UUID:${user.uuid}');
+                            //console.log('Delete Button clicked');
+                            //console.log('UUID:${user.uuid}');
 
                             try {
                                 const apiUrl = `/api/project/${project.uuid}`;
@@ -187,8 +212,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                         // Append the project card to the parent container
                         projectContainer.appendChild(projectCard);
                     });
-                    console.log(pageSize);
-                    console.log(result.data.projects.length);
+                    //console.log(pageSize);
+                    //console.log(result.data.projects.length);
                     const buttonPrevious = document.querySelector('.button-previous');
                     const buttonNext = document.querySelector('.button-next');
 
@@ -212,7 +237,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
                     buttonNext.addEventListener('click', async (event) => {
                         event.preventDefault();
-                        console.log("Next button clicked");
+                        //console.log("Next button clicked");
                         window.location.href = `/dashboard?page=${parseInt(page) + 1}`;
                     });
 
