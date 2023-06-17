@@ -32,8 +32,7 @@ CREATE TABLE `project` (
 CREATE TABLE `bar_chart` (
     `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `uuidProject` varchar(256) NOT NULL REFERENCES `project`(`uuid`),
-    `referenceColumn` int(11) NOT NULL,
-    `uuid` varchar(256) NOT NULL
+    `bars` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -74,8 +73,8 @@ INSERT INTO `project` (`name`, `chart`, `uuidUser`,`uuid`) VALUES
 --
 -- Inserting data in table `bar_chart`
 --
-INSERT INTO `bar_chart` (`uuidProject`, `referenceColumn`, `uuid`) VALUES
-    ('project1', 3, 'bar1'); -- 3 is the column index in the csv file (CATEGORIA_COMUNITARA)
+INSERT INTO `bar_chart` (`uuidProject`, `bars`) VALUES
+    ('project1', 3); -- 3 is the column index in the csv file (CATEGORIA_COMUNITARA)
 
 --
 -- Inserting data in table `optional_conditions`

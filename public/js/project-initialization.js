@@ -5,6 +5,7 @@ const chartTypeSelect = document.getElementById("chart-type");
 let yearCheckboxContainer = null;
 let barsSelect = null;
 let seriesSelect = null;
+let seriesInput = null;
 const columns = [
     "JUDET",
     "CATEGORIE_NATIONALA",
@@ -54,6 +55,14 @@ function removeSeriesSelect() {
         seriesSelect.remove();
         seriesSelect = null;
         document.querySelector('label[for="series"]').remove();
+    }
+}
+
+function removeSeriesInput() {
+    if (seriesInput != null) {
+        seriesInput.remove();
+        seriesInput = null;
+        document.querySelector('label[for="series-input"]').remove();
     }
 }
 
@@ -128,8 +137,7 @@ function addSeriesToSelectMenu() {
     // add an empty option to the select menu
     const emptyOption = document.createElement('option');
     emptyOption.value = '';
-    emptyOption.textContent = 'Select a series (optional)';
-    emptyOption.disabled = true;
+    emptyOption.textContent = 'No series';
     emptyOption.selected = true;
     seriesSelect.appendChild(emptyOption);
 
@@ -140,6 +148,30 @@ function addSeriesToSelectMenu() {
         seriesOption.textContent = series[i];
         seriesSelect.appendChild(seriesOption);
     }
+}
+
+function createSeriesInput() {
+// create the div for the series
+    const inputGroup = document.createElement('div');
+    inputGroup.classList.add('input-group');
+
+    const seriesLabel = document.createElement('label');
+    seriesLabel.htmlFor = 'series-input';
+    seriesLabel.textContent = 'Value:';
+
+    seriesInput = document.createElement('input');
+    seriesInput.classList.add('series-input');
+    seriesInput.id = 'series-input';
+    seriesInput.name = 'series-input';
+    seriesInput.type = 'text';
+    seriesInput.placeholder = 'Enter a series';
+    seriesInput.required = true;
+
+    inputGroup.appendChild(seriesLabel);
+    inputGroup.appendChild(seriesInput);
+
+    // add the div to the form before the create button
+    projectInitializationForm.insertBefore(inputGroup, projectInitializationForm.lastElementChild);
 }
 
 function createSeriesSelect() {
@@ -156,6 +188,17 @@ function createSeriesSelect() {
     seriesSelect.id = 'series-select';
     seriesSelect.name = 'series';
     addSeriesToSelectMenu();
+
+    // add an event listener to the series select
+    seriesSelect.addEventListener('change', () => {
+        if (seriesSelect.value === '') {
+            // remove the series input
+            removeSeriesInput();
+        } else if (seriesInput == null) {
+            // create the input for the series
+            createSeriesInput();
+        }
+    });
 
     inputGroup.appendChild(seriesLabel);
     inputGroup.appendChild(seriesSelect);
@@ -228,6 +271,7 @@ function createYearCheckboxContainer() {
                     // remove the bars select and series select if they exist
                     removeBarsSelect();
                     removeSeriesSelect();
+                    removeSeriesInput();
                 }
             }
         }
@@ -248,6 +292,7 @@ chartTypeSelect.addEventListener("change", () => {
         // remove the bars select and series select if they exist
         removeBarsSelect();
         removeSeriesSelect();
+        removeSeriesInput();
     }
     if (chartTypeSelect.value === 'barChart') {
         // create the bars select if there are selected years
@@ -257,6 +302,7 @@ chartTypeSelect.addEventListener("change", () => {
     }
 });
 
+/*TODO: make the series select have an option "No series", that makes the input label disappear*/
 projectInitializationForm.addEventListener("submit", async (event) => {
     event.preventDefault();
 
@@ -282,14 +328,17 @@ projectInitializationForm.addEventListener("submit", async (event) => {
 
     if (chartCode === 0) {
         const barCode = columns.indexOf(barsSelect.value);
-        const series = columns.indexOf(seriesSelect.value);
+        const seriesCode = columns.indexOf(seriesSelect.value);
+        const seriesValue = seriesInput.value;
 
         console.log(barCode);
-        console.log(series);
+        console.log(seriesCode);
+        console.log(seriesValue);
 
         // add the bars and series to the data object
         data.bars = barCode;
-        data.series = series;
+        data.seriesCode = seriesCode;
+        data.seriesValue = seriesValue;
     }
 
     const token = localStorage.getItem('jwt');

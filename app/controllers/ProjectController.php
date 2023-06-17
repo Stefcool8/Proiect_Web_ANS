@@ -13,7 +13,7 @@ use InvalidArgumentException;
  * Controller for Project operations
  * 
  */
- class ProjectController {
+class ProjectController {
 
      /**
      * @OA\Post(
@@ -65,12 +65,9 @@ use InvalidArgumentException;
      * )
      */
     public function create() {
-
         // get the request body
         $body = json_decode(file_get_contents('php://input'), true);
-        
-         
-        //$uuid = $body['uuid'];
+
         // get the token from the request header
         $payload = $this->getPayload();
 
@@ -84,17 +81,15 @@ use InvalidArgumentException;
                 exit;
             }
 
-            $uuidUser = $existingUser['uuid']; 
-           
+            $uuidUser = $existingUser['uuid'];
         } catch (Exception $e) {
             // Handle potential exception during database insertion
             ResponseHandler::getResponseHandler()->sendResponse(500, ["error" => "Internal Server Error"]);
             exit;
         }
 
-
         // validate the request body
-        if (!isset($body['name']) || !isset($body['chart'])) {
+        if (!isset($body['name']) || !isset($body['chart']) || !isset($body['years'])) {
             ResponseHandler::getResponseHandler()->sendResponse(400, ['error' => 'Invalid request body.']);
             exit;
         }
@@ -108,6 +103,43 @@ use InvalidArgumentException;
             if ($existingProject) {
                 ResponseHandler::getResponseHandler()->sendResponse(409, ["error" => "Project already exists"]);
                 exit;
+            }
+
+            // check the chart type
+            if ($body['chart'] == 0) {
+                // if the chart is a bar chart, check the bars
+                if (!isset($body['bars'])) {
+                    ResponseHandler::getResponseHandler()->sendResponse(400, ['error' => 'Invalid request body.']);
+                    exit;
+                }
+
+                // create the project
+                $this->createProject($db, $body, $uuidUser);
+
+                // get project uuid
+                $projectUuid = $db->fetchOne("SELECT uuid FROM project WHERE name = :name AND uuidUser = :uuidUser", ['name' => $body['name'],'uuidUser' =>$uuidUser]);
+
+                // insert in bar_chart table
+                $db->insert('bar_chart', [
+                    'uuidProject' => $projectUuid['uuid'],
+                    'bars' => $body['bars']
+                ]);
+
+                // insert in years table
+                foreach ($body['years'] as $year) {
+                    $db->insert('years', [
+                        'uuidProject' => $projectUuid['uuid'],
+                        'year' => $year
+                    ]);
+                }
+
+                // insert in optional_conditions table if series is set
+                if (isset($body['series'])) {
+                    $db->insert('optional_conditions', [
+                        'uuidProject' => $projectUuid['uuid'],
+                        'series' => $body['series']
+                    ]);
+                }
             }
 
             // create the project
@@ -128,7 +160,16 @@ use InvalidArgumentException;
         }
     }
 
-     /**
+    public function createProject($db, $body, $uuidUser){
+        $db->insert('project', [
+            'name' => $body['name'],
+            'chart' => $body['chart'],
+            'uuidUser' => $uuidUser,
+            'uuid' => uniqid()
+        ]);
+    }
+
+    /**
      * @OA\Delete(
      *     path="/api/project/{uuid}",
      *     summary="Delete a project",
