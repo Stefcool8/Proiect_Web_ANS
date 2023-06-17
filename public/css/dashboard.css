@@ -12,6 +12,7 @@
   font-weight: bold;
   color: white; }
 
+.admin-panel-btn,
 .create-project-btn,
 .view-profile-btn {
   font-size: 1.25rem;
@@ -134,6 +135,10 @@
   font-weight: bold;
   padding: 1rem;
   color: white; }
+
+.hidden{
+  display: none;
+}
 
 @media screen and (max-width: 767px) {
   .central-area {

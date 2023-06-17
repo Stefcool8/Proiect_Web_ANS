@@ -44,8 +44,7 @@ class Database
         return self::$instance;
     }
 
-    public function fetchOne(string $sql, array $params = []): ?array
-    {
+    public function fetchOne(string $sql, array $params = []): ?array {
         $stmt = $this->query($sql, $params);
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result ?: null;
@@ -71,16 +70,35 @@ class Database
         */
     }
 
-    public function insert(string $table, array $data): void
-    {
+    public function fetchAll(string $sql, array $params = []): array {
+        $stmt = $this->query($sql, $params);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function insert(string $table, array $data): void {
+        /*$columns = implode(', ', array_keys($data));
+        //$placeholders = ':' . implode(', :', array_keys($data));
+
+        //fn - shorthand for anonymus function 
+        $params = array_combine(array_map(fn($col) => ":$col", array_keys($data)), $data);
+
+        $sql = "INSERT INTO $table ($columns) VALUES ($placeholders)";
+
+        $this->query($sql, $params);
+    */
+/*
         $columns = implode(', ', array_keys($data));
         $placeholders = ':' . implode(', :', array_keys($data));
         $sql = "INSERT INTO $table ($columns) VALUES ($placeholders)";
         $this->query($sql, $data);
-    }
+*/
+        $columns = implode(', ', array_keys($data));
+        $placeholders = ':' . implode(', :', array_keys($data));
+        $sql = "INSERT INTO $table ($columns) VALUES ($placeholders)";
+        $this->query($sql, $data);
+        }
 
-    public function update(string $table, array $data, array $conditions): void
-    {
+    public function update(string $table, array $data, array $conditions): void {
         $set = implode(', ', array_map(fn($col) => "$col = :$col", array_keys($data)));
         $where = implode(' AND ', array_map(fn($col) => "$col = :{$col}", array_keys($conditions)));
         $sql = "UPDATE $table SET $set WHERE $where";
@@ -88,8 +106,7 @@ class Database
     }
 
 
-    public function join(string $table1, string $table2, array $joinConditions, array $params = []): array
-    {
+    public function join(string $table1, string $table2, array $joinConditions, array $params = []): array {
         $joinClauses = [];
         foreach ($joinConditions as $condition) {
             $joinClauses[] = $condition['table1Column'] . ' ' . $condition['operator'] . ' ' . $condition['table2Column'];
@@ -101,36 +118,25 @@ class Database
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function fetchAll(string $sql, array $params = []): array
-    {
-        $stmt = $this->query($sql, $params);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    public function delete(string $table, array $conditions): void
-    {
+    public function delete(string $table, array $conditions): void {
         $where = implode(' AND ', array_map(fn($col) => "$col = :$col", array_keys($conditions)));
         $sql = "DELETE FROM $table WHERE $where";
         $this->query($sql, $conditions);
     }
 
-    public function beginTransaction(): void
-    {
+    public function beginTransaction(): void {
         $this->connection->beginTransaction();
     }
 
-    public function commit(): void
-    {
+    public function commit(): void {
         $this->connection->commit();
     }
 
-    public function rollback(): void
-    {
+    public function rollback(): void {
         $this->connection->rollBack();
     }
 
-    public function closeConnection(): void
-    {
+    public function closeConnection(): void {
         $this->connection = null;
     }
 }

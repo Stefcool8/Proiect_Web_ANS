@@ -1,11 +1,4 @@
-<?php 
-    require_once __DIR__ . '/shared/general.php';
-    $result = fetch_data('admin/users', [
-        'data' => []
-    ]);
-    //var_dump($result);
 
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -30,34 +23,13 @@
     <?php require_once __DIR__ . '/shared/navbar.php'; ?>
         <main class = "central-area">
         <div class="page-name">
-            <p>
-                <?php
-                        $countUsers = count($result['data']);
-                        if($countUsers == 1){
-                            echo "There is only " . count($result['data']). " user registered.";
-                        }else{
-                            echo "There are " . count($result['data']). " users registered.";
-                        }
 
-                ?>
-            </p>
         </div>
 
         <div class="project-area">
-        <div class="user-list">
-            <?php foreach ($result['data'] as $user) : ?>
+            <div class="user-list">
 
-                <div class="project project-1" data-user="<?php echo htmlentities(json_encode($user)); ?>">
-                    <p><?php echo "Username: ".$user['username']; ?> <?php echo "|     UUID:".$user['uuid'];?></p>
-                    <div class ="button-area">
-                    <a  class="button">View Profile</a>
-                    <a  class="button">Modify Profile</a>
-                    <a  class="button">Delete User</a>
-                    </div>
-                </div>
-
-            <?php endforeach; ?>
-        </div>
+            </div>
 
         </div>
 
