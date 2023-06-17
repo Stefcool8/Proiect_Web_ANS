@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
     }
 
-    fetchProjectDetails(uuid);
+    fetchProjectDetails(uuid).then();
 });
 
 async function fetchProjectDetails(uuid) {
