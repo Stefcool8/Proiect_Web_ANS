@@ -431,6 +431,19 @@ class UserController extends Controller {
 
 
     public function gets(){
+        $payload = $this->getPayload();
+        if(!$payload){
+            ResponseHandler::getResponseHandler()->sendResponse(401, [
+                'error' => 'Unauthorized'
+            ]);
+            exit;
+        }
+        if(!$payload['isAdmin']){
+            ResponseHandler::getResponseHandler()->sendResponse(401, [
+                'error' => 'Unauthorized'
+            ]);
+            exit;
+        }
         try {
             $db = Database::getInstance();
 

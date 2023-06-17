@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             return;
         }
 
-        useNowLink.href = "/dashboard";
+        useNowLink.href = "/dashboard?page=1";
         useNowLink.querySelector(".u-nav").textContent = "Dashboard";
 
         let signOutLink = document.createElement("a");

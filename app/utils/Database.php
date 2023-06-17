@@ -73,16 +73,20 @@ private static ?Database $instance = null;
 
         $this->query($sql, $params);
     */
-
+/*
         $columns = implode(', ', array_keys($data));
         $placeholders = ':' . implode(', :', array_keys($data));
         $sql = "INSERT INTO $table ($columns) VALUES ($placeholders)";
         $this->query($sql, $data);
-
+*/
+        $columns = implode(', ', array_keys($data));
+        $placeholders = ':' . implode(', :', array_keys($data));
+        $sql = "INSERT INTO $table ($columns) VALUES ($placeholders)";
+        $this->query($sql, $data);
         }
 
     public function update(string $table, array $data, array $conditions): void {
-        $set = implode(', ', array_map(fn($col) => "$col = :$col", array_keys($data)));
+       /* $set = implode(', ', array_map(fn($col) => "$col = :$col", array_keys($data)));
         $where = implode(' AND ', array_map(fn($col) => "$col = :{$col}_cond", array_keys($conditions)));
         $sql = "UPDATE $table SET $set WHERE $where";
 
@@ -92,6 +96,11 @@ private static ?Database $instance = null;
         );
 
         $this->query($sql, (array)$params);
+       */
+        $set = implode(', ', array_map(fn($col) => "$col = :$col", array_keys($data)));
+        $where = implode(' AND ', array_map(fn($col) => "$col = :{$col}", array_keys($conditions)));
+        $sql = "UPDATE $table SET $set WHERE $where";
+        $this->query($sql, array_merge($data, $conditions));
     }
 
     public function join(string $table1, string $table2, array $joinConditions, array $params = []): array {

@@ -8,7 +8,6 @@ document.addEventListener('DOMContentLoaded', function() {
         alert("No UUID specified");
         return;
     }
-
     fetchProjectDetails(uuid);
 });
 
@@ -19,7 +18,8 @@ async function fetchProjectDetails(uuid) {
     }
 
     try {
-        const response = await fetch(`/api/project/${uuid}`, {
+        const apiURL ="/api/project/"+uuid;
+        const response = await fetch(apiURL, {
             method: "GET",
             headers: {
                 'Authorization': 'Bearer ' + token,

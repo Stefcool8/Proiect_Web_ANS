@@ -314,7 +314,7 @@ use InvalidArgumentException;
         }
     }
 
-    public function gets() {
+    public function gets($uuid) {
         $payload = $this->getPayload();
         if(!$payload){
             ResponseHandler::getResponseHandler()->sendResponse(401, [
@@ -328,7 +328,7 @@ use InvalidArgumentException;
             $currentUser = $db->fetchOne("SELECT * FROM user WHERE username = :username", ['username' => $payload['username']]);
 
             // fetch all projects for this user
-            $projects = $db->fetchAll("SELECT * FROM project WHERE uuidUser = :uuidUser", ['uuidUser' => $currentUser['uuid']]);
+            $projects = $db->fetchAll("SELECT * FROM project WHERE uuidUser = :uuidUser", ['uuidUser' => $uuid]);
 
             // if there are no projects, return a message indicating this
             if (!$projects) {
@@ -336,22 +336,86 @@ use InvalidArgumentException;
                 exit;
             }
 
-            // build the project data for the response
-            $projectData = [];
-            foreach($projects as $project) {
-                $projectData[] = [
-                    'name' => $project['name'],
-                    'chart' => $project['chart'],
-                    'uuid' => $project['uuid']
-                ];
-            }
+            if($payload['isAdmin'] || $currentUser['uuid'] == $uuid) {
+                // build the project data for the response
+                $projectData = [];
+                foreach ($projects as $project) {
+                    $projectData[] = [
+                        'name' => $project['name'],
+                        'chart' => $project['chart'],
+                        'uuid' => $project['uuid']
+                    ];
+                }
 
-            ResponseHandler::getResponseHandler()->sendResponse(200, ['projects' => $projectData]);
+                ResponseHandler::getResponseHandler()->sendResponse(200, ['projects' => $projectData]);
+            }
+            else{
+                ResponseHandler::getResponseHandler()->sendResponse(401, [
+                    'error' => 'Unauthorized'
+                ]);
+            }
 
         } catch (Exception $e) {
             ResponseHandler::getResponseHandler()->sendResponse(500, ["error" => "Internal Server Error"]);
         }
     }
 
+    public function getByInterval($uuid,$startPage){
+        $payload = $this->getPayload();
+        if(!$payload){
+            ResponseHandler::getResponseHandler()->sendResponse(401, [
+                'error' => 'Unauthorized'
+            ]);
+            exit;
+        }
+        try {
+            $db = Database::getInstance();
+
+            $currentUser = $db->fetchOne("SELECT * FROM user WHERE username = :username", ['username' => $payload['username']]);
+
+            $startIndex = $startPage-1; // The start index of the projects
+            $pageSize = 4; // The number of projects to retrieve per page
+
+            // Calculate the offset based on the start index and page size
+            $offset = $startIndex * $pageSize;
+            // fetch all projects for this user
+            //$projects = $db->fetchAll("SELECT * FROM project WHERE uuidUser = :uuidUser", ['uuidUser' => $uuid]);
+
+           // $projects = $db->fetchAll("SELECT * FROM project WHERE uuidUser = :uuidUser LIMIT ".$pageSize,
+             //  ['uuidUser' => $uuid]);
+
+            $projects = $db->fetchAll("SELECT * FROM project WHERE uuidUser = :uuidUser LIMIT " . $pageSize . " OFFSET ".$offset,
+                ['uuidUser' => $uuid]);
+
+            // if there are no projects, return a message indicating this
+            if (!$projects) {
+                ResponseHandler::getResponseHandler()->sendResponse(404, ['error' => 'No projects found for this user']);
+                exit;
+            }
+
+            if($payload['isAdmin'] || $currentUser['uuid'] == $uuid) {
+
+                // build the project data for the response
+                $projectData = [];
+                foreach ($projects as $project) {
+                    $projectData[] = [
+                        'name' => $project['name'],
+                        'chart' => $project['chart'],
+                        'uuid' => $project['uuid']
+                    ];
+                }
+
+                ResponseHandler::getResponseHandler()->sendResponse(200, ['projects' => $projectData]);
+            }
+            else{
+                ResponseHandler::getResponseHandler()->sendResponse(401, [
+                    'error' => 'Unauthorized'
+                ]);
+                exit;
+            }
+        } catch (Exception $e) {
+            ResponseHandler::getResponseHandler()->sendResponse(500, ["error" => "Internal Server Error"]);
+        }
+    }
  }
 

@@ -25,10 +25,11 @@ $router->add('PUT', '/api/user/{uuid}', 'UserController::update');
 $router->add('GET','/api/user','UserController::gets');
 
 // project routes
-$router->add('GET', '/api/project', 'ProjectController::gets');
+$router->add('GET', '/api/project/user/{uuid}', 'ProjectController::gets');
 $router->add('POST','/api/project','ProjectController::create');
 $router->add('DELETE', '/api/project/{uuid}', 'ProjectController::delete');
 $router->add('GET','/api/project/{uuid}','ProjectController::get');
+$router->add('GET','/api/project/user/{uuid}/{startPage}','ProjectController::getByInterval');
 
 // about us route
 $router->add('GET', '/api/about', 'AboutController::get');

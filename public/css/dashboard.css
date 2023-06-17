@@ -135,6 +135,10 @@
   padding: 1rem;
   color: white; }
 
+.hidden{
+  display: none;
+}
+
 @media screen and (max-width: 767px) {
   .central-area {
     padding: 1rem; }

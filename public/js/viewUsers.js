@@ -24,6 +24,191 @@ document.addEventListener('DOMContentLoaded', async() => {
         // Handle any errors
         console.error(error);
     }
+    // fetch the users
+    let $count;
+    try {
+        const response = await fetch('/api/user', {
+            method: 'GET',
+            headers: {
+                Authorization: 'Bearer ' + token,
+                'Content-Type': 'application/json',
+            }
+        });
+
+        console.log(response);
+        if (response.ok) {
+
+            const result = await response.json();
+            console.log(result);
+            // Get the parent container where the user cards will be appended
+            const introContainter = document.querySelector('.page-name');
+            const userCount = document.createElement('p');
+            $count = result.data.data.length;
+            //userCount.textContent = "Hello";
+            if ($count ==0){
+                userCount.textContent = "There is no user registered";
+            }else if($count == 1){
+                userCount.textContent = "There is only one user registered";
+            }else{
+                userCount.textContent = "There are " + $count+ " users registered";
+            }
+
+            introContainter.appendChild(userCount);
+
+
+            const userContainer = document.querySelector('.user-list');
+
+            // Iterate over the list of projects
+            result.data.data.forEach(user => {
+                // Create a new project card
+                const userCard = document.createElement('div');
+                userCard.classList.add('project');
+                userCard.classList.add(`project-${user.uuid}`); // Assign a unique class for this user
+
+                // Create the project name element
+                const userName = document.createElement('p');
+                userName.classList.add('project-name');
+                userName.textContent = user.username;
+
+                // Create the button area
+                const buttonArea = document.createElement('div');
+                buttonArea.classList.add('button-area');
+
+                // Create the view button
+                const viewButton = document.createElement('a');
+                viewButton.classList.add('button');
+                //viewButton.href = `/user/${user.uuid}`;
+                viewButton.textContent = 'View Profile';
+
+                viewButton.addEventListener('click', async (event) => {
+                    event.preventDefault();
+                    console.log('View Button clicked');
+                    console.log('UUID:${user.uuid}');
+
+
+                    try {
+                        const apiUrl = `/api/user/${user.uuid}`;
+                        const response = await fetch(apiUrl, {
+                            method: 'GET',
+                            headers: {
+                                Authorization: 'Bearer ' + token,
+                                'Content-Type': 'application/json',
+                            },
+                        });
+
+                        if (response.ok) {
+                            // The view was successful
+                            const URL = `/user/${user.uuid}`;
+                            window.location.href = URL;
+                        } else {
+                            // Handle the error
+                            console.error(result.message);
+                        }
+                    } catch (error) {
+                        // Handle any errors
+                        console.error(error);
+                    }
+
+                });
+
+                // Create the view Projects button
+                const viewProjectsButton = document.createElement('a');
+                viewProjectsButton.classList.add('button');
+                //viewProjectsButton.href = `/viewUsers`;
+                viewProjectsButton.textContent = 'View Projects';
+
+                viewProjectsButton.addEventListener('click', async (event) => {
+                    event.preventDefault();
+                    console.log('ViewProjects Button clicked');
+                    console.log('UUID:${user.uuid}');
+
+
+                    try {
+                        const apiUrl = `/api/project/user/${user.uuid}/1`;
+                        const response = await fetch(apiUrl, {
+                            method: 'GET',
+                            headers: {
+                                Authorization: 'Bearer ' + token,
+                                'Content-Type': 'application/json',
+                            },
+                        });
+
+                        if(response.status === 404){
+                            const URL = `/viewProjects/${user.uuid}?page=1`;
+                            window.location.href = URL;
+                        }
+
+                        if (response.ok) {
+                            // The view was successful
+                            const URL = `/viewProjects/${user.uuid}?page=1`;
+                            console.log(URL);
+                            window.location.href = URL;
+                        } else {
+                            // Handle the error
+                            console.error(result.message);
+                        }
+                    } catch (error) {
+                        // Handle any errors
+                        console.error(error);
+                    }
+
+                });
+
+                // Create the delete button
+                const deleteButton = document.createElement('a');
+                deleteButton.classList.add('button');
+               // deleteButton.href = `/viewUsers`;
+                deleteButton.textContent = 'Delete';
+
+                deleteButton.addEventListener('click', async (event) => {
+                    event.preventDefault();
+                    console.log('Delete Button clicked');
+                    console.log('UUID:${user.uuid}');
+
+                    try {
+                        const apiUrl = `/api/user/${user.uuid}`;
+                        const response = await fetch(apiUrl, {
+                            method: "DELETE",
+                            headers: {
+                                Authorization: 'Bearer ' + token,
+                                'Content-Type': 'application/json',
+                            },
+                            body: user.uuid,
+                        });
+
+                        if (response.ok) {
+                            window.location.href = "/viewUsers";
+                        } else {
+                            // Handle the error
+                            console.error(result.message);
+                        }
+                    } catch (error) {
+                        // Handle any errors
+                        console.error(error);
+                    }
+
+                });
+                // Append the project name and buttons to the project card
+                userCard.appendChild(userName);
+                buttonArea.appendChild(viewButton);
+                buttonArea.appendChild(viewProjectsButton);
+                buttonArea.appendChild(deleteButton);
+                userCard.appendChild(buttonArea);
+
+                // Append the project card to the parent container
+                userContainer.appendChild(userCard);
+
+
+            });
+
+
+        } else {
+            // Handle the error
+            console.error(result.message);
+        }
+    } catch (error) {
+
+    }
 });
 
 const deleteButtons = document.querySelectorAll(
@@ -33,7 +218,12 @@ const viewProfileButtons = document.querySelectorAll(
     ".user-list .button-area a:first-child"
 );
 
+const modifyProfileButtons = document.querySelectorAll(
+  ".user-list .button-area a:nth-child(2)"
+);
+
 deleteButtons.forEach(function(button) {
+    const token = localStorage.getItem('jwt');
     button.addEventListener("click", async(event) => {
         event.preventDefault();
         const userRow = event.target.closest(".project");
@@ -47,7 +237,8 @@ deleteButtons.forEach(function(button) {
             const response = await fetch(apiUrl, {
                 method: "DELETE",
                 headers: {
-                    "Content-Type": "application/json",
+                    Authorization: 'Bearer ' + token,
+                    'Content-Type': 'application/json',
                 },
                 body: uuid,
             });
@@ -65,9 +256,10 @@ deleteButtons.forEach(function(button) {
     });
 });
 
-// Iterate over each "View Profile" button
-viewProfileButtons.forEach(function(button) {
+/*
+modifyProfileButtons.forEach(function(button) {
     // Add a click event listener to each button
+    const token = localStorage.getItem('jwt');
     button.addEventListener("click", async(event) => {
         event.preventDefault();
         const userRow = event.target.closest(".project");
@@ -81,6 +273,7 @@ viewProfileButtons.forEach(function(button) {
             const response = await fetch(apiUrl, {
                 method: "GET",
                 headers: {
+                    Authorization: 'Bearer ' + token,
                     "Content-Type": "application/json",
                 },
             });
@@ -100,6 +293,8 @@ viewProfileButtons.forEach(function(button) {
     });
 });
 
+ */
+
 const userlistContainer = document.querySelector(".user-list");
 
 userlistContainer.addEventListener("click", function(event) {
@@ -111,3 +306,38 @@ userlistContainer.addEventListener("click", function(event) {
         console.log("Clicked on the user-list region");
     }
 });
+
+/*
+async function fetchUserList(uuid) {
+    const token = localStorage.getItem('jwt');
+    if (!token) {
+        window.location.href = "/login";
+    }
+
+    try {
+        const response = await fetch(`/api/user`, {
+            method: "GET",
+            headers: {
+                'Authorization': 'Bearer ' + token,
+            },
+        });
+
+
+        if (response.ok) {
+            const project = await response.json();
+
+            console.log(project);
+            console.log(project.data.name);
+            console.log(project.data.chart);
+            // Populate the HTML fields with the fetched data
+            document.getElementById("projectName").value = project.data.data.name;
+            document.getElementById("projectType").value = project.data.data.chart;
+        } else {
+            console.error("Failed to fetch project details");
+        }
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+ */
