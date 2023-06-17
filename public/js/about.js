@@ -1,7 +1,7 @@
 function toggleReadMore(dotsId, moreTextId, buttonId) {
-    var dots = document.getElementById(dotsId);
-    var moreText = document.getElementById(moreTextId);
-    var button = document.getElementById(buttonId);
+    const dots = document.getElementById(dotsId);
+    const moreText = document.getElementById(moreTextId);
+    const button = document.getElementById(buttonId);
 
     if (dots.style.display === "none") {
         dots.style.display = "inline";
