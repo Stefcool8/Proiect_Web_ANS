@@ -22,7 +22,7 @@
 <?php require_once __DIR__ . '/shared/navbar.php'; ?>
 <div class="project">
     <main class="main-content">
-        <div class="container" id="project-container">
+        <div class="container" id="detail-container">
             <h2>Project</h2>
             <div class="input-group">
                 <label for="projectName">Project Name</label>
@@ -37,9 +37,13 @@
                 <input type="text" id="years" name="years" readonly>
             </div>
         </div>
+        <div class="container" id="chart-container">
+            <div id="chart"></div>
+        </div>
     </main>
 </div>
 <?php require_once __DIR__ . '/shared/footer.php'; ?>
+<script src="https://d3js.org/d3.v7.min.js"></script>
 <script src="/public/js/project.js"></script>
 </body>
 

@@ -48,10 +48,6 @@
                         <option value="pieChart">Pie Chart</option>
                     </select>
                 </div>
-                <!--<div class="input-group">
-                    <label for="years">Years:</label>
-                    <div class="year-checkbox-container" id="year-checkboxes"></div>
-                </div>-->
                 <button type="submit">Create Project</button>
             </form>
         </div>

@@ -52,22 +52,16 @@ class Database
 
     private function query(string $sql, array $params = []): PDOStatement
     {
-
         $stmt = $this->connection->prepare($sql);
-        //make parameter bindind
-        //This ensures that the values are treated as data and not as executable SQL code.
-        //Binding the parameters correctly prevents SQL injection by automatically handling proper escaping and quoting of the input values.
+        // make parameter binding
+        // This ensures that the values are treated as data and not as executable SQL code.
+        // Binding the parameters correctly prevents SQL injection by automatically handling proper escaping and quoting of the input values.
         foreach ($params as $param => $value) {
             $stmt->bindValue(':' . $param, $value);
         }
 
         $stmt->execute();
         return $stmt;
-        /*
-         $stmt = $this->connection->prepare($sql);
-         $stmt->execute($params);
-         return $stmt;
-        */
     }
 
     public function fetchAll(string $sql, array $params = []): array {
@@ -76,22 +70,6 @@ class Database
     }
 
     public function insert(string $table, array $data): void {
-        /*$columns = implode(', ', array_keys($data));
-        //$placeholders = ':' . implode(', :', array_keys($data));
-
-        //fn - shorthand for anonymus function 
-        $params = array_combine(array_map(fn($col) => ":$col", array_keys($data)), $data);
-
-        $sql = "INSERT INTO $table ($columns) VALUES ($placeholders)";
-
-        $this->query($sql, $params);
-    */
-/*
-        $columns = implode(', ', array_keys($data));
-        $placeholders = ':' . implode(', :', array_keys($data));
-        $sql = "INSERT INTO $table ($columns) VALUES ($placeholders)";
-        $this->query($sql, $data);
-*/
         $columns = implode(', ', array_keys($data));
         $placeholders = ':' . implode(', :', array_keys($data));
         $sql = "INSERT INTO $table ($columns) VALUES ($placeholders)";
