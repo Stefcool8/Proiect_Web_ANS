@@ -48,6 +48,7 @@ $router->add('POST','/api/auth/verifyAccess','AuthController::verifyAccess');
 // password routes
 $router->add('POST', '/api/password/reset', 'PasswordController::forgotPassword');
 $router->add('PUT', '/api/password/reset', 'PasswordController::resetPassword');
+$router->add('PUT', '/api/password/change/{uuid}', 'PasswordController::changePassword');
 
 $router->add('GET', '/api/test', 'TestController::test');
 

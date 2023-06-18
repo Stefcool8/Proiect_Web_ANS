@@ -61,6 +61,7 @@
                     </label>
                 </div>
                 <button type="submit">Update Profile</button>
+                <a href="#" class="back-to-profile">Back to Profile</a>
             </div>
         </div>
     </form>

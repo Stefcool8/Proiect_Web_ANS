@@ -138,3 +138,9 @@ async function updateUser(uuid, token, userUpdate) {
 function redirectTo(path) {
     window.location.href = path;
 }
+
+document.querySelector('.back-to-profile').addEventListener('click', function(e) {
+    e.preventDefault();
+    const uuid = getCurrentPageUuid();
+    window.location.href = '/user/' + uuid;
+});

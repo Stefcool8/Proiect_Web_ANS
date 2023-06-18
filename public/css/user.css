@@ -154,6 +154,88 @@ body .profile .main-content button:active {
     }
 }
 
+body .change-password {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    margin: 10vh;
+}
+
+body .change-password form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 50rem;
+    background-color: white;
+    padding: 2.5rem;
+    border-radius: 1.3rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    color: #416a59;
+    width: 100%;
+}
+
+body .change-password form .input-group {
+    margin-bottom: 0.5rem;
+    width: 100%;
+}
+
+body .change-password form .input-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 2rem;
+    color: #416a59;
+}
+
+body .change-password form .input-group input[type=password] {
+    width: 100%;
+    padding: 0.3rem;
+    border-radius: 0.6rem;
+    border: 1px solid #ccc;
+    font-size: 2rem;
+}
+
+body .change-password form button {
+    display: block;
+    width: 100%;
+    padding: 0.5rem;
+    background-color: #416a59;
+    color: white;
+    font-size: 2rem;
+    border: none;
+    border-radius: 1.3rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+    margin-top: 2vh;
+}
+
+body .change-password form button:hover {
+    background-color: #2d4534;
+    transform: scale(1.02);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+body .change-password form button:active {
+    background-color: #2d4534;
+    transform: scale(0.98);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+@media screen and (max-width: 826px) {
+    body .change-password form {
+        max-width: 80vw;
+    }
+
+    body .change-password label {
+        font-size: 1rem;
+    }
+
+    body .change-password button {
+        font-size: 1rem;
+    }
+}
+
 .error-message,
 .success-message {
     font-weight: bold;
