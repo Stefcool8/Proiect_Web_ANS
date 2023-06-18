@@ -5,6 +5,7 @@
 }
 .project .main-content {
   display: flex;
+  flex-direction: column; /* Modified */
   justify-content: center;
   align-items: center;
   flex-grow: 1;
@@ -22,6 +23,7 @@
   border-radius: 1.25rem;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
   color: #416a59;
+  margin-bottom: 2rem; /* Added */
 }
 .project h2 {
   text-align: center;
@@ -50,6 +52,18 @@
 .project input[type=text]:focus {
   outline: none;
   box-shadow: none;
+}
+
+#chart-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem; /* Added */
+}
+
+#chart {
+  width: 100%;
+  min-height: 30rem;
 }
 
 /*# sourceMappingURL=project.css.map */

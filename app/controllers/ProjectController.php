@@ -4,6 +4,7 @@ namespace App\controllers;
 
 use App\Utils\ResponseHandler;
 use App\Utils\Database;
+use App\Utils\JsonUtil;
 use Exception;
 
 
@@ -484,10 +485,20 @@ use Exception;
 
         // check if there are optional conditions for this project
         $optional = $db->fetchOne("SELECT * FROM optional_conditions WHERE uuidProject = :uuidProject", ['uuidProject' => $project['uuid']]);
+
+        // if there are optional conditions, add them to the response
+        // also send the json data
         if ($optional) {
             $data['seriesCode'] = $optional['optionalColumn'];
             $data['seriesValue'] = $optional['optionalValue'];
+
+            $json = JsonUtil::getJsonUtil()->filtrateAfterYearsAndColumns($data['years'], [$data['seriesCode']], [$data['seriesValue']]);
+        } else {
+            $json = JsonUtil::getJsonUtil()->filtrateAfterYearsAndColumns($data['years'], [], []);
         }
+        // add the json data to the response
+        $json = JsonUtil::getJsonUtil()->extractTotalPerDistinctColumnValue($json, $data['bars']);
+        $data['json'] = $json;
 
         return $data;
     }

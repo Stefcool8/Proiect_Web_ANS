@@ -61,7 +61,6 @@ class DashboardController extends Controller {
             return;
         }
         try {
-
             $db = Database::getInstance();
             $currentUser = $db->fetchOne("SELECT * FROM user WHERE username = :username", ['username' => $payload['username']]);
             

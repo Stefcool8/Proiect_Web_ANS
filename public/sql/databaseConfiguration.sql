@@ -55,6 +55,15 @@ CREATE TABLE `years` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
+-- Altering tables for case sensitive
+--
+ALTER TABLE `user` CONVERT TO CHARACTER SET utf8 COLLATE utf8_bin;
+ALTER TABLE `project` CONVERT TO CHARACTER SET utf8 COLLATE utf8_bin;
+ALTER TABLE `bar_chart` CONVERT TO CHARACTER SET utf8 COLLATE utf8_bin;
+ALTER TABLE `optional_conditions` CONVERT TO CHARACTER SET utf8 COLLATE utf8_bin;
+ALTER TABLE `years` CONVERT TO CHARACTER SET utf8 COLLATE utf8_bin;
+
+--
 -- Inserting data in table `user`
 --
 INSERT INTO `user` (`firstName`, `lastName`, `username`, `email`, `bio`, `password`, `uuid`, `isAdmin`) VALUES
