@@ -51,7 +51,7 @@
 <?php require_once __DIR__ . '/shared/footer.php'; ?>
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script src="/public/js/helper/localDatabaseUtil.js"></script>
-<script src="/public/js/helper/barChartVisualizer.js"></script>
+<script src="/public/js/chart/barChartVisualizer.js"></script>
 <script src="/public/js/map.js"></script>
 <script src="/public/js/project.js"></script>
 </body>
