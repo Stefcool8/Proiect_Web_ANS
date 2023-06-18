@@ -51,7 +51,7 @@ class PasswordController{
         $user = $db->fetchOne('SELECT * FROM user WHERE email = :email', ['email' => $email]);
 
         if ($user) {
-            $token = JWT::encode(['email' => $email, 'exp' => time() + 3600]);  // Expires in 1 hour
+            $token = JWT::encode(['email' => $email, 'exp' => time() + 3600]);
             $url = 'http://localhost/password/reset?token=' . $token;
 
             $template = file_get_contents('../public/assets/templates/password-reset.html');
@@ -75,7 +75,6 @@ class PasswordController{
      *     path="/api/password/reset",
      *     tags={"Password"},
      *     summary="Reset user password",
-     *     description="This can only be done by the logged in user.",
      *     operationId="resetPassword",
      *     security={{"bearerAuth":{}}},
      *     @OA\RequestBody(

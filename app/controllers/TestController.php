@@ -2,31 +2,25 @@
 
 namespace App\controllers;
 
+use App\utils\JsonUtil;
 use App\utils\CSVParser;
 use Exception;
 
 class TestController {
     public function test() {
-        if (isset($_FILES['csv_file'])) {
-            $csvFile = $_FILES['csv_file'];
+        try {
+            //$json = CSVParser::getCSVParser()->getHeader("../public/assets/csv/2019.csv");
+            $json = JsonUtil::getJsonUtil()->filtrateAfterYearsAndColumns(["2019", "2020"], [0, 1], ["ALBA", "AUTOBUZ"]);
+            // var_dump(json_decode($json, true));
+            $json = JsonUtil::getJsonUtil()->extractTotalPerDistinctColumnValue($json, 3);
 
-            // Check if the file is uploaded successfully
-            if ($csvFile['error'] === UPLOAD_ERR_OK) {
-                // Parse the CSV file
-                try {
-                    $tmpFilePath = $csvFile['tmp_name'];
+            // save json to file
+            //file_put_contents("../public/assets/csv/test.json", $json);
 
-                    $json = CSVParser::getCSVParser()->getJsonRowFormat($tmpFilePath);
-                    var_dump($json);
-                } catch (Exception $e) {
-                    echo "Error parsing CSV file: " . $e->getMessage();
-                    return;
-                }
-            } else {
-                echo "Error uploading CSV file: " . $csvFile['error'];
-            }
-        } else {
-            echo "No CSV file uploaded";
+            var_dump($json);
+        } catch (Exception $e) {
+            echo "Error parsing CSV file: " . $e->getMessage();
+            return;
         }
     }
 }

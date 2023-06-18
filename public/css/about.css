@@ -1,80 +1,88 @@
 .about .main-content {
-  padding: 5vh;
-  min-height: calc(100vh - 120px);
-  display: grid;
-  grid-template-rows: auto auto auto;
-  gap: 2vh;
+    padding: 5vh;
+    min-height: calc(100vh - 120px);
+    display: grid;
+    grid-template-rows: auto auto auto;
+    gap: 2vh;
 }
+
 .about .show {
-  text-align: center;
-  position: relative;
-  margin: auto;
-  width: 90%;
-  height: 100%;
-  font-size: 4vw;
-  justify-content: center;
-  line-height: 8rem;
-  color: white;
+    text-align: center;
+    position: relative;
+    margin: auto;
+    width: 90%;
+    height: 100%;
+    font-size: 4vw;
+    justify-content: center;
+    line-height: 8rem;
+    color: white;
 }
+
 .about .central-area,
 .about .left-zone,
 .about .right-zone,
 .about .middle-zone {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 2vh;
-  width: 100%;
-  padding: 2vh;
-  background-color: #416a59;
-  border-radius: 5px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-  transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2vh;
+    width: 100%;
+    padding: 2vh;
+    background-color: #416a59;
+    border-radius: 5px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
 }
+
 .about .central-area:hover,
 .about .left-zone:hover,
 .about .right-zone:hover,
 .about .middle-zone:hover {
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-  transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    transform: translateY(-1px);
 }
+
 .about .three-zones {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2vh;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2vh;
 }
+
 .about #more,
 .about #more1,
 .about #more2,
 .about #more3 {
-  display: none;
-  color: white;
+    display: none;
+    color: white;
 }
+
 .about #myBtn,
 .about #myBtn1,
 .about #myBtn2,
 .about #myBtn3 {
-  width: 12rem;
-  background-color: #f2f2f2;
-  color: rgba(0, 0, 0, 0.7);
-  border: none;
-  cursor: pointer;
-  padding: 15px;
-  transition: all 0.3s ease;
-  font-size: 1.1rem;
+    width: 12rem;
+    background-color: #f2f2f2;
+    color: rgba(0, 0, 0, 0.7);
+    border: none;
+    cursor: pointer;
+    padding: 15px;
+    transition: all 0.3s ease;
+    font-size: 1.1rem;
 }
+
 .about #myBtn:hover,
 .about #myBtn1:hover,
 .about #myBtn2:hover,
 .about #myBtn3:hover {
-  background-color: #548a74;
+    background-color: #548a74;
 }
+
 @media screen and (max-width: 768px) {
-  .about .show {
-    font-size: 6vw;
-    line-height: 5rem;
-  }
+    .about .show {
+        font-size: 6vw;
+        line-height: 5rem;
+    }
 }
 
 /*# sourceMappingURL=about.css.map */

@@ -47,7 +47,7 @@ function handleResetResponse(response) {
         showMessage(successMessage, "Password reset successful. Redirecting...");
         submitButton.disabled = true;
         setTimeout(() => {
-            window.location.href = "/home";
+            window.location.href = "/login";
         }, 3000);
 
     } else {
