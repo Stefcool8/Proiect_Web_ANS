@@ -40,10 +40,19 @@
         <div class="container" id="chart-container">
             <div id="chart"></div>
         </div>
+        <div class="button-container">
+            <button class="btn" id="download-csv">Download CSV</button>
+            <button class="btn" id="download-png">Download PNG</button>
+            <button class="btn" id="download-jpeg">Download JPEG</button>
+            <button class="btn" id="download-svg">Download SVG</button>
+        </div>
     </main>
 </div>
 <?php require_once __DIR__ . '/shared/footer.php'; ?>
 <script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="/public/js/helper/localDatabaseUtil.js"></script>
+<script src="/public/js/helper/barChartVisualizer.js"></script>
+<script src="/public/js/map.js"></script>
 <script src="/public/js/project.js"></script>
 </body>
 
