@@ -12,6 +12,8 @@
   font-weight: bold;
   color: white; }
 
+.button-previous,
+.button-next,
 .create-project-btn,
 .view-profile-btn {
   font-size: 1.25rem;
@@ -43,6 +45,15 @@
   justify-content: space-around;
   gap: 1rem;
   padding: 1rem; }
+
+.button-area-next-previous{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  gap: 3rem;
+  align-items: center;
+}
+
 
 .project-area {
   display: flex;
@@ -102,6 +113,10 @@
   font-weight: bold;
   padding: 1rem;
   color: white; }
+
+.hidden{
+  display: none;
+}
 
 @media screen and (max-width: 767px) {
   .central-area {
