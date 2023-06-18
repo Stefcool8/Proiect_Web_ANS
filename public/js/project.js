@@ -8,9 +8,9 @@ const columns = [
     "DESCRIERE_COMERCIALA",
     "TOTAL"
 ];
-const height = 500;
-const width = 1000;
-const margin = ({top: 20, right: 0, bottom: 30, left: 40});
+let height = 500; // default height
+let width = 1500; // default width
+let margin = ({top: 20, right: 0, bottom: 30, left: 40}); // default margin
 
 document.addEventListener('DOMContentLoaded', function() {
     const url = window.location.href;
