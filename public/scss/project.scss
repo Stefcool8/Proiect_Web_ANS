@@ -24,7 +24,6 @@ $border-color: #ccc;
         justify-content: space-between;
         align-items: center;
         width: 100%;
-        max-width: 50rem;
         background-color: $white-color;
         padding: 2.5rem;
         border-radius: 1.25rem;
@@ -67,11 +66,16 @@ $border-color: #ccc;
     }
 }
 
+#detail-container {
+    max-width: 50rem;
+}
+
 #chart-container {
     display: flex;
     justify-content: center;
     align-items: center;
     margin-bottom: 2rem; /* Added */
+    flex-grow: 1; /* Added */
 }
 
 #chart {

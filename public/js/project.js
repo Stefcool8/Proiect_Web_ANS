@@ -9,7 +9,7 @@ const columns = [
     "TOTAL"
 ];
 const height = 500;
-const width = 975;
+const width = 1000;
 const margin = ({top: 20, right: 0, bottom: 30, left: 40});
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -109,11 +109,6 @@ function zoom(svg, x, y, xAxis) {
 function drawBarChart(project) {
     const json = JSON.parse(project.data.data.json);
 
-    // Create a div dynamically to hold the chart
-    const chartDiv = document.createElement('div');
-    chartDiv.id = 'bar-chart';
-    chartContainer.appendChild(chartDiv);
-
     const data = Object.entries(json)
         .map(([name, value]) => ({ name, value }))
         .sort((a, b) => b.value - a.value);
@@ -138,7 +133,7 @@ function drawBarChart(project) {
         .call(g => g.select(".domain").remove())
 
     // Create the chart
-    const svg = d3.select("#project-container")
+    const svg = d3.select("#chart-container")
         .append("svg")
         .attr("viewBox", [0, 0, width, height])
         .call(zoom, x, y, xAxis);
