@@ -24,6 +24,7 @@ $router->add('GET', '/api/user/{uuid}', 'UserController::get');
 $router->add('DELETE', '/api/user/{uuid}', 'UserController::delete');
 $router->add('PUT', '/api/user/{uuid}', 'UserController::update');
 $router->add('GET','/api/user','UserController::gets');
+$router->add('GET','/api/user/page/{startPage}','UserController::getByInterval');
 
 // project routes
 $router->add('GET', '/api/project/user/{uuid}', 'ProjectController::gets');

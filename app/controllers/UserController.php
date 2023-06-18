@@ -498,4 +498,65 @@ class UserController extends Controller {
             ResponseHandler::getResponseHandler()->sendResponse(500, ["error" => "Internal Server Error"]);
         }
     }
+
+    public function getByInterval($startPage){
+        $payload = $this->getPayload();
+        if(!$payload){
+            ResponseHandler::getResponseHandler()->sendResponse(401, [
+                'error' => 'Unauthorized'
+            ]);
+            exit;
+        }
+        try {
+            $db = Database::getInstance();
+
+            $currentUser = $db->fetchOne("SELECT * FROM user WHERE username = :username", ['username' => $payload['username']]);
+
+            $startIndex = $startPage-1; // The start index of the projects
+            $pageSize = 4; // The number of projects to retrieve per page
+
+            // Calculate the offset based on the start index and page size
+            $offset = $startIndex * $pageSize;
+            // fetch all projects for this user
+            //$projects = $db->fetchAll("SELECT * FROM project WHERE uuidUser = :uuidUser", ['uuidUser' => $uuid]);
+
+            // $projects = $db->fetchAll("SELECT * FROM project WHERE uuidUser = :uuidUser LIMIT ".$pageSize,
+            //  ['uuidUser' => $uuid]);
+
+            $users = $db->fetchAll("SELECT * FROM user LIMIT " . $pageSize . " OFFSET ".$offset);
+
+            // if there are no projects, return a message indicating this
+            if (!$users) {
+                ResponseHandler::getResponseHandler()->sendResponse(404, ['error' => 'No users found']);
+                exit;
+            }
+
+            if($payload['isAdmin']) {
+
+                // build the project data for the response
+                $userData = [];
+                foreach ($users as $user) {
+                    $userData[] = [
+                        'isAdmin' => $user['isAdmin'],
+                        'uuid' => $user['uuid'],
+                        'firstName' => $user['firstName'],
+                        'lastName' => $user['lastName'],
+                        'email' => $user['email'],
+                        'username' => $user['username']
+                    ];
+                }
+
+                ResponseHandler::getResponseHandler()->sendResponse(200, ['users' => $userData]);
+            }
+            else{
+                ResponseHandler::getResponseHandler()->sendResponse(401, [
+                    'error' => 'Unauthorized'
+                ]);
+                exit;
+            }
+        } catch (Exception $e) {
+            ResponseHandler::getResponseHandler()->sendResponse(500, ["error" => "Internal Server Error"]);
+        }
+    }
+
 }
