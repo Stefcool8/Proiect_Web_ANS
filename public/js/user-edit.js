@@ -122,10 +122,9 @@ async function updateUser(uuid, token, userUpdate) {
             let user = JSON.parse(localStorage.getItem('user'));
             if (!user['isAdmin'] || user['uuid'] === uuid) {
                 localStorage.setItem('jwt', result.data.token);
-                localStorage.setItem('user', JSON.stringify(result.data.data));
+                localStorage.setItem('user', JSON.stringify(result.data.user));
             }
             setTimeout(() => {
-
                 redirectTo(`/user/${uuid}`);
             }, 3000);
         } else {

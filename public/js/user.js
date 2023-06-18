@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', async() => {
     try {
         const token = localStorage.getItem('jwt');
+        console.log(token);
         if (!token) {
             redirectTo("/login");
             return;

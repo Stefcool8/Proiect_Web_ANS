@@ -371,7 +371,7 @@ projectInitializationForm.addEventListener("submit", async (event) => {
             // The project creation was successful
             showMessage(successMessage, "Project successfully created. Redirecting...");
             setTimeout(() => {
-                window.location.href = "/dashboard";
+                window.location.href = "/home";
             }, 3000);
         } else {
             // Handle the error

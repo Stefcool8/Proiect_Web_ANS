@@ -8,7 +8,7 @@
   justify-content: center;
   align-items: center;
   flex-grow: 1;
-  padding: 1.25rem;
+  padding: 1.35rem;
 }
 .register .container {
   display: flex;
@@ -18,7 +18,7 @@
   width: 100%;
   max-width: 50rem;
   background-color: white;
-  padding: 2.5rem;
+  padding: 2.6rem;
   border-radius: 1.25rem;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
   color: #416a59;
@@ -30,7 +30,7 @@
 .register h2 {
   text-align: center;
   margin-bottom: 0.5rem;
-  font-size: 2.5rem;
+  font-size: 2.6rem;
   border-bottom: 2px solid #ccc;
   padding-bottom: 0.5rem;
   color: #416a59;
@@ -71,10 +71,10 @@
   color: white;
   font-size: 2rem;
   border: none;
-  border-radius: 1.25rem;
+  border-radius: 1.45rem;
   cursor: pointer;
   transition: all 0.3s;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
   margin-top: 2vh;
 }
 .register button:hover {
@@ -133,7 +133,7 @@
   width: 100%;
   text-align: center;
   border: 1px solid;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 5px 16px rgba(0, 0, 0, 0.1);
   transition: all 0.3s;
 }
 .error-message.hidden,

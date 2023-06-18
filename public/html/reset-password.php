@@ -9,10 +9,8 @@ if (!isset($token)) {
     exit;
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -29,10 +27,9 @@ if (!isset($token)) {
     <link rel="stylesheet" href="/public/css/shared/footer.css">
     <link rel="stylesheet" href="/public/css/reset-password.css">
 </head>
-
 <body>
+<script src="/public/js/helper/logged.js"></script>
 <?php require_once __DIR__ . '/shared/navbar.php'; ?>
-
 <div class="reset">
     <main class="main-content">
         <div class="container">
@@ -54,9 +51,7 @@ if (!isset($token)) {
         </div>
     </main>
 </div>
-
 <?php require_once __DIR__ . '/shared/footer.php'; ?>
 <script src="/public/js/reset-password.js"></script>
 </body>
-
 </html>

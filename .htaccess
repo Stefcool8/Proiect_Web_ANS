@@ -26,6 +26,9 @@ RewriteRule ^project/([^/]+)$ /public/html/project.php [L]
 # Rule for /password/reset?=token
 RewriteRule ^password/reset /public/html/reset-password.php [L]
 
+#Rule for /viewProjects/{uuid}
+RewriteRule ^viewProjects/([^/]+)$ /public/html/viewProjects.php [L]
+
 # Rule for /user/edit/{uuid}
 RewriteRule ^user/edit/([^/]+)$ /public/html/user-edit.php [L]
 
