@@ -304,8 +304,114 @@ class UserController extends Controller {
         }
     }
 
+    /**
+     * @OA\Put(
+     *     path="/api/user/{uuid}",
+     *     summary="Update user information",
+     *     description="This can only be done by the logged in user or an admin.",
+     *     tags={"User"},
+     *     security={{"bearerAuth":{}}},
+     *     @OA\Parameter(
+     *         description="UUID of user to update",
+     *         in="path",
+     *         name="uuid",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string",
+     *         )
+     *     ),
+     *     @OA\RequestBody(
+     *         description="Updated user object",
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 @OA\Property(
+     *                     property="firstName",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="lastName",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="username",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="email",
+     *                     type="string",
+     *                     format="email"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="bio",
+     *                     type="string"
+     *                 ),
+     *                 example={
+     *                     "firstName": "John",
+     *                     "lastName": "Doe",
+     *                     "username": "johndoe",
+     *                     "email": "john.doe@example.com",
+     *                     "bio": "Software Engineer"
+     *                 }
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="User updated successfully",
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 @OA\Property(
+     *                     property="message",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="token",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="user",
+     *                     type="object",
+     *                     @OA\Property(
+     *                         property="username",
+     *                         type="string"
+     *                     ),
+     *                     @OA\Property(
+     *                         property="uuid",
+     *                         type="string",
+     *                         format="uuid"
+     *                     ),
+     *                     @OA\Property(
+     *                         property="isAdmin",
+     *                         type="boolean"
+     *                     )
+     *                 ),
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Invalid username or email supplied or missing required fields"
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized"
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="User not found"
+     *     ),
+     *     @OA\Response(
+     *         response=500,
+     *         description="Internal server error"
+     *     )
+     * )
+     */
     public function update($uuid) {
         $payload = $this->getPayload();
+
         if(!$payload){
             ResponseHandler::getResponseHandler()->sendResponse(401, [
                 'error' => 'Unauthorized'
@@ -317,13 +423,13 @@ class UserController extends Controller {
             $user = $db->fetchOne("SELECT * FROM user WHERE uuid = :uuid", ['uuid' => $uuid]);
             $currentUser = $db->fetchOne("SELECT * FROM user WHERE username = :username", ['username' => $payload['username']]);
 
-            if(!$currentUser['isAdmin'] && (($currentUser['uuid'] != $uuid) && $user)){
-                ResponseHandler::getResponseHandler()->sendResponse(401, ['error' => 'Unauthorized']);
+            if (!$user || !$currentUser) {
+                ResponseHandler::getResponseHandler()->sendResponse(404, ['error' => 'User not found']);
                 exit;
             }
 
-            if (!$user) {
-                ResponseHandler::getResponseHandler()->sendResponse(404, ['error' => 'User not found']);
+            if(!$currentUser['isAdmin'] && (($currentUser['uuid'] != $uuid))){
+                ResponseHandler::getResponseHandler()->sendResponse(401, ['error' => 'Unauthorized']);
                 exit;
             }
 
@@ -346,11 +452,14 @@ class UserController extends Controller {
             ResponseHandler::getResponseHandler()->sendResponse(400, ['error' => 'Username already exists']);
             exit;
         }
+
         $user = $db->fetchOne("SELECT * FROM user WHERE email = :email", ['email' => $data['email']]);
         if ($user && $user['uuid'] != $uuid) {
             ResponseHandler::getResponseHandler()->sendResponse(400, ['error' => 'Email already exists']);
             exit;
         }
+
+        $user = $db->fetchOne("SELECT * FROM user WHERE uuid = :uuid", ['uuid' => $uuid]);
 
         // get the data
         $firstName = $data['firstName'];
@@ -384,6 +493,7 @@ class UserController extends Controller {
             ]
         ]);
     }
+
     /**
      * @OA\Get(
      *     path="/api/user",
