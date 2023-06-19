@@ -38,7 +38,6 @@
             </div>
         </div>
         <div class="container" id="chart-container">
-            <div id="chart"></div>
         </div>
         <div class="button-container">
             <button class="btn" id="download-csv">Download CSV</button>

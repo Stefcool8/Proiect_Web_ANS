@@ -52,6 +52,9 @@
   outline: none;
   box-shadow: none;
 }
+.project #chart-container svg text {
+  font-size: 16px;
+}
 .project .button-container {
   display: flex;
   justify-content: center;

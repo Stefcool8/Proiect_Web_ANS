@@ -19,6 +19,27 @@ function zoom(svg, x, y, xAxis) {
     }
 }
 
+function addSvgAttributes(svg, x, y, xAxis, yAxis) {
+    svg.append("g")
+        .attr("class", "bars")
+        .attr("fill", "steelblue")
+        .selectAll("rect")
+        .data(chartData)
+        .join("rect")
+        .attr("x", d => x(d.name))
+        .attr("y", d => y(d.value))
+        .attr("height", d => y(0) - y(d.value))
+        .attr("width", x.bandwidth());
+
+    svg.append("g")
+        .attr("class", "x-axis")
+        .call(xAxis);
+
+    svg.append("g")
+        .attr("class", "y-axis")
+        .call(yAxis);
+}
+
 function drawBarChart(project) {
     const json = JSON.parse(project.data.data.json);
 
@@ -48,7 +69,7 @@ function drawBarChart(project) {
     // Create the chart
     const svg = d3.select("#chart-container")
         .append("svg")
-        .attr("viewBox", [0, 0, width, height])
+        .attr("viewBox", [-margin.left, 0, width+2*margin.left, height])
         .call(zoom, x, y, xAxis);
 
     addSvgAttributes(svg, x, y, xAxis, yAxis);
@@ -112,27 +133,6 @@ function drawEnlargedBarChart(project, scaleFactor = 4) {
     addSvgAttributes(svg, x, y, xAxis, yAxis);
 
     return svg;
-}
-
-function addSvgAttributes(svg, x, y, xAxis, yAxis) {
-    svg.append("g")
-        .attr("class", "bars")
-        .attr("fill", "steelblue")
-        .selectAll("rect")
-        .data(chartData)
-        .join("rect")
-        .attr("x", d => x(d.name))
-        .attr("y", d => y(d.value))
-        .attr("height", d => y(0) - y(d.value))
-        .attr("width", x.bandwidth());
-
-    svg.append("g")
-        .attr("class", "x-axis")
-        .call(xAxis);
-
-    svg.append("g")
-        .attr("class", "y-axis")
-        .call(yAxis);
 }
 
 // Function to download enlarged SVG

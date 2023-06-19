@@ -65,6 +65,10 @@ $border-color: #ccc;
         }
     }
 
+    #chart-container svg text {
+        font-size: 16px;
+    }
+
     .button-container {
         display: flex;
         justify-content: center;
@@ -92,7 +96,7 @@ $border-color: #ccc;
         .main-content {
             padding: 0;
         }
-        
+
         .container {
             padding: 1rem;
         }
