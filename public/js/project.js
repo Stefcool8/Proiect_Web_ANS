@@ -66,130 +66,17 @@ function downloadCsv(project) {
     console.log("Downloaded CSV");
 }
 
-function dataURItoBlob(dataURI) {
-    // https://stackoverflow.com/questions/12168909/blob-from-dataurl
-    const byteString = atob(dataURI.split(',')[1]);
-    const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0]
-
-    const ab = new ArrayBuffer(byteString.length);
-    const ia = new Uint8Array(ab);
-
-    for (let i = 0; i < byteString.length; i++) {
-        ia[i] = byteString.charCodeAt(i);
-    }
-
-    return new Blob([ab], {type: mimeString});
-}
-
-function downloadPng(project) {
-    // download a png, the same way as the csv (with a popup)
-    // https://stackoverflow.com/questions/23218174/how-do-i-save-export-an-svg-file-after-creating-an-svg-with-d3-js-ie-safari-an
-    const svg = document.querySelector('svg');
-    const svgData = new XMLSerializer().serializeToString(svg);
-
-    const canvas = document.createElement("canvas");
-    const svgSize = svg.getBoundingClientRect();
-    canvas.width = svgSize.width;
-    canvas.height = svgSize.height;
-
-    const ctx = canvas.getContext("2d");
-
-    const img = document.createElement("img");
-    img.setAttribute("src", "data:image/svg+xml;base64," + btoa(svgData));
-
-    img.onload = function() {
-        ctx.drawImage(img, 0, 0);
-
-        const pngFile = canvas.toDataURL("image/png");
-
-        const blob = dataURItoBlob(pngFile);
-        const url = window.URL.createObjectURL(blob);
-
-        const a = document.createElement('a');
-        a.setAttribute('hidden', '');
-        a.setAttribute('href', url);
-        a.setAttribute('download', `${project.data.data.name}.png`);
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-
-        window.URL.revokeObjectURL(url);
-    };
-
-    console.log("Downloaded PNG");
-}
-
-function downloadJpeg(project) {
-    // download a jpeg, the same way as the csv (with a popup)
-
-    const svg = document.querySelector('svg');
-    const svgData = new XMLSerializer().serializeToString(svg);
-
-    const canvas = document.createElement("canvas");
-    const svgSize = svg.getBoundingClientRect();
-    canvas.width = svgSize.width;
-    canvas.height = svgSize.height;
-
-    const ctx = canvas.getContext("2d");
-
-    const img = document.createElement("img");
-    img.setAttribute("src", "data:image/svg+xml;base64," + btoa(svgData));
-
-    img.onload = function() {
-        ctx.drawImage(img, 0, 0);
-
-        const jpegFile = canvas.toDataURL("image/jpeg");
-
-        const blob = dataURItoBlob(jpegFile);
-        const url = window.URL.createObjectURL(blob);
-
-        const a = document.createElement('a');
-        a.setAttribute('hidden', '');
-        a.setAttribute('href', url);
-        a.setAttribute('download', `${project.data.data.name}.jpeg`);
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-
-        window.URL.revokeObjectURL(url);
-    }
-
-    console.log("Downloaded JPEG");
-}
-
-function downloadSvg(project) {
-    const svg = document.querySelector('svg');
-
-    // get the svg data
-    const svgData = new XMLSerializer().serializeToString(svg);
-
-    const blob = new Blob([svgData], { type: 'image/svg+xml' });
-    const url = window.URL.createObjectURL(blob);
-
-    const a = document.createElement('a');
-    a.setAttribute('hidden', '');
-    a.setAttribute('href', url);
-    a.setAttribute('download', `${project.data.data.name}.svg`);
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-
-    window.URL.revokeObjectURL(url);
-
-    console.log("Downloaded SVG");
-}
-
 function addDownloadButtonListeners(project) {
     downloadCsvButton.addEventListener('click', function() {
         downloadCsv(project);
     });
 
     downloadPngButton.addEventListener('click', function() {
-        downloadPng(project);
+        downloadPng(project).then();
     });
 
     downloadJpegButton.addEventListener('click', function() {
-        downloadJpeg(project);
+        downloadJpeg(project).then();
     });
 
     downloadSvgButton.addEventListener('click', function() {
