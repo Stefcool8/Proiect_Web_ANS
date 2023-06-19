@@ -1,9 +1,9 @@
 const detailContainer = document.getElementById('detail-container');
-const chartContainer = document.getElementById('chart-container');
 
 const downloadCsvButton = document.getElementById('download-csv');
 const downloadPngButton = document.getElementById('download-png');
 const downloadJpegButton = document.getElementById('download-jpeg');
+const downloadWebpButton = document.getElementById('download-webp');
 const downloadSvgButton = document.getElementById('download-svg');
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -77,6 +77,10 @@ function addDownloadButtonListeners(project) {
 
     downloadJpegButton.addEventListener('click', function() {
         downloadJpeg(project).then();
+    });
+
+    downloadWebpButton.addEventListener('click', function() {
+        downloadWebp(project).then();
     });
 
     downloadSvgButton.addEventListener('click', function() {

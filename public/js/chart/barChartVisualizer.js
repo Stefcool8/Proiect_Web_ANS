@@ -177,7 +177,7 @@ function svgToCanvas(svg, scaleFactor) {
 // Function to download enlarged PNG
 async function downloadPng(project) {
     const svg = drawEnlargedBarChart(project);
-    const canvas = await svgToCanvas(svg, 8);
+    const canvas = await svgToCanvas(svg, 4);
     const pngUrl = canvas.toDataURL('image/png');
     const a = document.createElement('a');
 
@@ -189,10 +189,24 @@ async function downloadPng(project) {
     document.body.removeChild(a);
 }
 
+async function downloadWebp(project) {
+    const svg = drawEnlargedBarChart(project);
+    const canvas = await svgToCanvas(svg, 4);
+    const webpUrl = canvas.toDataURL('image/webp');
+    const a = document.createElement('a');
+
+    document.body.appendChild(a);
+    a.style.display = 'none';
+    a.href = webpUrl;
+    a.download = `${project.data.data.name}_enlarged.webp`;
+    a.click();
+    document.body.removeChild(a);
+}
+
 // Function to download enlarged JPEG
 async function downloadJpeg(project) {
     const svg = drawEnlargedBarChart(project);
-    const canvas = await svgToCanvas(svg, 8);
+    const canvas = await svgToCanvas(svg, 4);
     const pngUrl = canvas.toDataURL('image/png');
 
     // Create a new canvas with a white background

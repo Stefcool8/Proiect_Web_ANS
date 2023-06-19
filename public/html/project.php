@@ -43,6 +43,7 @@
             <button class="btn" id="download-csv">Download CSV</button>
             <button class="btn" id="download-png">Download PNG</button>
             <button class="btn" id="download-jpeg">Download JPEG</button>
+            <button class="btn" id="download-webp">Download WEBP</button>
             <button class="btn" id="download-svg">Download SVG</button>
         </div>
     </main>
