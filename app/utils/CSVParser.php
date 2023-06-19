@@ -138,18 +138,22 @@ class CSVParser {
             $header = $this->getHeader($csvFile);
             array_splice($header, $newColumnIndex, 0, $newColumnName);
 
-            // add new column to each row
-            foreach ($rows as $row) {
-                array_splice($row, $newColumnIndex, 0, $newColumnValue);
-            }
+            // create a template for the rows, with keys from header + new column, and null values
+            $template = array_fill_keys($header, null);
+            $template[$newColumnName] = $newColumnValue;
 
-            // write new header and rows to file
-            $handle = fopen($csvFile, 'w');
-            fputcsv($handle, $header);
+            // add new column to each row
+            $rows = array_map(function(array $row) use ($template) {
+                return array_merge($template, $row);
+            }, $rows);
+
+            // write new rows to file
+            $fp = fopen($csvFile, 'w');
+            fputcsv($fp, $header);
             foreach ($rows as $row) {
-                fputcsv($handle, $row);
+                fputcsv($fp, $row);
             }
-            fclose($handle);
+            fclose($fp);
         } catch (Exception $e) {
             throw new Exception("Error parsing CSV file: " . $e->getMessage());
         }
