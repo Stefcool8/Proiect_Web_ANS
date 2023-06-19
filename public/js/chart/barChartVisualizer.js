@@ -69,7 +69,7 @@ function drawBarChart(project) {
     // Create the chart
     const svg = d3.select("#chart-container")
         .append("svg")
-        .attr("viewBox", [-margin.left, 0, width+2*margin.left, height])
+        .attr("viewBox", [-3/2 * margin.left, 0, width+3*margin.left, height])
         .call(zoom, x, y, xAxis);
 
     addSvgAttributes(svg, x, y, xAxis, yAxis);

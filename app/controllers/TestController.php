@@ -10,14 +10,19 @@ class TestController {
     public function test() {
         try {
             //$json = CSVParser::getCSVParser()->getHeader("../public/assets/csv/2019.csv");
-            $json = JsonUtil::getJsonUtil()->filtrateAfterYearsAndColumns(["2012"], [1], ["AUTOBUZ"]);
+            //$json = JsonUtil::getJsonUtil()->filtrateAfterYearsAndColumns(["2021"], [], []);
 
-            $json = JsonUtil::getJsonUtil()->extractTotalPerDistinctColumnValue($json, 3);
+            // $json = JsonUtil::getJsonUtil()->extractTotalPerDistinctColumnValue($json, 3);
 
             // save json to file
             //file_put_contents("../public/assets/csv/test.json", $json);
 
-            var_dump($json);
+            // sanitize all csv files
+            /*for ($i = 2012; $i < 2021; $i++) {
+                CSVParser::getCSVParser()->sanitizeCSV("../public/assets/csv/$i.csv");
+            }*/
+
+            //var_dump($json);
         } catch (Exception $e) {
             echo "Error parsing CSV file: " . $e->getMessage();
             return;
