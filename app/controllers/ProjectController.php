@@ -114,7 +114,9 @@ use Exception;
             // check the chart type
             if ($body['chart'] == 0) {
                 $this->createBarChartProject($db, $body, $uuidUser);
-            } else {
+            } else if ($body['chart'] == 2){
+                $this->createPieChartProject($db, $body, $uuidUser);
+            }else{
                 $this->createProject($db, $body, $uuidUser);
             }
 
@@ -164,6 +166,43 @@ use Exception;
             ]);
         }
     }
+
+     public function createPieChartProject($db, $body, $uuidUser) {
+         // if the chart is a bar chart, check the bars
+         if (!isset($body['bars'])) {
+             ResponseHandler::getResponseHandler()->sendResponse(400, ['error' => 'Invalid request body.']);
+             exit;
+         }
+
+         // create the project
+         $this->createProject($db, $body, $uuidUser);
+
+         // get project uuid
+         $projectUuid = $db->fetchOne("SELECT uuid FROM project WHERE name = :name AND uuidUser = :uuidUser", ['name' => $body['name'],'uuidUser' =>$uuidUser]);
+
+         // insert in bar_chart table
+         $db->insert('pie_chart', [
+             'uuidProject' => $projectUuid['uuid'],
+             'slices' => $body['bars']
+         ]);
+
+         // insert in years table
+         foreach ($body['years'] as $year) {
+             $db->insert('years', [
+                 'uuidProject' => $projectUuid['uuid'],
+                 'year' => $year
+             ]);
+         }
+
+         // insert in optional_conditions table if series is set
+         if (isset($body['seriesCode'])) {
+             $db->insert('optional_conditions', [
+                 'uuidProject' => $projectUuid['uuid'],
+                 'optionalColumn' => $body['seriesCode'],
+                 'optionalValue' => $body['seriesValue']
+             ]);
+         }
+     }
 
     public function createProject($db, $body, $uuidUser){
         $db->insert('project', [
@@ -347,7 +386,12 @@ use Exception;
                 ResponseHandler::getResponseHandler()->sendResponse(200, [
                     'data' => $this->getBarChartProject($db, $project)
                 ]);
-            } else {
+            } else if($project['chart'] == 2){
+                // send the project data for the pie chart
+                ResponseHandler::getResponseHandler()->sendResponse(200, [
+                    'data' => $this->getPieChartProject($db, $project)
+                ]);
+            }else {
                 ResponseHandler::getResponseHandler()->sendResponse(200, [
                     'data' => [
                         'name' => $project['name'],
@@ -502,6 +546,42 @@ use Exception;
 
         return $data;
     }
+
+     public function getPieChartProject($db, $project): array {
+         $data = [];
+
+         $data['name'] = $project['name'];
+         $data['chart'] = $project['chart'];
+
+         // get the years for this project
+         $years = $db->fetchAll("SELECT * FROM years WHERE uuidProject = :uuidProject", ['uuidProject' => $project['uuid']]);
+         for ($i = 0; $i < count($years); $i++) {
+             $data['years'][$i] = $years[$i]['year'];
+         }
+
+         // get the slices for this project
+         $slices = $db->fetchOne("SELECT * FROM pie_chart WHERE uuidProject = :uuidProject", ['uuidProject' => $project['uuid']]);
+         $data['bars'] = $slices['slices'];
+
+         // check if there are optional conditions for this project
+         $optional = $db->fetchOne("SELECT * FROM optional_conditions WHERE uuidProject = :uuidProject", ['uuidProject' => $project['uuid']]);
+
+         // if there are optional conditions, add them to the response
+         // also send the json data
+         if ($optional) {
+             $data['seriesCode'] = $optional['optionalColumn'];
+             $data['seriesValue'] = $optional['optionalValue'];
+
+             $json = JsonUtil::getJsonUtil()->filtrateAfterYearsAndColumns($data['years'], [$data['seriesCode']], [$data['seriesValue']]);
+         } else {
+             $json = JsonUtil::getJsonUtil()->filtrateAfterYearsAndColumns($data['years'], [], []);
+         }
+         // add the json data to the response
+         $json = JsonUtil::getJsonUtil()->extractTotalPerDistinctColumnValue($json, $data['bars']);
+         $data['json'] = $json;
+
+         return $data;
+     }
 
  }
 

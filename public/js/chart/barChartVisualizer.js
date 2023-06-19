@@ -76,7 +76,7 @@ function addBarChartFields(project) {
     const inputGroup = document.createElement('div');
     inputGroup.classList.add('input-group');
 
-    addLabelAndTextInput(inputGroup, 'bars', 'Bars', columnCodeToName(bars), true);
+    addLabelAndTextInput(inputGroup, 'bars', 'Bars', columnCodeToName(bars,columns), true);
 
     // verify if seriesCode and seriesValue exist
     // if they do, add them to the input group
@@ -84,7 +84,7 @@ function addBarChartFields(project) {
         const seriesCode = project.data.data.seriesCode;
         const seriesValue = project.data.data.seriesValue;
 
-        addLabelAndTextInput(inputGroup, 'seriesCode', 'Series Column', columnCodeToName(seriesCode), true);
+        addLabelAndTextInput(inputGroup, 'seriesCode', 'Series Column', columnCodeToName(seriesCode,columns), true);
         addLabelAndTextInput(inputGroup, 'seriesValue', 'Series Value', seriesValue, true);
     }
 

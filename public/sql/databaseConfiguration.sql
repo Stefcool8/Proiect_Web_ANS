@@ -35,6 +35,14 @@ CREATE TABLE `bar_chart` (
     `bars` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+
+CREATE TABLE `pie_chart` (
+                             `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                             `uuidProject` varchar(256) NOT NULL REFERENCES `project`(`uuid`),
+                             `slices` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
 --
 -- Table structure for 'optional_conditions' in database 'web'
 --
@@ -60,6 +68,7 @@ CREATE TABLE `years` (
 ALTER TABLE `user` CONVERT TO CHARACTER SET utf8 COLLATE utf8_bin;
 ALTER TABLE `project` CONVERT TO CHARACTER SET utf8 COLLATE utf8_bin;
 ALTER TABLE `bar_chart` CONVERT TO CHARACTER SET utf8 COLLATE utf8_bin;
+ALTER TABLE `pie_chart` CONVERT TO CHARACTER SET utf8 COLLATE utf8_bin;
 ALTER TABLE `optional_conditions` CONVERT TO CHARACTER SET utf8 COLLATE utf8_bin;
 ALTER TABLE `years` CONVERT TO CHARACTER SET utf8 COLLATE utf8_bin;
 
@@ -69,7 +78,7 @@ ALTER TABLE `years` CONVERT TO CHARACTER SET utf8 COLLATE utf8_bin;
 INSERT INTO `user` (`firstName`, `lastName`, `username`, `email`, `bio`, `password`, `uuid`, `isAdmin`) VALUES
     ('Stefan', 'Nastasiu', 'Stefcool8', 'stefan.nastasiu8@gmail.com', 'I am a cool guy', 'stefan', '123', 1),
     ('Nicolae', 'Martinescu', 'nicolae', 'martinescunicolaee3@gmail.com', 'I am nicu', 'nicu', '234', 0),
-    ('Aser', 'Cobaschi', 'aser', 'cobaschiaser8@gmail.com', 'I am aser', 'aser', '345', 0);
+    ('Aser', 'Cobaschi', 'aser', 'cobaschiaser8@gmail.com', 'I am aser', 'aser', '345', 1);
 
 --
 -- Inserting data in table `user`
@@ -110,6 +119,7 @@ delete from project where id = 9;
 drop table user cascade;
 drop table project cascade;
 drop table bar_chart cascade;
+drop table pie_chart cascade;
 drop table optional_conditions cascade;
 drop table years cascade;
 
