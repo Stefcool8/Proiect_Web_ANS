@@ -6,8 +6,7 @@ use PDO;
 use PDOException;
 use PDOStatement;
 
-class Database
-{
+class Database {
     private static ?Database $instance = null;
     private ?PDO $connection;
 

@@ -18,7 +18,7 @@ use App\utils\ResponseHandler;
  *     bearerFormat="JWT",
  * )
  */
-class HomeController {
+class HomeController extends Controller {
 
     /**
      * @OA\Get(

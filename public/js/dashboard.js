@@ -1,260 +1,247 @@
-// dashboard.js
+document.addEventListener('DOMContentLoaded', dashboard);
 
-document.addEventListener('DOMContentLoaded', async () => {
-    const token = localStorage.getItem('jwt');
-    const url = window.location.href;
-    const pageRegex = /page=(\d+)/;
-    const match = url.match(pageRegex);
-    const page = match ? match[1] : "1";
+async function dashboard() {
+    const token = getToken();
+    if (!token) redirectToLogin();
 
-
-
+    const urlParams = new URLSearchParams(window.location.search);
+    let page = getPage(urlParams);
     const pageSize = 4;
 
-    //console.log(page); // Output: 2
-    if (!token) {
-        window.location.href = "/login";
-    }
+    const uuid = await fetchUserUUID(token);
+    if (!uuid) return;
 
-    //console.log(token);
-    let $uuid;
+    const projectCount = await fetchUserProjectCount(token, uuid);
+    if (!projectCount && page > 1) redirectToDashboardPage(1);
+
+    const projects = await fetchUserProjects(token, uuid, page, pageSize);
+    if (!projects) return;
+
+    displayProjects(projects, token);
+
+    handlePageButtons(page, projectCount, pageSize);
+}
+
+function getToken() {
+    return localStorage.getItem('jwt');
+}
+
+function redirectToLogin() {
+    window.location.href = "/login";
+}
+
+function getPage(urlParams) {
+    let page = urlParams.get('page') || "1";
+    if (page < 1) {
+        window.location.href = "/dashboard";
+    }
+    return page;
+}
+
+async function fetchUserUUID(token) {
     try {
         const response = await fetch('/api/dashboard', {
             method: 'GET',
-            headers: {
-                'Authorization': 'Bearer ' + token,
-                'Content-Type': 'application/json',
-            },
+            headers: createHeaders(token),
         });
 
-        if (response.status === 401) {
-            // Unauthorized access, redirect to login page
-            window.location.href = "/login";
-            return;
-        }
+        if (response.status === 401) redirectToLogin();
 
         const result = await response.json();
-        //console.log("Hello");
-        console.log(result)
-        $uuid = result.data.data.uuid;
-        //console.log($uuid);
-        if (response.ok) {
-            const adminPanel = document.querySelector(".admin-panel-btn");
-            if(!result.data.data.isAdmin) {
-                adminPanel.classList.add('hidden');
-            }else{
-                adminPanel.classList.remove('hidden');
-            }
-           // console.log(result);
-            // Populate the dashboard with the user data
-            document.querySelector('.page-name p').textContent = 'Dashboard, Hello ' + result.data.data.username;
-            // Fill in other parts of the page using result.data
-            //let user = JSON.parse(localStorage.getItem("user"));
-            //console.log(user);
-            //console.log(user.uuid);
-            const userLink = document.querySelector(".view-profile-btn");
-            //userLink.href = "/user/" + user.uuid;
-            userLink.href = "/user/" + $uuid;
+        const uuid = result.data.data.uuid;
 
-        } else {
-            // Handle the error
-            console.error(result.message);
-        }
+        updateUserInterface(result, uuid);
 
+        return uuid;
     } catch (error) {
-        // Handle any errors
         console.error(error);
+        return null;
     }
+}
 
+function createHeaders(token) {
+    return {
+        'Authorization': 'Bearer ' + token,
+        'Content-Type': 'application/json',
+    };
+}
 
-    // fetch the projects
+function updateUserInterface(result, uuid) {
+    const adminPanel = document.querySelector(".admin-panel-btn");
+    result.data.data.isAdmin ? adminPanel.classList.remove('hidden') : adminPanel.classList.add('hidden');
+
+    document.querySelector('.page-name p').textContent = 'Dashboard, Hello ' + result.data.data.username;
+    document.querySelector(".view-profile-btn").href = "/user/" + uuid;
+}
+
+async function fetchUserProjectCount(token, uuid) {
     try {
-        //console.log($uuid);
-        const apiURL = "/api/project/user/"+$uuid;
-        //console.log(apiURL);
-        const response = await fetch(apiURL, {
+        const response = await fetch(`/api/project/user/${uuid}`, {
             method: 'GET',
-            headers: {
-                Authorization: 'Bearer ' + token,
-                'Content-Type': 'application/json',
-            }
+            headers: createHeaders(token),
         });
-        const projectContainer = document.querySelector('.project-area');
 
-        if(response.status === 404){
-            console.log("Nu am proiecte");
-            const alertCard = document.createElement('div');
-            alertCard.classList.add('project');
-            alertCard.textContent = "This user has no projects"
-            projectContainer.appendChild(alertCard);
-            const buttonPrevious = document.querySelector('.button-previous');
-            const buttonNext = document.querySelector('.button-next');
-            buttonPrevious.classList.add('hidden');
-            buttonNext.classList.add('hidden');
-        }
-
-        //console.log(response);
         if (response.ok) {
-
-            const result = await response.json();
-            console.log(result);
-            // Get the parent container where the project cards will be appended
-
-            const countProjects = result.data.projects.length;
-
-
-            try{
-                const apiURL2 = "/api/project/user/"+$uuid+"/"+page;
-                //console.log(apiURL2)
-                const actualProjects = await fetch(apiURL2, {
-                    method: 'GET',
-                    headers: {
-                        Authorization: 'Bearer ' + token,
-                        'Content-Type': 'application/json',
-                    }
-                });
-                if(actualProjects.ok){
-                    const resultActualProjects = await actualProjects.json();
-                    //console.log(resultActualProjects);
-                    resultActualProjects.data.projects.forEach(project => {
-                        // Create a new project card
-                        const projectCard = document.createElement('div');
-                        projectCard.classList.add('project');
-                        projectCard.classList.add(`project-${project.uuid}`); // Assign a unique class for this project
-
-                        // Create the project name element
-                        const projectName = document.createElement('p');
-                        projectName.classList.add('project-name');
-                        projectName.textContent = project.name;
-
-                        // Create the button area
-                        const buttonArea = document.createElement('div');
-                        buttonArea.classList.add('button-area');
-
-                        // Create the view button
-                        const viewButton = document.createElement('a');
-                        viewButton.classList.add('button');
-                        //viewButton.href = `/project/${project.uuid}`;
-                        viewButton.textContent = 'View';
-
-                        viewButton.addEventListener('click', async (event) => {
-                            event.preventDefault();
-                            console.log('View Button clicked');
-                            console.log('UUID:${user.uuid}');
-
-
-                            try {
-                                const apiUrl = `/api/project/${project.uuid}`;
-                                const responseGet = await fetch(apiUrl, {
-                                    method: 'GET',
-                                    headers: {
-                                        Authorization: 'Bearer ' + token,
-                                        'Content-Type': 'application/json',
-                                    },
-                                });
-
-                                if (responseGet.ok) {
-                                    // The view was successful
-                                    const URL = `/project/${project.uuid}`;
-                                    window.location.href = URL;
-                                } else {
-                                    // Handle the error
-                                    console.error(result.message);
-                                }
-                            } catch (error) {
-                                // Handle any errors
-                                console.error(error);
-                            }
-
-                        });
-
-                        // Create the delete button
-                        const deleteButton = document.createElement('a');
-                        deleteButton.classList.add('button');
-                        //deleteButton.href = `/project/${project.uuid}/delete`;
-                        deleteButton.textContent = 'Delete';
-
-                        deleteButton.addEventListener('click', async (event) => {
-                            event.preventDefault();
-                            //console.log('Delete Button clicked');
-                            //console.log('UUID:${user.uuid}');
-
-                            try {
-                                const apiUrl = `/api/project/${project.uuid}`;
-                                const responseDELETE = await fetch(apiUrl, {
-                                    method: "DELETE",
-                                    headers: {
-                                        Authorization: 'Bearer ' + token,
-                                        'Content-Type': 'application/json',
-                                    },
-                                    body: project.uuid,
-                                });
-
-                                if (responseDELETE.ok) {
-                                    window.location.href = "/dashboard";
-                                } else {
-                                    // Handle the error
-                                    console.error(result.message);
-                                }
-                            } catch (error) {
-                                // Handle any errors
-                                console.error(error);
-                            }
-
-                        });
-
-                        // Append the project name and buttons to the project card
-                        projectCard.appendChild(projectName);
-                        buttonArea.appendChild(viewButton);
-                        buttonArea.appendChild(deleteButton);
-                        projectCard.appendChild(buttonArea);
-
-                        // Append the project card to the parent container
-                        projectContainer.appendChild(projectCard);
-                    });
-                    //console.log(pageSize);
-                    //console.log(result.data.projects.length);
-                    const buttonPrevious = document.querySelector('.button-previous');
-                    const buttonNext = document.querySelector('.button-next');
-
-                    if (page === "1") {
-                        buttonPrevious.classList.add('hidden');
-                    } else {
-                        buttonPrevious.classList.remove('hidden');
-                    }
-
-                    if (resultActualProjects.data.projects.length < pageSize || countProjects <= pageSize*parseInt(page)) {
-                        buttonNext.classList.add('hidden');
-                    } else {
-                        buttonNext.classList.remove('hidden');
-                    }
-
-                    buttonPrevious.addEventListener('click', async (event) => {
-                        event.preventDefault();
-                        window.location.href = `/dashboard?page=${parseInt(page) - 1}`;
-
-                    });
-
-                    buttonNext.addEventListener('click', async (event) => {
-                        event.preventDefault();
-                        //console.log("Next button clicked");
-                        window.location.href = `/dashboard?page=${parseInt(page) + 1}`;
-                    });
-
-                } else {
-                    // Handle the error
-                    console.error(result.message);
-                }
-            }catch(error){
-
-            }
-
+            return (await response.json()).data.projects.length;
         } else {
-            // Handle the error
-            console.error(result.message);
+
+            handleError(response.status);
+            return null;
         }
     } catch (error) {
-
+        console.error(error);
+        return null;
     }
+}
 
-});
+function handleError(status) {
+    if (status === 404) {
+        const projectContainer = document.querySelector('.project-area');
+        const alertCard = document.createElement('div');
+        alertCard.classList.add('project');
+        alertCard.textContent = "This user has no projects";
+        projectContainer.appendChild(alertCard);
+
+        hideNavigationButtons();
+    } else {
+        redirectToHome();
+    }
+}
+
+function hideNavigationButtons() {
+    const buttonPrevious = document.querySelector('.button-previous');
+    const buttonNext = document.querySelector('.button-next');
+
+    buttonPrevious.classList.add('hidden');
+    buttonNext.classList.add('hidden');
+}
+
+function redirectToHome() {
+    window.location.href = "/home";
+}
+
+async function fetchUserProjects(token, uuid, page, pageSize) {
+    try {
+        const response = await fetch(`/api/project/user/${uuid}/${page}`, {
+            method: 'GET',
+            headers: createHeaders(token),
+        });
+
+        if(response.status === 404) {
+            window.location.href = "/dashboard";
+        }
+
+        return response.ok ? await response.json() : null;
+    } catch (error) {
+        console.error(error);
+        return null;
+    }
+}
+
+function displayProjects(result, token) {
+    const projectContainer = document.querySelector('.project-area');
+
+    result.data.projects.forEach(project => {
+        const projectCard = createProjectCard(project, token);
+        projectContainer.appendChild(projectCard);
+    });
+}
+
+function createProjectCard(project, token) {
+    const projectCard = document.createElement('div');
+    projectCard.classList.add('project', `project-${project.uuid}`);
+
+    const projectName = document.createElement('p');
+    projectName.classList.add('project-name');
+    projectName.textContent = project.name;
+
+    const buttonArea = document.createElement('div');
+    buttonArea.classList.add('button-area');
+
+    const viewButton = createButton('View', createViewEvent(project, token));
+    const deleteButton = createButton('Delete', createDeleteEvent(project, token));
+
+    buttonArea.append(viewButton, deleteButton);
+    projectCard.append(projectName, buttonArea);
+
+    return projectCard;
+}
+
+function createButton(text, clickEvent) {
+    const button = document.createElement('a');
+    button.classList.add('button');
+    button.textContent = text;
+    button.addEventListener('click', clickEvent);
+    return button;
+}
+
+function createViewEvent(project, token) {
+    return async (event) => {
+        event.preventDefault();
+
+        const responseGet = await fetch(`/api/project/${project.uuid}`, {
+            method: 'GET',
+            headers: createHeaders(token),
+        });
+
+        if (responseGet.ok) {
+            window.location.href = `/project/${project.uuid}`;
+        } else {
+            console.error(result.message);
+        }
+    };
+}
+
+function createDeleteEvent(project, token) {
+    return async (event) => {
+        event.preventDefault();
+
+        // get user confirmation
+        const response = confirm(`Are you sure you want to delete ${project.name}?`);
+        if (!response) {
+            return;
+        }
+        
+        const responseDELETE = await fetch(`/api/project/${project.uuid}`, {
+            method: "DELETE",
+            headers: createHeaders(token),
+            body: project.uuid,
+        });
+
+        if (responseDELETE.ok) {
+            window.location.href = "/dashboard";
+        } else {
+            console.error(result.message);
+        }
+    };
+}
+
+function handlePageButtons(page, projectCount, pageSize) {
+    const buttonPrevious = document.querySelector('.button-previous');
+    const buttonNext = document.querySelector('.button-next');
+
+    toggleVisibility(buttonPrevious, page !== "1");
+    toggleVisibility(buttonNext, projectCount > pageSize * parseInt(page));
+
+    buttonPrevious.addEventListener('click', createNavigationEvent(page, -1));
+    buttonNext.addEventListener('click', createNavigationEvent(page, 1));
+}
+
+function toggleVisibility(element, isVisible) {
+    if (isVisible) {
+        element.classList.remove('hidden');
+    } else {
+        element.classList.add('hidden');
+    }
+}
+
+function createNavigationEvent(page, direction) {
+    return (event) => {
+        event.preventDefault();
+        redirectToDashboardPage(parseInt(page) + direction);
+    };
+}
+
+function redirectToDashboardPage(page) {
+    window.location.href = `/dashboard?page=${page}`;
+}

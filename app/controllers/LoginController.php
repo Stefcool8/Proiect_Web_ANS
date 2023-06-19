@@ -6,7 +6,7 @@ use App\utils\Database;
 use App\utils\JWT;
 use App\utils\ResponseHandler;
 
-class LoginController {
+class LoginController extends Controller {
 
     /**
      * @OA\Get(
@@ -108,8 +108,8 @@ class LoginController {
     public function login() {
         $body = json_decode(file_get_contents('php://input'), true);
 
-        $username = $body['username'];
-        $password = $body['password'];
+        $username = $this->sanitizeData($body['username']);
+        $password = $this->sanitizeData($body['password']);
 
         if (!$username || !$password) {
             ResponseHandler::getResponseHandler()->sendResponse(400, ['error' => 'Missing username or password']);

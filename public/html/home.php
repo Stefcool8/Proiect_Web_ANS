@@ -83,6 +83,9 @@ $data = fetch_data('home', [
             <h3>- Jane Smith, Researcher</h3>
         </div>
     </section>
+    <script type="text/javascript" src="/public/html/mapdata.js"></script>
+    <script type="text/javascript" src="/public/html/mapinfo.js"></script>
+    <div id="map"></div>
 </main>
 <?php require_once __DIR__ . '/shared/footer.php'; ?>
 <script src="/public/js/home.js"></script>

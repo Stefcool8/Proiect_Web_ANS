@@ -9,7 +9,7 @@ use App\utils\EmailSender;
  * Controller for the Contact page
  *
  */
-class ContactController {
+class ContactController extends Controller {
 
     /**
      * @OA\Post(
@@ -97,10 +97,10 @@ class ContactController {
             exit;
         }
 
-        $name = $body['name'];
-        $email = $body['email'];
-        $subject = $body['subject'];
-        $message = $body['message'];
+        $name = $this->sanitizeData($body['name']);
+        $email = $this->sanitizeData($body['email']);
+        $subject = $this->sanitizeData($body['subject']);
+        $message = $this->sanitizeData($body['message']);
 
         // check if honeypot is filled
         if (!empty($body['nickname'])) {

@@ -8,7 +8,7 @@ use App\utils\ResponseHandler;
  * Controller for the about us page
  * 
  */
-class AboutController {
+class AboutController extends Controller {
 
     /**
      * @OA\Get(
