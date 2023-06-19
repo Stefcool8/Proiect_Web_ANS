@@ -22,6 +22,8 @@ class TestController {
                 CSVParser::getCSVParser()->sanitizeCSV("../public/assets/csv/$i.csv");
             }*/
 
+            CSVParser::getCSVParser()->addColumn("../public/assets/csv/2012.csv", 5, "VALUE_NAME", "");
+
             //var_dump($json);
         } catch (Exception $e) {
             echo "Error parsing CSV file: " . $e->getMessage();

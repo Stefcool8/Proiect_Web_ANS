@@ -126,4 +126,32 @@ class CSVParser {
             throw new Exception("Error opening CSV file.");
         }
     }
+
+    /**
+     * @throws Exception
+     */
+    public function addColumn(string $csvFile, int $newColumnIndex, string $newColumnName, string $newColumnValue) {
+        try {
+            $rows = json_decode($this->getJsonRowFormat($csvFile), true);
+
+            // add new column to header
+            $header = $this->getHeader($csvFile);
+            array_splice($header, $newColumnIndex, 0, $newColumnName);
+
+            // add new column to each row
+            foreach ($rows as $row) {
+                array_splice($row, $newColumnIndex, 0, $newColumnValue);
+            }
+
+            // write new header and rows to file
+            $handle = fopen($csvFile, 'w');
+            fputcsv($handle, $header);
+            foreach ($rows as $row) {
+                fputcsv($handle, $row);
+            }
+            fclose($handle);
+        } catch (Exception $e) {
+            throw new Exception("Error parsing CSV file: " . $e->getMessage());
+        }
+    }
 }
