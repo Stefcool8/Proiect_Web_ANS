@@ -1,239 +1,211 @@
 @keyframes fadein {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
-
 .intro-section {
-    display: grid;
-    grid-template-columns: repeat(24, 1fr);
-    grid-template-rows: repeat(3, 1fr);
-    align-items: center;
-    min-height: 90vh;
-    gap: 1rem;
-    background: #416a59;
-    animation: fadein 2s;
+  display: grid;
+  grid-template-columns: repeat(24, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  align-items: center;
+  min-height: 90vh;
+  gap: 1rem;
+  background: #416a59;
+  animation: fadein 2s;
 }
-
 .intro-section .intro-content {
-    grid-row: 2;
-    grid-column: 2/span 8;
-    text-align: center;
-    transition: transform 0.3s;
+  grid-row: 2;
+  grid-column: 2/span 8;
+  text-align: center;
+  transition: transform 0.3s;
 }
-
 .intro-section .intro-content:hover {
-    transform: scale(1.05);
+  transform: scale(1.05);
 }
-
 .intro-section .intro-heading {
-    color: #73a24e;
-    font-size: 2.5rem;
-    padding: 0.5rem;
-    transition: color 0.3s;
-    text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  color: #73a24e;
+  font-size: 2.5rem;
+  padding: 0.5rem;
+  transition: color 0.3s;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
-
 .intro-section .intro-heading:hover {
-    color: #73a24e;
+  color: #73a24e;
 }
-
 .intro-section .cta-button-group {
-    grid-row: 3;
-    grid-column: 2/span 8;
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
+  grid-row: 3;
+  grid-column: 2/span 8;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
 }
-
 .intro-section .cta-btn {
-    align-items: center;
-    background-color: #73a24e;
-    border: none;
-    border-radius: 0.5rem;
-    color: #ffffff;
-    display: flex;
-    font-size: 1.5rem;
-    height: 2.5rem;
-    justify-content: center;
-    line-height: 1.5rem;
-    padding: 0 1.5rem;
-    position: relative;
-    text-align: center;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    width: 80%;
-    white-space: nowrap;
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+  align-items: center;
+  background-color: #73a24e;
+  border: none;
+  border-radius: 0.5rem;
+  color: #ffffff;
+  display: flex;
+  font-size: 1.5rem;
+  height: 2.5rem;
+  justify-content: center;
+  line-height: 1.5rem;
+  padding: 0 1.5rem;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  width: 80%;
+  white-space: nowrap;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
 }
-
 .intro-section .cta-btn:hover {
-    background-color: #a9c25d;
-    cursor: pointer;
-    transform: scale(1.1);
+  background-color: #a9c25d;
+  cursor: pointer;
+  transform: scale(1.1);
 }
-
 .intro-section .demo-video-section {
-    grid-row: 1/span 8;
-    grid-column: 12/span 12;
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 75%;
+  grid-row: 1/span 8;
+  grid-column: 12/span 12;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 75%;
 }
-
 .intro-section .demo-video-section #video-player {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
 }
 
 .feature-section {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    min-height: 25vh;
-    gap: 2rem;
-    padding: 2rem;
-    color: #f8f9fa;
-    text-align: center;
-    background: #416a59;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  min-height: 25vh;
+  gap: 2rem;
+  padding: 2rem;
+  color: #f8f9fa;
+  text-align: center;
+  background: #416a59;
 }
-
 .feature-section h2 {
-    color: #73a24e;
-    text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  color: #73a24e;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
-
 .feature-section .feature {
-    padding: 1rem;
-    background: #73a24e;
-    border-radius: 1rem;
-    transition: transform 0.3s;
+  padding: 1rem;
+  background: #73a24e;
+  border-radius: 1rem;
+  transition: transform 0.3s;
 }
-
 .feature-section .feature h3 {
-    color: #416a59;
+  color: #416a59;
 }
-
 .feature-section .feature:hover {
-    transform: scale(1.05);
+  transform: scale(1.05);
 }
 
 .about-section {
-    text-align: center;
-    background: #416a59;
-    min-height: 15vh;
-    text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    padding: 1rem;
+  text-align: center;
+  background: #416a59;
+  min-height: 15vh;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  padding: 1rem;
 }
-
 .about-section h2 {
-    color: #73a24e;
+  color: #73a24e;
 }
 
 .testimonial-section {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    padding: 1rem;
-    min-height: 25vh;
-    text-align: center;
-    color: #f8f9fa;
-    background: #416a59;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  padding: 1rem;
+  min-height: 25vh;
+  text-align: center;
+  color: #f8f9fa;
+  background: #416a59;
 }
-
 .testimonial-section h2 {
-    color: #73a24e;
-    text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  color: #73a24e;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
-
 .testimonial-section .testimonial {
-    padding: 1rem;
-    margin: 1rem;
-    border-radius: 1rem;
-    transition: transform 0.3s;
-    background-color: #73a24e;
+  padding: 1rem;
+  margin: 1rem;
+  border-radius: 1rem;
+  transition: transform 0.3s;
+  background-color: #73a24e;
 }
-
 .testimonial-section .testimonial h3 {
-    color: #416a59;
+  color: #416a59;
 }
-
 .testimonial-section .testimonial:hover {
-    transform: scale(1.05);
+  transform: scale(1.05);
 }
 
 @media screen and (max-width: 826px) {
-    .intro-section {
-        grid-template-columns: 1fr;
-        grid-template-rows: auto auto auto;
-        height: auto;
-    }
-
-    .intro-section .intro-content,
-    .intro-section .cta-button-group {
-        grid-row: auto;
-        grid-column: 1;
-    }
-
-    .intro-section .intro-heading {
-        font-size: 2rem;
-    }
-
-    .intro-section .cta-button-group {
-        min-width: 120px;
-        padding: 8px;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .intro-section .cta-btn {
-        font-size: 2rem;
-        width: 60%;
-        height: 4rem;
-    }
-
-    .intro-section .demo-video-section {
-        grid-row: auto;
-        grid-column: 1;
-        width: 90%;
-        padding-top: 75%;
-        position: relative;
-        margin: 0 auto;
-    }
-
-    .feature-section,
-    .testimonial-section {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-    }
-
-    .feature-section .feature,
-    .feature-section .testimonial,
-    .testimonial-section .feature,
-    .testimonial-section .testimonial {
-        margin: 0 auto;
-        padding: 1rem 2rem;
-        width: 90%;
-    }
+  .intro-section {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+    height: auto;
+  }
+  .intro-section .intro-content,
+  .intro-section .cta-button-group {
+    grid-row: auto;
+    grid-column: 1;
+  }
+  .intro-section .intro-heading {
+    font-size: 2rem;
+  }
+  .intro-section .cta-button-group {
+    min-width: 120px;
+    padding: 8px;
+    flex-direction: column;
+    align-items: center;
+  }
+  .intro-section .cta-btn {
+    font-size: 2rem;
+    width: 60%;
+    height: 4rem;
+  }
+  .intro-section .demo-video-section {
+    grid-row: auto;
+    grid-column: 1;
+    width: 90%;
+    padding-top: 75%;
+    position: relative;
+    margin: 0 auto;
+  }
+  .feature-section,
+  .testimonial-section {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .feature-section .feature,
+  .feature-section .testimonial,
+  .testimonial-section .feature,
+  .testimonial-section .testimonial {
+    margin: 0 auto;
+    padding: 1rem 2rem;
+    width: 90%;
+  }
 }
-
 @media screen and (min-width: 1824px) {
-    .intro-heading {
-        font-size: 2.5rem;
-    }
-
-    .cta-btn {
-        font-size: 1rem;
-    }
+  .intro-heading {
+    font-size: 2.5rem;
+  }
+  .cta-btn {
+    font-size: 1rem;
+  }
 }
 
 /*# sourceMappingURL=home.css.map */
