@@ -7,9 +7,9 @@ use App\utils\ResponseHandler;
 use App\utils\Database;
 use Exception;
 
-/** 
+/**
  * Controller for User operations
- * 
+ *
  */
 class UserController extends Controller {
 
@@ -72,12 +72,13 @@ class UserController extends Controller {
      *    )
      * )
      */
-    public function create() {
+    public function create()
+    {
         // get the request body
         $body = json_decode(file_get_contents('php://input'), true);
 
         $payload = $this->getPayload();
-        if($payload){
+        if ($payload) {
             ResponseHandler::getResponseHandler()->sendResponse(401, [
                 'error' => 'You can not create a new user while logged in'
             ]);
@@ -111,11 +112,11 @@ class UserController extends Controller {
 
             // create the user
             $db->insert('user', [
-                'firstName' => $body['firstName'],
-                'lastName' => $body['lastName'],
-                'password' => password_hash($body['password'], PASSWORD_DEFAULT),
-                'email' => $body['email'],
-                'username' => $body['username'],
+                'firstName' => $this->sanitizeData($body['firstName']), // sanitize the data (remove html tags etc
+                'lastName' => $this->sanitizeData($body['lastName']),
+                'password' => password_hash($this->sanitizeData($body['password']), PASSWORD_DEFAULT),
+                'email' => $this->sanitizeData($body['email']),
+                'username' => $this->sanitizeData($body['username']),
                 'isAdmin' => false,
                 'uuid' => uniqid()
             ]);
@@ -174,7 +175,7 @@ class UserController extends Controller {
     public function delete($uuid) {
         $payload = $this->getPayload();
 
-        if(!$payload){
+        if (!$payload) {
             ResponseHandler::getResponseHandler()->sendResponse(401, [
                 'error' => 'Unauthorized'
             ]);
@@ -183,9 +184,11 @@ class UserController extends Controller {
         try {
             $db = Database::getInstance();
             $user = $db->fetchOne("SELECT * FROM user WHERE uuid = :uuid", ['uuid' => $uuid]);
-            $currentUser = $db->fetchOne("SELECT * FROM user WHERE username = :username",['username' => $payload['username']]);
+            $currentUser = $db->fetchOne("SELECT * FROM user WHERE username = :username", [
+                'username' => $this->sanitizeData($payload['username'])
+            ]);
 
-            if($currentUser['isAdmin'] || (($currentUser['uuid'] == $uuid) && $user)){
+            if ($currentUser['isAdmin'] || (($currentUser['uuid'] == $uuid) && $user)) {
                 $db->delete('user', ['uuid' => $uuid]);
                 ResponseHandler::getResponseHandler()->sendResponse(
                     204, ['message' => 'User deleted successfully']
@@ -266,7 +269,7 @@ class UserController extends Controller {
      */
     public function get($uuid) {
         $payload = $this->getPayload();
-        if(!$payload){
+        if (!$payload) {
             ResponseHandler::getResponseHandler()->sendResponse(401, [
                 'error' => 'Unauthorized'
             ]);
@@ -275,18 +278,20 @@ class UserController extends Controller {
         try {
             $db = Database::getInstance();
             $user = $db->fetchOne("SELECT * FROM user WHERE uuid = :uuid", ['uuid' => $uuid]);
-            $currentUser = $db->fetchOne("SELECT * FROM user WHERE username = :username",['username' => $payload['username']]);
+            $currentUser = $db->fetchOne("SELECT * FROM user WHERE username = :username", [
+                'username' => $this->sanitizeData($payload['username'])
+            ]);
 
-            if($currentUser['isAdmin'] || (($currentUser['uuid'] == $uuid) && $user)){
+            if ($currentUser['isAdmin'] || (($currentUser['uuid'] == $uuid) && $user)) {
                 ResponseHandler::getResponseHandler()->sendResponse(200, [
                     'data' => [
-                        'uuid' => $user['uuid'],
+                        'uuid' => $this->sanitizeData($user['uuid']),
                         'isAdmin' => $user['isAdmin'],
-                        'firstName' => $user['firstName'],
-                        'lastName' => $user['lastName'],
-                        'email' => $user['email'],
-                        'username' => $user['username'],
-                        'bio' => $user['bio']
+                        'firstName' => $this->sanitizeData($user['firstName']),
+                        'lastName' => $this->sanitizeData($user['lastName']),
+                        'email' => $this->sanitizeData($user['email']),
+                        'username' => $this->sanitizeData($user['username']),
+                        'bio' => $this->sanitizeData($user['bio'])
                     ]
                 ]);
                 exit;
@@ -412,7 +417,7 @@ class UserController extends Controller {
     public function update($uuid) {
         $payload = $this->getPayload();
 
-        if(!$payload){
+        if (!$payload) {
             ResponseHandler::getResponseHandler()->sendResponse(401, [
                 'error' => 'Unauthorized'
             ]);
@@ -421,14 +426,16 @@ class UserController extends Controller {
         try {
             $db = Database::getInstance();
             $user = $db->fetchOne("SELECT * FROM user WHERE uuid = :uuid", ['uuid' => $uuid]);
-            $currentUser = $db->fetchOne("SELECT * FROM user WHERE username = :username", ['username' => $payload['username']]);
+            $currentUser = $db->fetchOne("SELECT * FROM user WHERE username = :username", [
+                'username' => $this->sanitizeData($payload['username'])
+            ]);
 
             if (!$user || !$currentUser) {
                 ResponseHandler::getResponseHandler()->sendResponse(404, ['error' => 'User not found']);
                 exit;
             }
 
-            if(!$currentUser['isAdmin'] && (($currentUser['uuid'] != $uuid))){
+            if (!$currentUser['isAdmin'] && (($currentUser['uuid'] != $uuid))) {
                 ResponseHandler::getResponseHandler()->sendResponse(401, ['error' => 'Unauthorized']);
                 exit;
             }
@@ -447,13 +454,18 @@ class UserController extends Controller {
         }
 
         // verify if the username and email are not already taken
-        $user = $db->fetchOne("SELECT * FROM user WHERE username = :username", ['username' => $data['username']]);
+        $user = $db->fetchOne("SELECT * FROM user WHERE username = :username", [
+            'username' => $this->sanitizeData($data['username'])
+        ]);
+
         if ($user && $user['uuid'] != $uuid) {
             ResponseHandler::getResponseHandler()->sendResponse(400, ['error' => 'Username already exists']);
             exit;
         }
 
-        $user = $db->fetchOne("SELECT * FROM user WHERE email = :email", ['email' => $data['email']]);
+        $user = $db->fetchOne("SELECT * FROM user WHERE email = :email", [
+            'email' => $this->sanitizeData($data['email'])
+        ]);
         if ($user && $user['uuid'] != $uuid) {
             ResponseHandler::getResponseHandler()->sendResponse(400, ['error' => 'Email already exists']);
             exit;
@@ -462,11 +474,11 @@ class UserController extends Controller {
         $user = $db->fetchOne("SELECT * FROM user WHERE uuid = :uuid", ['uuid' => $uuid]);
 
         // get the data
-        $firstName = $data['firstName'];
-        $lastName = $data['lastName'];
-        $username = $data['username'];
-        $email = $data['email'];
-        $bio = $data['bio'];
+        $firstName = $this->sanitizeData($data['firstName']);
+        $lastName = $this->sanitizeData($data['lastName']);
+        $username = $this->sanitizeData($data['username']);
+        $email = $this->sanitizeData($data['email']);
+        $bio = $this->sanitizeData($data['bio']);
 
         // update the user
         $db->update('user', [
@@ -565,15 +577,15 @@ class UserController extends Controller {
      *     )
      * )
      */
-    public function gets(){
+    public function gets() {
         $payload = $this->getPayload();
-        if(!$payload){
+        if (!$payload) {
             ResponseHandler::getResponseHandler()->sendResponse(401, [
                 'error' => 'Unauthorized'
             ]);
             exit;
         }
-        if(!$payload['isAdmin']){
+        if (!$payload['isAdmin']) {
             ResponseHandler::getResponseHandler()->sendResponse(401, [
                 'error' => 'Unauthorized'
             ]);
@@ -582,7 +594,7 @@ class UserController extends Controller {
         try {
             $db = Database::getInstance();
 
-            $users = $db->fetchAll("SELECT * FROM user ");
+            $users = $db->fetchAll("SELECT * FROM user ORDER BY id DESC");
 
             if (empty($users)) {
                 ResponseHandler::getResponseHandler()->sendResponse(404, ['error' => 'Users not found']);
@@ -594,10 +606,10 @@ class UserController extends Controller {
                 $userArray[] = [
                     'isAdmin' => $user['isAdmin'],
                     'uuid' => $user['uuid'],
-                    'firstName' => $user['firstName'],
-                    'lastName' => $user['lastName'],
-                    'email' => $user['email'],
-                    'username' => $user['username']
+                    'firstName' => $this->sanitizeData($user['firstName']),
+                    'lastName' => $this->sanitizeData($user['lastName']),
+                    'email' => $this->sanitizeData($user['email']),
+                    'username' => $this->sanitizeData($user['username']),
                 ];
             }
 
@@ -609,9 +621,9 @@ class UserController extends Controller {
         }
     }
 
-    public function getByInterval($startPage){
+    public function getByInterval($startPage) {
         $payload = $this->getPayload();
-        if(!$payload){
+        if (!$payload) {
             ResponseHandler::getResponseHandler()->sendResponse(401, [
                 'error' => 'Unauthorized'
             ]);
@@ -620,9 +632,11 @@ class UserController extends Controller {
         try {
             $db = Database::getInstance();
 
-            $currentUser = $db->fetchOne("SELECT * FROM user WHERE username = :username", ['username' => $payload['username']]);
+            $currentUser = $db->fetchOne("SELECT * FROM user WHERE username = :username", [
+                'username' => $this->sanitizeData($payload['username'])
+            ]);
 
-            $startIndex = $startPage-1; // The start index of the projects
+            $startIndex = $startPage - 1; // The start index of the projects
             $pageSize = 4; // The number of projects to retrieve per page
 
             // Calculate the offset based on the start index and page size
@@ -633,7 +647,7 @@ class UserController extends Controller {
             // $projects = $db->fetchAll("SELECT * FROM project WHERE uuidUser = :uuidUser LIMIT ".$pageSize,
             //  ['uuidUser' => $uuid]);
 
-            $users = $db->fetchAll("SELECT * FROM user LIMIT " . $pageSize . " OFFSET ".$offset);
+            $users = $db->fetchAll("SELECT * FROM user LIMIT " . $pageSize . " OFFSET " . $offset);
 
             // if there are no projects, return a message indicating this
             if (!$users) {
@@ -641,7 +655,7 @@ class UserController extends Controller {
                 exit;
             }
 
-            if($payload['isAdmin']) {
+            if ($payload['isAdmin']) {
 
                 // build the project data for the response
                 $userData = [];
@@ -657,8 +671,7 @@ class UserController extends Controller {
                 }
 
                 ResponseHandler::getResponseHandler()->sendResponse(200, ['users' => $userData]);
-            }
-            else{
+            } else {
                 ResponseHandler::getResponseHandler()->sendResponse(401, [
                     'error' => 'Unauthorized'
                 ]);

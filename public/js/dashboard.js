@@ -223,6 +223,10 @@ function handlePageButtons(page, projectCount, pageSize) {
     toggleVisibility(buttonPrevious, page !== "1");
     toggleVisibility(buttonNext, projectCount > pageSize * parseInt(page));
 
+    if ((pageSize + 1) * parseInt(page) > projectCount) {
+        window.href = `/dashboard`;
+    }
+
     buttonPrevious.addEventListener('click', createNavigationEvent(page, -1));
     buttonNext.addEventListener('click', createNavigationEvent(page, 1));
 }
