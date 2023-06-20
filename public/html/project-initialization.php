@@ -46,6 +46,7 @@
                         <option value="barChart">Bar Chart</option>
                         <option value="lineChart">Line Chart</option>
                         <option value="pieChart">Pie Chart</option>
+                        <option value="mapChart">Map Chart</option>
                     </select>
                 </div>
                 <button type="submit">Create Project</button>
