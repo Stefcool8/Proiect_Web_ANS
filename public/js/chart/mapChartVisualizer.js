@@ -14,3 +14,18 @@ function addMapChartFields(project) {
 
     detailContainer.appendChild(inputGroup);
 }
+
+function drawMapChart(project) {
+    // parse the json
+    const json = JSON.parse(project.data.data.json);
+
+    // populate the map
+    Object.entries(json).forEach(([name, value]) => {
+        name = name.toLowerCase();
+        console.log(name + ": " + value);
+        setDescription(name, 'Total: ' + value);
+    });
+
+    // load countrymap.js script dynamically
+    loadJS("/public/js/svg/countrymap.js", false);
+}

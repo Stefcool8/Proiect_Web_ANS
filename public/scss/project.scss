@@ -65,8 +65,11 @@ $border-color: #ccc;
         }
     }
 
-    #chart-container svg text {
-        font-size: 16px;
+    #chart-container {
+        max-width: 50rem;
+        svg text {
+            font-size: 16px;
+        }
     }
 
     .button-container {

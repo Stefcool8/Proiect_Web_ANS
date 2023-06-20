@@ -395,15 +395,29 @@ class ProjectController extends Controller
         // check if there are optional conditions for this project
         $optional = $db->fetchOne("SELECT * FROM optional_conditions WHERE uuidProject = :uuidProject", ['uuidProject' => $project['uuid']]);
 
-        // if there are optional conditions, add them to the response
-        // also send the json data
-        if ($optional) {
-            $data['seriesCode'] = $optional['optionalColumn'];
-            $data['seriesValue'] = $optional['optionalValue'];
+        if ($tableName == 'line_chart') {
+            // if the chart is a line chart, we need to filter the data
+            $data['lineValue'] = $chartTable['lineValue'];
 
-            $json = JsonUtil::getJsonUtil()->filtrateAfterYearsAndColumns($data['years'], [$data['seriesCode']], [$data['seriesValue']]);
+            if ($optional) {
+                $data['seriesCode'] = $optional['optionalColumn'];
+                $data['seriesValue'] = $optional['optionalValue'];
+                $filterColumns = [$data['seriesCode'], $data['dataColumn']];
+                $filterValues = [$data['seriesValue'], $data['lineValue']];
+
+                $json = JsonUtil::getJsonUtil()->filtrateAfterYearsAndColumns($data['years'], $filterColumns, $filterValues);
+            } else {
+                $json = JsonUtil::getJsonUtil()->filtrateAfterYearsAndColumns($data['years'], [$data['dataColumn']], [$data['lineValue']]);
+            }
         } else {
-            $json = JsonUtil::getJsonUtil()->filtrateAfterYearsAndColumns($data['years'], [], []);
+            if ($optional) {
+                $data['seriesCode'] = $optional['optionalColumn'];
+                $data['seriesValue'] = $optional['optionalValue'];
+
+                $json = JsonUtil::getJsonUtil()->filtrateAfterYearsAndColumns($data['years'], [$data['seriesCode']], [$data['seriesValue']]);
+            } else {
+                $json = JsonUtil::getJsonUtil()->filtrateAfterYearsAndColumns($data['years'], [], []);
+            }
         }
 
         // add the json data to the response

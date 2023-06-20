@@ -1,4 +1,5 @@
 const detailContainer = document.getElementById('detail-container');
+const chartContainer = document.getElementById('chart-container');
 
 const downloadCsvButton = document.getElementById('download-csv');
 const downloadPngButton = document.getElementById('download-png');
@@ -45,6 +46,11 @@ function drawChart(project) {
         case 2:
             drawPieChart(project);
             break;
+        case 3:
+            drawMapChart(project);
+            break;
+        default:
+            console.log("Invalid chart type");
     }
 }
 
