@@ -12,9 +12,9 @@ $button-transform: scale(1.05);
     padding: 1rem;
     color: $white-color;
     background: linear-gradient(
-        45deg,
-        lighten($primary-color, 10%),
-        $primary-color
+                    45deg,
+                    lighten($primary-color, 10%),
+                    $primary-color
     );
     text-align: center;
     cursor: pointer;
@@ -29,9 +29,9 @@ $button-transform: scale(1.05);
     &:hover {
         transform: $button-transform;
         background: linear-gradient(
-            45deg,
-            $primary-color,
-            darken($primary-color, 10%)
+                        45deg,
+                        $primary-color,
+                        darken($primary-color, 10%)
         );
     }
 }
