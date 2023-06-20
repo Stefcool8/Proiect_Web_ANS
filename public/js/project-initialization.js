@@ -2,7 +2,7 @@ const projectInitializationForm = document.getElementById("project-initializatio
 const errorMessage = document.querySelector(".error-message");
 const successMessage = document.querySelector(".success-message");
 const chartTypeSelect = document.getElementById("chart-type");
-const types =['bars','slices','lines'];
+const types = ['bars', 'slices', 'lines'];
 let yearCheckboxContainer = null;
 let seriesSelect = null;
 let seriesInput = null;
@@ -16,14 +16,14 @@ const allColumns = [
     "VALUE_NAME"
 ];
 
-const workerPieColumns =[
+const workerPieColumns = [
     "JUDET",
     "CATEGORIE_NATIONALA",
     "CATEGORIE_COMUNITARA",
     "VALUE_NAME"
 ];
 
-const workerMapColumns =[
+const workerMapColumns = [
     "CATEGORIE_NATIONALA",
     "CATEGORIE_COMUNITARA",
     "MARCA",
@@ -106,10 +106,10 @@ function getChartCode() {
     }
 }
 
-function getRightTextContentForSelect(type){
-    if(type === 'barChart')
+function getRightTextContentForSelect(type) {
+    if (type === 'barChart')
         return 'Select a bar';
-    else if(type === 'pieChart')
+    else if (type === 'pieChart')
         return 'Select a slice';
     else if (type === 'lineChart')
         return 'Select a line';
@@ -118,20 +118,20 @@ function getRightTextContentForSelect(type){
     return null;
 }
 
-function getRightHtmlFor(type){
-    if(type === 'barChart')
+function getRightHtmlFor(type) {
+    if (type === 'barChart')
         return "bars";
-    else if(type === 'pieChart')
+    else if (type === 'pieChart')
         return "slices";
     else if (type === 'lineChart')
         return "lines";
     return 'unKnown';
 }
 
-function getRightTextContent(type){
-    if(type === 'barChart')
+function getRightTextContent(type) {
+    if (type === 'barChart')
         return 'Bars:';
-    else if(type === 'pieChart')
+    else if (type === 'pieChart')
         return 'Slices:';
     else if (type === 'lineChart')
         return 'Lines:';
@@ -139,32 +139,32 @@ function getRightTextContent(type){
 
 }
 
-function getRightTagName(type){
-    if(type === 'barChart')
+function getRightTagName(type) {
+    if (type === 'barChart')
         return 'bars-select';
-    else if(type === 'pieChart')
+    else if (type === 'pieChart')
         return 'slices-select';
     else if (type === 'lineChart')
         return 'lines-select';
     return 'unKnown';
 }
 
-function removeSeriesInput(){
-    if(seriesInput != null) {
+function removeSeriesInput() {
+    if (seriesInput != null) {
         seriesInput.remove();
         seriesInput = null;
         document.querySelector('label[for="series-input"]').remove();
     }
 }
 
-function removeAllWorkers(){
+function removeAllWorkers() {
     types.forEach(type => {
         let labelType = document.querySelector(`label[for="${type}"]`);
-        if(labelType) {
+        if (labelType) {
             labelType.remove();
         }
     });
-    if(workersSelect != null) {
+    if (workersSelect != null) {
         workersSelect.remove();
         workersSelect = null;
     }
@@ -444,7 +444,7 @@ projectInitializationForm.addEventListener("submit", async (event) => {
             // The project creation was successful
             showMessage(successMessage, "Project successfully created. Redirecting...");
             //setTimeout(() => {
-               // window.location.href = "/home";
+            // window.location.href = "/home";
             //}, 3000);
         } else {
             // Handle the error
