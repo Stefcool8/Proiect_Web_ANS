@@ -15,7 +15,8 @@ document.addEventListener('DOMContentLoaded', async() => {
         });
 
         if (response.status === 401) {
-            window.location.href = "/login";
+            // Unauthorized access, redirect to home page
+            window.location.href = "/home";
             return;
         }
 

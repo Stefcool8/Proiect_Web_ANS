@@ -2,10 +2,11 @@ const projectInitializationForm = document.getElementById("project-initializatio
 const errorMessage = document.querySelector(".error-message");
 const successMessage = document.querySelector(".success-message");
 const chartTypeSelect = document.getElementById("chart-type");
+const types =['bars','slices','lines'];
 let yearCheckboxContainer = null;
-let barsSelect = null;
 let seriesSelect = null;
 let seriesInput = null;
+let workersSelect = null;
 const columns = [
     "JUDET",
     "CATEGORIE_NATIONALA",
@@ -13,6 +14,20 @@ const columns = [
     "MARCA",
     "DESCRIERE_COMERCIALA"
 ];
+
+const columnsPieChart =[
+  "JUDET",
+  "CATEGORIE_NATIONALA",
+  "CATEGORIE_COMUNITARA"
+];
+
+function getRightColumns(type){
+    if(type === 'barChart')
+        return columns;
+    else if(type === 'pieChart')
+        return columnsPieChart;
+    return null;
+}
 
 function showMessage(element, message) {
     element.textContent = message;
@@ -40,31 +55,6 @@ function yearsAreSelected() {
 
     return isYearSelected;
 }
-
-function removeBarsSelect() {
-    if (barsSelect != null) {
-        barsSelect.remove();
-        barsSelect = null;
-        document.querySelector('label[for="bars"]').remove();
-    }
-}
-
-function removeSeriesSelect() {
-    if (seriesSelect != null) {
-        seriesSelect.remove();
-        seriesSelect = null;
-        document.querySelector('label[for="series"]').remove();
-    }
-}
-
-function removeSeriesInput() {
-    if (seriesInput != null) {
-        seriesInput.remove();
-        seriesInput = null;
-        document.querySelector('label[for="series-input"]').remove();
-    }
-}
-
 function getSelectedYears() {
     // Get the selected years
     const selectedYears = [];
@@ -110,28 +100,38 @@ function addYearsToCheckboxContainer() {
         yearCheckboxContainer.appendChild(yearItem);
     }
 }
-
-function addBarsToSelectMenu() {
+function getRightTextContentForEmpty(type){
+    if(type === 'barChart')
+        return 'Select a bar';
+    else if(type === 'pieChart')
+        return 'Select a slice';
+    else if (type === 'lineChart')
+        return 'Select a line';
+    return 'unKnown';
+}
+function addWorkersToSelectMenu(type){
     // add an empty option to the select menu
     const emptyOption = document.createElement('option');
     emptyOption.value = '';
-    emptyOption.textContent = 'Select a bar';
+    emptyOption.textContent = getRightTextContentForEmpty(type);
     emptyOption.disabled = true;
     emptyOption.selected = true;
-    barsSelect.appendChild(emptyOption);
+    workersSelect.appendChild(emptyOption);
 
+    let rightColumns = getRightColumns(chartTypeSelect.value);
     // Iterate over the bars array and create an option for each bar
-    for (let i = 0; i < columns.length; i++) {
-        const barOption = document.createElement('option');
-        barOption.value = columns[i];
-        barOption.textContent = columns[i];
-        barsSelect.appendChild(barOption);
+    for (let i = 0; i < rightColumns.length; i++) {
+        const workerOption = document.createElement('option');
+        workerOption.value = rightColumns[i];
+        workerOption.textContent = rightColumns[i];
+        workersSelect.appendChild(workerOption);
     }
 }
 
-function addSeriesToSelectMenu() {
+function addSeriesToSelectMenu(type) {
     // Hardcode the series labels into an array
-    const series = [columns[0], columns[1]];
+    let rightColumns = getRightColumns(type);
+    const series = [rightColumns[0], rightColumns[1]];
 
     // add an empty option to the select menu
     const emptyOption = document.createElement('option');
@@ -173,7 +173,7 @@ function createSeriesInput() {
     projectInitializationForm.insertBefore(inputGroup, projectInitializationForm.lastElementChild);
 }
 
-function createSeriesSelect() {
+function createSeriesSelect(type) {
     // create the div for the series
     const inputGroup = document.createElement('div');
     inputGroup.classList.add('input-group');
@@ -186,7 +186,7 @@ function createSeriesSelect() {
     seriesSelect.classList.add('series-select');
     seriesSelect.id = 'series-select';
     seriesSelect.name = 'series';
-    addSeriesToSelectMenu();
+    addSeriesToSelectMenu(type);
 
     // add an event listener to the series select
     seriesSelect.addEventListener('change', () => {
@@ -206,32 +206,63 @@ function createSeriesSelect() {
     projectInitializationForm.insertBefore(inputGroup, projectInitializationForm.lastElementChild);
 }
 
-function createBarsSelect() {
+function getRightHtmlFor(type){
+    if(type === 'barChart')
+        return "bars";
+    else if(type === 'pieChart')
+        return "slices";
+    else if (type === 'lineChart')
+        return "lines";
+    return 'unKnown';
+}
+
+function getRightTextContent(type){
+    if(type === 'barChart')
+        return 'Bars:';
+    else if(type === 'pieChart')
+        return 'Slices:';
+    else if (type === 'lineChart')
+        return 'Lines:';
+    return 'unKnown';
+
+}
+
+function getRightTagName(type){
+    if(type === 'barChart')
+        return 'bars-select';
+    else if(type === 'pieChart')
+        return 'slices-select';
+    else if (type === 'lineChart')
+        return 'lines-select';
+    return 'unKnown';
+}
+
+function createWorkersSelect(type) {
     // create the div for the bars
     const inputGroup = document.createElement('div');
     inputGroup.classList.add('input-group');
 
-    const barsLabel = document.createElement('label');
-    barsLabel.htmlFor = 'bars';
-    barsLabel.textContent = 'Bars:';
+    const workersLabel = document.createElement('label');
+    workersLabel.htmlFor = getRightHtmlFor(type);
+    workersLabel.textContent = getRightTextContent(type);
 
-    barsSelect = document.createElement('select');
-    barsSelect.classList.add('bars-select');
-    barsSelect.id = 'bars-select';
-    barsSelect.name = 'bars';
-    barsSelect.required = true; // Set the required attribute to true
-    addBarsToSelectMenu();
+    workersSelect = document.createElement('select');
+    workersSelect.classList.add(getRightTagName(type));
+    workersSelect.id = getRightTagName(type);
+    workersSelect.name = getRightHtmlFor(type);
+    workersSelect.required = true; // Set the required attribute to true
+    addWorkersToSelectMenu(type);
 
     // add an event listener to the bars select
-    barsSelect.addEventListener('change', () => {
+    workersSelect.addEventListener('change', () => {
         if (seriesSelect == null) {
             // populate the series select
-            createSeriesSelect();
+            createSeriesSelect(type);
         }
     });
 
-    inputGroup.appendChild(barsLabel);
-    inputGroup.appendChild(barsSelect);
+    inputGroup.appendChild(workersLabel);
+    inputGroup.appendChild(workersSelect);
 
     // add the div to the form before the create button
     projectInitializationForm.insertBefore(inputGroup, projectInitializationForm.lastElementChild);
@@ -255,22 +286,15 @@ function createYearCheckboxContainer() {
     yearCheckboxContainer.addEventListener('change', (event) => {
         if (event.target.matches('input[type="checkbox"]')) {
             if (event.target.checked) {
-                // Checkbox is selected
-                if (barsSelect == null) {
-                    // TODO: add a select depending on the selected chart type
-                    if (chartTypeSelect.value === 'barChart') {
-                        // populate the bars select
-                        createBarsSelect();
-                    }
+                if(workersSelect == null){
+                    createWorkersSelect(chartTypeSelect.value);
                 }
+
             } else {
                 // Checkbox is deselected
                 // remove the bars select and its label if all years are deselected
                 if (!yearsAreSelected()) {
-                    // remove the bars select and series select if they exist
-                    removeBarsSelect();
-                    removeSeriesSelect();
-                    removeSeriesInput();
+                    removeAllWorkers();
                 }
             }
         }
@@ -283,22 +307,52 @@ function createYearCheckboxContainer() {
     projectInitializationForm.insertBefore(inputGroup, projectInitializationForm.lastElementChild);
 }
 
+function removeAllWorkers(){
+    types.forEach(type => {
+        let labelType = document.querySelector(`label[for="${type}"]`);
+        if(labelType) {
+            labelType.remove();
+        }
+    })
+
+    if(workersSelect != null) {
+        workersSelect.remove();
+        workersSelect = null;
+    }
+    if (seriesSelect != null) {
+        seriesSelect.remove();
+        seriesSelect = null;
+        document.querySelector('label[for="series"]').remove();
+    }
+    if (seriesInput != null) {
+        seriesInput.remove();
+        seriesInput = null;
+        document.querySelector('label[for="series-input"]').remove();
+    }
+}
+
 chartTypeSelect.addEventListener("change", () => {
     if (yearCheckboxContainer == null) {
         createYearCheckboxContainer();
     }
-    if (chartTypeSelect.value !== 'barChart') {
+    if (chartTypeSelect.value !== 'barChart' && chartTypeSelect.value !== 'pieChart') {
         // remove the bars select and series select if they exist
-        removeBarsSelect();
-        removeSeriesSelect();
-        removeSeriesInput();
+        removeAllWorkers();
     }
     if (chartTypeSelect.value === 'barChart') {
-        // create the bars select if there are selected years
-        if (yearsAreSelected() && barsSelect == null) {
-            createBarsSelect();
+        removeAllWorkers();
+        if (yearsAreSelected() && workersSelect == null) {
+            createWorkersSelect(chartTypeSelect.value);
         }
     }
+
+    if(chartTypeSelect.value === 'pieChart'){
+        removeAllWorkers();
+        if(yearsAreSelected() && workersSelect == null){
+            createWorkersSelect(chartTypeSelect.value)
+        }
+    }
+
 });
 
 /*TODO: make the series select have an option "No series", that makes the input label disappear*/
@@ -325,23 +379,22 @@ projectInitializationForm.addEventListener("submit", async (event) => {
         years: years
     };
 
-    if (chartCode === 0) {
-        const barCode = columns.indexOf(barsSelect.value);
-        // add the bars to the data object
-        data.bars = barCode;
-        console.log(barCode);
+    let rightColumns = getRightColumns(chartTypeSelect.value);
+    const workerCode = rightColumns.indexOf(workersSelect.value);
+    // add the bars to the data object
+    data.bars = workerCode;
+    console.log(workerCode);
 
-        if (seriesSelect.value !== '') {
-            const seriesCode = columns.indexOf(seriesSelect.value);
-            const seriesValue = seriesInput.value;
+    if (seriesSelect.value !== '') {
+        const seriesCode = rightColumns.indexOf(seriesSelect.value);
+        const seriesValue = seriesInput.value;
 
-            console.log(seriesCode);
-            console.log(seriesValue);
+        console.log(seriesCode);
+        console.log(seriesValue);
 
-            // add the series to the data object
-            data.seriesCode = seriesCode;
-            data.seriesValue = seriesValue;
-        }
+        // add the series to the data object
+        data.seriesCode = seriesCode;
+        data.seriesValue = seriesValue;
     }
 
     const token = localStorage.getItem('jwt');
@@ -362,6 +415,7 @@ projectInitializationForm.addEventListener("submit", async (event) => {
         let result;
         try {
             result = await response.json();
+            console.log(result);
         } catch (error) {
             showMessage(errorMessage, "Failed to parse JSON response");
             return;
@@ -370,9 +424,9 @@ projectInitializationForm.addEventListener("submit", async (event) => {
         if (response.ok) {
             // The project creation was successful
             showMessage(successMessage, "Project successfully created. Redirecting...");
-            setTimeout(() => {
-                window.location.href = "/home";
-            }, 3000);
+            //setTimeout(() => {
+               // window.location.href = "/home";
+            //}, 3000);
         } else {
             // Handle the error
             showMessage(errorMessage, result.data.error);
