@@ -11,6 +11,7 @@ $border-color: #ccc;
 
     .main-content {
         display: flex;
+        flex-direction: column; /* Modified */
         justify-content: center;
         align-items: center;
         flex-grow: 1;
@@ -29,6 +30,7 @@ $border-color: #ccc;
         border-radius: 1.25rem;
         box-shadow: 0 4px 10px $box-shadow-color;
         color: $primary-color;
+        margin-bottom: 2rem; /* Added */
     }
 
     h2 {
@@ -63,4 +65,16 @@ $border-color: #ccc;
             box-shadow: none;
         }
     }
+}
+
+#chart-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2rem; /* Added */
+}
+
+#chart {
+    width: 100%;
+    min-height: 30rem;
 }
