@@ -6,21 +6,42 @@ document.addEventListener('DOMContentLoaded', async () => {
     const uuidMatch = url.match(uuidRegex);
     const pageMatch = url.match(pageRegex);
     const uuid = uuidMatch ? uuidMatch[1] : null;
-    const page = pageMatch ? parseInt(pageMatch[1]) : null;
+    let page = pageMatch ? parseInt(pageMatch[1]) : 1;
     const pageSize = 4;
+    if(page <= 0) {
+        page = 1;
+    }
 
     //console.log(uuid);
     //console.log(page);
     // Show an error message if there is no uuid parameter in the URL
-    if (!uuid) {
-        alert("No UUID specified");
-        return;
-    }
+
     if (!token) {
         window.location.href = "/login";
     }
     //let $uuid;
     try {
+
+
+        const adminResponse = await fetch('/api/auth/admin', {
+            method: 'GET',
+            headers: {
+                'Authorization': 'Bearer ' + token,
+                'Content-Type': 'application/json',
+            },
+        });
+        if(adminResponse.status === 401){
+            window.location.href ="/home";
+            return;
+        }
+
+        if(!uuid) {
+            alert("No UUID specified");
+            return;
+        }
+
+
+
         const firstApiURL = "/api/user/" + uuid;
         const response1 = await fetch(firstApiURL, {
             method: 'GET',

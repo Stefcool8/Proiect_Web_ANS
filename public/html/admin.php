@@ -3,7 +3,6 @@
     $data = fetch_data('admin', [
         'title' => 'Default title'
     ]);
-
 ?>
 <!DOCTYPE html>
 <html lang="en">

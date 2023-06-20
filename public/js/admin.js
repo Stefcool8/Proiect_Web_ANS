@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', async() => {
     }
 
     try {
+        console.log(token);
         const response = await fetch('/api/auth/admin', {
             method: 'GET',
             headers: {
@@ -16,8 +17,8 @@ document.addEventListener('DOMContentLoaded', async() => {
         });
 
         if (response.status === 401) {
-            // Unauthorized access, redirect to login page
-            window.location.href = "/login";
+            // Unauthorized access, redirect to home page
+            window.location.href = "/home";
             return;
         }
 

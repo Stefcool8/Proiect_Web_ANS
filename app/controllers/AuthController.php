@@ -11,7 +11,7 @@ use App\utils\Database;
  * Controller for user authentication
  *
  */
-class AuthController{
+class AuthController extends Controller {
 
     /**
      * @OA\Get(
@@ -128,37 +128,15 @@ class AuthController{
  */
 
     public function getAdmin() {
-
-        // get the token from the request header
-        $headers = apache_request_headers();
-
-        if (!isset($headers['Authorization'])) {
-            ResponseHandler::getResponseHandler()->sendResponse(401, [
-                'error' => 'Unauthorized'
-            ]);
-            exit;
-        }
-
-        $authHeader = $headers['Authorization'];
-        $token = str_replace('Bearer ', '', $authHeader);
-
-        try {
-            // decode the token
-            $payload = JWT::getJWT()->decode($token);
-        } catch (InvalidArgumentException $e) {
-            ResponseHandler::getResponseHandler()->sendResponse(401, [
-                'error' => 'Unauthorized'
-            ]);
-            exit;
-        }
+        $payload = $this ->getPayload();
         if (!$payload['isAdmin']) {
             ResponseHandler::getResponseHandler()->sendResponse(401, [
                 'error' => 'Unauthorized'
             ]);
+            return;
         }
         ResponseHandler::getResponseHandler()->sendResponse(200, [
             'data' => [
-                'title' => 'Admin',
                 'isAdmin' => $payload['isAdmin'],
                 'username' =>$payload['username']
             ]

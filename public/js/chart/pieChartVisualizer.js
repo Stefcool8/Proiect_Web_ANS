@@ -1,36 +1,8 @@
 
-/*
-function addZoomBehavior(svg, g, labels) {
-    const zoom = d3.zoom()
-        .scaleExtent([1, 10])
-        .on("zoom", zoomed);
-
-    svg.call(zoom);
-
-    const initialScale = svg.node().getBoundingClientRect().width / svg.attr("width");
-    const initialTransform = d3.zoomIdentity.translate(svg.attr("width") / 2, svg.attr("height") / 2);
-
-    function zoomed(event) {
-        const currentScale = event.transform.k;
-        const newTransform = event.transform.translate(
-            initialTransform.x * currentScale,
-            initialTransform.y * currentScale
-        );
-        g.attr("transform", newTransform);
-        labels.attr("font-size", 12 / (currentScale * initialScale));
-    }
-}
-*/
-
-
 function drawPieChart(project) {
     // Specify the chart’s dimensions.
     const json = JSON.parse(project.data.data.json);
 
-    /*const data = Object.entries(json)
-        .map(([name, value]) => ({ name, value }))
-        .sort((a, b) => b.value - a.value);
-     */
     const data = Object.entries(json)
         .map(([name, value]) => ({ name, value }))
         .sort((a, b) => a.name.localeCompare(b.name));
@@ -64,15 +36,6 @@ function drawPieChart(project) {
     const chartGroup = svg.append("g")
         .attr("stroke", "white");
 
-    /*const paths = chartGroup.selectAll("path")
-        .data(arcs)
-        .join("path")
-        .attr("fill", d => color(d.data.name))
-        .attr("d", arc)
-        .append("title")
-        .text(d => `${d.data.name} : ${d.data.value}`);
-     */
-
     const paths = chartGroup.selectAll("path")
         .data(arcs)
         .join("path")
@@ -81,29 +44,38 @@ function drawPieChart(project) {
         .append("title")
         .text(d => `${d.data.name}: ${d.data.value} (${(d.data.value / total * 100).toFixed(2)}%)`);
 
-    /*
-    // Adding legend
-    const legendGroup = svg.append("g")
-        .attr("transform", `translate(${width / 2}, ${height / 2 + 150})`); // Adjust the position of the legend
-
-    const legendItems = legendGroup.selectAll("g")
-        .data(data)
-        .join("g")
-        .attr("transform", (d, i) => `translate(0, ${i * 20})`); // Adjust the spacing between legend items
-
-    legendItems.append("rect")
-        .attr("width", 18)
-        .attr("height", 18)
-        .attr("fill", d => color(d.name));
-
-    legendItems.append("text")
-        .attr("x", 24)
-        .attr("y", 9)
+    const labels = chartGroup.selectAll("text")
+        .data(arcs)
+        .join("text")
+        .attr("transform", d => `translate(${arc.centroid(d)})`)
         .attr("dy", "0.35em")
-        .text(d => d.name);
+        .attr("text-anchor", "start")
+        .attr("font-size", "6px") // Adjust the font size here
+        .text(d => `${d.data.name}: (${(d.data.value / total * 100).toFixed(2)}%)`)
+        .each(function (d) {
+            const bbox = this.getBBox();
+            d.textWidth = bbox.width;
+        })
+        .attr("transform", function (d) {
+            const centroid = arc.centroid(d);
+            const x = centroid[0];
+            const y = centroid[1];
+            const offset = d.textWidth / 2; // Offset text position based on text width
+            const angle = Math.atan2(y, x) * (180 / Math.PI) - 90; // Calculate angle for text rotation
+            return `translate(${x}, ${y}) rotate(${angle}) translate(${offset}, 0) rotate(90)`;
+        });
 
 
-     */
+
+    let rotation = 0;
+    svg.call(d3.drag()
+        .on("drag", function (event) {
+            const [x, y] = d3.pointer(event);
+            const angle = Math.atan2(y, x) * (180 / Math.PI);
+            rotation += angle * 0.04;
+            svg.attr("transform", `rotate(${rotation})`);
+        }));
+
     document.getElementById('chart-container').appendChild(svg.node());
 }
 
