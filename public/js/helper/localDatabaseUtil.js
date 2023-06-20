@@ -7,6 +7,13 @@ const columns = [
     "TOTAL"
 ];
 
+const columnsPieChart =[
+    "JUDET",
+    "CATEGORIE_NATIONALA",
+    "CATEGORIE_COMUNITARA"
+];
+
+
 function chartCodeToName(chartCode) {
     switch (chartCode) {
         case 0:
@@ -19,8 +26,8 @@ function chartCodeToName(chartCode) {
     return "Unknown";
 }
 
-function columnCodeToName(columnCode) {
-    return columns[columnCode];
+function columnCodeToName(columnCode,columnsSource) {
+    return columnsSource[columnCode];
 }
 
 function addLabelAndTextInput(parent, htmlFor, labelText, inputValue, readOnly) {

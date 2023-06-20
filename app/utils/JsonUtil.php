@@ -64,16 +64,20 @@ class JsonUtil {
 
         // get header from json
         $header = array_keys($jsonArray[0]);
+       // var_dump($header);
         // get total column
         $totalColumn = $header[count($header) - 1];
 
         // extract the total per distinct column value
         foreach ($jsonArray as $row) {
             if (!isset($data[$row[$header[$column]]])) {
+                //var_dump($row[$header[$column]]);
                 $data[$row[$header[$column]]] = 0;
             }
+            //var_dump($row);
             $data[$row[$header[$column]]] += $row[$totalColumn];
         }
+
 
         return json_encode($data, JSON_PRETTY_PRINT);
     }
