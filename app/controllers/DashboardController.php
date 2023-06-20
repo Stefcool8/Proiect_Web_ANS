@@ -1,9 +1,7 @@
 <?php
-// DONE
 namespace App\controllers;
 
 use App\utils\ResponseHandler;
-use App\utils\JWT;
 use InvalidArgumentException;
 use App\Utils\Database;
 
@@ -54,8 +52,8 @@ class DashboardController extends Controller {
      */
     public function get() {
         // get the token from the request header
-
         $payload = $this->getPayload();
+
         if(!$payload){
             ResponseHandler::getResponseHandler()->sendResponse(401, ['error' => 'Unauthorized']);
             return;
@@ -63,7 +61,12 @@ class DashboardController extends Controller {
         try {
             $db = Database::getInstance();
             $currentUser = $db->fetchOne("SELECT * FROM user WHERE username = :username", ['username' => $payload['username']]);
-            
+
+            if (!$currentUser) {
+                ResponseHandler::getResponseHandler()->sendResponse(401, ['error' => 'Unauthorized']);
+                return;
+            }
+
             ResponseHandler::getResponseHandler()->sendResponse(200, [
                 'data' => [
                     'title' => 'Dashboard',

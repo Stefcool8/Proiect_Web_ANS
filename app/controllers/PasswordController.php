@@ -13,7 +13,7 @@ use Exception;
  * Controller for password operations
  *
  */
-class PasswordController{
+class PasswordController extends Controller {
 
     /**
      * @OA\Post(
@@ -45,7 +45,7 @@ class PasswordController{
      */
     public function forgotPassword() {
         $body = json_decode(file_get_contents('php://input'), true);
-        $email = $body['email'];
+        $email = $this->sanitizeData($body['email']);
 
         $db = Database::getInstance();
         $user = $db->fetchOne('SELECT * FROM user WHERE email = :email', ['email' => $email]);
@@ -97,7 +97,7 @@ class PasswordController{
      */
     public function resetPassword() {
         $body = json_decode(file_get_contents('php://input'), true);
-        $password = $body['password'];
+        $password = $this->sanitizeData($body['password']);
 
         // get the token from the request header
         $headers = apache_request_headers();
@@ -188,8 +188,8 @@ class PasswordController{
             exit;
         }
 
-        $currentPassword = $body['currentPassword'];
-        $newPassword = $body['newPassword'];
+        $currentPassword = $this->sanitizeData($body['currentPassword']);
+        $newPassword = $this->sanitizeData($body['newPassword']);
 
         // get the token from the request header
         $headers = apache_request_headers();

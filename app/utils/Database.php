@@ -6,8 +6,7 @@ use PDO;
 use PDOException;
 use PDOStatement;
 
-class Database
-{
+class Database {
     private static ?Database $instance = null;
     private ?PDO $connection;
 
@@ -74,7 +73,7 @@ class Database
         $placeholders = ':' . implode(', :', array_keys($data));
         $sql = "INSERT INTO $table ($columns) VALUES ($placeholders)";
         $this->query($sql, $data);
-        }
+    }
 
     public function update(string $table, array $data, array $conditions): void {
         $set = implode(', ', array_map(fn($col) => "$col = :$col", array_keys($data)));

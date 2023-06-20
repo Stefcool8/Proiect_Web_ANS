@@ -17,7 +17,6 @@ $router->add('GET', '/api/contact', 'ContactController::get');
 $router->add('GET', '/api/dashboard', 'DashboardController::get');
 $router->add('GET', '/api/admin','AdminController::getInfo');
 
-
 // user routes
 $router->add('POST', '/api/user', 'UserController::create');
 $router->add('GET', '/api/user/{uuid}', 'UserController::get');
