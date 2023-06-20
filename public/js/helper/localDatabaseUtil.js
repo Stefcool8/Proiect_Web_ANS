@@ -7,13 +7,6 @@ const columns = [
     "TOTAL"
 ];
 
-const columnsPieChart =[
-    "JUDET",
-    "CATEGORIE_NATIONALA",
-    "CATEGORIE_COMUNITARA"
-];
-
-
 function chartCodeToName(chartCode) {
     switch (chartCode) {
         case 0:
@@ -22,6 +15,8 @@ function chartCodeToName(chartCode) {
             return "Line Chart";
         case 2:
             return "Pie Chart";
+        case 3:
+            return "Map Chart";
     }
     return "Unknown";
 }

@@ -28,14 +28,16 @@ function populateProjectDetails(project) {
     // Add fields specific to the chart type
     if (project.data.data.chart === 0) {
         addBarChartFields(project);
-    }else if(project.data.data.chart === 2){
+    } else if (project.data.data.chart === 2) {
         addPieChartFields(project);
+    } else if (project.data.data.chart === 3) {
+        addMapChartFields(project);
     }
 }
 
 function drawChart(project) {
     const chartType = project.data.data.chart;
-    console.log("ChartType: "+chartType);
+    console.log("ChartType: " + chartType);
     switch (chartType) {
         case 0:
             drawBarChart(project);
@@ -106,7 +108,6 @@ async function fetchProjectDetails(uuid) {
                 'Authorization': 'Bearer ' + token,
             },
         });
-        console.log("Hei");
         if (response.ok) {
             const project = await response.json();
 

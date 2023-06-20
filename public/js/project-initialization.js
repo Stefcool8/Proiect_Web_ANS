@@ -275,7 +275,7 @@ function createSeriesSelect(type) {
 }
 
 function createWorkersSelect(type) {
-    // create the div for the bars
+    // create the div for the data column select
     const inputGroup = document.createElement('div');
     inputGroup.classList.add('input-group');
 
@@ -290,7 +290,7 @@ function createWorkersSelect(type) {
     workersSelect.required = true; // Set the required attribute to true
     addOptionsToSelectMenu(workersSelect, getRightWorkersColumns(type), getRightTextContentForSelect(type), true);
 
-    // add an event listener to the bars select
+    // add an event listener to the workers select
     workersSelect.addEventListener('change', () => {
         if (seriesSelect == null) {
             // populate the series select
@@ -332,13 +332,13 @@ function createYearCheckboxContainer() {
                 } else {
                     // for all other chart types, the workers select is required
                     if (workersSelect == null) {
-                        // populate the bars select if it doesn't exist
+                        // populate the worker select if it doesn't exist
                         createWorkersSelect(chartTypeSelect.value);
                     }
                 }
             } else {
                 // Checkbox is deselected
-                // remove the bars select and its label if all years are deselected
+                // remove the worker select and its label if all years are deselected
                 if (!yearsAreSelected()) {
                     removeAllWorkers();
                 }
@@ -397,11 +397,11 @@ projectInitializationForm.addEventListener("submit", async (event) => {
         years: years
     };
 
-    // add the bars to the data object if the chart type is not a map
+    // add data column to the data object if the chart type is not a map
     if (chartCode !== 3) {
-        // add the bars to the data object
-        data.bars = allColumns.indexOf(workersSelect.value);
-        console.log(data.bars);
+        // add the data column to the data object
+        data.dataColumn = allColumns.indexOf(workersSelect.value);
+        console.log(data.dataColumn);
     }
 
     if (seriesSelect.value !== '') {
