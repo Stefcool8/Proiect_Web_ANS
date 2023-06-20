@@ -21,12 +21,16 @@ const columnsPieChart =[
   "CATEGORIE_COMUNITARA"
 ];
 
+
+
+
 function getRightColumns(type){
-    if(type === 'barChart')
+    if(type === 'barChart' || type ==='lineChart')
         return columns;
     else if(type === 'pieChart')
         return columnsPieChart;
-    return null;
+    else
+        return null;
 }
 
 function showMessage(element, message) {
@@ -192,7 +196,7 @@ function createSeriesSelect(type) {
     seriesSelect.addEventListener('change', () => {
         if (seriesSelect.value === '') {
             // remove the series input
-            removeSeriesInput();
+            //removeSeriesInput();
         } else if (seriesInput == null) {
             // create the input for the series
             createSeriesInput();
@@ -335,10 +339,12 @@ chartTypeSelect.addEventListener("change", () => {
     if (yearCheckboxContainer == null) {
         createYearCheckboxContainer();
     }
-    if (chartTypeSelect.value !== 'barChart' && chartTypeSelect.value !== 'pieChart') {
+    /*if (chartTypeSelect.value !== 'barChart' && chartTypeSelect.value !== 'pieChart') {
         // remove the bars select and series select if they exist
         removeAllWorkers();
     }
+
+     */
     if (chartTypeSelect.value === 'barChart') {
         removeAllWorkers();
         if (yearsAreSelected() && workersSelect == null) {
@@ -347,6 +353,12 @@ chartTypeSelect.addEventListener("change", () => {
     }
 
     if(chartTypeSelect.value === 'pieChart'){
+        removeAllWorkers();
+        if(yearsAreSelected() && workersSelect == null){
+            createWorkersSelect(chartTypeSelect.value)
+        }
+    }
+    if(chartTypeSelect.value === 'lineChart'){
         removeAllWorkers();
         if(yearsAreSelected() && workersSelect == null){
             createWorkersSelect(chartTypeSelect.value)
@@ -403,6 +415,7 @@ projectInitializationForm.addEventListener("submit", async (event) => {
     }
 
     try {
+        console.log(data);
         const response = await fetch("/api/project", {
             method: "POST",
             headers: {

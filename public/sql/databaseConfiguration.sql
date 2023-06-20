@@ -43,6 +43,14 @@ CREATE TABLE `pie_chart` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
+CREATE TABLE `line_chart` (
+                             `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                             `uuidProject` varchar(256) NOT NULL REFERENCES `project`(`uuid`),
+                             `line` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+
 --
 -- Table structure for 'optional_conditions' in database 'web'
 --
@@ -69,6 +77,7 @@ ALTER TABLE `user` CONVERT TO CHARACTER SET utf8 COLLATE utf8_bin;
 ALTER TABLE `project` CONVERT TO CHARACTER SET utf8 COLLATE utf8_bin;
 ALTER TABLE `bar_chart` CONVERT TO CHARACTER SET utf8 COLLATE utf8_bin;
 ALTER TABLE `pie_chart` CONVERT TO CHARACTER SET utf8 COLLATE utf8_bin;
+ALTER TABLE `line_chart` CONVERT TO CHARACTER SET utf8 COLLATE utf8_bin;
 ALTER TABLE `optional_conditions` CONVERT TO CHARACTER SET utf8 COLLATE utf8_bin;
 ALTER TABLE `years` CONVERT TO CHARACTER SET utf8 COLLATE utf8_bin;
 
@@ -93,6 +102,10 @@ INSERT INTO `project` (`name`, `chart`, `uuidUser`,`uuid`) VALUES
 --
 INSERT INTO `bar_chart` (`uuidProject`, `bars`) VALUES
     ('project1', 3); -- 3 is the column index in the csv file (CATEGORIA_COMUNITARA)
+
+INSERT INTO `line_chart` (`uuidProject`, `lines`) VALUES
+    ('project1', 3); -- 3 is the column index in the csv file (CATEGORIA_COMUNITARA)
+
 
 --
 -- Inserting data in table `optional_conditions`
@@ -120,6 +133,7 @@ drop table user cascade;
 drop table project cascade;
 drop table bar_chart cascade;
 drop table pie_chart cascade;
+drop table line_chart cascade;
 drop table optional_conditions cascade;
 drop table years cascade;
 
