@@ -165,7 +165,7 @@ use Exception;
         }
     }
 
-    public function createProject($db, $body, $uuidUser){
+    public function createProject($db, $body, $uuidUser) {
         $db->insert('project', [
             'name' => $body['name'],
             'chart' => $body['chart'],
