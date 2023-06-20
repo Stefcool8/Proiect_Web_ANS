@@ -1,16 +1,15 @@
 <?php
-// DONE
+
 namespace App\controllers;
 
 use App\utils\ResponseHandler;
-use App\utils\Database;
-use Exception;
 
 /**
  * Controller for the Admin page.
- * 
+ *
  */
-class AdminController {
+class AdminController
+{
 
     /**
      * @OA\Get(
@@ -42,10 +41,9 @@ class AdminController {
      * )
      */
     public function getInfo() {
-    ResponseHandler::getResponseHandler()->sendResponse(200, [
-    'title' => 'Admin Page',
-    ]);
+        ResponseHandler::getResponseHandler()->sendResponse(200, [
+            'title' => 'Admin Page',
+        ]);
     }
-
 
 }

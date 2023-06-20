@@ -126,8 +126,6 @@ use Exception;
             ResponseHandler::getResponseHandler()->sendResponse(200, ["message" => "Project created successfully"]);
             exit;
         } catch (Exception $e) {
-            //var_dump($e);
-            var_dump($e->getMessage());
             // Handle potential exception during database insertion
             ResponseHandler::getResponseHandler()->sendResponse(500, ["error" => "Internal Server Error"]);
             exit;

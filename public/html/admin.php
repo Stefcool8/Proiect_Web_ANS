@@ -1,12 +1,11 @@
-<?php 
-    require_once __DIR__ . '/shared/general.php';
-    $data = fetch_data('admin', [
-        'title' => 'Default title'
-    ]);
+<?php
+require_once __DIR__ . '/shared/general.php';
+$data = fetch_data('admin', [
+    'title' => 'Default title'
+]);
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,37 +22,26 @@
     <link rel="stylesheet" href="/public/css/shared/footer.css">
     <link rel="stylesheet" href="/public/css/admin.css">
 </head>
-
 <body>
-    <?php require_once __DIR__ . '/shared/navbar.php'; ?>
-        <main class = "central-area">
-        <div class="page-name">
-            <p><?= htmlspecialchars($data["title"]) ?></p>
-        </div>
-        <div>
-            <a href="/user" class="view-profile-btn">View Profile</a>
-            <a href="/upload" class="create-project-btn">Create new project</a>
-            <a href="/viewUsers" class ="view-users-btn">View Users</a>
-        </div>
-
-        <div class="project-area">
-
-
-        </div>
-
-
-    </main>
-
-    <?php require_once __DIR__ . '/shared/footer.php'; ?>
-
-    <script src="/public/js/admin.js"></script>
-    <script>
-        let user = JSON.parse(localStorage.getItem("user"));
-        //console.log(user);
-        //console.log(user.uuid);
-        const userLink = document.querySelector(".view-profile-btn");
-        userLink.href = "/user/" + user.uuid;   
-    </script>
+<?php require_once __DIR__ . '/shared/navbar.php'; ?>
+<main class="central-area">
+    <div class="page-name">
+        <p><?= htmlspecialchars($data["title"]) ?></p>
+    </div>
+    <div>
+        <a href="/user" class="view-profile-btn">View Profile</a>
+        <a href="/upload" class="create-project-btn">Create new project</a>
+        <a href="/viewUsers" class="view-users-btn">View Users</a>
+    </div>
+    <div class="project-area">
+    </div>
+</main>
+<?php require_once __DIR__ . '/shared/footer.php'; ?>
+<script src="/public/js/admin.js"></script>
+<script>
+    let user = JSON.parse(localStorage.getItem("user"));
+    const userLink = document.querySelector(".view-profile-btn");
+    userLink.href = "/user/" + user.uuid;
+</script>
 </body>
-
 </html>
