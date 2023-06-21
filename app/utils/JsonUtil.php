@@ -58,13 +58,23 @@ class JsonUtil {
         return json_encode($data, JSON_PRETTY_PRINT);
     }
 
+    public function extractTotalByYear(array $years, array $filterColumns, array $filterValues, $dataColumn): string {
+        $resultArray = []; // Initialize an empty array
+        foreach ($years as $year) {
+            $currentJson = JsonUtil::getJsonUtil()->filtrateAfterYearsAndColumns([$year], $filterColumns, $filterValues);
+            $currentTotal = JsonUtil::getJsonUtil()->extractTotalPerDistinctColumnValue($currentJson, $dataColumn);
+            $totalFromJSON = JsonUtil::getJsonUtil()->extractTotalFromJSON($currentTotal);
+            $resultArray[$year] = $totalFromJSON; // Assign the value to the array with the key $year
+        }
+        //var_dump($resultArray); // Display the resulting array
+        return json_encode($resultArray,JSON_PRETTY_PRINT);
+    }
     public function extractTotalPerDistinctColumnValue(string $json, int $column): string {
         $jsonArray = json_decode($json, true);
         $data = [];
-
         // get header from json
         $header = array_keys($jsonArray[0]);
-       // var_dump($header);
+        //var_dump($header);
         // get total column
         $totalColumn = $header[count($header) - 1];
 
@@ -78,8 +88,21 @@ class JsonUtil {
             $data[$row[$header[$column]]] += $row[$totalColumn];
         }
 
-
+       // var_dump($data);
         return json_encode($data, JSON_PRETTY_PRINT);
+    }
+
+    public function extractTotalFromJSON(string $json): int {
+        $jsonArray = json_decode($json, true);
+        $header = array_keys($jsonArray); // Use array_keys on $jsonArray instead of $jsonArray[0]
+        $total = 0;
+
+        // extract the total per distinct column value
+        foreach ($jsonArray as $row) {
+            $total = $row; // Assign $row directly to $total
+        }
+
+        return $total;
     }
 
     public function extractColumns(string $json, array $columns): string {

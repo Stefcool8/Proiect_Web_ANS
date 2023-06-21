@@ -29,6 +29,8 @@ function populateProjectDetails(project) {
     // Add fields specific to the chart type
     if (project.data.data.chart === 0) {
         addBarChartFields(project);
+    } else if (project.data.data.chart === 1) {
+        addLineChartFields(project);
     } else if (project.data.data.chart === 2) {
         addPieChartFields(project);
     } else if (project.data.data.chart === 3) {
@@ -38,10 +40,12 @@ function populateProjectDetails(project) {
 
 function drawChart(project) {
     const chartType = project.data.data.chart;
-    console.log("ChartType: " + chartType);
     switch (chartType) {
         case 0:
             drawBarChart(project);
+            break;
+        case 1:
+            drawLineChart(project);
             break;
         case 2:
             drawPieChart(project);

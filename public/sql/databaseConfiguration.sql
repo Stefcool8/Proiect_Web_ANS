@@ -45,6 +45,16 @@ CREATE TABLE `pie_chart` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
+-- Table structure for 'line_chart' in database 'web'
+--
+CREATE TABLE `line_chart` (
+    `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `uuidProject` varchar(256) NOT NULL REFERENCES `project`(`uuid`),
+    `line` int(11) NOT NULL,
+    `lineValue` varchar(256) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
 -- Table structure for 'map_chart' in database 'web'
 --
 CREATE TABLE `map_chart` (
@@ -78,6 +88,8 @@ ALTER TABLE `user` CONVERT TO CHARACTER SET utf8 COLLATE utf8_bin;
 ALTER TABLE `project` CONVERT TO CHARACTER SET utf8 COLLATE utf8_bin;
 ALTER TABLE `bar_chart` CONVERT TO CHARACTER SET utf8 COLLATE utf8_bin;
 ALTER TABLE `pie_chart` CONVERT TO CHARACTER SET utf8 COLLATE utf8_bin;
+ALTER TABLE `line_chart` CONVERT TO CHARACTER SET utf8 COLLATE utf8_bin;
+ALTER TABLE `map_chart` CONVERT TO CHARACTER SET utf8 COLLATE utf8_bin;
 ALTER TABLE `optional_conditions` CONVERT TO CHARACTER SET utf8 COLLATE utf8_bin;
 ALTER TABLE `years` CONVERT TO CHARACTER SET utf8 COLLATE utf8_bin;
 
@@ -94,6 +106,7 @@ select * from user;
 select * from project;
 select * from bar_chart;
 select * from pie_chart;
+select * from line_chart;
 select * from map_chart;
 select * from optional_conditions;
 select * from years;
@@ -104,7 +117,7 @@ drop table user cascade;
 drop table project cascade;
 drop table bar_chart cascade;
 drop table pie_chart cascade;
+drop table line_chart cascade;
 drop table map_chart cascade;
 drop table optional_conditions cascade;
 drop table years cascade;
-

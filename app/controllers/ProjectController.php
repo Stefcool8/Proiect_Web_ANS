@@ -161,6 +161,13 @@ class ProjectController extends Controller
             $db->insert($tableName, [
                 'uuidProject' => $projectUuid['uuid']
             ]);
+        } else if ($tableName == 'line_chart') {
+            // if the chart is a line chart, lineValue is added
+            $db->insert($tableName, [
+                'uuidProject' => $projectUuid['uuid'],
+                $dataColumn => $body['dataColumn'],
+                'lineValue' => $body['lineValue']
+            ]);
         } else {
             $db->insert($tableName, [
                 'uuidProject' => $projectUuid['uuid'],
@@ -405,27 +412,26 @@ class ProjectController extends Controller
                 $filterColumns = [$data['seriesCode'], $data['dataColumn']];
                 $filterValues = [$data['seriesValue'], $data['lineValue']];
 
-                $json = JsonUtil::getJsonUtil()->filtrateAfterYearsAndColumns($data['years'], $filterColumns, $filterValues);
+                $json = JsonUtil::getJsonUtil()->extractTotalByYear($data['years'], $filterColumns, $filterValues, $data['dataColumn']);
             } else {
-                $json = JsonUtil::getJsonUtil()->filtrateAfterYearsAndColumns($data['years'], [$data['dataColumn']], [$data['lineValue']]);
+                $json = JsonUtil::getJsonUtil()->extractTotalByYear($data['years'], [$data['dataColumn']], [$data['lineValue']], $data['dataColumn']);
             }
         } else {
             if ($optional) {
                 $data['seriesCode'] = $optional['optionalColumn'];
                 $data['seriesValue'] = $optional['optionalValue'];
-
                 $json = JsonUtil::getJsonUtil()->filtrateAfterYearsAndColumns($data['years'], [$data['seriesCode']], [$data['seriesValue']]);
             } else {
                 $json = JsonUtil::getJsonUtil()->filtrateAfterYearsAndColumns($data['years'], [], []);
             }
-        }
-
-        // add the json data to the response
-        if ($dataColumn) {
-            $json = JsonUtil::getJsonUtil()->extractTotalPerDistinctColumnValue($json, $data['dataColumn']);
-        } else {
-            // for map chart, dataColumn is implicitly set to 0 ("JUDET" column)
-            $json = JsonUtil::getJsonUtil()->extractTotalPerDistinctColumnValue($json, 0);
+            //}
+            // add the json data to the response
+            if ($dataColumn) {
+                $json = JsonUtil::getJsonUtil()->extractTotalPerDistinctColumnValue($json, $data['dataColumn']);
+            } else {
+                // for map chart, dataColumn is implicitly set to 0 ("JUDET" column)
+                $json = JsonUtil::getJsonUtil()->extractTotalPerDistinctColumnValue($json, 0);
+            }
         }
         $data['json'] = $json;
 

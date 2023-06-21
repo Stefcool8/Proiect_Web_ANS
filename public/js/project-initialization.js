@@ -6,7 +6,12 @@ const types = ['bars', 'slices', 'lines'];
 let yearCheckboxContainer = null;
 let seriesSelect = null;
 let seriesInput = null;
+let linesInput = null;
 let workersSelect = null;
+
+const inputs = [seriesInput,linesInput];
+const inputsLabesTypes = ['series-input','lines-input'];
+
 const allColumns = [
     "JUDET",
     "CATEGORIE_NATIONALA",
@@ -149,6 +154,14 @@ function getRightTagName(type) {
     return 'unKnown';
 }
 
+function removeLinesInput(){
+    if (linesInput != null) {
+        linesInput.remove();
+        linesInput = null;
+        document.querySelector('label[for="lines-input"]').remove();
+    }
+}
+
 function removeSeriesInput() {
     if (seriesInput != null) {
         seriesInput.remove();
@@ -174,6 +187,7 @@ function removeAllWorkers() {
         seriesSelect = null;
         document.querySelector('label[for="series"]').remove();
     }
+    removeLinesInput();
     removeSeriesInput();
 }
 
@@ -215,6 +229,30 @@ function addOptionsToSelectMenu(parentSelect, rightColumns, emptyOptionText, emp
         selectOption.textContent = rightColumns[i];
         parentSelect.appendChild(selectOption);
     }
+}
+
+function createLinesInput() {
+    // create the div for the series
+    const inputGroup = document.createElement('div');
+    inputGroup.classList.add('input-group');
+
+    const linesLabel = document.createElement('label');
+    linesLabel.htmlFor = 'lines-input';
+    linesLabel.textContent = 'Line value:';
+
+    linesInput = document.createElement('input');
+    linesInput.classList.add('lines-input');
+    linesInput.id = 'lines-input';
+    linesInput.name = 'series-input';
+    linesInput.type = 'text';
+    linesInput.placeholder = 'Enter a line value';
+    linesInput.required = true;
+
+    inputGroup.appendChild(linesLabel);
+    inputGroup.appendChild(linesInput);
+
+    // add the div to the form before the create button
+    projectInitializationForm.insertBefore(inputGroup, projectInitializationForm.lastElementChild);
 }
 
 function createSeriesInput() {
@@ -294,6 +332,9 @@ function createWorkersSelect(type) {
     workersSelect.addEventListener('change', () => {
         if (seriesSelect == null) {
             // populate the series select
+            if (type === 'lineChart') {
+                createLinesInput();
+            }
             createSeriesSelect(type);
         }
     });
@@ -402,6 +443,10 @@ projectInitializationForm.addEventListener("submit", async (event) => {
         // add the data column to the data object
         data.dataColumn = allColumns.indexOf(workersSelect.value);
         console.log(data.dataColumn);
+    }
+    if (chartCode === 1) {
+        // add the value line to the data object
+        data.lineValue = linesInput.value;
     }
 
     if (seriesSelect.value !== '') {
