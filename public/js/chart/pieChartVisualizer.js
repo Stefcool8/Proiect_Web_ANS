@@ -50,6 +50,7 @@ function drawPieChart(project) {
         .attr("dy", "0.35em")
         .attr("text-anchor", "start")
         .attr("font-size", "6px") // Adjust the font size here
+        .text(d => `${d.data.name}: (${(d.data.value / total * 100).toFixed(2)}%)`)
         .text(d => `${d.data.name} : (${(d.data.value / total * 100).toFixed(2)}%)`)
         .each(function (d) {
             const bbox = this.getBBox();
