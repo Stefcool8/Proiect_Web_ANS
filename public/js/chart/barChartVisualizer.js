@@ -76,7 +76,7 @@ function drawBarChart(project) {
 }
 
 function addBarChartFields(project) {
-    const bars = project.data.data.bars;
+    const bars = project.data.data.dataColumn;
 
     const inputGroup = document.createElement('div');
     inputGroup.classList.add('input-group');

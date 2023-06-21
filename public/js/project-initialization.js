@@ -2,36 +2,39 @@ const projectInitializationForm = document.getElementById("project-initializatio
 const errorMessage = document.querySelector(".error-message");
 const successMessage = document.querySelector(".success-message");
 const chartTypeSelect = document.getElementById("chart-type");
-const types =['bars','slices','lines'];
+const types = ['bars', 'slices', 'lines'];
 let yearCheckboxContainer = null;
 let seriesSelect = null;
 let seriesInput = null;
+let linesInput = null;
 let workersSelect = null;
-const columns = [
+
+const inputs = [seriesInput,linesInput];
+const inputsLabesTypes = ['series-input','lines-input'];
+
+const allColumns = [
     "JUDET",
     "CATEGORIE_NATIONALA",
     "CATEGORIA_COMUNITARA",
     "MARCA",
-    "DESCRIERE_COMERCIALA"
+    "DESCRIERE_COMERCIALA",
+    "VALUE_NAME"
 ];
 
-const columnsPieChart =[
-  "JUDET",
-  "CATEGORIE_NATIONALA",
-  "CATEGORIE_COMUNITARA"
+const workerPieColumns = [
+    "JUDET",
+    "CATEGORIE_NATIONALA",
+    "CATEGORIE_COMUNITARA",
+    "VALUE_NAME"
 ];
 
-
-
-
-function getRightColumns(type){
-    if(type === 'barChart' || type ==='lineChart')
-        return columns;
-    else if(type === 'pieChart')
-        return columnsPieChart;
-    else
-        return null;
-}
+const workerMapColumns = [
+    "CATEGORIE_NATIONALA",
+    "CATEGORIE_COMUNITARA",
+    "MARCA",
+    "DESCRIERE_COMERCIALA",
+    "VALUE_NAME"
+];
 
 function showMessage(element, message) {
     element.textContent = message;
@@ -56,9 +59,31 @@ function yearsAreSelected() {
             break;
         }
     }
-
     return isYearSelected;
 }
+
+function getRightWorkersColumns(type) {
+    if (type === 'barChart')
+        return allColumns;
+    else if (type === 'pieChart')
+        return workerPieColumns;
+    else if (type === 'lineChart')
+        return allColumns;
+    return null;
+}
+
+function getRightSeriesColumns(type) {
+    if (type === 'barChart')
+        return allColumns;
+    else if (type === 'pieChart')
+        return allColumns;
+    else if (type === 'lineChart')
+        return allColumns;
+    else if (type === 'mapChart')
+        return workerMapColumns;
+    return null;
+}
+
 function getSelectedYears() {
     // Get the selected years
     const selectedYears = [];
@@ -68,7 +93,6 @@ function getSelectedYears() {
             selectedYears.push(yearCheckboxes[i].value);
         }
     }
-
     return selectedYears;
 }
 
@@ -80,7 +104,111 @@ function getChartCode() {
             return 1;
         case 'pieChart':
             return 2;
+        case 'mapChart':
+            return 3;
+        default:
+            return -1;
     }
+}
+
+function getRightTextContentForSelect(type) {
+    if (type === 'barChart')
+        return 'Select a bar';
+    else if (type === 'pieChart')
+        return 'Select a slice';
+    else if (type === 'lineChart')
+        return 'Select a line';
+    else if (type === 'mapChart')
+        return 'Select county-level data'
+    return null;
+}
+
+function getRightHtmlFor(type) {
+    if (type === 'barChart')
+        return "bars";
+    else if (type === 'pieChart')
+        return "slices";
+    else if (type === 'lineChart')
+        return "lines";
+    return 'unKnown';
+}
+
+function getRightTextContent(type) {
+    if (type === 'barChart')
+        return 'Bars:';
+    else if (type === 'pieChart')
+        return 'Slices:';
+    else if (type === 'lineChart')
+        return 'Lines:';
+    return 'unKnown';
+
+}
+
+function getRightTagName(type) {
+    if (type === 'barChart')
+        return 'bars-select';
+    else if (type === 'pieChart')
+        return 'slices-select';
+    else if (type === 'lineChart')
+        return 'lines-select';
+    return 'unKnown';
+}
+
+/*
+function removeInputs(inputs,inputsLabelTypes){
+    for (let i=0;i<inputs.length;i++) {
+        if (inputs[i] != null) {
+            inputs[i].remove();
+            inputs[i] = null;
+            document.querySelector(`label[for="${inputsLabelTypes[i]}"]`).remove();
+        }
+    }
+}
+
+ */
+
+function removeLinesInput(){
+    if (linesInput != null) {
+        linesInput.remove();
+        linesInput = null;
+        document.querySelector('label[for="lines-input"]').remove();
+    }
+}
+function removeSeriesInput() {
+    if (seriesInput != null) {
+        seriesInput.remove();
+        seriesInput = null;
+        document.querySelector('label[for="series-input"]').remove();
+    }
+}
+
+function removeAllWorkers() {
+    types.forEach(type => {
+        let labelType = document.querySelector(`label[for="${type}"]`);
+        if (labelType) {
+            labelType.remove();
+        }
+    });
+    if (workersSelect != null) {
+        workersSelect.remove();
+        workersSelect = null;
+    }
+
+    if (seriesSelect != null) {
+        seriesSelect.remove();
+        seriesSelect = null;
+        document.querySelector('label[for="series"]').remove();
+    }
+    removeLinesInput();
+    removeSeriesInput();
+    /*if (linesInput != null) {
+        removeInputs([seriesInput,linesInput],['series-input','lines-input']);
+    } else {
+        removeInputs([seriesInput],['series-input']);
+    }
+
+     */
+
 }
 
 function addYearsToCheckboxContainer() {
@@ -104,53 +232,47 @@ function addYearsToCheckboxContainer() {
         yearCheckboxContainer.appendChild(yearItem);
     }
 }
-function getRightTextContentForEmpty(type){
-    if(type === 'barChart')
-        return 'Select a bar';
-    else if(type === 'pieChart')
-        return 'Select a slice';
-    else if (type === 'lineChart')
-        return 'Select a line';
-    return 'unKnown';
-}
-function addWorkersToSelectMenu(type){
+
+function addOptionsToSelectMenu(parentSelect, rightColumns, emptyOptionText, emptyOptionDisabled) {
     // add an empty option to the select menu
     const emptyOption = document.createElement('option');
     emptyOption.value = '';
-    emptyOption.textContent = getRightTextContentForEmpty(type);
-    emptyOption.disabled = true;
+    emptyOption.textContent = emptyOptionText;
+    emptyOption.disabled = emptyOptionDisabled;
     emptyOption.selected = true;
-    workersSelect.appendChild(emptyOption);
-
-    let rightColumns = getRightColumns(chartTypeSelect.value);
-    // Iterate over the bars array and create an option for each bar
-    for (let i = 0; i < rightColumns.length; i++) {
-        const workerOption = document.createElement('option');
-        workerOption.value = rightColumns[i];
-        workerOption.textContent = rightColumns[i];
-        workersSelect.appendChild(workerOption);
-    }
-}
-
-function addSeriesToSelectMenu(type) {
-    // Hardcode the series labels into an array
-    let rightColumns = getRightColumns(type);
-    const series = [rightColumns[0], rightColumns[1]];
-
-    // add an empty option to the select menu
-    const emptyOption = document.createElement('option');
-    emptyOption.value = '';
-    emptyOption.textContent = 'No series';
-    emptyOption.selected = true;
-    seriesSelect.appendChild(emptyOption);
+    parentSelect.appendChild(emptyOption);
 
     // Iterate over the series array and create an option for each series
-    for (let i = 0; i < series.length; i++) {
-        const seriesOption = document.createElement('option');
-        seriesOption.value = series[i];
-        seriesOption.textContent = series[i];
-        seriesSelect.appendChild(seriesOption);
+    for (let i = 0; i < rightColumns.length; i++) {
+        const selectOption = document.createElement('option');
+        selectOption.value = rightColumns[i];
+        selectOption.textContent = rightColumns[i];
+        parentSelect.appendChild(selectOption);
     }
+}
+
+function createLinesInput() {
+    // create the div for the series
+    const inputGroup = document.createElement('div');
+    inputGroup.classList.add('input-group');
+
+    const linesLabel = document.createElement('label');
+    linesLabel.htmlFor = 'lines-input';
+    linesLabel.textContent = 'Line value:';
+
+    linesInput = document.createElement('input');
+    linesInput.classList.add('lines-input');
+    linesInput.id = 'lines-input';
+    linesInput.name = 'series-input';
+    linesInput.type = 'text';
+    linesInput.placeholder = 'Enter a line value';
+    linesInput.required = true;
+
+    inputGroup.appendChild(linesLabel);
+    inputGroup.appendChild(linesInput);
+
+    // add the div to the form before the create button
+    projectInitializationForm.insertBefore(inputGroup, projectInitializationForm.lastElementChild);
 }
 
 function createSeriesInput() {
@@ -190,13 +312,14 @@ function createSeriesSelect(type) {
     seriesSelect.classList.add('series-select');
     seriesSelect.id = 'series-select';
     seriesSelect.name = 'series';
-    addSeriesToSelectMenu(type);
+    addOptionsToSelectMenu(seriesSelect, getRightSeriesColumns(type), 'No series', false);
+
 
     // add an event listener to the series select
     seriesSelect.addEventListener('change', () => {
         if (seriesSelect.value === '') {
             // remove the series input
-            //removeSeriesInput();
+            removeSeriesInput();
         } else if (seriesInput == null) {
             // create the input for the series
             createSeriesInput();
@@ -210,39 +333,9 @@ function createSeriesSelect(type) {
     projectInitializationForm.insertBefore(inputGroup, projectInitializationForm.lastElementChild);
 }
 
-function getRightHtmlFor(type){
-    if(type === 'barChart')
-        return "bars";
-    else if(type === 'pieChart')
-        return "slices";
-    else if (type === 'lineChart')
-        return "lines";
-    return 'unKnown';
-}
-
-function getRightTextContent(type){
-    if(type === 'barChart')
-        return 'Bars:';
-    else if(type === 'pieChart')
-        return 'Slices:';
-    else if (type === 'lineChart')
-        return 'Lines:';
-    return 'unKnown';
-
-}
-
-function getRightTagName(type){
-    if(type === 'barChart')
-        return 'bars-select';
-    else if(type === 'pieChart')
-        return 'slices-select';
-    else if (type === 'lineChart')
-        return 'lines-select';
-    return 'unKnown';
-}
-
 function createWorkersSelect(type) {
-    // create the div for the bars
+    console.log(type);
+    // create the div for the data column select
     const inputGroup = document.createElement('div');
     inputGroup.classList.add('input-group');
 
@@ -255,12 +348,16 @@ function createWorkersSelect(type) {
     workersSelect.id = getRightTagName(type);
     workersSelect.name = getRightHtmlFor(type);
     workersSelect.required = true; // Set the required attribute to true
-    addWorkersToSelectMenu(type);
 
-    // add an event listener to the bars select
+    addOptionsToSelectMenu(workersSelect, getRightWorkersColumns(type), getRightTextContentForSelect(type), true);
+
+    // add an event listener to the workers select
     workersSelect.addEventListener('change', () => {
         if (seriesSelect == null) {
             // populate the series select
+            if (type === 'lineChart') {
+                createLinesInput();
+            }
             createSeriesSelect(type);
         }
     });
@@ -270,6 +367,8 @@ function createWorkersSelect(type) {
 
     // add the div to the form before the create button
     projectInitializationForm.insertBefore(inputGroup, projectInitializationForm.lastElementChild);
+
+
 }
 
 function createYearCheckboxContainer() {
@@ -290,13 +389,22 @@ function createYearCheckboxContainer() {
     yearCheckboxContainer.addEventListener('change', (event) => {
         if (event.target.matches('input[type="checkbox"]')) {
             if (event.target.checked) {
-                if(workersSelect == null){
-                    createWorkersSelect(chartTypeSelect.value);
+                if (getChartCode() === 3) {
+                    // worker select for map is implicitly set to 'workers' so we don't need to create it
+                    if (seriesSelect == null) {
+                        // populate the series select if it doesn't exist
+                        createSeriesSelect(chartTypeSelect.value);
+                    }
+                } else {
+                    // for all other chart types, the workers select is required
+                    if (workersSelect == null) {
+                        // populate the worker select if it doesn't exist
+                        createWorkersSelect(chartTypeSelect.value);
+                    }
                 }
-
             } else {
                 // Checkbox is deselected
-                // remove the bars select and its label if all years are deselected
+                // remove the worker select and its label if all years are deselected
                 if (!yearsAreSelected()) {
                     removeAllWorkers();
                 }
@@ -311,60 +419,24 @@ function createYearCheckboxContainer() {
     projectInitializationForm.insertBefore(inputGroup, projectInitializationForm.lastElementChild);
 }
 
-function removeAllWorkers(){
-    types.forEach(type => {
-        let labelType = document.querySelector(`label[for="${type}"]`);
-        if(labelType) {
-            labelType.remove();
-        }
-    })
-
-    if(workersSelect != null) {
-        workersSelect.remove();
-        workersSelect = null;
-    }
-    if (seriesSelect != null) {
-        seriesSelect.remove();
-        seriesSelect = null;
-        document.querySelector('label[for="series"]').remove();
-    }
-    if (seriesInput != null) {
-        seriesInput.remove();
-        seriesInput = null;
-        document.querySelector('label[for="series-input"]').remove();
-    }
-}
-
 chartTypeSelect.addEventListener("change", () => {
     if (yearCheckboxContainer == null) {
         createYearCheckboxContainer();
     }
-    /*if (chartTypeSelect.value !== 'barChart' && chartTypeSelect.value !== 'pieChart') {
-        // remove the bars select and series select if they exist
-        removeAllWorkers();
-    }
+    // remove all selects and inputs if the chart type is changed
+    removeAllWorkers();
+    if (yearsAreSelected()) {
+        // populate the workers select if at least one year is selected
 
-     */
-    if (chartTypeSelect.value === 'barChart') {
-        removeAllWorkers();
-        if (yearsAreSelected() && workersSelect == null) {
+        if (getChartCode() === 3) {
+            // worker select for map is implicitly set to 'county'
+            // so we only need to create the optional series select
+            createSeriesSelect(chartTypeSelect.value);
+        } else {
+            // create the workers select for the other chart types
             createWorkersSelect(chartTypeSelect.value);
         }
     }
-
-    if(chartTypeSelect.value === 'pieChart'){
-        removeAllWorkers();
-        if(yearsAreSelected() && workersSelect == null){
-            createWorkersSelect(chartTypeSelect.value)
-        }
-    }
-    if(chartTypeSelect.value === 'lineChart'){
-        removeAllWorkers();
-        if(yearsAreSelected() && workersSelect == null){
-            createWorkersSelect(chartTypeSelect.value)
-        }
-    }
-
 });
 
 /*TODO: make the series select have an option "No series", that makes the input label disappear*/
@@ -378,7 +450,7 @@ projectInitializationForm.addEventListener("submit", async (event) => {
     }
 
     const projectName = document.getElementById("project-name").value;
-    const chartCode = getChartCode(chartTypeSelect.value);
+    const chartCode = getChartCode();
     const years = getSelectedYears();
 
     console.log(projectName);
@@ -391,14 +463,20 @@ projectInitializationForm.addEventListener("submit", async (event) => {
         years: years
     };
 
-    let rightColumns = getRightColumns(chartTypeSelect.value);
-    const workerCode = rightColumns.indexOf(workersSelect.value);
-    // add the bars to the data object
-    data.bars = workerCode;
-    console.log(workerCode);
+    // add data column to the data object if the chart type is not a map
+    if (chartCode !== 3) {
+        // add the data column to the data object
+        data.dataColumn = allColumns.indexOf(workersSelect.value);
+        console.log(data.dataColumn);
+    }
+
+    if (chartCode === 1) {
+        // add the value line to the data object
+        data.lineValue = linesInput.value;
+    }
 
     if (seriesSelect.value !== '') {
-        const seriesCode = rightColumns.indexOf(seriesSelect.value);
+        const seriesCode = allColumns.indexOf(seriesSelect.value);
         const seriesValue = seriesInput.value;
 
         console.log(seriesCode);
@@ -415,7 +493,6 @@ projectInitializationForm.addEventListener("submit", async (event) => {
     }
 
     try {
-        console.log(data);
         const response = await fetch("/api/project", {
             method: "POST",
             headers: {
@@ -438,7 +515,7 @@ projectInitializationForm.addEventListener("submit", async (event) => {
             // The project creation was successful
             showMessage(successMessage, "Project successfully created. Redirecting...");
             //setTimeout(() => {
-               // window.location.href = "/home";
+            // window.location.href = "/home";
             //}, 3000);
         } else {
             // Handle the error
