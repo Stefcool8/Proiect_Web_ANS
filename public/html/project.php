@@ -54,7 +54,8 @@
 <script src="/public/js/chart/barChartVisualizer.js"></script>
 <script src="/public/js/chart/pieChartVisualizer.js"></script>
 <script src="/public/js/chart/lineChartVisualizer.js"></script>
-<!--<script src="/public/js/map.js"></script>-->
+<script src="/public/js/svg/mapdata.js"></script>
+<script src="/public/js/chart/mapChartVisualizer.js"></script>
 <script src="/public/js/project.js"></script>
 </body>
 

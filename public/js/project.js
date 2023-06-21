@@ -1,4 +1,5 @@
 const detailContainer = document.getElementById('detail-container');
+const chartContainer = document.getElementById('chart-container');
 
 const downloadCsvButton = document.getElementById('download-csv');
 const downloadPngButton = document.getElementById('download-png');
@@ -30,14 +31,15 @@ function populateProjectDetails(project) {
         addBarChartFields(project);
     } else if (project.data.data.chart === 1) {
         addLineChartFields(project);
-    } else if (project.data.data.chart === 2){
+    } else if (project.data.data.chart === 2) {
         addPieChartFields(project);
+    } else if (project.data.data.chart === 3) {
+        addMapChartFields(project);
     }
 }
 
 function drawChart(project) {
     const chartType = project.data.data.chart;
-    console.log("ChartType: "+chartType);
     switch (chartType) {
         case 0:
             drawBarChart(project);
@@ -48,6 +50,11 @@ function drawChart(project) {
         case 2:
             drawPieChart(project);
             break;
+        case 3:
+            drawMapChart(project);
+            break;
+        default:
+            console.log("Invalid chart type");
     }
 }
 
@@ -111,7 +118,6 @@ async function fetchProjectDetails(uuid) {
                 'Authorization': 'Bearer ' + token,
             },
         });
-        console.log("Hei");
         if (response.ok) {
             const project = await response.json();
 

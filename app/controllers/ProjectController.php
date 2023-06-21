@@ -87,7 +87,7 @@ class ProjectController extends Controller
             }
             $uuidUser = $existingUser['uuid'];
         } catch (Exception $e) {
-            // Handle potential exception during database insertion
+            // Handle potential exception during database connection
             ResponseHandler::getResponseHandler()->sendResponse(500, ["error" => "Internal Server Error"]);
             return;
         }
@@ -123,7 +123,7 @@ class ProjectController extends Controller
                     return;
                 }
             } catch (Exception $e) {
-                ResponseHandler::getResponseHandler()->sendResponse(400, ['error' => 'Invalid request body.']);
+                ResponseHandler::getResponseHandler()->sendResponse(400, ['error' => $e->getMessage()]);
                 return;
             }
 
@@ -161,14 +161,14 @@ class ProjectController extends Controller
             $db->insert($tableName, [
                 'uuidProject' => $projectUuid['uuid']
             ]);
-        }else if ($tableName == 'line_chart') {
+        } else if ($tableName == 'line_chart') {
             // if the chart is a line chart, lineValue is added
             $db->insert($tableName, [
-               'uuidProject' => $projectUuid['uuid'],
+                'uuidProject' => $projectUuid['uuid'],
                 $dataColumn => $body['dataColumn'],
                 'lineValue' => $body['lineValue']
             ]);
-        }else {
+        } else {
             $db->insert($tableName, [
                 'uuidProject' => $projectUuid['uuid'],
                 $dataColumn => $body['dataColumn']
@@ -424,7 +424,7 @@ class ProjectController extends Controller
             } else {
                 $json = JsonUtil::getJsonUtil()->filtrateAfterYearsAndColumns($data['years'], [], []);
             }
-        //}
+            //}
             // add the json data to the response
             if ($dataColumn) {
                 $json = JsonUtil::getJsonUtil()->extractTotalPerDistinctColumnValue($json, $data['dataColumn']);
@@ -437,6 +437,7 @@ class ProjectController extends Controller
 
         return $data;
     }
+
     public function gets($uuid)
     {
         $payload = $this->getPayload();

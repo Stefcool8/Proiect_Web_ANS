@@ -1,4 +1,3 @@
-
 function drawPieChart(project) {
     // Specify the chart’s dimensions.
     const json = JSON.parse(project.data.data.json);
@@ -85,7 +84,7 @@ function addPieChartFields(project) {
     const inputGroup = document.createElement('div');
     inputGroup.classList.add('input-group');
 
-    addLabelAndTextInput(inputGroup, 'slices', 'Slices', columnCodeToName(slices,columnsPieChart), true);
+    addLabelAndTextInput(inputGroup, 'slices', 'Slices', columnCodeToName(slices, columns), true);
 
     // verify if seriesCode and seriesValue exist
     // if they do, add them to the input group
@@ -93,7 +92,7 @@ function addPieChartFields(project) {
         const seriesCode = project.data.data.seriesCode;
         const seriesValue = project.data.data.seriesValue;
 
-        addLabelAndTextInput(inputGroup, 'seriesCode', 'Series Column', columnCodeToName(seriesCode,columnsPieChart), true);
+        addLabelAndTextInput(inputGroup, 'seriesCode', 'Series Column', columnCodeToName(seriesCode, columns), true);
         addLabelAndTextInput(inputGroup, 'seriesValue', 'Series Value', seriesValue, true);
     }
 

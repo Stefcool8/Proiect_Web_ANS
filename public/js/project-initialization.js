@@ -154,19 +154,6 @@ function getRightTagName(type) {
     return 'unKnown';
 }
 
-/*
-function removeInputs(inputs,inputsLabelTypes){
-    for (let i=0;i<inputs.length;i++) {
-        if (inputs[i] != null) {
-            inputs[i].remove();
-            inputs[i] = null;
-            document.querySelector(`label[for="${inputsLabelTypes[i]}"]`).remove();
-        }
-    }
-}
-
- */
-
 function removeLinesInput(){
     if (linesInput != null) {
         linesInput.remove();
@@ -174,6 +161,7 @@ function removeLinesInput(){
         document.querySelector('label[for="lines-input"]').remove();
     }
 }
+
 function removeSeriesInput() {
     if (seriesInput != null) {
         seriesInput.remove();
@@ -201,14 +189,6 @@ function removeAllWorkers() {
     }
     removeLinesInput();
     removeSeriesInput();
-    /*if (linesInput != null) {
-        removeInputs([seriesInput,linesInput],['series-input','lines-input']);
-    } else {
-        removeInputs([seriesInput],['series-input']);
-    }
-
-     */
-
 }
 
 function addYearsToCheckboxContainer() {
@@ -314,7 +294,6 @@ function createSeriesSelect(type) {
     seriesSelect.name = 'series';
     addOptionsToSelectMenu(seriesSelect, getRightSeriesColumns(type), 'No series', false);
 
-
     // add an event listener to the series select
     seriesSelect.addEventListener('change', () => {
         if (seriesSelect.value === '') {
@@ -334,7 +313,6 @@ function createSeriesSelect(type) {
 }
 
 function createWorkersSelect(type) {
-    console.log(type);
     // create the div for the data column select
     const inputGroup = document.createElement('div');
     inputGroup.classList.add('input-group');
@@ -348,7 +326,6 @@ function createWorkersSelect(type) {
     workersSelect.id = getRightTagName(type);
     workersSelect.name = getRightHtmlFor(type);
     workersSelect.required = true; // Set the required attribute to true
-
     addOptionsToSelectMenu(workersSelect, getRightWorkersColumns(type), getRightTextContentForSelect(type), true);
 
     // add an event listener to the workers select
@@ -367,8 +344,6 @@ function createWorkersSelect(type) {
 
     // add the div to the form before the create button
     projectInitializationForm.insertBefore(inputGroup, projectInitializationForm.lastElementChild);
-
-
 }
 
 function createYearCheckboxContainer() {
@@ -469,7 +444,6 @@ projectInitializationForm.addEventListener("submit", async (event) => {
         data.dataColumn = allColumns.indexOf(workersSelect.value);
         console.log(data.dataColumn);
     }
-
     if (chartCode === 1) {
         // add the value line to the data object
         data.lineValue = linesInput.value;
