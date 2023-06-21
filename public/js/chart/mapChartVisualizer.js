@@ -16,14 +16,25 @@ function addMapChartFields(project) {
 }
 
 function drawMapChart(project) {
-    // parse the json
-    const json = JSON.parse(project.data.data.json);
+    // create a div for the map
+    const mapDiv = document.createElement('div');
+    mapDiv.id = 'map-container';
+    mapDiv.classList.add('container');
+    mapDiv.style.maxWidth = '50rem';
+    chartContainer.style.display = 'none';
+    document.getElementById('main-content').insertBefore(mapDiv, chartContainer);
 
-    // populate the map
-    Object.entries(json).forEach(([name, value]) => {
-        name = name.toLowerCase();
-        console.log(name + ": " + value);
-        setDescription(name, 'Total: ' + value);
+    // load mapdata.js script dynamically
+    loadJS("/public/js/svg/mapdata.js", false, function () {
+        // parse the json
+        const json = JSON.parse(project.data.data.json);
+
+        // populate the map
+        Object.entries(json).forEach(([name, value]) => {
+            name = name.toLowerCase();
+            console.log(name + ": " + value);
+            setDescription(name, 'Total: ' + value);
+        });
     });
 
     // load countrymap.js script dynamically

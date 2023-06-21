@@ -58,6 +58,9 @@
 .project #chart-container svg text {
   font-size: 8px;
 }
+.project #chart-container #map-container {
+  max-width: 50rem;
+}
 .project .button-container {
   display: flex;
   justify-content: center;

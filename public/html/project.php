@@ -21,7 +21,7 @@
 <body>
 <?php require_once __DIR__ . '/shared/navbar.php'; ?>
 <div class="project">
-    <main class="main-content">
+    <main class="main-content" id="main-content">
         <div class="container" id="detail-container">
             <h2>Project</h2>
             <div class="input-group">
@@ -54,7 +54,6 @@
 <script src="/public/js/chart/barChartVisualizer.js"></script>
 <script src="/public/js/chart/pieChartVisualizer.js"></script>
 <script src="/public/js/chart/lineChartVisualizer.js"></script>
-<script src="/public/js/svg/mapdata.js"></script>
 <script src="/public/js/chart/mapChartVisualizer.js"></script>
 <script src="/public/js/project.js"></script>
 </body>
