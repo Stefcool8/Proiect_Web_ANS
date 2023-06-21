@@ -1,7 +1,7 @@
 var simplemaps_countrymap_mapdata = {
     main_settings: {
         //General settings
-        width: "700", //'700' or 'responsive'
+        width: "responsive", //'700' or 'responsive'
         background_color: "#FFFFFF",
         background_transparent: "yes",
         border_color: "#ffffff",
@@ -23,7 +23,7 @@ var simplemaps_countrymap_mapdata = {
         location_hover_opacity: 1,
         location_size: 25,
         location_type: "square",
-        location_image_source: "frog.png",
+        location_image_source: "",
         location_border_color: "#FFFFFF",
         location_border: 2,
         location_hover_border: 2.5,
@@ -60,7 +60,7 @@ var simplemaps_countrymap_mapdata = {
         popup_nocss: "no",
 
         //Advanced settings
-        div: "map",
+        div: "chart-container",
         auto_load: "yes",
         url_new_tab: "no",
         images_directory: "default",
@@ -74,7 +74,6 @@ var simplemaps_countrymap_mapdata = {
     state_specific: {
         ROU122: {
             name: "Dolj",
-
         },
         ROU123: {
             name: "Gorj"
@@ -237,7 +236,7 @@ function setDescription(countyName, description) {
         case "calarasi":
             simplemaps_countrymap_mapdata.state_specific.ROU129.description = description;
             break;
-        case "dambovita":
+        case "dimbovita":
             simplemaps_countrymap_mapdata.state_specific.ROU130.description = description;
             break;
         case "giurgiu":
@@ -255,7 +254,7 @@ function setDescription(countyName, description) {
         case "bihor":
             simplemaps_countrymap_mapdata.state_specific.ROU277.description = description;
             break;
-        case "caras-severin":
+        case "caras severin":
             simplemaps_countrymap_mapdata.state_specific.ROU278.description = description;
             break;
         case "timis":
@@ -267,7 +266,7 @@ function setDescription(countyName, description) {
         case "alba":
             simplemaps_countrymap_mapdata.state_specific.ROU294.description = description;
             break;
-        case "bistrita-nasaud":
+        case "bistrita nasaud":
             simplemaps_countrymap_mapdata.state_specific.ROU295.description = description;
             break;
         case "cluj":
@@ -316,7 +315,6 @@ function setDescription(countyName, description) {
             simplemaps_countrymap_mapdata.state_specific.ROU310.description = description;
             break;
         case "suceava":
-            console.log("suceava")
             simplemaps_countrymap_mapdata.state_specific.ROU311.description = description;
             break;
         case "bacau":
@@ -342,8 +340,5 @@ function setDescription(countyName, description) {
             break;
         case "tulcea":
             simplemaps_countrymap_mapdata.state_specific.ROU4847.description = description;
-
     }
 }
-
-setDescription("suceava", "Suceava: 1.000 de cazuri");

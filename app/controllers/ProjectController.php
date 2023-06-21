@@ -8,14 +8,13 @@ use App\Utils\JsonUtil;
 use Exception;
 
 
-/** 
+/**
  * Controller for Project operations
- * 
+ *
  */
-
- class ProjectController extends Controller{
-
-     /**
+class ProjectController extends Controller
+{
+    /**
      * @OA\Post(
      *     path="/api/project",
      *     summary="Create a new project",
@@ -53,7 +52,7 @@ use Exception;
      *             @OA\Property(property="status_code", type="integer", example=409),
      *             @OA\Property(property="error", type="string", example="Project already exists")
      *         )
-     *     ), 
+     *     ),
      *     @OA\Response(
      *          response=500,
      *          description="Internal Server Error",
@@ -64,90 +63,110 @@ use Exception;
      *    )
      * )
      */
-    public function create() {
+    public function create()
+    {
         // get the request body
         $body = json_decode(file_get_contents('php://input'), true);
 
         // get the token from the request header
         $payload = $this->getPayload();
-        if(!$payload){
+        if (!$payload) {
             ResponseHandler::getResponseHandler()->sendResponse(401, [
                 'error' => 'Unauthorized'
             ]);
-            exit;
+            return;
         }
 
         try {
             $db = Database::getInstance();
-
             $existingUser = $db->fetchOne("SELECT * FROM user WHERE username = :username", ['username' => $payload['username']]);
 
-            if(!$existingUser){
+            if (!$existingUser) {
                 ResponseHandler::getResponseHandler()->sendResponse(409, ["error" => "User assigned does not exist"]);
-                exit;
+                return;
             }
-
             $uuidUser = $existingUser['uuid'];
         } catch (Exception $e) {
-            // Handle potential exception during database insertion
+            // Handle potential exception during database connection
             ResponseHandler::getResponseHandler()->sendResponse(500, ["error" => "Internal Server Error"]);
-            exit;
+            return;
         }
 
         // validate the request body
         if (!isset($body['name']) || !isset($body['chart']) || !isset($body['years'])) {
             ResponseHandler::getResponseHandler()->sendResponse(400, ['error' => 'Invalid request body.']);
-            exit;
+            return;
         }
 
         try {
             $db = Database::getInstance();
-
-            $existingProject = $db->fetchOne("SELECT * FROM project WHERE name = :name AND uuidUser = :uuidUser", ['name' => $body['name'],'uuidUser' =>$uuidUser]);
+            $existingProject = $db->fetchOne("SELECT * FROM project WHERE name = :name AND uuidUser = :uuidUser", ['name' => $body['name'], 'uuidUser' => $uuidUser]);
 
             // check if project exists
             if ($existingProject) {
                 ResponseHandler::getResponseHandler()->sendResponse(409, ["error" => "Project already exists"]);
-                exit;
+                return;
             }
 
             // check the chart type
-            if ($body['chart'] == 0) {
-                $this->createBarChartProject($db, $body, $uuidUser);
-            } else if ($body['chart'] == 2){
-                $this->createPieChartProject($db, $body, $uuidUser);
-            }else{
-                $this->createProject($db, $body, $uuidUser);
+            try {
+                if ($body['chart'] == 0) {
+                    $this->createChartProject($db, $body, $uuidUser, 'bar_chart', 'bars');
+                } else if ($body['chart'] == 1) {
+                    $this->createChartProject($db, $body, $uuidUser, 'line_chart', 'line');
+                } else if ($body['chart'] == 2) {
+                    $this->createChartProject($db, $body, $uuidUser, 'pie_chart', 'slices');
+                } else if ($body['chart'] == 3) {
+                    $this->createChartProject($db, $body, $uuidUser, 'map_chart', null);
+                } else {
+                    ResponseHandler::getResponseHandler()->sendResponse(400, ['error' => 'Invalid chart type.']);
+                    return;
+                }
+            } catch (Exception $e) {
+                ResponseHandler::getResponseHandler()->sendResponse(400, ['error' => $e->getMessage()]);
+                return;
             }
 
-            // send the data
+            // send response
             ResponseHandler::getResponseHandler()->sendResponse(200, ["message" => "Project created successfully"]);
-            exit;
         } catch (Exception $e) {
             // Handle potential exception during database insertion
             ResponseHandler::getResponseHandler()->sendResponse(500, ["error" => "Internal Server Error"]);
-            exit;
         }
     }
 
-    public function createBarChartProject($db, $body, $uuidUser) {
-        // if the chart is a bar chart, check the bars
-        if (!isset($body['bars'])) {
-            ResponseHandler::getResponseHandler()->sendResponse(400, ['error' => 'Invalid request body.']);
-            exit;
+    /**
+     * @throws Exception
+     */
+    public function createChartProject($db, $body, $uuidUser, $tableName, $dataColumn) {
+        // if the chart is not a map chart, dataColumn is required
+        if ($tableName != 'map_chart' && !isset($body['dataColumn'])) {
+            throw new Exception("Invalid request body.");
         }
 
         // create the project
-        $this->createProject($db, $body, $uuidUser);
+        $db->insert('project', [
+            'name' => $body['name'],
+            'chart' => $body['chart'],
+            'uuidUser' => $uuidUser,
+            'uuid' => uniqid()
+        ]);
 
         // get project uuid
-        $projectUuid = $db->fetchOne("SELECT uuid FROM project WHERE name = :name AND uuidUser = :uuidUser", ['name' => $body['name'],'uuidUser' =>$uuidUser]);
+        $projectUuid = $db->fetchOne("SELECT uuid FROM project WHERE name = :name AND uuidUser = :uuidUser", ['name' => $body['name'], 'uuidUser' => $uuidUser]);
 
-        // insert in bar_chart table
-        $db->insert('bar_chart', [
-            'uuidProject' => $projectUuid['uuid'],
-            'bars' => $body['bars']
-        ]);
+        // insert in chart table
+        if ($tableName == 'map_chart') {
+            // if the chart is a map chart, dataColumn is omitted
+            $db->insert($tableName, [
+                'uuidProject' => $projectUuid['uuid']
+            ]);
+        } else {
+            $db->insert($tableName, [
+                'uuidProject' => $projectUuid['uuid'],
+                $dataColumn => $body['dataColumn']
+            ]);
+        }
 
         // insert in years table
         foreach ($body['years'] as $year) {
@@ -165,52 +184,6 @@ use Exception;
                 'optionalValue' => $body['seriesValue']
             ]);
         }
-    }
-
-     public function createPieChartProject($db, $body, $uuidUser) {
-         // if the chart is a bar chart, check the bars
-         if (!isset($body['bars'])) {
-             ResponseHandler::getResponseHandler()->sendResponse(400, ['error' => 'Invalid request body.']);
-             exit;
-         }
-
-         // create the project
-         $this->createProject($db, $body, $uuidUser);
-
-         // get project uuid
-         $projectUuid = $db->fetchOne("SELECT uuid FROM project WHERE name = :name AND uuidUser = :uuidUser", ['name' => $body['name'],'uuidUser' =>$uuidUser]);
-
-         // insert in bar_chart table
-         $db->insert('pie_chart', [
-             'uuidProject' => $projectUuid['uuid'],
-             'slices' => $body['bars']
-         ]);
-
-         // insert in years table
-         foreach ($body['years'] as $year) {
-             $db->insert('years', [
-                 'uuidProject' => $projectUuid['uuid'],
-                 'year' => $year
-             ]);
-         }
-
-         // insert in optional_conditions table if series is set
-         if (isset($body['seriesCode'])) {
-             $db->insert('optional_conditions', [
-                 'uuidProject' => $projectUuid['uuid'],
-                 'optionalColumn' => $body['seriesCode'],
-                 'optionalValue' => $body['seriesValue']
-             ]);
-         }
-     }
-
-    public function createProject($db, $body, $uuidUser) {
-        $db->insert('project', [
-            'name' => $body['name'],
-            'chart' => $body['chart'],
-            'uuidUser' => $uuidUser,
-            'uuid' => uniqid()
-        ]);
     }
 
     /**
@@ -257,15 +230,15 @@ use Exception;
      *    )
      * )
      */
-    public function delete($uuid) {
-
+    public function delete($uuid)
+    {
         $payload = $this->getPayload();
 
-        if(!$payload){
+        if (!$payload) {
             ResponseHandler::getResponseHandler()->sendResponse(401, [
                 'error' => 'Unauthorized'
             ]);
-            exit;
+            return;
         }
 
         try {
@@ -274,32 +247,28 @@ use Exception;
 
             if (!$project) {
                 ResponseHandler::getResponseHandler()->sendResponse(404, ['error' => 'Project not found']);
-                exit;
+                return;
             }
-
             $currentUser = $db->fetchOne("SELECT * FROM user WHERE username = :username", ['username' => $payload['username']]);
-            
-            if($currentUser['isAdmin']){
+
+            if ($currentUser['isAdmin']) {
                 $db->delete('project', ['uuid' => $uuid]);
                 ResponseHandler::getResponseHandler()->sendResponse(204, ['message' => 'Project deleted successfully']);
-                exit;
+                return;
             }
 
-            if($currentUser['uuid'] != $project['uuidUser']){
+            if ($currentUser['uuid'] != $project['uuidUser']) {
                 ResponseHandler::getResponseHandler()->sendResponse(401, [
                     'error' => 'Unauthorized'
                 ]);
-                exit;
-            } 
-
-
+                return;
+            }
             $db->delete('project', ['uuid' => $uuid]);
+
             ResponseHandler::getResponseHandler()->sendResponse(204, ['message' => 'Project deleted successfully']);
-            exit;
         } catch (Exception $e) {
             // Handle potential exception during database deletion
             ResponseHandler::getResponseHandler()->sendResponse(500, ["error" => "Internal Server Error"]);
-            exit;
         }
     }
 
@@ -344,13 +313,14 @@ use Exception;
      *    )
      * )
      */
-    public function get($uuid) {
+    public function get($uuid)
+    {
         $payload = $this->getPayload();
-        if(!$payload){
+        if (!$payload) {
             ResponseHandler::getResponseHandler()->sendResponse(401, [
                 'error' => 'Unauthorized'
             ]);
-            exit;
+            return;
         }
         try {
             $db = Database::getInstance();
@@ -358,160 +328,50 @@ use Exception;
 
             if (!$project) {
                 ResponseHandler::getResponseHandler()->sendResponse(404, ['error' => 'Project not found']);
-                exit;
+                return;
             }
-
             $currentUser = $db->fetchOne("SELECT * FROM user WHERE username = :username", ['username' => $payload['username']]);
-            
-            /*if($currentUser['isAdmin']){
-                ResponseHandler::getResponseHandler()->sendResponse(200, [
-                    'data' => [
-                        'name' => $project['name'],
-                        'chart' => $project['chart'],
-                        'uuidUser' => $project['uuidUser']
-                    ]
-                ]);
-                exit;
-            }*/
 
-            if($currentUser['uuid'] != $project['uuidUser']){
-                ResponseHandler::getResponseHandler()->sendResponse(401, [
-                    'error' => 'Unauthorized'
-                ]);
-                exit;
+            if (!$currentUser['isAdmin']) {
+                // if the user is not admin, he can only access his own projects
+                if ($currentUser['uuid'] != $project['uuidUser']) {
+                    ResponseHandler::getResponseHandler()->sendResponse(401, [
+                        'error' => 'Unauthorized'
+                    ]);
+                    return;
+                }
             }
 
-            if ($project['chart'] == 0) {
-                // send the project data for the bar chart
-                ResponseHandler::getResponseHandler()->sendResponse(200, [
-                    'data' => $this->getBarChartProject($db, $project)
-                ]);
-            } else if($project['chart'] == 2){
-                // send the project data for the pie chart
-                ResponseHandler::getResponseHandler()->sendResponse(200, [
-                    'data' => $this->getPieChartProject($db, $project)
-                ]);
-            }else {
-                ResponseHandler::getResponseHandler()->sendResponse(200, [
-                    'data' => [
-                        'name' => $project['name'],
-                        'chart' => $project['chart'],
-                        'uuidUser' => $project['uuidUser']
-                    ]
-                ]);
-            }
+            try {
+                if ($project['chart'] == 0) {
+                    $data = $this->getChartProject($db, $project, 'bar_chart', 'bars');
+                } else if ($project['chart'] == 1) {
+                    $data = $this->getChartProject($db, $project, 'line_chart', 'line');
+                } else if ($project['chart'] == 2) {
+                    $data = $this->getChartProject($db, $project, 'pie_chart', 'slices');
+                } else if ($project['chart'] == 3) {
+                    $data = $this->getChartProject($db, $project, 'map_chart', null);
+                } else {
+                    ResponseHandler::getResponseHandler()->sendResponse(400, ['error' => 'Invalid chart type.']);
+                    return;
+                }
 
+                ResponseHandler::getResponseHandler()->sendResponse(200, [
+                    'data' => $data
+                ]);
+            } catch (Exception $e) {
+                ResponseHandler::getResponseHandler()->sendResponse(400, ['error' => 'Invalid request body.']);
+            }
         } catch (Exception $e) {
             // Handle potential exception during database deletion
             ResponseHandler::getResponseHandler()->sendResponse(500, ["error" => "Internal Server Error"]);
-            exit;
         }
     }
 
-     public function gets($uuid) {
-         $payload = $this->getPayload();
-         if(!$payload){
-             ResponseHandler::getResponseHandler()->sendResponse(401, [
-                 'error' => 'Unauthorized'
-             ]);
-             exit;
-         }
-         try {
-             $db = Database::getInstance();
-
-             $currentUser = $db->fetchOne("SELECT * FROM user WHERE username = :username", ['username' => $payload['username']]);
-
-             // fetch all projects for this user
-             $projects = $db->fetchAll("SELECT * FROM project WHERE uuidUser = :uuidUser", ['uuidUser' => $uuid]);
-
-             // if there are no projects, return a message indicating this
-             if (!$projects) {
-                 ResponseHandler::getResponseHandler()->sendResponse(404, ['error' => 'No projects found for this user']);
-                 exit;
-             }
-
-             if($payload['isAdmin'] || $currentUser['uuid'] == $uuid) {
-                 // build the project data for the response
-                 $projectData = [];
-                 foreach ($projects as $project) {
-                     $projectData[] = [
-                         'name' => $project['name'],
-                         'chart' => $project['chart'],
-                         'uuid' => $project['uuid']
-                     ];
-                 }
-
-                 ResponseHandler::getResponseHandler()->sendResponse(200, ['projects' => $projectData]);
-             }
-             else{
-                 ResponseHandler::getResponseHandler()->sendResponse(401, [
-                     'error' => 'Unauthorized'
-                 ]);
-             }
-
-         } catch (Exception $e) {
-             ResponseHandler::getResponseHandler()->sendResponse(500, ["error" => "Internal Server Error"]);
-         }
-     }
-
-     public function getByInterval($uuid,$startPage){
-         $payload = $this->getPayload();
-         if(!$payload){
-             ResponseHandler::getResponseHandler()->sendResponse(401, [
-                 'error' => 'Unauthorized'
-             ]);
-             exit;
-         }
-         try {
-             $db = Database::getInstance();
-
-             $currentUser = $db->fetchOne("SELECT * FROM user WHERE username = :username", ['username' => $payload['username']]);
-
-             $startIndex = $startPage-1; // The start index of the projects
-             $pageSize = 4; // The number of projects to retrieve per page
-
-             // Calculate the offset based on the start index and page size
-             $offset = $startIndex * $pageSize;
-             // fetch all projects for this user
-             //$projects = $db->fetchAll("SELECT * FROM project WHERE uuidUser = :uuidUser", ['uuidUser' => $uuid]);
-
-             // $projects = $db->fetchAll("SELECT * FROM project WHERE uuidUser = :uuidUser LIMIT ".$pageSize,
-             //  ['uuidUser' => $uuid]);
-
-             $projects = $db->fetchAll("SELECT * FROM project WHERE uuidUser = :uuidUser LIMIT " . $pageSize . " OFFSET ".$offset,
-                 ['uuidUser' => $uuid]);
-
-             // if there are no projects, return a message indicating this
-             if (!$projects) {
-                 ResponseHandler::getResponseHandler()->sendResponse(404, ['error' => 'No projects found for this user']);
-                 exit;
-             }
-
-             if($payload['isAdmin'] || $currentUser['uuid'] == $uuid) {
-
-                 // build the project data for the response
-                 $projectData = [];
-                 foreach ($projects as $project) {
-                     $projectData[] = [
-                         'name' => $project['name'],
-                         'chart' => $project['chart'],
-                         'uuid' => $project['uuid']
-                     ];
-                 }
-
-                 ResponseHandler::getResponseHandler()->sendResponse(200, ['projects' => $projectData]);
-             }
-             else{
-                 ResponseHandler::getResponseHandler()->sendResponse(401, [
-                     'error' => 'Unauthorized'
-                 ]);
-                 exit;
-             }
-         } catch (Exception $e) {
-             ResponseHandler::getResponseHandler()->sendResponse(500, ["error" => "Internal Server Error"]);
-         }
-     }
-    public function getBarChartProject($db, $project): array {
+    /**
+     * @throws Exception
+     */
+    public function getChartProject($db, $project, $tableName, $dataColumn): array {
         $data = [];
 
         $data['name'] = $project['name'];
@@ -524,64 +384,152 @@ use Exception;
         }
 
         // get the bars for this project
-        $bars = $db->fetchOne("SELECT * FROM bar_chart WHERE uuidProject = :uuidProject", ['uuidProject' => $project['uuid']]);
-        $data['bars'] = $bars['bars'];
+        $chartTable = $db->fetchOne("SELECT * FROM $tableName WHERE uuidProject = :uuidProject", ['uuidProject' => $project['uuid']]);
+        if ($dataColumn) {
+            $data['dataColumn'] = $chartTable[$dataColumn];
+        } else {
+            // if the chart is a map, set the dataColumn to 0 ("JUDET" column)
+            $data['dataColumn'] = 0;
+        }
 
         // check if there are optional conditions for this project
         $optional = $db->fetchOne("SELECT * FROM optional_conditions WHERE uuidProject = :uuidProject", ['uuidProject' => $project['uuid']]);
 
-        // if there are optional conditions, add them to the response
-        // also send the json data
-        if ($optional) {
-            $data['seriesCode'] = $optional['optionalColumn'];
-            $data['seriesValue'] = $optional['optionalValue'];
+        if ($tableName == 'line_chart') {
+            // if the chart is a line chart, we need to filter the data
+            $data['lineValue'] = $chartTable['lineValue'];
 
-            $json = JsonUtil::getJsonUtil()->filtrateAfterYearsAndColumns($data['years'], [$data['seriesCode']], [$data['seriesValue']]);
+            if ($optional) {
+                $data['seriesCode'] = $optional['optionalColumn'];
+                $data['seriesValue'] = $optional['optionalValue'];
+                $filterColumns = [$data['seriesCode'], $data['dataColumn']];
+                $filterValues = [$data['seriesValue'], $data['lineValue']];
+
+                $json = JsonUtil::getJsonUtil()->filtrateAfterYearsAndColumns($data['years'], $filterColumns, $filterValues);
+            } else {
+                $json = JsonUtil::getJsonUtil()->filtrateAfterYearsAndColumns($data['years'], [$data['dataColumn']], [$data['lineValue']]);
+            }
         } else {
-            $json = JsonUtil::getJsonUtil()->filtrateAfterYearsAndColumns($data['years'], [], []);
+            if ($optional) {
+                $data['seriesCode'] = $optional['optionalColumn'];
+                $data['seriesValue'] = $optional['optionalValue'];
+
+                $json = JsonUtil::getJsonUtil()->filtrateAfterYearsAndColumns($data['years'], [$data['seriesCode']], [$data['seriesValue']]);
+            } else {
+                $json = JsonUtil::getJsonUtil()->filtrateAfterYearsAndColumns($data['years'], [], []);
+            }
         }
+
         // add the json data to the response
-        $json = JsonUtil::getJsonUtil()->extractTotalPerDistinctColumnValue($json, $data['bars']);
+        if ($dataColumn) {
+            $json = JsonUtil::getJsonUtil()->extractTotalPerDistinctColumnValue($json, $data['dataColumn']);
+        } else {
+            // for map chart, dataColumn is implicitly set to 0 ("JUDET" column)
+            $json = JsonUtil::getJsonUtil()->extractTotalPerDistinctColumnValue($json, 0);
+        }
         $data['json'] = $json;
 
         return $data;
     }
 
-     public function getPieChartProject($db, $project): array {
-         $data = [];
+    public function gets($uuid)
+    {
+        $payload = $this->getPayload();
+        if (!$payload) {
+            ResponseHandler::getResponseHandler()->sendResponse(401, [
+                'error' => 'Unauthorized'
+            ]);
+            return;
+        }
+        try {
+            $db = Database::getInstance();
 
-         $data['name'] = $project['name'];
-         $data['chart'] = $project['chart'];
+            $currentUser = $db->fetchOne("SELECT * FROM user WHERE username = :username", ['username' => $payload['username']]);
 
-         // get the years for this project
-         $years = $db->fetchAll("SELECT * FROM years WHERE uuidProject = :uuidProject", ['uuidProject' => $project['uuid']]);
-         for ($i = 0; $i < count($years); $i++) {
-             $data['years'][$i] = $years[$i]['year'];
-         }
+            // fetch all projects for this user
+            $projects = $db->fetchAll("SELECT * FROM project WHERE uuidUser = :uuidUser", ['uuidUser' => $uuid]);
 
-         // get the slices for this project
-         $slices = $db->fetchOne("SELECT * FROM pie_chart WHERE uuidProject = :uuidProject", ['uuidProject' => $project['uuid']]);
-         $data['bars'] = $slices['slices'];
+            // if there are no projects, return a message indicating this
+            if (!$projects) {
+                ResponseHandler::getResponseHandler()->sendResponse(404, ['error' => 'No projects found for this user']);
+                return;
+            }
 
-         // check if there are optional conditions for this project
-         $optional = $db->fetchOne("SELECT * FROM optional_conditions WHERE uuidProject = :uuidProject", ['uuidProject' => $project['uuid']]);
+            if ($payload['isAdmin'] || $currentUser['uuid'] == $uuid) {
+                // build the project data for the response
+                $projectData = [];
+                foreach ($projects as $project) {
+                    $projectData[] = [
+                        'name' => $project['name'],
+                        'chart' => $project['chart'],
+                        'uuid' => $project['uuid']
+                    ];
+                }
 
-         // if there are optional conditions, add them to the response
-         // also send the json data
-         if ($optional) {
-             $data['seriesCode'] = $optional['optionalColumn'];
-             $data['seriesValue'] = $optional['optionalValue'];
+                ResponseHandler::getResponseHandler()->sendResponse(200, ['projects' => $projectData]);
+            } else {
+                ResponseHandler::getResponseHandler()->sendResponse(401, ['error' => 'Unauthorized']);
+            }
 
-             $json = JsonUtil::getJsonUtil()->filtrateAfterYearsAndColumns($data['years'], [$data['seriesCode']], [$data['seriesValue']]);
-         } else {
-             $json = JsonUtil::getJsonUtil()->filtrateAfterYearsAndColumns($data['years'], [], []);
-         }
-         // add the json data to the response
-         $json = JsonUtil::getJsonUtil()->extractTotalPerDistinctColumnValue($json, $data['bars']);
-         $data['json'] = $json;
+        } catch (Exception $e) {
+            ResponseHandler::getResponseHandler()->sendResponse(500, ["error" => "Internal Server Error"]);
+        }
+    }
 
-         return $data;
-     }
+    public function getByInterval($uuid, $startPage)
+    {
+        $payload = $this->getPayload();
+        if (!$payload) {
+            ResponseHandler::getResponseHandler()->sendResponse(401, [
+                'error' => 'Unauthorized'
+            ]);
+            return;
+        }
+        try {
+            $db = Database::getInstance();
 
- }
+            $currentUser = $db->fetchOne("SELECT * FROM user WHERE username = :username", ['username' => $payload['username']]);
 
+            $startIndex = $startPage - 1; // The start index of the projects
+            $pageSize = 4; // The number of projects to retrieve per page
+
+            // Calculate the offset based on the start index and page size
+            $offset = $startIndex * $pageSize;
+            // fetch all projects for this user
+            //$projects = $db->fetchAll("SELECT * FROM project WHERE uuidUser = :uuidUser", ['uuidUser' => $uuid]);
+
+            // $projects = $db->fetchAll("SELECT * FROM project WHERE uuidUser = :uuidUser LIMIT ".$pageSize,
+            //  ['uuidUser' => $uuid]);
+
+            $projects = $db->fetchAll("SELECT * FROM project WHERE uuidUser = :uuidUser LIMIT " . $pageSize . " OFFSET " . $offset,
+                ['uuidUser' => $uuid]);
+
+            // if there are no projects, return a message indicating this
+            if (!$projects) {
+                ResponseHandler::getResponseHandler()->sendResponse(404, ['error' => 'No projects found for this user']);
+                return;
+            }
+
+            if ($payload['isAdmin'] || $currentUser['uuid'] == $uuid) {
+
+                // build the project data for the response
+                $projectData = [];
+                foreach ($projects as $project) {
+                    $projectData[] = [
+                        'name' => $project['name'],
+                        'chart' => $project['chart'],
+                        'uuid' => $project['uuid']
+                    ];
+                }
+
+                ResponseHandler::getResponseHandler()->sendResponse(200, ['projects' => $projectData]);
+            } else {
+                ResponseHandler::getResponseHandler()->sendResponse(401, [
+                    'error' => 'Unauthorized'
+                ]);
+            }
+        } catch (Exception $e) {
+            ResponseHandler::getResponseHandler()->sendResponse(500, ["error" => "Internal Server Error"]);
+        }
+    }
+}
