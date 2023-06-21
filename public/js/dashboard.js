@@ -12,7 +12,10 @@ async function dashboard() {
     if (!uuid) return;
 
     const projectCount = await fetchUserProjectCount(token, uuid);
-    if (!projectCount && page > 1) redirectToDashboardPage(1);
+
+    //if(!projectCount) redirectToDashboardPage(1);
+
+    if (!projectCount && page >= 1) return;//redirectToDashboardPage(1);
 
     const projects = await fetchUserProjects(token, uuid, page, pageSize);
     if (!projects) return;
@@ -69,6 +72,7 @@ function createHeaders(token) {
 function updateUserInterface(result, uuid) {
     const adminPanel = document.querySelector(".admin-panel-btn");
     result.data.data.isAdmin ? adminPanel.classList.remove('hidden') : adminPanel.classList.add('hidden');
+    console.log(result.data.data.isAdmin);
 
     document.querySelector('.page-name p').textContent = 'Dashboard, Hello ' + result.data.data.username;
     document.querySelector(".view-profile-btn").href = "/user/" + uuid;

@@ -92,7 +92,7 @@ function drawLineChart(project) {
         .attr("text-anchor", "middle")
         .style("font-size", "11px")
         .text((d) => d.value);
-    
+
 }
 function addLineChartFields(project) {
     const slices = project.data.data.dataColumn;
