@@ -411,29 +411,10 @@ class ProjectController extends Controller
                 $data['seriesValue'] = $optional['optionalValue'];
                 $filterColumns = [$data['seriesCode'], $data['dataColumn']];
                 $filterValues = [$data['seriesValue'], $data['lineValue']];
-                $resultArray = []; // Initialize an empty array
 
-                foreach ($data['years'] as $year) {
-                    $currentJson = JsonUtil::getJsonUtil()->filtrateAfterYearsAndColumns([$year], $filterColumns, $filterValues);
-                    $currentTotal = JsonUtil::getJsonUtil()->extractTotalPerDistinctColumnValue($currentJson, $data['dataColumn']);
-                    $totalFromJSON = JsonUtil::getJsonUtil()->extractTotalFromJSON($currentTotal);
-                    $resultArray[$year] = $totalFromJSON; // Assign the value to the array with the key $year
-                }
-                //var_dump($resultArray); // Display the resulting array
-                $json = json_encode($resultArray,JSON_PRETTY_PRINT);
-                //var_dump($json);
-                //$json = JsonUtil::getJsonUtil()->filtrateAfterYearsAndColumns($data['years'], $filterColumns, $filterValues);
+                $json = JsonUtil::getJsonUtil()->extractTotalByYear($data['years'], $filterColumns, $filterValues, $data['dataColumn']);
             } else {
-                $resultArray = []; // Initialize an empty array
-                foreach ($data['years'] as $year) {
-                    $currentJson = JsonUtil::getJsonUtil()->filtrateAfterYearsAndColumns([$year], [$data['dataColumn']], [$data['lineValue']]);
-                    $currentTotal = JsonUtil::getJsonUtil()->extractTotalPerDistinctColumnValue($currentJson, $data['dataColumn']);
-                    $totalFromJSON = JsonUtil::getJsonUtil()->extractTotalFromJSON($currentTotal);
-                    $resultArray[$year] = $totalFromJSON; // Assign the value to the array with the key $year
-                }
-                //var_dump($resultArray);
-                $json = json_encode($resultArray,JSON_PRETTY_PRINT);
-               // $json = JsonUtil::getJsonUtil()->filtrateAfterYearsAndColumns($data['years'], [$data['dataColumn']], [$data['lineValue']]);
+                $json = JsonUtil::getJsonUtil()->extractTotalByYear($data['years'], [$data['dataColumn']], [$data['lineValue']], $data['dataColumn']);
             }
         } else {
             if ($optional) {
