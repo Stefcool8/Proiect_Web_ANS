@@ -50,6 +50,7 @@
 </div>
 <?php require_once __DIR__ . '/shared/footer.php'; ?>
 <script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="/public/js/chart/chartUtil.js"></script>
 <script src="/public/js/helper/localDatabaseUtil.js"></script>
 <script src="/public/js/chart/barChartVisualizer.js"></script>
 <script src="/public/js/chart/pieChartVisualizer.js"></script>

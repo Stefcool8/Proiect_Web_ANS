@@ -103,7 +103,7 @@ INSERT INTO `user` (`firstName`, `lastName`, `username`, `email`, `bio`, `passwo
 
 
 select * from user;
-select * from project;
+select * from project order by id desc;
 select * from bar_chart;
 select * from pie_chart;
 select * from line_chart;
