@@ -292,6 +292,141 @@
         </section>
     </section>
 
+    <section property="functionalities">
+        <h3 property="name">Functionalitati</h3>
+        <p property="text">
+            In cadrul acestei sectiuni sunt prezentate functionalitatile proiectului, precum si modul general de
+            functionare al acestora. Pentru a raspunde la intrebarea "Ce face aplicatia?", am impartit functionalitatile
+            in 3 categorii: functionalitati de baza, functionalitati principale si functionalitati de administrare.
+            Functionalitatile de baza sunt cele care permit unui utilizator sa interactioneze cu aplicatia,
+            cele principale sunt functionalitatile care permit unui utilizator sa extraga date relevante din fisierele
+            ce contin datele tematicii, iar functionalitatile de administrare sunt functionalitatile care permit
+            unui utilizator cu rol de administrator sa administreze datele aplicatiei. Pentru a raspunde la intrebarea
+        "La ce este utila aplicatia?", am impartit functionalitatile in 2 categorii: functionalitati de vizualizare
+        si functionalitati de export. Functionalitatile de vizualizare sunt functionalitatile care permit unui
+        utilizator sa vizualizeze datele extrase din fisierele ce contin datele tematicii, iar functionalitatile
+        de export sunt functionalitatile care permit unui utilizator sa exporte datele extrase din fisierele ce
+        contin datele tematicii in diferitele formate: CSV, PNG, JPEG, WebP, SVG.
+        </p>
+        <section property="basic-functionalities">
+            <h4 property="name">Functionalitati de baza</h4>
+            <ul>
+                <li>
+                    Creare cont, un utilizator poate sa isi creeze un cont in aplicatie, pe baza caruia va avea acces la
+                    posibilitatea de a interactiona cu aplicatia. Un utilizator trebuie sa-si introduca numele,
+                    prenumele,
+                    username-ul, email-ul, parola si sa confirme parola. Daca datele introduse sunt valide, atunci
+                    contul
+                    este creat si
+                    utilizatorul
+                    este redirectionat catre pagina de logare. Daca datele introduse nu sunt valide, atunci utilizatorul
+                    este
+                    atentionat cu privire la acest lucru si va avea posibilitatea de a introduce din nou datele.
+                </li>
+                <li>
+                    Logarea in cont, un utilizator poate sa se logheze in aplicatie, pe baza caruia va avea acces la
+                    posibilitatea
+                    de a interactiona cu aplicatia. Un utilizator trebuie sa-si introduca username-ul si parola. Daca
+                    datele
+                    introduse sunt valide, atunci utilizatorul este logat, local primeste un token JWT si este
+                    redirectionat
+                    catre pagina dashboard. Daca datele introduse nu sunt valide, atunci utilizatorul este atentionat cu
+                    privire la acest lucru si va avea posibilitatea de a introduce din nou datele.
+                </li>
+                <li>
+                    Logout, un utilizator poate sa se delogheze din aplicatie, pe baza caruia nu va mai avea acces la
+                    posibilitatea
+                    de a interactiona cu aplicatia. Un utilizator trebuie sa apese butonul de logout. Daca utilizatorul
+                    apasa butonul de logout, atunci acesta este delogat, token-ul JWT este sters si este redirectionat
+                    catre
+                    pagina principala, home.
+                </li>
+                <li>
+                    Vizualizare date legate de utilizator, un utilizator poate sa vizualizeze datele legate de contul
+                    sau.
+                    Un utilizator trebuie sa apese butonul de "View profile" in dashboard. In acest fel, utilizatorul va
+                    fi redirectionat catre pagina de vizualizare a datelor legate de contul sau. Acolo va putea sa
+                    vizualizeze
+                    numele, prenumele, username-ul, email-ul, bio-ul si trei butoane care il vor redirectiona catre
+                    paginile
+                    de editare a datelor, schimbare a parolei si stergere a contului.
+                </li>
+                <li>
+                    Stergere cont, un utilizator poate sa isi stearga contul din aplicatie, pe baza caruia nu va mai
+                    avea
+                    acces la posibilitatea de a interactiona cu aplicatia prin intermediul credentialelor user-ului
+                    curent.
+                    Un utilizator trebuie sa apese butonul de "Delete Account" in pagina de vizualizare a datelor legate
+                    de
+                    contul sau.
+                </li>
+                <li>
+                    Editare cont, un utilizator poate sa isi editeze datele legate de contul sau din aplicatie. Un
+                    utilizator
+                    trebuie sa apese butonul de "Modify account" in pagina de vizualizare a datelor legate de contul
+                    sau.
+                    In acest fel, utilizatorul va fi redirectionat catre pagina de editare a datelor legate de contul
+                    sau.
+                    Acolo va putea sa editeze numele, prenumele, username-ul, email-ul si bio-ul. Daca datele introduse
+                    sunt
+                    valide, iar username-ul sau email-ul modificat nu este folosit de alt cont, atunci contul este
+                    modificat
+                    si utilizatorul este redirectionat catre pagina de vizualizare a datelor legate de contul sau. Daca
+                    datele introduse nu sunt valide, atunci utilizatorul este atentionat cu privire la acest lucru si va
+                    avea posibilitatea de a introduce din nou datele.
+                </li>
+                <li>
+                    Schimbarea parolei, un utilizator poate sa isi schimbe parola din aplicatie. Un utilizator trebuie
+                    sa
+                    apese butonul de "Change password" in pagina de vizualizare a datelor legate de contul sau. In acest
+                    fel, utilizatorul va fi redirectionat catre pagina de schimbare a parolei. Acolo va putea sa
+                    introduca
+                    parola veche, parola noua si sa confirme parola noua. Daca datele introduse sunt valide, atunci
+                    parola
+                    este schimbata si utilizatorul este redirectionat catre pagina de vizualizare a datelor legate de
+                    contul sau. Daca datele introduse nu sunt valide, atunci utilizatorul este atentionat cu privire la
+                    acest lucru si va avea posibilitatea de a introduce din nou datele.
+                </li>
+                <li>
+                    Recuperarea parolei, un utilizator poate sa isi recupereze parola din aplicatie. Un utilizator
+                    trebuie
+                    sa apese butonul de "Reset password" in pagina de logare. In acest fel, utilizatorul va fi
+                    redirectionat
+                    catre pagina de recuperare a parolei. Acolo va putea sa introduca email-ul si sa primeasca un email
+                    cu
+                    un link de resetare a parolei. Daca email-ul introdus este valid, atunci utilizatorul va primi un
+                    email
+                    cu un link de resetare a parolei. Daca email-ul introdus nu este valid, atunci utilizatorul nu va
+                    primi
+                    niciun email, dar nu va fi atentionat cu privire la acest lucru. Daca utilizatorul primeste un email
+                    cu
+                    un link de resetare a parolei, atunci acesta va fi redirectionat catre pagina de resetare a parolei,
+                    protejata de un token.
+                    Acolo va putea sa introduca parola noua si sa confirme parola noua. Daca datele introduse sunt
+                    valide,
+                    atunci parola este schimbata si utilizatorul este redirectionat catre pagina de logare. Daca datele
+                    introduse nu sunt valide, atunci utilizatorul este atentionat cu privire la acest lucru si va avea
+                    posibilitatea de a introduce din nou datele.
+                </li>
+                <li>
+                    Trimiterea de mail-uri catre suport, un utilizator poate sa trimita un mail catre suportul
+                    aplicatiei.
+                    Un utilizator trebuie sa apese butonul de "Contact" din bara de navigare. In acest fel, utilizatorul
+                    va
+                    fi redirectionat catre pagina de trimitere a mail-ului catre suport. Acolo va putea sa introduca
+                    numele,
+                    prenumele, email-ul, subject si mesajul. Daca datele introduse sunt valide, atunci emailul pentru suport va primi un
+                    email cu mesajul utilizatorului. Daca datele introduse nu sunt valide, atunci utilizatorul este
+                    atentionat cu privire la acest lucru si va avea posibilitatea de a introduce din nou datele.
+                </li>
+            </ul>
+        </section>
+        <section property="admin-functionalities">
+            Modulul de administrare al aplicatiei este accesibil doar de catre utilizatorii cu rol de administrator.
+
+        </section>
+
+    </section>
 
     <section>
         <h2 property="name">Plan de instalare si setup</h2>
@@ -990,11 +1125,12 @@
         </section>
     </section>
 
-    <section>
+    <section property="security">
         <h3 property="name">Cerinte de securitate</h3>
         <p property="text">
             In ceea ce priveste Securitatea, aplicatia noastra asigura protectie impotriva urmatoarelor tipuri de
             atacuri:
+        <p>
             Protectie impotriva XSS (Cross Side Scriptig), asigurat prin sanitizarea datelor ce sunt introduse si apoi
             extrase din
             Frontend/Backend. Astfel, impiedicam un posibil atacator sa introduca scripturi periculoase prin completarea
@@ -1008,7 +1144,7 @@
             Se aplica asupra lui metoda "trim($data)" din php, pentru a elimina spatiile libere de la inceputul sau
             sfarsitul stringului introdus. Acest lucru ofera siguranta faptului ca datele sunt introduse si stocate
             corect (asa cum au fost gandite sa
-            fie, eliminand erorile din neatentie)
+            fie, eliminand erorile din neatentie).
             Apoi, asupra rezultatului obtinut, se aplica metoda "stripslashes($data)" din php, pentru a elimina
             caracterele '\' din sirul de caractere dat ca input. Adica nu permite markup-urilor HTML sa fie
             interpretate.
@@ -1016,14 +1152,17 @@
             transforma caracterele speciale( "<", ">", "&", "'", sau """ )
             în entități HTML, ceea ce înseamnă că orice HTML și JavaScript inserat nu va fi interpretat ca atare, ci va
             fi afișat ca text simplu.
-
-            2. Preventia SQL Injection, care se realizeaza de asemenea cu ajutorul metodei sanitazeData(), care va fi
-            aplicata asupra datelor primite de la utilizator ce urmeaza a fi inserate in tabelele Bazei de
-            Date existene. In felul acesta, evitam atacurile de tip SQL Injection asupra bazei de date si
+        </p>
+        <p>
+            Preventia SQL Injection, care se realizeaza de asemenea cu ajutorul metodei sanitazeData(), care va fi
+            aplicata asupra datelor primite de la utilizator ce urmeaza a fi inserate in tabelele bazei de
+            date existente. In felul acesta, evitam atacurile de tip SQL Injection asupra bazei de date si
             comportamentele
-            nedorite (afisarea datelor protejate).
-
-            3. Criptarea parolelor, care se realizeaza prin aplicarea metodei hash_password($password) asupra datei
+            nedorite (afisarea datelor protejate). In plus, folosirea metodei prepare() a clasei PDO, care permite
+            executarea de interogari parametrizate, asigura protectia impotriva acestui tip de atac.
+        </p>
+        <p>
+            Criptarea parolelor, care se realizeaza prin aplicarea metodei hash_password($password) asupra datei
             trimise
             de utilizator ca parola la crearea unui cont, data
             ce in prealabil este sanitizata. In felul acesta, inainte de a fi introdusa in baza de date, parola este
@@ -1031,9 +1170,10 @@
             Acest lucru este important deoarece mentinerea parolelor criptate asigura protectia asupra lor chiar si in
             cazul
             unui atac la baza de date.
+        </p>
     </section>
 
-    <section>
+    <section property="technologies">
         <h3 property="name">Tehnologii utilizate</h3>
         <p property="text">
             Pentru realizarea aplicatiei, s-au folosit limbaje de programare si tehnologii specifice ambelor
@@ -1047,11 +1187,13 @@
             Apache, iar la baza de date ne-am rezumat la folosirea SGBD-ului MySQL. Pentru redarea grafica a
             datelor
             am folosit libraria D3.js. Aplicatia nu foloseste niciun framework, scopul fiind de a demonstra
-            cunostintele noastre in domeniul web.
+            cunostintele noastre in domeniul web. Ca alte librarii externe folosite in cadrul proiectului, este libraria
+            SendGrid, care ne-a ajutat la trimiterea de email-uri, SCSS pentru a usura scrierea codului CSS, libraria
+            Swagger pentru a genera documentatia API-ului.
         </p>
     </section>
 
-    <section>
+    <section property="bibliography">
         <h2 property="name">Bibliografie</h2>
         <p> Lista cu link-uri utilizate frecvent in cadrul dezvoltarii acestui proiect:</p>
         <ul>
@@ -1073,7 +1215,6 @@
             <li><a href="https://www.rawgraphs.io/">https://www.rawgraphs.io/</a></li>
             <li><a href="https://stackoverflow.com/">https://stackoverflow.com/</a></li>
         </ul>
-    </section>
     </section>
 </article>
 </body>
