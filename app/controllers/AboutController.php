@@ -13,7 +13,7 @@ class AboutController extends Controller {
     /**
      * @OA\Get(
      *     path="/api/about",
-     *     summary="Retrieve about us page data",
+     *     summary="Retrieve page title",
      *     operationId="getAbout",
      *     tags={"About"},
      *     @OA\Response(

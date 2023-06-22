@@ -34,7 +34,7 @@ class ContactController extends Controller {
      *                     property="email",
      *                     description="The email of the user",
      *                     type="string",
-     *                     example="martinescunicolaee3@gmail.com"
+     *                     example="john@example.com"
      *                 ),
      *                 @OA\Property(
      *                     property="subject",
@@ -137,7 +137,7 @@ class ContactController extends Controller {
     /**
      * @OA\Get(
      *     path="/api/contact",
-     *     summary="Get the contact page",
+     *     summary="Retrieve the page title",
      *     tags={"Contact"},
      *     @OA\Response(
      *         response=200,

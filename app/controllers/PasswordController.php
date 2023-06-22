@@ -24,7 +24,7 @@ class PasswordController extends Controller {
      *         required=true,
      *         description="Email address of user",
      *         @OA\JsonContent(
-     *            @OA\Property(property="email", type="string", format="email", example="user@example.com")
+     *            @OA\Property(property="email", type="string", format="email", example="john@example.com")
      *         ),
      *     ),
      *     @OA\Response(
@@ -82,7 +82,7 @@ class PasswordController extends Controller {
      *         description="User password reset",
      *         @OA\JsonContent(
      *             required={"password"},
-     *             @OA\Property(property="password", type="string", format="password", example="password123", description="The new password"),
+     *             @OA\Property(property="password", type="string", format="password", example="SecureP@ssword1234", description="The new password"),
      *         ),
      *     ),
      *     @OA\Response(
@@ -138,7 +138,7 @@ class PasswordController extends Controller {
      *         required=true,
      *         @OA\Schema(
      *             type="string",
-     *             example="648eaf3cbc160"
+     *             example="648c882816eda"
      *         )
      *     ),
      *     @OA\RequestBody(
@@ -146,8 +146,8 @@ class PasswordController extends Controller {
      *         description="Current and new password",
      *         @OA\JsonContent(
      *             required={"currentPassword", "newPassword"},
-     *             @OA\Property(property="currentPassword", type="string", format="password", example="oldPassword123", description="The current password"),
-     *             @OA\Property(property="newPassword", type="string", format="password", example="newPassword456", description="The new password"),
+     *             @OA\Property(property="currentPassword", type="string", format="password", example="SecureP@ssword123", description="The current password"),
+     *             @OA\Property(property="newPassword", type="string", format="password", example="SecureP@ssword1234", description="The new password"),
      *         ),
      *     ),
      *     @OA\Response(

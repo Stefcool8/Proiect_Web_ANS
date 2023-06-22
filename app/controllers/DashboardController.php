@@ -28,9 +28,9 @@ class DashboardController extends Controller {
      *                 property="data",
      *                 type="object",
      *                 @OA\Property(property="title", type="string", example="Dashboard"),
-     *                 @OA\Property(property="username", type="string", example="user"),
+     *                 @OA\Property(property="username", type="string", example="johnDoe"),
      *                 @OA\Property(property="isAdmin",type="boolean", example ="false"),
-     *                 @OA\Property(property="uuid",type="string", example ="userId")
+     *                 @OA\Property(property="uuid",type="string", example ="648c882816eda")
      *
      *             )
      *         )

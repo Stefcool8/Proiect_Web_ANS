@@ -14,7 +14,7 @@ class AdminController
     /**
      * @OA\Get(
      *     path="/api/admin",
-     *     summary="Retrieve admin page data",
+     *     summary="Retrieve page title",
      *     operationId="getAdmin",
      *     tags={"Admin"},
      *     @OA\Response(
