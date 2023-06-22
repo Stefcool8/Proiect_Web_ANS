@@ -198,7 +198,7 @@
         </section>
     </section>
 
-    <section>
+    <section property="intermediary-steps">
         <h2 property="name">Etapele intermediare ale dezvoltarii proiectului</h2>
         <p property="text">
         <section>
@@ -291,6 +291,7 @@
             </ul>
         </section>
     </section>
+
 
     <section>
         <h2 property="name">Plan de instalare si setup</h2>
@@ -992,11 +993,44 @@
     <section>
         <h3 property="name">Cerinte de securitate</h3>
         <p property="text">
-            Sistemul aplicatiei noastre va stoca parolele criptate, va genera un token pentru securizarea
-            sesiunii
-            si va proteja baza de date impotriva atacurilor de tip "SQL injection" prin sanitizarea datelor
-            introduse de utilizator.
-        </p>
+            In ceea ce priveste Securitatea, aplicatia noastra asigura protectie impotriva urmatoarelor tipuri de
+            atacuri:
+            Protectie impotriva XSS (Cross Side Scriptig), asigurat prin sanitizarea datelor ce sunt introduse si apoi
+            extrase din
+            Frontend/Backend. Astfel, impiedicam un posibil atacator sa introduca scripturi periculoase prin completarea
+            formularelor
+            disponibile in aplicatie (Contact Form, Sing-In Form, Reset-Password Form, Create-Project From). Asadar,
+            toate datele introduse
+            direct de catre utilizator vor fi sanitizate in backend inainte de salvarea, respectiv extragerea lor din
+            baza de date sau inainte de a fi retrimise printr-un JSON. Sanitizarea datelor este efectuata in cadrul
+            clasei Controller, unde prin metoda "sanitazeData(string $data)
+            : string" , un sir de caractere reprezentand data introdusa sufera urmatoarele operatiuni.
+            Se aplica asupra lui metoda "trim($data)" din php, pentru a elimina spatiile libere de la inceputul sau
+            sfarsitul stringului introdus. Acest lucru ofera siguranta faptului ca datele sunt introduse si stocate
+            corect (asa cum au fost gandite sa
+            fie, eliminand erorile din neatentie)
+            Apoi, asupra rezultatului obtinut, se aplica metoda "stripslashes($data)" din php, pentru a elimina
+            caracterele '\' din sirul de caractere dat ca input. Adica nu permite markup-urilor HTML sa fie
+            interpretate.
+            In final, asupra rezultatului obtinut, se aplica metoda "htmlspecialchars($data)" din php, care
+            transforma caracterele speciale( "<", ">", "&", "'", sau """ )
+            în entități HTML, ceea ce înseamnă că orice HTML și JavaScript inserat nu va fi interpretat ca atare, ci va
+            fi afișat ca text simplu.
+
+            2. Preventia SQL Injection, care se realizeaza de asemenea cu ajutorul metodei sanitazeData(), care va fi
+            aplicata asupra datelor primite de la utilizator ce urmeaza a fi inserate in tabelele Bazei de
+            Date existene. In felul acesta, evitam atacurile de tip SQL Injection asupra bazei de date si
+            comportamentele
+            nedorite (afisarea datelor protejate).
+
+            3. Criptarea parolelor, care se realizeaza prin aplicarea metodei hash_password($password) asupra datei
+            trimise
+            de utilizator ca parola la crearea unui cont, data
+            ce in prealabil este sanitizata. In felul acesta, inainte de a fi introdusa in baza de date, parola este
+            criptata cu ajutorul unui algoritm.
+            Acest lucru este important deoarece mentinerea parolelor criptate asigura protectia asupra lor chiar si in
+            cazul
+            unui atac la baza de date.
     </section>
 
     <section>
