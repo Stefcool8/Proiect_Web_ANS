@@ -6,6 +6,9 @@ use App\Utils\Router;
 
 $router = Router::getRouter();
 
+// home routes
+$router->add('GET','/api/home','HomeController::get');
+
 // contact routes
 $router->add('POST', '/api/contact', 'ContactController::create');
 

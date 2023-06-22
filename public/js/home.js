@@ -42,6 +42,23 @@ const HomePage = (() => {
     }
 })();
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
     HomePage.onYouTubePlayerReady();
+
+    const response = await fetch('/api/home', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    });
+
+    const result = await response.json();
+
+    if (response.ok) {
+        const homeData = document.querySelector(".intro-heading p");
+        homeData.textContent = result.data.title;
+    } else {
+        showError(result.data.error);
+        throw new Error(result.data.error);
+    }
 });

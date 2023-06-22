@@ -24,7 +24,7 @@
 <main class="main-content">
     <section class="intro-section">
         <div class="intro-content">
-            <h2 class="intro-heading">Open source tool for data visualization</h2>
+            <h2 class="intro-heading"><p> </p></h2>
         </div>
         <div class="cta-button-group">
             <a href="/dashboard" class="cta-btn"><span>Use it now</span></a>
