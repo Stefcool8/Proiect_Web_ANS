@@ -124,7 +124,7 @@ function redirectToHome() {
     window.location.href = "/home";
 }
 
-async function fetchUserProjects(token, uuid, page, pageSize) {
+async function fetchUserProjects(token, uuid, page) {
     try {
         const response = await fetch(`/api/project/user/${uuid}/${page}`, {
             method: 'GET',
@@ -191,7 +191,7 @@ function createViewEvent(project, token) {
         if (responseGet.ok) {
             window.location.href = `/project/${project.uuid}`;
         } else {
-            console.error(result.message);
+            console.error(responseGet.message);
         }
     };
 }
@@ -215,7 +215,7 @@ function createDeleteEvent(project, token) {
         if (responseDELETE.ok) {
             window.location.href = "/dashboard";
         } else {
-            console.error(result.message);
+            console.error(responseDELETE.message);
         }
     };
 }

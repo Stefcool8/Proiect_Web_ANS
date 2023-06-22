@@ -43,15 +43,10 @@ document.addEventListener('DOMContentLoaded', async() => {
 
         console.log(response);
         if(response.status === 404){
-            console.log("Nu am useri");
-            //const buttonPrevious = document.querySelector('.button-previous');
-            //const buttonNext = document.querySelector('.button-next');
-            //buttonPrevious.classList.add('hidden');
-            //buttonNext.classList.add('hidden');
+            console.log("No users found");
         }
 
         if (response.ok) {
-
             const result = await response.json();
             console.log(result);
             // Get the parent container where the user cards will be appended
@@ -59,17 +54,16 @@ document.addEventListener('DOMContentLoaded', async() => {
             alertCard.classList.add('project');
             const introContainter = document.querySelector('.page-name');
             $count = result.data.data.length;
-            //userCount.textContent = "Hello";
-            if ($count == 0) {
+
+            if ($count === 0) {
                 alertCard.textContent = "There is no user registered";
-            } else if ($count == 1) {
+            } else if ($count === 1) {
                 alertCard.textContent = "There is only one user registered";
             } else {
                 alertCard.textContent = "There are " + $count + " users registered";
             }
 
             introContainter.appendChild(alertCard);
-
 
             const userContainer = document.querySelector('.user-list');
 
@@ -105,14 +99,12 @@ document.addEventListener('DOMContentLoaded', async() => {
                         // Create the view button
                         const viewButton = document.createElement('a');
                         viewButton.classList.add('button');
-                        //viewButton.href = `/user/${user.uuid}`;
                         viewButton.textContent = 'View Profile';
 
                         viewButton.addEventListener('click', async (event) => {
                             event.preventDefault();
                             console.log('View Button clicked');
                             console.log('UUID:${user.uuid}');
-
 
                             try {
                                 const apiUrl = `/api/user/${user.uuid}`;
@@ -126,8 +118,7 @@ document.addEventListener('DOMContentLoaded', async() => {
 
                                 if (response.ok) {
                                     // The view was successful
-                                    const URL = `/user/${user.uuid}`;
-                                    window.location.href = URL;
+                                    window.location.href = `/user/${user.uuid}`;
                                 } else {
                                     // Handle the error
                                     console.error(result.message);
@@ -142,14 +133,12 @@ document.addEventListener('DOMContentLoaded', async() => {
                         // Create the view Projects button
                         const viewProjectsButton = document.createElement('a');
                         viewProjectsButton.classList.add('button');
-                        //viewProjectsButton.href = `/viewUsers`;
                         viewProjectsButton.textContent = 'View Projects';
 
                         viewProjectsButton.addEventListener('click', async (event) => {
                             event.preventDefault();
                             console.log('ViewProjects Button clicked');
                             console.log('UUID:${user.uuid}');
-
 
                             try {
                                 const apiUrl = `/api/project/user/${user.uuid}/1`;
@@ -162,8 +151,7 @@ document.addEventListener('DOMContentLoaded', async() => {
                                 });
 
                                 if (response.status === 404) {
-                                    const URL = `/viewProjects/${user.uuid}?page=1`;
-                                    window.location.href = URL;
+                                    window.location.href = `/viewProjects/${user.uuid}?page=1`;
                                 }
 
                                 if (response.ok) {
@@ -179,13 +167,11 @@ document.addEventListener('DOMContentLoaded', async() => {
                                 // Handle any errors
                                 console.error(error);
                             }
-
                         });
 
                         // Create the delete button
                         const deleteButton = document.createElement('a');
                         deleteButton.classList.add('button');
-                        // deleteButton.href = `/viewUsers`;
                         deleteButton.textContent = 'Delete';
 
                         deleteButton.addEventListener('click', async (event) => {
@@ -225,8 +211,6 @@ document.addEventListener('DOMContentLoaded', async() => {
 
                         // Append the project card to the parent container
                         userContainer.appendChild(userCard);
-
-
                     });
 
                     const buttonPrevious = document.querySelector('.button-previous');
@@ -247,7 +231,6 @@ document.addEventListener('DOMContentLoaded', async() => {
                     buttonPrevious.addEventListener('click', async (event) => {
                         event.preventDefault();
                         window.location.href = `/viewUsers?page=${parseInt(page) - 1}`;
-
                     });
 
                     buttonNext.addEventListener('click', async (event) => {
@@ -255,7 +238,6 @@ document.addEventListener('DOMContentLoaded', async() => {
                         //console.log("Next button clicked");
                         window.location.href = `/viewUsers?page=${parseInt(page) + 1}`;
                     });
-
                 }
                 else {
                     // Handle the error
@@ -265,22 +247,15 @@ document.addEventListener('DOMContentLoaded', async() => {
                 // Handle any errors
                 console.error(error);
             }
-
         }
     } catch (error) {
-
+        // Handle any errors
+        console.error(error);
     }
 });
 
 const deleteButtons = document.querySelectorAll(
     ".user-list .button-area a:last-child"
-);
-const viewProfileButtons = document.querySelectorAll(
-    ".user-list .button-area a:first-child"
-);
-
-const modifyProfileButtons = document.querySelectorAll(
-  ".user-list .button-area a:nth-child(2)"
 );
 
 deleteButtons.forEach(function(button) {
@@ -317,88 +292,12 @@ deleteButtons.forEach(function(button) {
     });
 });
 
-/*
-modifyProfileButtons.forEach(function(button) {
-    // Add a click event listener to each button
-    const token = localStorage.getItem('jwt');
-    button.addEventListener("click", async(event) => {
-        event.preventDefault();
-        const userRow = event.target.closest(".project");
-        const userData = JSON.parse(userRow.dataset.user);
-        const uuid = userData.uuid;
-        console.log("View Button clicked");
-        console.log("UUID:", uuid);
+const userListContainer = document.querySelector(".user-list");
 
-        try {
-            const apiUrl = "/api/user/" + uuid;
-            const response = await fetch(apiUrl, {
-                method: "GET",
-                headers: {
-                    Authorization: 'Bearer ' + token,
-                    "Content-Type": "application/json",
-                },
-            });
-
-            if (response.ok) {
-                // The view was successful
-                const URL = "/user/" + uuid;
-                window.location.href = URL;
-            } else {
-                // Handle the error
-                console.error(result.message);
-            }
-        } catch (error) {
-            // Handle any errors
-            console.error(error);
-        }
-    });
-});
-
- */
-
-const userlistContainer = document.querySelector(".user-list");
-
-userlistContainer.addEventListener("click", function(event) {
+userListContainer.addEventListener("click", function(event) {
     // Check if the click occurred within the "user-list" region
     if (event.target.closest(".user-list")) {
         // Code to handle the click on the "user-list" region
-
-        // Example: Log a message to the console
         console.log("Clicked on the user-list region");
     }
 });
-
-/*
-async function fetchUserList(uuid) {
-    const token = localStorage.getItem('jwt');
-    if (!token) {
-        window.location.href = "/login";
-    }
-
-    try {
-        const response = await fetch(`/api/user`, {
-            method: "GET",
-            headers: {
-                'Authorization': 'Bearer ' + token,
-            },
-        });
-
-
-        if (response.ok) {
-            const project = await response.json();
-
-            console.log(project);
-            console.log(project.data.name);
-            console.log(project.data.chart);
-            // Populate the HTML fields with the fetched data
-            document.getElementById("projectName").value = project.data.data.name;
-            document.getElementById("projectType").value = project.data.data.chart;
-        } else {
-            console.error("Failed to fetch project details");
-        }
-    } catch (error) {
-        console.error(error);
-    }
-}
-
- */

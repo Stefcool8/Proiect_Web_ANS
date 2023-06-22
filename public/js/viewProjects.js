@@ -12,17 +12,10 @@ document.addEventListener('DOMContentLoaded', async () => {
         page = 1;
     }
 
-    //console.log(uuid);
-    //console.log(page);
-    // Show an error message if there is no uuid parameter in the URL
-
     if (!token) {
         window.location.href = "/login";
     }
-    //let $uuid;
     try {
-
-
         const adminResponse = await fetch('/api/auth/admin', {
             method: 'GET',
             headers: {
@@ -40,8 +33,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             return;
         }
 
-
-
         const firstApiURL = "/api/user/" + uuid;
         const response1 = await fetch(firstApiURL, {
             method: 'GET',
@@ -57,26 +48,17 @@ document.addEventListener('DOMContentLoaded', async () => {
             return;
         }
         const result = await response1.json();
-        //$uuid =result.data.data.uuid;
-        //console.log(result)
 
         if (response1.ok) {
             console.log(result);
             // Populate the dashboard with the user data
             document.querySelector('.page-name p').textContent = 'Projects of user: ' + result.data.data.username;
-            // Fill in other parts of the page using result.data
-            //let user = JSON.parse(localStorage.getItem("user"));
-            //console.log(user);
-            //console.log(user.uuid);
             const userLink = document.querySelector(".view-profile-btn");
-            //userLink.href = "/user/" + user.uuid;
             userLink.href = "/user/" + uuid;
-
         } else {
             // Handle the error
             console.error(result.message);
         }
-
     } catch (error) {
         // Handle any errors
         console.error(error);
@@ -93,7 +75,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
         });
 
-        //console.log(uuid);
         console.log(response);
 
         const projectContainer = document.querySelector('.project-area');
@@ -108,21 +89,15 @@ document.addEventListener('DOMContentLoaded', async () => {
             const buttonNext = document.querySelector('.button-next');
             buttonPrevious.classList.add('hidden');
             buttonNext.classList.add('hidden');
-
-
         }
 
         if (response.ok) {
-
             const result = await response.json();
             console.log(result);
             const countProjects = result.data.projects.length;
 
-
             try {
                 const apiURL2 = "/api/project/user/" + uuid + "/" + page;
-                //console.log("Hello");
-                //console.log(apiURL2)
                 const actualProjects = await fetch(apiURL2, {
                     method: 'GET',
                     headers: {
@@ -132,7 +107,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 });
                 if (actualProjects.ok) {
                     const resultActualProjects = await actualProjects.json();
-                    //console.log(resultActualProjects);
+
                     resultActualProjects.data.projects.forEach(project => {
                         const projectCard = document.createElement('div');
                         projectCard.classList.add('project');
@@ -147,7 +122,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                         viewButton.textContent = 'View';
                         viewButton.addEventListener('click', async (event) => {
                             event.preventDefault();
-
                             try {
                                 const apiUrl = `/api/project/${project.uuid}`;
                                 const responseGet = await fetch(apiUrl, {
@@ -160,8 +134,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
                                 if (responseGet.ok) {
                                     // The view was successful
-                                    const URL = `/project/${project.uuid}`;
-                                    window.location.href = URL;
+                                    window.location.href = `/project/${project.uuid}`;
                                 } else {
                                     // Handle the error
                                     console.error(result.message);
@@ -170,7 +143,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                                 // Handle any errors
                                 console.error(error);
                             }
-
                         });
 
                         // Create the delete button
@@ -191,7 +163,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                                 });
 
                                 if (responseDELETE.ok) {
-                                    window.location.href = "/dashboard";
+                                    window.location.href = "/viewProjects/" + uuid;
                                 } else {
                                     // Handle the error
                                     console.error(result.message);
@@ -200,7 +172,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                                 // Handle any errors
                                 console.error(error);
                             }
-
                         });
 
                         // Append the project name and buttons to the project card
@@ -227,13 +198,11 @@ document.addEventListener('DOMContentLoaded', async () => {
                     buttonPrevious.addEventListener('click', async (event) => {
                         event.preventDefault();
                         window.location.href = `/viewProjects/${uuid}?page=${parseInt(page) - 1}`;
-
                     });
                     buttonNext.addEventListener('click', async (event) => {
                         event.preventDefault();
                         window.location.href = `/viewProjects/${uuid}?page=${parseInt(page) + 1}`;
                     });
-
                 } else {
                     // Handle the error
                     console.error(result.message);
@@ -241,13 +210,12 @@ document.addEventListener('DOMContentLoaded', async () => {
             } catch (error) {
 
             }
-
         } else {
             // Handle the error
             console.error(result.message);
         }
     } catch (error) {
-
+        // Handle any errors
+        console.error(error);
     }
-
 });
