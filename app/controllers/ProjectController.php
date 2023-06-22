@@ -510,7 +510,6 @@ class ProjectController extends Controller
             }
 
             if ($payload['isAdmin'] || $currentUser['uuid'] == $uuid) {
-
                 // build the project data for the response
                 $projectData = [];
                 foreach ($projects as $project) {

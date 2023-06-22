@@ -62,7 +62,6 @@ class AuthController extends Controller {
      * )
      */
     public function get() {
-        
         // get the authorization field from the request header
         $headers = apache_request_headers();
 
@@ -127,7 +126,7 @@ class AuthController extends Controller {
      * )
      */
     public function getAdmin() {
-        $payload = $this ->getPayload();
+        $payload = $this->getPayload();
         if (!$payload['isAdmin']) {
             ResponseHandler::getResponseHandler()->sendResponse(401, [
                 'error' => 'Unauthorized'
@@ -178,6 +177,14 @@ class AuthController extends Controller {
     public function verifyAccess()
     {
         $body = json_decode(file_get_contents('php://input'), true);
+
+        if (!isset($body['uuid'])) {
+            ResponseHandler::getResponseHandler()->sendResponse(400, [
+                'error' => 'Bad request'
+            ]);
+            return;
+        }
+
         $uuid = $body['uuid'];
         // get the token from the request header
         $headers = apache_request_headers();

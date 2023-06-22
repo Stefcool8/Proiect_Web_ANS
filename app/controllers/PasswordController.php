@@ -45,6 +45,10 @@ class PasswordController extends Controller {
      */
     public function forgotPassword() {
         $body = json_decode(file_get_contents('php://input'), true);
+
+        if (!isset($body['email'])) {
+            ResponseHandler::getResponseHandler()->sendResponse(400, ['error' => 'Email address is required']);
+        }
         $email = $this->sanitizeData($body['email']);
 
         $db = Database::getInstance();
@@ -96,6 +100,10 @@ class PasswordController extends Controller {
      */
     public function resetPassword() {
         $body = json_decode(file_get_contents('php://input'), true);
+
+        if (!isset($body['password'])) {
+            ResponseHandler::getResponseHandler()->sendResponse(400, ['error' => 'Password is required']);
+        }
         $password = $this->sanitizeData($body['password']);
 
         // get the token from the request header
@@ -187,7 +195,6 @@ class PasswordController extends Controller {
             ResponseHandler::getResponseHandler()->sendResponse(400, ['error' => 'Missing required fields']);
             return;
         }
-
         $currentPassword = $this->sanitizeData($body['currentPassword']);
         $newPassword = $this->sanitizeData($body['newPassword']);
 
