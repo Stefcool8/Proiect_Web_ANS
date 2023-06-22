@@ -7,10 +7,71 @@ use App\utils\ResponseHandler;
 use App\utils\Database;
 use Exception;
 
-
+/**
+ * Controller for User operations
+ *
+ */
 class UserController extends Controller {
 
-
+    /**
+     * @OA\Post(
+     *     path="/api/user",
+     *     summary="Create a new user",
+     *     operationId="createUser",
+     *     tags={"User"},
+     *     @OA\RequestBody(
+     *         description="User data",
+     *         required=true,
+     *         @OA\JsonContent(
+     *             @OA\Property(property="firstName", type="string", example="John"),
+     *             @OA\Property(property="lastName", type="string", example="Doe"),
+     *             @OA\Property(property="email", type="string", example="john@example.com"),
+     *             @OA\Property(property="password", type="string", example="SecureP@ssword123"),
+     *             @OA\Property(property="username", type="string", example="johnDoe")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="User created successfully",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status_code", type="integer", example=200),
+     *             @OA\Property(property="message", type="string", example="User created successfully")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Invalid request body",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status_code", type="integer", example=400),
+     *             @OA\Property(property="error", type="string", example="Invalid request body")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=409,
+     *         description="Username already exists",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status_code", type="integer", example=409),
+     *             @OA\Property(property="error", type="string", example="Username already exists")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=488,
+     *         description="Email already exists",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status_code", type="integer", example=488),
+     *             @OA\Property(property="error", type="string", example="Email already exists")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *          response=500,
+     *          description="Internal Server Error",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="status_code", type="integer", example=500),
+     *              @OA\Property(property="error", type="string", example="Internal Server Error")
+     *         )
+     *    )
+     * )
+     */
     public function create()
     {
         // get the request body
@@ -66,7 +127,51 @@ class UserController extends Controller {
         }
     }
 
-
+    /**
+     * @OA\Delete(
+     *     path="/api/user/{uuid}",
+     *     summary="Delete a user",
+     *     operationId="deleteUser",
+     *     tags={"User"},
+     *     security={{"bearerAuth":{}}},
+     *
+     *     @OA\Parameter(
+     *         name="uuid",
+     *         in="path",
+     *         description="UUID of the user to be deleted",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string",
+     *             example="648c882816eda"
+     *         )
+     *     ),
+     *     @OA\Response(response="204", description="User successfully deleted."),
+     *     @OA\Response(
+     *         response="404",
+     *         description="User not found",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status_code", type="integer", example=404),
+     *             @OA\Property(property="error", type="string", example="User not found")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response="401",
+     *         description="Unauthorized",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status_code", type="integer", example=401),
+     *             @OA\Property(property="error", type="string", example="Unauthorized")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response="500",
+     *         description="Internal Server Error",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status_code", type="integer", example=500),
+     *             @OA\Property(property="error", type="string", example="Internal Server Error")
+     *        )
+     *    )
+     * )
+     */
     public function delete($uuid) {
         $payload = $this->getPayload();
 
@@ -102,7 +207,66 @@ class UserController extends Controller {
         }
     }
 
-
+    /**
+     * @OA\Get(
+     *     path="/api/user/{uuid}",
+     *     summary="Get user information",
+     *     description="Get the details of a user by UUID.",
+     *     operationId="getUser",
+     *     tags={"User"},
+     *     security={{"bearerAuth":{}}},
+     *
+     *     @OA\Parameter(
+     *         name="uuid",
+     *         in="path",
+     *         description="UUID of the user to retrieve",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string",
+     *             example="648c882816eda"
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="data", type="object",
+     *                 example={
+     *                     "uuid": "648c882816eda",
+     *                     "isAdmin": false,
+     *                     "firstName": "John",
+     *                     "lastName": "Doe",
+     *                     "email": "john.doe@example.com",
+     *                     "username": "johndoe",
+     *                     "bio": "This is John Doe's bio."
+     *                 }
+     *             )
+     *         ),
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="User not found",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="error", type="string", example="User not found"),
+     *         ),
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="error", type="string", example="Unauthorized"),
+     *         ),
+     *     ),
+     *     @OA\Response(
+     *         response=500,
+     *         description="Internal server error",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="error", type="string", example="Internal Server Error"),
+     *         ),
+     *     ),
+     * )
+     */
     public function get($uuid) {
         $payload = $this->getPayload();
         if (!$payload) {
@@ -145,7 +309,111 @@ class UserController extends Controller {
         }
     }
 
-
+    /**
+     * @OA\Put(
+     *     path="/api/user/{uuid}",
+     *     summary="Update user information",
+     *     description="This can only be done by the logged in user or an admin.",
+     *     tags={"User"},
+     *     security={{"bearerAuth":{}}},
+     *     @OA\Parameter(
+     *         description="UUID of user to update",
+     *         in="path",
+     *         name="uuid",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string",
+     *         )
+     *     ),
+     *     @OA\RequestBody(
+     *         description="Updated user object",
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 @OA\Property(
+     *                     property="firstName",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="lastName",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="username",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="email",
+     *                     type="string",
+     *                     format="email"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="bio",
+     *                     type="string"
+     *                 ),
+     *                 example={
+     *                     "firstName": "John",
+     *                     "lastName": "Doe",
+     *                     "username": "johndoe",
+     *                     "email": "john.doe@example.com",
+     *                     "bio": "Software Engineer"
+     *                 }
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="User updated successfully",
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 @OA\Property(
+     *                     property="message",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="token",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="user",
+     *                     type="object",
+     *                     @OA\Property(
+     *                         property="username",
+     *                         type="string"
+     *                     ),
+     *                     @OA\Property(
+     *                         property="uuid",
+     *                         type="string",
+     *                         format="uuid"
+     *                     ),
+     *                     @OA\Property(
+     *                         property="isAdmin",
+     *                         type="boolean"
+     *                     )
+     *                 ),
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Invalid username or email supplied or missing required fields"
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized"
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="User not found"
+     *     ),
+     *     @OA\Response(
+     *         response=500,
+     *         description="Internal server error"
+     *     )
+     * )
+     */
     public function update($uuid) {
         $payload = $this->getPayload();
 
@@ -238,6 +506,77 @@ class UserController extends Controller {
         ]);
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/user",
+     *     summary="Retrieve list of users",
+     *     operationId="getUsers",
+     *     tags={"User"},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                 property="status_code",
+     *                 type="integer",
+     *                 example=200
+     *             ),
+     *             @OA\Property(
+     *                 property="data",
+     *                 type="array",
+     *                 @OA\Items(
+     *                     type="object",
+     *                     @OA\Property(
+     *                         property="uuid",
+     *                         type="string",
+     *                         example="user-123"
+     *                     ),
+     *                     @OA\Property(
+     *                         property="name",
+     *                         type="string",
+     *                         example="John Doe"
+     *                     ),
+     *                     @OA\Property(
+     *                         property="email",
+     *                         type="string",
+     *                         example="johndoe@example.com"
+     *                     ),
+     *                     @OA\Property(
+     *                         property="username",
+     *                         type="string",
+     *                         example="johndoe"
+     *                     )
+     *                 )
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Users not found",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                 property="error",
+     *                 type="string",
+     *                 example="Users not found"
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=500,
+     *         description="Internal Server Error",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                 property="error",
+     *                 type="string",
+     *                 example="Internal Server Error"
+     *             )
+     *         )
+     *     )
+     * )
+     */
     public function gets() {
         $payload = $this->getPayload();
         if (!$payload) {

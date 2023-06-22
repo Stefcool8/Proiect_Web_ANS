@@ -7,12 +7,62 @@ use App\utils\JWT;
 use InvalidArgumentException;
 use App\utils\Database;
 
-
+/**
+ * Controller for user authentication
+ *
+ */
 class AuthController extends Controller {
 
-
+    /**
+     * @OA\Get(
+     *     path="/api/auth",
+     *     summary="Validate the user's token",
+     *     operationId="getAuth",
+     *     tags={"Authentication"},
+     *     security={{"bearerAuth":{}}},
+     *     @OA\Response(
+     *         response=200,
+     *         description="The user's token is valid.",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="status_code", type="integer", example=200),
+     *             @OA\Property(
+     *                 property="data",
+     *                 type="object",
+     *                 @OA\Property(property="message", type="string", example="Authorized")
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Authorization header is missing or malformed.",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="status_code", type="integer", example=400),
+     *             @OA\Property(
+     *                 property="data",
+     *                 type="object",
+     *                 @OA\Property(property="error", type="string", example="Bad request")
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="The user's token is invalid.",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="status_code", type="integer", example=401),
+     *             @OA\Property(
+     *                 property="data",
+     *                 type="object",
+     *                 @OA\Property(property="error", type="string", example="Unauthorized")
+     *             )
+     *         )
+     *     )
+     * )
+     */
     public function get() {
-        
+
         // get the authorization field from the request header
         $headers = apache_request_headers();
 
@@ -44,39 +94,87 @@ class AuthController extends Controller {
         ]);
     }
 
-    public function getAdmin()
-    {
-        $payload = $this->getPayload();
+    /**
+     * This is the OpenAPI documentation for the verifyAdmin() function.
+     *
+     * @OA\Get(
+     *     path="/api/auth/admin",
+     *     operationId="verifyAdmin",
+     *     tags={"Authentication"},
+     *     summary="Validate the admin's token",
+     *     description="Endpoint for verifying admin privileges.",
+     *     security={{"bearerAuth": {}}},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful response",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="data", type="object",
+     *                 @OA\Property(property="title", type="string", example="Admin"),
+     *                 @OA\Property(property="isAdmin", type="boolean"),
+     *                 @OA\Property(property="username",type="string")
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="error", type="string", example="Unauthorized")
+     *         )
+     *     )
+     * )
+     */
+    public function getAdmin() {
+        $payload = $this ->getPayload();
         if (!$payload['isAdmin']) {
             ResponseHandler::getResponseHandler()->sendResponse(401, [
                 'error' => 'Unauthorized'
             ]);
             return;
         }
-        try {
-            $db = Database::getInstance();
-            $currentUser = $db->fetchOne("SELECT * FROM user WHERE username = :username", ['username' => $payload['username']]);
-
-            if (!$currentUser) {
-                ResponseHandler::getResponseHandler()->sendResponse(401, ['error' => 'Unauthorized']);
-                return;
-            }
-
-            ResponseHandler::getResponseHandler()->sendResponse(200, [
-                'data' => [
-                    'isAdmin' => $payload['isAdmin'],
-                    'username' => $payload['username'],
-                    'uuid' => $currentUser['uuid']
-                ]
-            ]);
-        }catch (InvalidArgumentException $e) {
-        ResponseHandler::getResponseHandler()->sendResponse(401, ['error' => 'Unauthorized']);
-    }
-
+        ResponseHandler::getResponseHandler()->sendResponse(200, [
+            'data' => [
+                'isAdmin' => $payload['isAdmin'],
+                'username' => $payload['username']
+            ]
+        ]);
     }
 
 
-
+    /**
+     * This is the OpenAPI documentation for the verifyAccess() function.
+     *
+     * @OA\Post(
+     *     path="/api/auth/verifyAccess",
+     *     operationId="verifyAccess",
+     *     tags={"Authentication"},
+     *     summary="Validate the admin's token",
+     *     description="Endpoint for verifying admin privileges.",
+     *     security={{"bearerAuth": {}}},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful response",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="data", type="object",
+     *                 @OA\Property(property="title", type="string", example="Admin"),
+     *                 @OA\Property(property="isAdmin", type="boolean"),
+     *                 @OA\Property(property="username",type="string")
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="error", type="string", example="Unauthorized")
+     *         )
+     *     )
+     * )
+     */
     public function verifyAccess()
     {
 

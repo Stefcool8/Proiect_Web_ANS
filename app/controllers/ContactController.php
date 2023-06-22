@@ -5,10 +5,90 @@ namespace App\Controllers;
 use App\utils\ResponseHandler;
 use App\utils\EmailSender;
 
-
+/**
+ * Controller for the Contact page
+ *
+ */
 class ContactController extends Controller {
 
-
+    /**
+     * @OA\Post(
+     *     path="/api/contact",
+     *     summary="Submit a contact request",
+     *     tags={"Contact"},
+     *     @OA\RequestBody(
+     *         description="Contact form data",
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 required={"name", "email", "subject", "message", "nickname"},
+     *                 @OA\Property(
+     *                     property="name",
+     *                     description="The name of the user",
+     *                     type="string",
+     *                     example="John Doe"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="email",
+     *                     description="The email of the user",
+     *                     type="string",
+     *                     example="martinescunicolaee3@gmail.com"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="subject",
+     *                     description="The subject of the contact request",
+     *                     type="string",
+     *                     example="I have a question"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="message",
+     *                     description="The message of the contact request",
+     *                     type="string",
+     *                     example="I have a question about the website"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="nickname",
+     *                     description="Honeypot field",
+     *                     type="string",
+     *                     example=""
+     *                 )
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Contact request submitted successfully",
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 @OA\Property(
+     *                     property="message",
+     *                     description="Success message",
+     *                     type="string"
+     *                 )
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Bad Request. Invalid email or missing required fields",
+     *         @OA\MediaType(mediaType="application/json")
+     *     ),
+     *     @OA\Response(
+     *         response=405,
+     *         description="Method not allowed. Honeypot field is filled",
+     *         @OA\MediaType(mediaType="application/json")
+     *     ),
+     *     @OA\Response(
+     *         response=500,
+     *         description="Internal Server Error. Email sending failed",
+     *         @OA\MediaType(mediaType="application/json")
+     *     )
+     * )
+     */
     public function create() {
         $body = json_decode(file_get_contents('php://input'), true);
 
@@ -54,4 +134,33 @@ class ContactController extends Controller {
         }
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/contact",
+     *     summary="Get the contact page",
+     *     tags={"Contact"},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Contact page",
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 required={"title"},
+     *                 @OA\Property(
+     *                     property="title",
+     *                     description="The title of the page",
+     *                     type="string",
+     *                     example="Contact Us"
+     *                 )
+     *             )
+     *         )
+     *     )
+     * )
+     */
+    public function get() {
+        ResponseHandler::getResponseHandler()->sendResponse(200, [
+            'title' => 'Contact Us',
+        ]);
+    }
 }
