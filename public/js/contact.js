@@ -89,3 +89,23 @@ const errorMessage = document.querySelector('.error-message');
 const successMessage = document.querySelector('.success-message');
 
 contactForm.addEventListener('submit', handleFormSubmit);
+
+document.addEventListener("DOMContentLoaded", async () => {
+
+    const response = await fetch('/api/contact', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    });
+
+    const result = await response.json();
+
+    if (response.ok) {
+        const contactData = document.querySelector(".contact-form-container h2");
+        contactData.textContent = result.data.title;
+    } else {
+        showError(result.data.error);
+        throw new Error(result.data.error);
+    }
+});

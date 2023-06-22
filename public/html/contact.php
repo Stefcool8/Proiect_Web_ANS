@@ -21,7 +21,7 @@
 <div class="contact-page">
     <main class="main-content">
         <div class="contact-form-container">
-            <h2>Contact Us</h2>
+            <h2> </h2>
             <form id="contact-form" method="POST">
                 <div class="error-message hidden"></div>
                 <div class="success-message hidden"></div>

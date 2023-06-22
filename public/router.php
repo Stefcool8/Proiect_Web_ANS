@@ -17,6 +17,7 @@ $router->add('GET','/api/admin','AdminController::get');
 
 // contact routes
 $router->add('POST', '/api/contact', 'ContactController::create');
+$router->add('GET','/api/contact','ContactController::get');
 
 // dashboard routes
 $router->add('GET', '/api/dashboard', 'DashboardController::get');
