@@ -444,12 +444,12 @@ projectInitializationForm.addEventListener("submit", async (event) => {
     }
     if (chartCode === 1) {
         // add the value line to the data object
-        data.lineValue = linesInput.value;
+        data.lineValue = linesInput.value.toUpperCase();
     }
 
     if (seriesSelect.value !== '') {
         const seriesCode = allColumns.indexOf(seriesSelect.value);
-        const seriesValue = seriesInput.value;
+        const seriesValue = seriesInput.value.toUpperCase();
 
         console.log(seriesCode);
         console.log(seriesValue);
