@@ -42,4 +42,4 @@ Vizualizarea documentatiei sa face prin deschiderea manuala a acestuia la http:/
 \
 Vizualizarea documentatiei swagger se face la http://localhost/docs/swagger/
 \
-Video-ul de prezentare se afla in folderul docs.
+Video-ul de prezentare se afla in folderul docs sau la link-ul https://www.youtube.com/watch?v=zwxHwc_BP1w.
