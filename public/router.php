@@ -9,6 +9,9 @@ $router = Router::getRouter();
 // home routes
 $router->add('GET','/api/home','HomeController::get');
 
+// about routes
+$router->add('GET','/api/about','AboutController::get');
+
 // contact routes
 $router->add('POST', '/api/contact', 'ContactController::create');
 
