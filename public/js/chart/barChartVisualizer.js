@@ -2,7 +2,6 @@ let barHeight = 500; // default height
 let barWidth = 1500; // default width
 const barExportWidth = 5120; // default export width
 const barExportHeight = 2880; // default export height
-let margin = ({top: 20, right: 0, bottom: 30, left: 40}); // default margin
 let barChartData = []; // default data
 const barFontSize = 16; // default font size
 
@@ -96,7 +95,7 @@ function addBarChartFields(project) {
 
     // verify if seriesCode and seriesValue exist
     // if they do, add them to the input group
-    if (project.data.data.seriesCode) {
+    if (project.data.data.seriesCode != null) {
         const seriesCode = project.data.data.seriesCode;
         const seriesValue = project.data.data.seriesValue;
 
@@ -107,7 +106,7 @@ function addBarChartFields(project) {
     detailContainer.appendChild(inputGroup);
 }
 
-function drawEnlargedBarChart(project) {
+function exportBarChart(project) {
     const json = JSON.parse(project.data.data.json);
     const chartData = Object.entries(json)
         .map(([name, value]) => ({ name, value }))

@@ -1,3 +1,6 @@
+const mapExportWidth = 1000;
+const mapExportHeight = 500;
+
 function addMapChartFields(project) {
     const inputGroup = document.createElement('div');
     inputGroup.classList.add('input-group');
@@ -39,4 +42,10 @@ function drawMapChart(project) {
 
     // load countrymap.js script dynamically
     loadJS("/public/js/svg/countrymap.js", false);
+
+    // remove png, jpeg, webp, and svg export buttons
+    document.getElementById('download-png').style.display = 'none';
+    document.getElementById('download-jpeg').style.display = 'none';
+    document.getElementById('download-webp').style.display = 'none';
+    document.getElementById('download-svg').style.display = 'none';
 }

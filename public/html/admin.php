@@ -30,7 +30,7 @@ $data = fetch_data('admin', [
     </div>
     <div>
         <a href="/user" class="view-profile-btn">View Profile</a>
-        <a href="/upload" class="create-project-btn">Create new project</a>
+        <a href="/project-initialization" class="create-project-btn">Create new project</a>
         <a href="/viewUsers" class="view-users-btn">View Users</a>
     </div>
     <div class="project-area">

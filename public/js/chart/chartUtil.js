@@ -1,3 +1,5 @@
+const margin = ({top: 20, right: 0, bottom: 30, left: 40}); // default margin
+
 // Function to convert SVG to Canvas
 function svgToCanvas(svg, exportWidth, exportHeight, backgroundColor = 'transparent') {
     return new Promise((resolve) => {

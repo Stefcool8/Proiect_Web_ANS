@@ -424,7 +424,6 @@ class ProjectController extends Controller
             } else {
                 $json = JsonUtil::getJsonUtil()->filtrateAfterYearsAndColumns($data['years'], [], []);
             }
-            //}
             // add the json data to the response
             if ($dataColumn) {
                 $json = JsonUtil::getJsonUtil()->extractTotalPerDistinctColumnValue($json, $data['dataColumn']);

@@ -54,7 +54,8 @@ function addControlButtons() {
     buttonDiv.appendChild(clockwiseButton);
 }
 
-function drawPieChart(project) {
+function generalPieChart(project, width, height, zoom, fontSize) {
+    let svg;
     const json = JSON.parse(project.data.data.json);
 
     const data = Object.entries(json)
@@ -78,19 +79,25 @@ function drawPieChart(project) {
 
     const arc = d3.arc()
         .innerRadius(0)
-        .outerRadius(Math.min(pieWidth, pieHeight) / 2 - 1);
+        .outerRadius(Math.min(width, height) / 2 - 1);
 
-    pieZoom = d3.zoom().on("zoom", zoomed);
+    if (zoom) {
+        pieZoom = d3.zoom().on("zoom", zoomed);
 
-    pieSvg = d3.create("svg")
-        .attr("viewBox", [-pieWidth / 2, -pieHeight / 2, pieWidth, pieHeight])
-        .attr("id", "pie-chart") // Add an ID to the SVG element
-        .call(pieZoom);
+        svg = d3.create("svg")
+            .attr("viewBox", [-width / 2, -height / 2, width, height])
+            .attr("id", "pie-chart") // Add an ID to the SVG element
+            .call(pieZoom);
+    } else {
+        svg = d3.create("svg")
+            .attr("viewBox", [-width / 2, -height / 2, width, height])
+            .attr("id", "pie-chart"); // Add an ID to the SVG element
+    }
 
-    chartGroup = pieSvg.append("g")
+    let generalChartGroup = svg.append("g")
         .attr("fill", pieFontColor);
 
-    chartGroup.selectAll("path")
+    generalChartGroup.selectAll("path")
         .data(arcs)
         .join("path")
         .attr("fill", d => color(d.data.name))
@@ -100,13 +107,13 @@ function drawPieChart(project) {
         .append("title")
         .text(d => `${d.data.name}: ${d.data.value} (${(d.data.value / total * 100).toFixed(2)}%)`);
 
-    chartGroup.selectAll("text")
+    generalChartGroup.selectAll("text")
         .data(arcs)
         .join("text")
         .attr("transform", d => `translate(${arc.centroid(d)})`)
         .attr("dy", "0.35em")
         .attr("text-anchor", "middle")
-        .attr("font-size", pieFontSize)
+        .attr("font-size", fontSize)
         .style("fill", pieFontColor)
         .text(d => `${d.data.name}: (${(d.data.value / total * 100).toFixed(2)}%)`)
         .each(function (d) {
@@ -121,6 +128,13 @@ function drawPieChart(project) {
             const angle = Math.atan2(y, x) * (180 / Math.PI) - 90; // Calculate angle for text rotation
             return `translate(${x}, ${y}) rotate(${angle}) translate(${offset}, 0) rotate(90)`;
         });
+
+    // return svg and chartGroup
+    return [svg, generalChartGroup];
+}
+
+function drawPieChart(project) {
+    [pieSvg, chartGroup] = generalPieChart(project, pieWidth, pieHeight, true, pieFontSize);
 
     document.getElementById('chart-container').appendChild(pieSvg.node());
 
@@ -149,73 +163,7 @@ function addPieChartFields(project) {
     detailContainer.appendChild(inputGroup);
 }
 
-function drawEnlargedPieChart(project) {
+function exportPieChart(project) {
     // create an enlarged pie chart for export
-    // this is a copy of the pie chart, but with a larger font size
-    // it's not visible on the page, but it's used for export
-    // this function will return the SVG element
-    const json = JSON.parse(project.data.data.json);
-
-    const data = Object.entries(json)
-        .map(([name, value]) => ({ name, value }))
-        .sort((a, b) => a.name.localeCompare(b.name));
-    const total = data.reduce((sum, d) => sum + d.value, 0);
-
-    data.forEach(d => {
-        d.percentage = (d.value / total) * 100;
-    });
-
-    const color = d3.scaleOrdinal()
-        .domain(data.map(d => d.name))
-        .range(d3.quantize(t => d3.interpolateSpectral(t * 0.8 + 0.1), data.length).reverse());
-
-    const pie = d3.pie()
-        .sort(null)
-        .value(d => d.value);
-
-    const arcs = pie(data);
-
-    const arc = d3.arc()
-        .innerRadius(0)
-        .outerRadius(Math.min(pieExportWidth, pieExportHeight) / 2 - 1);
-
-    const pieExportSvg = d3.create("svg")
-        .attr("viewBox", [-pieExportWidth / 2, -pieExportHeight / 2, pieExportWidth, pieExportHeight]);
-
-    const chartGroup = pieExportSvg.append("g")
-        .attr("fill", pieFontColor);
-
-    chartGroup.selectAll("path")
-        .data(arcs)
-        .join("path")
-        .attr("fill", d => color(d.data.name))
-        .attr("stroke", "#ffffff") // Set the stroke color
-        .attr("stroke-width", 1) // Set the stroke width
-        .attr("d", arc)
-        .append("title")
-        .text(d => `${d.data.name}: ${d.data.value} (${(d.data.value / total * 100).toFixed(2)}%)`);
-
-    chartGroup.selectAll("text")
-        .data(arcs)
-        .join("text")
-        .attr("transform", d => `translate(${arc.centroid(d)})`)
-        .attr("dy", "0.35em")
-        .attr("text-anchor", "middle")
-        .attr("font-size", pieExportFontSize)
-        .style("fill", pieFontColor)
-        .text(d => `${d.data.name}: (${(d.data.value / total * 100).toFixed(2)}%)`)
-        .each(function (d) {
-            const bbox = this.getBBox();
-            d.textWidth = bbox.width;
-        })
-        .attr("transform", function (d) {
-            const centroid = arc.centroid(d);
-            const x = centroid[0];
-            const y = centroid[1];
-            const offset = d.textWidth / 2; // Offset text position based on text width
-            const angle = Math.atan2(y, x) * (180 / Math.PI) - 90; // Calculate angle for text rotation
-            return `translate(${x}, ${y}) rotate(${angle}) translate(${offset}, 0) rotate(90)`;
-        });
-
-    return pieExportSvg;
+    return generalPieChart(project, pieExportWidth, pieExportHeight, false, pieExportFontSize)[0];
 }

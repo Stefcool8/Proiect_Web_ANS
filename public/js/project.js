@@ -61,11 +61,11 @@ function drawChart(project) {
 function getExportSvg(project) {
     switch (project.data.data.chart) {
         case 0:
-            return drawEnlargedBarChart(project);
+            return exportBarChart(project);
         case 1:
-            // return drawEnlargedLineChart(project);
+            return exportLineChart(project);
         case 2:
-            return drawEnlargedPieChart(project);
+            return exportPieChart(project);
     }
 }
 
@@ -74,7 +74,7 @@ function getExportDimensions(project) {
         case 0:
             return [barExportWidth, barExportHeight];
         case 1:
-            // return [lineExportWidth, lineExportHeight];
+            return [lineExportWidth, lineExportHeight];
         case 2:
             return [pieExportWidth, pieExportHeight];
     }
