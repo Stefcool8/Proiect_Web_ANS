@@ -1,0 +1,278 @@
+$white-color: white;
+$primary-color: #416a59;
+$secondary-color: #2d4534;
+$box-shadow-color: rgba(0, 0, 0, 0.15);
+$border-color: #ccc;
+$alert-danger: #b00020;
+$alert-success: #33ff9c;
+
+body {
+    .profile {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex-grow: 1;
+            padding: 1.25rem;
+            gap: 2rem;
+
+            .user-visual, .user-details {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                align-items: center;
+                width: 100%;
+                max-width: 50rem;
+                background-color: $white-color;
+                padding: 2.5rem;
+                border-radius: 1.3rem;
+                box-shadow: 0 4px 10px $box-shadow-color;
+                color: $primary-color;
+                min-height: 40vh;
+
+                .user-picture-and-controls {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    gap: 1rem;
+
+                    .user-picture {
+                        width: 100px;
+                        height: 100px;
+                        overflow: hidden;
+                        border-radius: 50%;
+
+                        img {
+                            width: 100%;
+                            height: 100%;
+                            object-fit: cover;
+                        }
+                    }
+
+                    .user-name-and-email {
+                        text-align: center;
+                    }
+
+                    .controls {
+                        display: flex;
+                        justify-content: space-around;
+                        width: 80%;
+                        gap: 2rem;
+
+                        @media screen and (max-width: 768px) {
+                            flex-direction: column;
+                        }
+                    }
+                }
+            }
+
+            .user-visual {
+                background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0) 30%, rgba(255, 255, 255, 1) 30%), url('/public/assets/img/banner.jpg');
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+                background-blend-mode: multiply;
+                background-size: cover;
+                background-position: top;
+            }
+
+            h1 {
+                text-align: center;
+                margin-bottom: 0.5rem;
+                font-size: 2.5rem;
+                border-bottom: 2px solid $border-color;
+                padding-bottom: 0.5rem;
+                color: $primary-color;
+            }
+
+            .input-group {
+                margin-bottom: 0.5rem;
+                width: 100%;
+
+                label {
+                    display: block;
+                    margin-bottom: 0.5rem;
+                    font-size: 2rem;
+                    color: $primary-color;
+                }
+
+                textarea {
+                    resize: none;
+                    overflow: scroll;
+                }
+
+                .data {
+                    width: 100%;
+                    padding: 0.3rem;
+                    border-radius: 0.6rem;
+                    border: 1px solid $border-color;
+                    font-size: 2rem;
+                    overflow: scroll;
+                }
+            }
+
+            button {
+                display: block;
+                width: 100%;
+                padding: 0.5rem;
+                background-color: $primary-color;
+                color: $white-color;
+                font-size: 2rem;
+                border: none;
+                border-radius: 1.3rem;
+                cursor: pointer;
+                transition: all 0.3s;
+                box-shadow: 0 2px 4px $box-shadow-color;
+                margin-top: 2vh;
+
+                &:hover {
+                    background-color: $secondary-color;
+                    transform: scale(1.02);
+                    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+                }
+
+                &:active {
+                    background-color: $secondary-color;
+                    transform: scale(0.98);
+                    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+                }
+            }
+        }
+
+        @media screen and (max-width: 826px) {
+            .user-visual {
+                max-width: 80vw;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            label {
+                font-size: 1rem;
+            }
+
+            p, button {
+                font-size: 1rem;
+            }
+        }
+    }
+
+    .change-password {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 100vh;
+        margin: 10vh;
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 50rem;
+            background-color: $white-color;
+            padding: 2.5rem;
+            border-radius: 1.3rem;
+            box-shadow: 0 4px 10px $box-shadow-color;
+            color: $primary-color;
+            width: 100%;
+
+            .input-group {
+                margin-bottom: 0.5rem;
+                width: 100%;
+
+                label {
+                    display: block;
+                    margin-bottom: 0.5rem;
+                    font-size: 2rem;
+                    color: $primary-color;
+                }
+
+                input[type="password"] {
+                    width: 100%;
+                    padding: 0.3rem;
+                    border-radius: 0.6rem;
+                    border: 1px solid $border-color;
+                    font-size: 2rem;
+                }
+            }
+
+            button {
+                display: block;
+                width: 100%;
+                padding: 0.5rem;
+                background-color: $primary-color;
+                color: $white-color;
+                font-size: 2rem;
+                border: none;
+                border-radius: 1.3rem;
+                cursor: pointer;
+                transition: all 0.3s;
+                box-shadow: 0 2px 4px $box-shadow-color;
+                margin-top: 2vh;
+
+                &:hover {
+                    background-color: $secondary-color;
+                    transform: scale(1.02);
+                    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+                }
+
+                &:active {
+                    background-color: $secondary-color;
+                    transform: scale(0.98);
+                    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+                }
+            }
+        }
+
+        @media screen and (max-width: 826px) {
+            form {
+                max-width: 80vw;
+            }
+
+            label {
+                font-size: 1rem;
+            }
+
+            button {
+                font-size: 1rem;
+            }
+        }
+    }
+}
+
+.error-message,
+.success-message {
+    font-weight: bold;
+    margin: 1rem 0;
+    padding: 0.3rem;
+    border-radius: 10px;
+    width: 100%;
+    text-align: center;
+    border: 1px solid;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s;
+
+    &.hidden {
+        display: none;
+    }
+
+    &.visible {
+        display: block;
+    }
+}
+
+.error-message {
+    color: $alert-danger;
+    background-color: #ffe9e9;
+    border-color: $alert-danger;
+}
+
+.success-message {
+    color: $alert-success;
+    background-color: #e9ffe9;
+    border-color: $alert-success;
+}

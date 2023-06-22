@@ -1,0 +1,121 @@
+.project {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.project .main-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+  padding: 1.25rem;
+}
+.project .container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  background-color: white;
+  padding: 2.5rem;
+  border-radius: 1.25rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  color: #416a59;
+  margin-bottom: 2rem; /* Added */
+}
+.project h2 {
+  text-align: center;
+  margin-bottom: 0.5rem;
+  font-size: 2.5rem;
+  color: #416a59;
+}
+.project .input-group {
+  margin-bottom: 0.5rem;
+  width: 100%;
+}
+.project label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 2rem;
+  color: #416a59;
+}
+.project input[type=text] {
+  width: 100%;
+  padding: 0.3rem;
+  border-radius: 0.6rem;
+  border: 1px solid #ccc;
+  font-size: 2rem;
+  color: #416a59;
+}
+.project input[type=text]:focus {
+  outline: none;
+  box-shadow: none;
+}
+.project #chart-container {
+  overflow: hidden;
+}
+.project #chart-container svg text {
+  font-size: 8px;
+}
+.project .button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+}
+.project .button-container button {
+  margin: 0 0.5rem;
+  padding: 0.5rem 0.5rem;
+  border-radius: 0.6rem;
+  border: none;
+  font-size: 1.5rem;
+  color: white;
+  background-color: #416a59;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+.project .button-container button:hover {
+  background-color: #2d4534;
+}
+@media screen and (max-width: 768px) {
+  .project .main-content {
+    padding: 0;
+  }
+  .project .container {
+    padding: 1rem;
+  }
+  .project h2 {
+    font-size: 2rem;
+  }
+  .project label, .project input[type=text] {
+    font-size: 1.4rem;
+  }
+  .project .button-container {
+    flex-direction: column;
+  }
+  .project .button-container button {
+    margin: 0.5rem 0;
+    font-size: 1.25rem;
+    width: 15rem;
+  }
+}
+
+#detail-container {
+  max-width: 50rem;
+}
+
+#chart-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem; /* Added */
+  flex-grow: 1; /* Added */
+}
+
+#chart {
+  width: 100%;
+  height: 100%;
+}
+
+/*# sourceMappingURL=project.css.map */

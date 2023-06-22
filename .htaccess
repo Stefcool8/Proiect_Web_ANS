@@ -1,0 +1,44 @@
+SetEnv SENDGRID_API_KEY "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"
+
+RewriteEngine On
+
+# Redirect the root URL to /home
+RewriteRule ^$ /home [R,L]
+
+# If the request is for a file or directory that exists, serve it directly
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Block /user
+RewriteRule ^user$ /public/html/404.php [L]
+
+# If the request is for a non-existing file or directory but there's a corresponding .html file in the /public/html directory, serve it
+RewriteCond %{DOCUMENT_ROOT}/public/html/$1.php -f
+RewriteRule ^(.*)$ /public/html/$1.php [L]
+
+# Rule for /user/{uuid}
+RewriteRule ^user/([^/]+)$ /public/html/user.php [L]
+
+# Rule for /project/{uuid}
+RewriteRule ^project/([^/]+)$ /public/html/project.php [L]
+
+# Rule for /password/reset?=token
+RewriteRule ^password/reset /public/html/reset-password.php [L]
+
+#Rule for /viewProjects/{uuid}
+RewriteRule ^viewProjects/([^/]+)$ /public/html/viewProjects.php [L]
+
+# Rule for /user/edit/{uuid}
+RewriteRule ^user/edit/([^/]+)$ /public/html/user-edit.php [L]
+
+# Rule for /user/change-password/{uuid}
+RewriteRule ^user/change-password/([^/]+)$ /public/html/change-password.php [L]
+
+# If the request does not correspond to an existing file or directory or a .html file in the /public/html directory, forward it to router.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ /public/router.php/$1 [L,QSA]
+
+# If none of the above conditions are met, redirect to the custom 404 error page
+RewriteRule ^.*$ /public/html/404.php [L]

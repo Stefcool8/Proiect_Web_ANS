@@ -1,0 +1,140 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 100%;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #ceb98d;
+    background-size: 300% 300%;
+    animation: gradient-animation 5s ease infinite;
+    line-height: 1.6;
+    color: #f2e8cf;
+}
+
+main {
+    margin: 1rem;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: bold;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    /* Dark color for headings */
+}
+
+section {
+    padding: 2rem 0;
+    border-radius: 1rem;
+    margin-bottom: 2rem;
+    background: #f2e8cf;
+}
+
+a,
+iframe {
+    text-decoration: none;
+    color: inherit;
+    border: none;
+}
+
+.hidden {
+    display: none;
+}
+
+#app,
+body {
+    min-height: 100vh;
+    background-size: 300% 300%;
+    animation: gradient-animation 5s ease infinite;
+}
+
+#loading-spinner {
+    border: 16px solid #f2e8cf;
+    /* Light color for the spinner */
+    border-top: 16px solid #bc4749;
+    /* Dark color for the spinner top */
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        transform: rotate(360deg);
+        background-position: 0% 50%;
+    }
+}
+
+@keyframes gradient-animation {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@media screen and (min-width: 1600px) {
+    html {
+        font-size: 112.5%;
+    }
+}
+
+@media screen and (min-width: 2000px) {
+    html {
+        font-size: 125%;
+    }
+}
+
+@media screen and (min-width: 2560px) {
+    html {
+        font-size: 150%;
+    }
+}
+
+@media screen and (min-width: 3840px) {
+    html {
+        font-size: 200%;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    html {
+        font-size: 87.5%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    html {
+        font-size: 75%;
+    }
+}

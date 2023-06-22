@@ -1,0 +1,178 @@
+$white-color: white;
+$primary-color: #416a59;
+$secondary-color: #2d4534;
+$box-shadow-color: rgba(0, 0, 0, 0.15);
+$border-color: #ccc;
+$alert-danger: #b00020;
+$alert-success: #33ff9c;
+
+.login {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+
+    .main-content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-grow: 1;
+        padding: 1.3rem;
+    }
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        max-width: 50rem;
+        background-color: $white-color;
+        padding: 2.5rem;
+        border-radius: 1.2rem;
+        box-shadow: 0 4px 10px $box-shadow-color;
+        color: $primary-color;
+        min-height: 40vh;
+    }
+
+    form {
+        width: 100%;
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 0.5rem;
+        font-size: 2.5rem;
+        border-bottom: 2px solid $border-color;
+        padding-bottom: 0.6rem;
+        color: $primary-color;
+    }
+
+    .input-group {
+        margin-bottom: 0.5rem;
+        width: 100%;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-size: 2rem;
+        color: $primary-color;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+        width: 100%;
+        padding: 0.3rem;
+        border-radius: 0.6rem;
+        border: 1px solid $border-color;
+        font-size: 2rem;
+        transition: border 0.3s, box-shadow 0.3s;
+
+        &:hover,
+        &:focus {
+            border: 1px solid $primary-color;
+            box-shadow: 0 0 5px $primary-color;
+        }
+    }
+
+    button {
+        display: block;
+        width: 100%;
+        padding: 0.5rem;
+        background-color: $primary-color;
+        color: $white-color;
+        font-size: 2rem;
+        border: none;
+        border-radius: 1.35rem;
+        cursor: pointer;
+        transition: all 0.3s;
+        box-shadow: 0 2px 5px $box-shadow-color;
+        margin-top: 2vh;
+
+        &:hover {
+            background-color: $secondary-color;
+            transform: scale(1.03);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        &:active {
+            background-color: $secondary-color;
+            transform: scale(0.98);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+    }
+
+    .signup-link {
+        text-align: center;
+        margin-top: 0.5rem;
+        font-size: 0.5rem;
+
+        p {
+            font-size: 1rem;
+            margin: 0;
+            color: $primary-color;
+        }
+
+        a {
+            text-decoration: none;
+            font-size: 0.75rem;
+            color: $secondary-color;
+        }
+    }
+
+    @media screen and (max-width: 826px) {
+        .container {
+            max-width: 80vw;
+        }
+        h2 {
+            font-size: 2rem;
+        }
+        label {
+            font-size: 1rem;
+        }
+        input[type="text"],
+        input[type="password"],
+        button {
+            font-size: 1rem;
+        }
+        .signup-link {
+            p,
+            a {
+                font-size: 0.75rem;
+            }
+        }
+    }
+}
+
+.error-message,
+.success-message {
+    font-weight: bold;
+    margin: 1rem 0;
+    padding: 0.25rem;
+    border-radius: 10px;
+    width: 100%;
+    text-align: center;
+    border: 1px solid;
+    box-shadow: 0 5px 14px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s;
+
+    &.hidden {
+        display: none;
+    }
+
+    &.visible {
+        display: block;
+    }
+}
+
+.error-message {
+    color: $alert-danger;
+    background-color: #ffe9e9;
+    border-color: $alert-danger;
+}
+
+.success-message {
+    color: $alert-success;
+    background-color: #e9ffe9;
+    border-color: $alert-success;
+}
