@@ -23,7 +23,7 @@
 <div class="login">
     <main class="main-content">
         <div class="container">
-            <h2></h2>
+            <h2> </h2>
             <form method="post">
                 <div class="error-message hidden"></div>
                 <div class="success-message hidden"></div>
