@@ -475,7 +475,6 @@ class ProjectController extends Controller
             } else {
                 ResponseHandler::getResponseHandler()->sendResponse(401, ['error' => 'Unauthorized']);
             }
-
         } catch (Exception $e) {
             ResponseHandler::getResponseHandler()->sendResponse(500, ["error" => "Internal Server Error"]);
         }

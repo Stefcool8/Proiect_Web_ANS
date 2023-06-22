@@ -23,12 +23,12 @@ document.addEventListener('DOMContentLoaded', async () => {
                 'Content-Type': 'application/json',
             },
         });
-        if(adminResponse.status === 401){
+        if(adminResponse.status === 401) {
             window.location.href ="/home";
             return;
         }
 
-        if(!uuid) {
+        if (!uuid) {
             alert("No UUID specified");
             return;
         }

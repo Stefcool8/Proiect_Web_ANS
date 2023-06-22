@@ -1,6 +1,3 @@
-const mapExportWidth = 1000;
-const mapExportHeight = 500;
-
 function addMapChartFields(project) {
     const inputGroup = document.createElement('div');
     inputGroup.classList.add('input-group');
@@ -35,7 +32,6 @@ function drawMapChart(project) {
         // populate the map
         Object.entries(json).forEach(([name, value]) => {
             name = name.toLowerCase();
-            console.log(name + ": " + value);
             setDescription(name, 'Total: ' + value);
         });
     });

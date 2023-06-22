@@ -82,13 +82,13 @@ class UserController extends Controller {
             ResponseHandler::getResponseHandler()->sendResponse(401, [
                 'error' => 'You can not create a new user while logged in'
             ]);
-            exit;
+            return;
         }
 
         // validate the request body
         if (!isset($body['firstName']) || !isset($body['lastName']) || !isset($body['email']) || !isset($body['password']) || !isset($body['username'])) {
             ResponseHandler::getResponseHandler()->sendResponse(400, ['error' => 'Invalid request body.']);
-            exit;
+            return;
         }
 
         try {
@@ -99,7 +99,7 @@ class UserController extends Controller {
             // check if username exists
             if ($existingUser) {
                 ResponseHandler::getResponseHandler()->sendResponse(409, ["error" => "Username already exists"]);
-                exit;
+                return;
             }
 
             $existingUser = $db->fetchOne("SELECT * FROM user WHERE email = :email", ['email' => $body['email']]);
@@ -107,7 +107,7 @@ class UserController extends Controller {
             // check if email exists
             if ($existingUser) {
                 ResponseHandler::getResponseHandler()->sendResponse(488, ["error" => "Email already exists"]);
-                exit;
+                return;
             }
 
             // create the user
@@ -179,7 +179,7 @@ class UserController extends Controller {
             ResponseHandler::getResponseHandler()->sendResponse(401, [
                 'error' => 'Unauthorized'
             ]);
-            exit;
+            return;
         }
         try {
             $db = Database::getInstance();
@@ -193,12 +193,12 @@ class UserController extends Controller {
                 ResponseHandler::getResponseHandler()->sendResponse(
                     204, ['message' => 'User deleted successfully']
                 );
-                exit;
+                return;
             }
 
             if (!$user) {
                 ResponseHandler::getResponseHandler()->sendResponse(404, ['error' => 'User not found']);
-                exit;
+                return;
             }
             ResponseHandler::getResponseHandler()->sendResponse(401, ['error' => 'Unauthorized']);
         } catch (Exception $e) {
@@ -273,7 +273,7 @@ class UserController extends Controller {
             ResponseHandler::getResponseHandler()->sendResponse(401, [
                 'error' => 'Unauthorized'
             ]);
-            exit;
+            return;
         }
         try {
             $db = Database::getInstance();
@@ -294,16 +294,14 @@ class UserController extends Controller {
                         'bio' => $this->sanitizeData($user['bio'])
                     ]
                 ]);
-                exit;
+                return;
             }
 
             if (!$user) {
                 ResponseHandler::getResponseHandler()->sendResponse(404, ['error' => 'User not found']);
-                exit;
+                return;
             }
-
             ResponseHandler::getResponseHandler()->sendResponse(401, ['error' => 'Unauthorized']);
-
         } catch (Exception $e) {
             ResponseHandler::getResponseHandler()->sendResponse(500, ["error" => "Internal Server Error"]);
         }
@@ -421,7 +419,7 @@ class UserController extends Controller {
             ResponseHandler::getResponseHandler()->sendResponse(401, [
                 'error' => 'Unauthorized'
             ]);
-            exit;
+            return;
         }
         try {
             $db = Database::getInstance();
@@ -432,17 +430,17 @@ class UserController extends Controller {
 
             if (!$user || !$currentUser) {
                 ResponseHandler::getResponseHandler()->sendResponse(404, ['error' => 'User not found']);
-                exit;
+                return;
             }
 
             if (!$currentUser['isAdmin'] && (($currentUser['uuid'] != $uuid))) {
                 ResponseHandler::getResponseHandler()->sendResponse(401, ['error' => 'Unauthorized']);
-                exit;
+                return;
             }
 
         } catch (Exception $e) {
             ResponseHandler::getResponseHandler()->sendResponse(500, ["error" => "Internal Server Error"]);
-            exit;
+            return;
         }
 
         $data = json_decode(file_get_contents('php://input'), true);
@@ -450,7 +448,7 @@ class UserController extends Controller {
         // verify if the required fields are present
         if (empty($data['firstName']) || empty($data['lastName']) || empty($data['username']) || empty($data['email'])) {
             ResponseHandler::getResponseHandler()->sendResponse(400, ['error' => 'Missing required fields']);
-            exit;
+            return;
         }
 
         // verify if the username and email are not already taken
@@ -460,7 +458,7 @@ class UserController extends Controller {
 
         if ($user && $user['uuid'] != $uuid) {
             ResponseHandler::getResponseHandler()->sendResponse(400, ['error' => 'Username already exists']);
-            exit;
+            return;
         }
 
         $user = $db->fetchOne("SELECT * FROM user WHERE email = :email", [
@@ -468,7 +466,7 @@ class UserController extends Controller {
         ]);
         if ($user && $user['uuid'] != $uuid) {
             ResponseHandler::getResponseHandler()->sendResponse(400, ['error' => 'Email already exists']);
-            exit;
+            return;
         }
 
         $user = $db->fetchOne("SELECT * FROM user WHERE uuid = :uuid", ['uuid' => $uuid]);
@@ -583,13 +581,13 @@ class UserController extends Controller {
             ResponseHandler::getResponseHandler()->sendResponse(401, [
                 'error' => 'Unauthorized'
             ]);
-            exit;
+            return;
         }
         if (!$payload['isAdmin']) {
             ResponseHandler::getResponseHandler()->sendResponse(401, [
                 'error' => 'Unauthorized'
             ]);
-            exit;
+            return;
         }
         try {
             $db = Database::getInstance();
@@ -598,7 +596,7 @@ class UserController extends Controller {
 
             if (empty($users)) {
                 ResponseHandler::getResponseHandler()->sendResponse(404, ['error' => 'Users not found']);
-                exit;
+                return;
             }
 
             $userArray = [];
@@ -612,9 +610,7 @@ class UserController extends Controller {
                     'username' => $this->sanitizeData($user['username']),
                 ];
             }
-
             ResponseHandler::getResponseHandler()->sendResponse(200, ['data' => $userArray]);
-
         } catch (Exception $e) {
             // Handle potential exception during database deletion
             ResponseHandler::getResponseHandler()->sendResponse(500, ["error" => "Internal Server Error"]);
@@ -627,36 +623,26 @@ class UserController extends Controller {
             ResponseHandler::getResponseHandler()->sendResponse(401, [
                 'error' => 'Unauthorized'
             ]);
-            exit;
+            return;
         }
         try {
             $db = Database::getInstance();
-
-            $currentUser = $db->fetchOne("SELECT * FROM user WHERE username = :username", [
-                'username' => $this->sanitizeData($payload['username'])
-            ]);
 
             $startIndex = $startPage - 1; // The start index of the projects
             $pageSize = 4; // The number of projects to retrieve per page
 
             // Calculate the offset based on the start index and page size
             $offset = $startIndex * $pageSize;
-            // fetch all projects for this user
-            //$projects = $db->fetchAll("SELECT * FROM project WHERE uuidUser = :uuidUser", ['uuidUser' => $uuid]);
-
-            // $projects = $db->fetchAll("SELECT * FROM project WHERE uuidUser = :uuidUser LIMIT ".$pageSize,
-            //  ['uuidUser' => $uuid]);
 
             $users = $db->fetchAll("SELECT * FROM user LIMIT " . $pageSize . " OFFSET " . $offset);
 
             // if there are no projects, return a message indicating this
             if (!$users) {
                 ResponseHandler::getResponseHandler()->sendResponse(404, ['error' => 'No users found']);
-                exit;
+                return;
             }
 
             if ($payload['isAdmin']) {
-
                 // build the project data for the response
                 $userData = [];
                 foreach ($users as $user) {
@@ -669,17 +655,14 @@ class UserController extends Controller {
                         'username' => $user['username']
                     ];
                 }
-
                 ResponseHandler::getResponseHandler()->sendResponse(200, ['users' => $userData]);
             } else {
                 ResponseHandler::getResponseHandler()->sendResponse(401, [
                     'error' => 'Unauthorized'
                 ]);
-                exit;
             }
         } catch (Exception $e) {
             ResponseHandler::getResponseHandler()->sendResponse(500, ["error" => "Internal Server Error"]);
         }
     }
-
 }

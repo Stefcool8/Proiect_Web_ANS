@@ -62,9 +62,8 @@ class PasswordController extends Controller {
             if ($clientEmailSent) {
                 ResponseHandler::getResponseHandler()->sendResponse(200, ['message' => 'Password reset link sent successfully']);
             } else {
-                exit;
+                ResponseHandler::getResponseHandler()->sendResponse(500, ['error' => 'Error sending email']);
             }
-
         } else {
             ResponseHandler::getResponseHandler()->sendResponse(401, ['error' => 'User not found']);
         }
@@ -104,6 +103,7 @@ class PasswordController extends Controller {
 
         if (!isset($headers['Authorization'])) {
             ResponseHandler::getResponseHandler()->sendResponse(401, ['error' => 'Unauthorized']);
+            return;
         }
 
         try {
@@ -185,7 +185,7 @@ class PasswordController extends Controller {
 
         if (!isset($body['currentPassword']) || !isset($body['newPassword'])) {
             ResponseHandler::getResponseHandler()->sendResponse(400, ['error' => 'Missing required fields']);
-            exit;
+            return;
         }
 
         $currentPassword = $this->sanitizeData($body['currentPassword']);
@@ -196,7 +196,7 @@ class PasswordController extends Controller {
 
         if (!isset($headers['Authorization'])) {
             ResponseHandler::getResponseHandler()->sendResponse(401, ['error' => 'Unauthorized']);
-            exit;
+            return;
         }
 
         try {
@@ -209,7 +209,7 @@ class PasswordController extends Controller {
             // check if is admin or the user is changing his own password
             if (!$decoded['isAdmin'] && $decoded['username'] !== $user['username']) {
                 ResponseHandler::getResponseHandler()->sendResponse(401, ['error' => 'Unauthorized']);
-                exit;
+                return;
             }
 
             if ($user) {
