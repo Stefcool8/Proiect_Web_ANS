@@ -2,26 +2,26 @@
 <html lang="ro">
 
 <head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Auto Park Smart Explorer</title>
-    <link rel="stylesheet" href="../docs/syles.css"/>
+    <link rel="stylesheet" href="../docs/syles.css">
 </head>
 
 <body>
 <article>
     <header>
-        <h1 property="headline">
-        </h1>
+        <h1 property="headline">ANS Data Visualization Tool Web App, doar sectiunea de Frontend nu a suferit
+            modificari</h1>
         <div role="contentinfo">
             <section typeof="sa:AuthorsList">
                 <h2>Autori</h2>
                 <ul>
                     <li typeof="sa:ContributorRole" property="schema:author">
                             <span typeof="schema:Person">
-                                <meta property="schema:givenName" content="Aser"/>
-                                <meta property="schema:additionalName" content="Emanuel"/>
-                                <meta property="schema:familyName" content="Cobaschi"/>
+                                <meta property="schema:givenName" content="Aser">
+                                <meta property="schema:additionalName" content="Emanuel">
+                                <meta property="schema:familyName" content="Cobaschi">
                                 <span property="schema:name">Cobaschi Emanuel Aser</span>
                             </span>
                         <a href="#uaic" property="sa:roleAffiliation" resource="https://www.uaic.ro/">Universitatea
@@ -38,8 +38,8 @@
                     </li>
                     <li typeof="sa:ContributorRole" property="schema:author">
                             <span typeof="schema:Person">
-                                <meta property="schema:givenName" content="Nicolae"/>
-                                <meta property="schema:familyName" content="Martinescu"/>
+                                <meta property="schema:givenName" content="Nicolae">
+                                <meta property="schema:familyName" content="Martinescu">
                                 <span property="schema:name">Martinescu Nicoalae</span>
                             </span>
                         <a href="#uaic" property="sa:roleAffiliation" resource="https://www.uaic.ro/">Universitatea
@@ -56,8 +56,8 @@
                     </li>
                     <li typeof="sa:ContributorRole" property="schema:author">
                             <span typeof="schema:Person">
-                                <meta property="schema:givenName" content="Stefan"/>
-                                <meta property="schema:familyName" content="Nastasiu"/>
+                                <meta property="schema:givenName" content="Stefan">
+                                <meta property="schema:familyName" content="Nastasiu">
                                 <span property="schema:name">Nastasiu Stefan</span>
                             </span>
                         <a href="#uaic" property="sa:roleAffiliation" resource="https://www.uaic.ro/">Universitatea
@@ -159,7 +159,7 @@
                 extrase datele si server-ul mail oferit de SendGrid, acesta fiind apelat folosind o librarie
                 specializata in acest sens, care se ocupa in mod evident de trimiterea de email-uri, din diverse
                 motive.</p>
-            <img src="/docs/C4/context.png" alt="Diagrama de context"/>
+            <img src="/docs/C4/Context.png" alt="Diagrama de context">
         </section>
         <section property="container">
             <h3 property="name">Diagrama de containere</h3>
@@ -178,7 +178,7 @@
                 efisiere sunt memorate datele care au fost extrase si sanitizate de la Registrul Auto Roman, iar baza de
                 date se ocupa cu persistarea datelor utilizatorilor.
             </p>
-            <img src="/docs/C4/Container.png" alt="Diagrama de containere"/>
+            <img src="/docs/C4/Container.png" alt="Diagrama de containere">
         </section>
         <section property="component">
             <h3 property="name">Diagrama de componente</h3>
@@ -194,7 +194,7 @@
                 aplicatiei, precum si de interactiunea cu baza de date, sistemul de fisiere si sistemul de trimis
                 mail-uri.
             </p>
-            <img src="/docs/C4/API Component.png" alt="Diagrama de componente"/>
+            <img src="/docs/C4/API_Component.png" alt="Diagrama de componente">
         </section>
     </section>
 
@@ -207,9 +207,11 @@
                 In prima parte a dezvoltarii proiectului a avut loc o etapa de cercetare si documentare individuala
                 legata de specificul problemei si de tehnologiile necesare a fi folosite in realizarea proiectului.
                 In aceasta etapa au fost studiate urmatoarele:
+            </p>
+
             <ul>
                 <li>tehnologii de frontend (HTML, CSS, JavaScript)</li>
-                <li>tehnologii de backend (PHP, MySQL)</li>
+                <li>tehnologii de backend (PHP, MariaDB)</li>
                 <li>tehnologii de comunicare intre frontend si backend (AJAX, fetch API)</li>
                 <li>tehnologii de documentare (Swagger)</li>
                 <li>tehnologii de versionare (Git)</li>
@@ -218,13 +220,13 @@
                 <li>informatii legate de aspectele de scalabilitate (REST)</li>
                 <li>informatii legate de sisteme de logare folosind JWT</li>
             </ul>
-            </p>
         </section>
         <section>
             <h3 property="name">Etapa 2</h3>
             <p property="text">
                 In a doua parte a dezvoltarii proiectului a avut loc o etapa de documentare comuna, in care au fost
                 studiate urmatoarele:
+            </p>
             <ul>
                 <li>Scopul proiectului</li>
                 <li>Obiectivele proiectului</li>
@@ -233,7 +235,6 @@
                 <li>Design-ul proiectului</li>
                 <li>Scenariile de utilizare ale proiectului</li>
             </ul>
-            </p>
         </section>
         <section>
             <h3 property="name">Etapa 3</h3>
@@ -247,6 +248,7 @@
             <p property="text">
                 In a patra parte a dezvoltarii proiectului a avut loc o etapa de implementare a functionalitatilor
                 de baza a proiectului, adica partea de administrare a unui utilizator:
+            </p>
             <ul>
                 <li>creare cont</li>
                 <li>logare</li>
@@ -260,7 +262,6 @@
                 <li>vizualizare lista proiecte</li>
                 <li>vizualizare date legate de utilizator</li>
             </ul>
-            </p>
         </section>
         <section>
             <h3 property="name">Etapa 5</h3>
@@ -273,21 +274,10 @@
                 <li>Creare proiect</li>
                 <li>Stergere proiect</li>
                 <li>Vizualizare proiect</li>
-                <li>Vizualizarea grafica a unui proiect in unul din urmatoarele 4 moduri:</li>
-                <ul>
-                    <li>Bar chart</li>
-                    <li>Line chart</li>
-                    <li>Pie chart</li>
-                    <li>Map chart</li>
-                </ul>
-                <li>Export de date in unul din urmatoarele 3 formate:</li>
-                <ul>
-                    <li>CSV</li>
-                    <li>PNG</li>
-                    <li>JPEG</li>
-                    <li>WebP</li>
-                    <li>SVG</li>
-                </ul>
+                <li>Vizualizarea grafica a unui proiect in unul din urmatoarele 4 moduri: Bar chart, Line chart, Pie
+                    chart, Map chart
+                </li>
+                <li>Export de date in unul din urmatoarele 3 formate: CSV, PNG, JPEG, WebP, SVG</li>
             </ul>
         </section>
     </section>
@@ -302,11 +292,11 @@
             cele principale sunt functionalitatile care permit unui utilizator sa extraga date relevante din fisierele
             ce contin datele tematicii, iar functionalitatile de administrare sunt functionalitatile care permit
             unui utilizator cu rol de administrator sa administreze datele aplicatiei. Pentru a raspunde la intrebarea
-        "La ce este utila aplicatia?", am impartit functionalitatile in 2 categorii: functionalitati de vizualizare
-        si functionalitati de export. Functionalitatile de vizualizare sunt functionalitatile care permit unui
-        utilizator sa vizualizeze datele extrase din fisierele ce contin datele tematicii, iar functionalitatile
-        de export sunt functionalitatile care permit unui utilizator sa exporte datele extrase din fisierele ce
-        contin datele tematicii in diferitele formate: CSV, PNG, JPEG, WebP, SVG.
+            "La ce este utila aplicatia?", am impartit functionalitatile in 2 categorii: functionalitati de vizualizare
+            si functionalitati de export. Functionalitatile de vizualizare sunt functionalitatile care permit unui
+            utilizator sa vizualizeze datele extrase din fisierele ce contin datele tematicii, iar functionalitatile
+            de export sunt functionalitatile care permit unui utilizator sa exporte datele extrase din fisierele ce
+            contin datele tematicii in diferitele formate: CSV, PNG, JPEG, WebP, SVG.
         </p>
         <section property="basic-functionalities">
             <h4 property="name">Functionalitati de baza</h4>
@@ -415,57 +405,474 @@
                     va
                     fi redirectionat catre pagina de trimitere a mail-ului catre suport. Acolo va putea sa introduca
                     numele,
-                    prenumele, email-ul, subject si mesajul. Daca datele introduse sunt valide, atunci emailul pentru suport va primi un
+                    prenumele, email-ul, subject si mesajul. Daca datele introduse sunt valide, atunci emailul pentru
+                    suport va primi un
                     email cu mesajul utilizatorului. Daca datele introduse nu sunt valide, atunci utilizatorul este
                     atentionat cu privire la acest lucru si va avea posibilitatea de a introduce din nou datele.
                 </li>
             </ul>
         </section>
         <section property="admin-functionalities">
-            Modulul de administrare al aplicatiei este accesibil doar de catre utilizatorii cu rol de administrator.
-
+            <h4>Modulul de administrare al aplicatiei</h4>
+            Este accesibil doar de catre utilizatorii cu rol de administrator.
+            Acestia au posibilitatea de a vizualiza, edita si sterge datele legate de utilizatori si proiecte. De
+            asemenea, au posibilitatea de a face tot ceea ce poate face si un utilizator obisnuit.
+            <ul>
+                <li>
+                    Vizualizarea datelor legate de utilizatori, un utilizator cu rol de administrator poate sa
+                    vizualizeze
+                    datele legate de utilizatori. Un admin trebuie sa apese butonul de
+                    "View users" din panoul sau de administrator. In acest fel, utilizatorul cu rol de admin va fi
+                    redirectionat
+                    catre pagina de vizualizare a datelor legate de toti utilizatori. Acolo va putea sa realizeze
+                    operatiile uzuale
+                    de vizualizare, editare si stergere a datelor legate de utilizatori.
+                </li>
+                <li>
+                    Vizualizarea datelor legate de proiecte, un utilizator cu rol de administrator poate sa vizualizeze
+                    datele legate de proiecte. Un admin trebuie sa apese butonul de "View projects" din panoul in care
+                    vede
+                    toti utilizatorii. In acest fel, utilizatorul cu rol de admin va fi redirectionat catre pagina de
+                    vizualizare a datelor legate de toate proiectele. Acolo va putea sa realizeze operatiile uzuale de
+                    vizualizare si stergere a datelor legate de proiecte.
+                </li>
+            </ul>
         </section>
+        <section property="main-functionalities">
+            <h3>Functionalitati principale</h3>
+            In ceea ce priveste interactiunea cu un proiect, un utilizator poate efectua urmatoarele
+            actiuni(detaliate acolo unde este cazul in functie de tipul diagramei de vizualizare selectate):
+            <ol>
+                <li>
+                    <h4 property="name">Crearea unui proiect </h4>
+                    Utilizatorul(care poate fi si administratorul) realizeaza aceasta actiune in pagina "Create
+                    Project" a aplicatiei. In acest moment, utilizatorul interactioneaza cu un formular dinamic,
+                    care se actualizeaza in timp real, in
+                    functie de tipul digramei de vizualizare selectate(Bar Chart, Pie Chart, Line Chart sau Map
+                    Chart).
+                    Totusi, anumiti pasi decurg la fel, indiferent de tipul diagramei selectate.
+                    Asadar, in primul rand utilizatorul va trebui sa introduca numele proiectului pe care vrea sa il
+                    creeze. Daca introduce numele unui proiect deja existent intre celelalte proiecte
+                    ale sale, atunci, cand va incerca sa inregistreze datele, va fi semnalat cu privire la acest
+                    fapt, fiind necesara modificarea numelui.
+                    Apoi, utilizatorul este invitat sa aleaga tipul diagramei sub forma carei va dori sa vizualizeze
+                    datele, dintre cele 4 enumerate mai sus.
+                    Dupa ce este ales tipul diagramei, pe ecran va aparea un checkbox cu anii disponibili asupra
+                    carora sa se realizeze statisticile.
+                    Daca nu este selectat niciun an, nu se poate trece mai departe. De asemenea, atunci cand sunt
+                    deselectati toti anii alesi, tot ceea ce urmeaza dupa este sters, utilizatorul
+                    fiind asteptat sa aleaga anii din nou.
+                    Odata cu selectarea anilor, este atins momentul in care se face diferentierea in functie de
+                    diagrama selectata. Astfel. avem urmaoarele scenarii
+                    <ul>
+                        <li><strong>Utilizatorul a ales Bar Chart</strong>
+                            <ul>
+                                <li>
+                                    In acest caz, odata cu selectarea anilor, utilizatorul este invitat sa aleaga un
+                                    "Bar", care reprezinta clasa entitatilor ce vor fi contabilizate(asupra lor
+                                    aplicandu-se numaratoarea). Fiecare
+                                    element din clasa selectata va aparea in statistica vizualizata. Spre exemplu,
+                                    daca este selectat "Bar"-ul "JUDET", atunci statistica se va realiza asupra
+                                    fiecarui judet in parte,
+                                    in diagrama urmand sa apara 42 de coloane, fiecare specifica unui judet in
+                                    parte.
+                                </li>
+                                <li>
+                                    Dupa ce este selectat "Bar"-ul, utilizatorul este invitat sa aleaga un element
+                                    "Series" dintre cele disponibile, ce reprezinta caracteristica dupa care vor fi
+                                    filtrate
+                                    datele.Sa presupunem ca alegere "CATEGORIA_NATIONALA".
+                                </li>
+                                <li>
+                                    Apoi, utilizatorul trebuie sa scrie o valoare pentru "Series", ce consta in
+                                    valoarea care va fi cuantificata in fiecare element din clasa selectata la
+                                    "Bar".
+                                    Sa presupunem ca utilizatorul alege "AUTOBUZ".
+                                </li>
+                                <li>
+                                    In acest moment, utilizatorul poate da "submit". Totusi, poate alege sa schimbe
+                                    oricare dintre valorile introduse. In cazul schimbarii tipului de diagrama, va
+                                    trebui sa
+                                    aleaga din nou specificatiile corespunzatoare.
+                                </li>
+                                <li>
+                                    Daca utilizatorul da "submit", atunci datele introduse sunt stocate in baza de
+                                    date, si intelesul proiectului este urmatorul(pentru cazul exemplificat):
+                                    Pentru fiecare judet in parte, rezultatele din anii selectati vor fi insumate,
+                                    reprezentarea grafica continand totalul filtrarii. Deci vom avea 42 de coloane,
+                                    unde valoarea fiecareia reprezinta
+                                    totalul Autobuzelor din toti anii selectati.
+                                </li>
+                            </ul>
+                        </li>
+                        <li><strong>Utilizatorul a ales Pie Chart</strong>
+                            <ul>
+                                <li>
+                                    Asemanator cu cazul precedent, odata cu selectarea anilor, utilizatorul este
+                                    invitat sa aleaga un "Slice", care reprezinta clasa entitatilor ce vor fi
+                                    contabilizate(asupra lor aplicandu-se numaratoarea). Fiecare
+                                    element din clasa selectata va aparea in statistica vizualizata.
+                                </li>
+                                <li>
+                                    Spre exemplu, daca este selectat "Slice"-ul "JUDET", atunci statistica se va
+                                    realiza asupra fiecarui judet in parte,
+                                    in diagrama urmand sa apara 42 de coloane, fiecare specifica unui judet in
+                                    parte.
+                                </li>
+                                <li>
+                                    Dupa ce este selectat "Slice"-ul, utilizatorul este invitat sa aleaga un element
+                                    "Series" dintre cele disponibile, ce reprezinta caracteristica dupa care vor fi
+                                    filtrate
+                                    datele. Sa presupunem ca alegere "CATEGORIA_NATIONALA".
+                                </li>
+                                <li>
+                                    Apoi, utilizatorul trebuie sa scrie o valoare pentru "Series", ce consta in
+                                    valoarea care va fi cuantificata in fiecare element din clasa selectata la
+                                    "Bar".
+                                    Sa presupunem ca utilizatorul alege "AUTOBUZ".
+                                </li>
+                                <li>
+                                    In acest moment, utilizatorul poate da "submit". Totusi, poate alege sa schimbe
+                                    oricare dintre valorile introduse. In cazul schimbarii tipului de diagrama, va
+                                    trebui sa
+                                    aleaga din nou specificatiile corespunzatoare.
+                                </li>
+                                <li>
+                                    Daca utilizatorul da "submit", atunci datele introduse sunt stocate in baza de
+                                    date, si intelesul proiectului este urmatorul(pentru cazul exemplificat):
+                                    Pentru fiecare judet in parte, rezultatele din anii selectati vor fi insumate,
+                                    reprezentarea grafica continand totalul filtrarii. Deci vom avea 42 de felii,
+                                    unde valoarea fiecareia reprezinta
+                                    totalul Autobuzelor din toti anii selectati.
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Utilizatorul a ales Line Chart</strong>
+                            <ul>
+                                <li>
+                                    In acest caz, odata cu selectarea anilor, utilizatorul este invitat sa aleaga un
+                                    "Line", care reprezinta clasa entitatilor ce vor fi contabilizate(asupra lor
+                                    aplicandu-se numaratoarea).
+                                    Imediat dupa, utilizatorul este indrumat sa introduca o valoare pentru "Line"-ul
+                                    ales, aceasta fiind entitatea specifica asupra careia se va realiza
+                                    cuantificarea datelor.
+                                </li>
+                                <li>
+                                    Spre exemplu, daca este selectat "Line"-ul "JUDET", iar apoi valoarea
+                                    "Line"-ului este setata la "SUCEAVA", atunci statistica se va realiza asupra
+                                    judetului Suceava.
+                                    Particularitatea acestui caz consta in faptul ca datele nu se mai insumeaza in
+                                    functie de anii selectati, ci sunt contorizate in functie de an, avandu-se in
+                                    vedere analiza evolutiei in timp.
+                                </li>
+                                <li>
+                                    Dupa ce este selectat "Line Value"-ul, utilizatorul este invitat sa aleaga un
+                                    element "Series" dintre cele disponibile, ce reprezinta caracteristica dupa care
+                                    vor fi filtrate
+                                    datele. Sa presupunem ca alegere "CATEGORIA_NATIONALA".
+                                </li>
+                                <li>
+                                    Apoi, utilizatorul trebuie sa scrie o valoare pentru "Series", ce consta in
+                                    valoarea care va fi cuantificata in fiecare element din clasa selectata la
+                                    "Bar".
+                                    Sa presupunem ca utilizatorul alege "AUTOBUZ".
+                                </li>
+                                <li>
+                                    In acest moment, utilizatorul poate da "submit". Totusi, asemanator cazurilor
+                                    precedente, poate alege sa schimbe oricare dintre valorile introduse. In cazul
+                                    schimbarii tipului de diagrama, va trebui sa
+                                    aleaga din nou specificatiile corespunzatoare.
+                                </li>
+                                <li>
+                                    Daca utilizatorul da "submit", atunci datele introduse sunt stocate in baza de
+                                    date, si intelesul proiectului este urmatorul(pentru cazul exemplificat):
+                                    Pentru judetul Suceava, rezultatele din anii selectati vor diferentiate
+                                    explicit, reprezentarea grafica continand variata Autobuzelor din judetul
+                                    Suceava in anii selectati.
 
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <strong>Utilizatorul a ales Map Chart</strong>
+                            <ul>
+                                <li>
+                                    Particularitatea acestui caz consta in faputl ca entitatile dupa care se
+                                    contorizeaza sunt prestabilite.
+                                    Astfel, avem 42 de judete , pentru fiecare dintre acestea fiind calculat totalul
+                                    in functie de anii selectati si valoarea dupa care se filtreaza.
+                                </li>
+                                <li>
+                                    Asadar, utilizatorul este invitat sa aleaga un element "Series" dintre cele
+                                    disponibile, ce reprezinta caracteristica dupa care vor fi filtrate
+                                    datele. Sa presupunem ca alegere "CATEGORIA_NATIONALA".
+                                </li>
+                                <li>
+                                    Apoi, utilizatorul trebuie sa scrie o valoare pentru "Series", ce consta in
+                                    valoarea care va fi cuantificata in fiecare element din clasa selectata la
+                                    "Bar".
+                                    Sa presupunem ca utilizatorul alege "AUTOBUZ".
+                                </li>
+                                <li>
+                                    In acest moment, utilizatorul poate da "submit". Totusi, asemanator cazurilor
+                                    precedente, poate alege sa schimbe oricare dintre valorile introduse. In cazul
+                                    schimbarii tipului de diagrama, va trebui sa
+                                    aleaga din nou specificatiile corespunzatoare.
+                                </li>
+                                <li>
+                                    Daca utilizatorul da "submit", atunci datele introduse sunt stocate in baza de
+                                    date, si intelesul proiectului este urmatorul(pentru cazul exemplificat):
+                                    Pentru fiecare judet in parte, rezultatele din anii selectati vor fi insumate,
+                                    reprezentarea grafica continand in dreptul fiecarui judet totalul de autobuze
+                                    din anii selectati.
+
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <strong>
+                        Pentru toate cazurile de mai sus, alegerea elementului de tip "Series" si implicit a
+                        valorii acestuia sunt optionale.
+                        In cazul in care nu sunt selectate, se folosesc, dupa scenariul detaliat de fiecare
+                        caz in parte, datele nefiltrate.
+                        Spre exemplu, daca pentru un "Line Chart", alegem "Line" - JUDET , "Value Line"
+                        -SUCEAVA, iar celelalte raman necompletate,
+                        proiectul are in vedere analiza in timp a totalului tuturor categoriilor de vehicule
+                        din Suceava din acel an.
+                    </strong>
+                </li>
+                <li>
+                    <h4 property="name">Vizualizarea si exportarea unui proiect</h4>
+                    <p> Pentru orice tip de proiect, pe pagina Project, utilizatorul(dar si administratorul) are
+                        acces la vizualizarea proiectului si la exportarea lui sub diferite formate.
+                        Astfel, in partea de sus a paginii, sunt regasite informatiile pe care utilizatorul le-a
+                        introdus in aplicatie atunci cand a creat proiectul:
+                        numele proiectului si apoi celelalte valori, in cazul in care au fost introduse.
+
+                        Detalierea acestor actiuni, care sunt strans legate intre ele, se diferentieaza, de
+                        asemenea, in functie de tipul de diagrama pe care il contine un proiect.
+                        Astfel, distingem urmatoarele cazuri:
+                    <ul>
+                        <li>
+                            <strong> Proiectul contine un Bar Chart</strong>
+                            <ul>
+                                <li>
+                                    In acest caz, avem o reprezentare bidimensionala, in care axa X corespunde
+                                    tuturor entitatilor din clasa "Series", iar axa Y corespunde valorilor totalului
+                                    de masini
+                                    filtrate dupa criteriile date.
+                                </li>
+                                <li>
+                                    Fiecare coloana din reprezentare reprezinta o singura entitate.
+                                </li>
+                                <li>
+                                    Este posibil zoom-in/zoom-out pe reprezentare, astfel incat graficul sa fie cat
+                                    mai usor de inteles.
+                                </li>
+                                <li>
+                                    Acest proiect poate fi exportat sub diferite forme, cu ajutorul butoanelor din
+                                    partea de jos a paginii,dupa cum urmeaza:
+                                    <ul>
+                                        <li>CSV - exporta datele</li>
+                                        <li>PNG, JPEG, WEBP, SVG - exporta diferite forme ale reprezentarii
+                                            grafice
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <strong> Proiectul contine un Pie Chart</strong>
+                            <ul>
+                                <li>
+                                    In acest caz, avem o reprezentare bidimensionala sub forma unui cerc, in care
+                                    entitatile din clasa "Series" filtrate dupa criteriile date, sunt reprezentate
+                                    sub
+                                    forma unei felii din cerc. De asemenea, sunt mentionate in dreputl fiecarei zone
+                                    valoarea, reprezentand totalul valorilor din anii selectati, cat si procentajele
+                                    aferente.
+                                </li>
+                                <li>
+                                    Fiecare felie din reprezentare reprezinta o singura entitate.
+                                </li>
+                                <li>
+                                    Este posibil zoom-in/zoom-out pe reprezentare, dar si rotire si resetare la
+                                    dimensiunea si pozitia initiala, astfel incat graficul sa fie cat mai usor de
+                                    inteles.
+                                </li>
+                                <li>
+                                    Acest proiect poate fi exportat sub diferite forme, cu ajutorul butoanelor din
+                                    partea de jos a paginii,dupa cum urmeaza:
+                                    <ul>
+                                        <li>CSV - exporta datele</li>
+                                        <li>PNG, JPEG, WEBP, SVG - exporta diferite forme ale reprezentarii
+                                            grafice
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+
+
+                        </li>
+
+                        <li>
+                            <strong> Proiectul contine un Line Chart</strong>
+                            <ul>
+                                <li>
+                                    In acest caz, avem o reprezentare bidimensionala, in care axa X reprezinta anii
+                                    selectati iar axa Y reprezinta valorile filtrate dupa criteriile date.
+                                </li>
+                                <li>
+                                    Linia reprezentata reprezinta analiza in timp a entitatii date, sub filtrarile
+                                    corespondente
+                                </li>
+                                <li>
+                                    Acest proiect poate fi exportat sub diferite forme, cu ajutorul butoanelor din
+                                    partea de jos a paginii,dupa cum urmeaza:
+                                    <ul>
+                                        <li>CSV - exporta datele</li>
+                                        <li>PNG, JPEG, WEBP, SVG - exporta diferite forme ale reprezentarii
+                                            grafice
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+
+
+                        </li>
+
+                        <li>
+                            <strong> Proiectul contine un Map Chart</strong>
+                            <ul>
+                                <li>
+                                    In acest caz, avem o reprezentare cartografica sub forma teritoriala a Romaniei,
+                                    in care judetele sunt bine conturate si delimitate.
+                                    Vizualizarea valorilor rezultatelor filtarii(calculate ca totalul rezultatelor
+                                    insumate dupa anii selectati) este posibila prin actiunea de "hover" asupra
+                                    judetului dorit.
+                                </li>
+                                <li>
+                                    Acest proiect poate fi exportat cu ajutorul butoanului din partea de jos a
+                                    paginii in format CSV.
+                                </li>
+                            </ul>
+
+
+                        </li>
+
+                    </ul>
+                </li>
+
+                <li>
+                    <h4 property="name">Stergerea unui proiect</h4>
+                    Fiecare proiect poate fi sters atat de catre utilizatorul curent, cat si de catre administrator,
+                    prin apasarea butonului specific "Delete".
+                </li>
+
+
+            </ol>
+        </section>
     </section>
 
-    <section>
+    <section property="install-steps">
         <h2 property="name">Plan de instalare si setup</h2>
         <p property="text">
             Pentru a putea rula aplicatia pe masina locala este necesar sa parcurgeti urmatorii pasi in ordinea
             precizata:
+        </p>
         <ol>
             <li>
                 Instalati XAMPP de la link-ul <a href="https://www.apachefriends.org/"> click here</a> si aveti
                 grija sa fie salvat direct in disk-ul C, nu in vreun alt fisier. De obicei, este setat sa se
                 salveze automat la adresa "C:\xampp" , dar totusi aveti grija la acest aspect.
-            <li>
+            </li>
             <li>
                 In fisierul de la adresa "C/xampp/htdocs" faceti un "git clone" <a
                     href="https://github.com/Stefcool8/Proiect_Web_ANS">https://github.com/Stefcool8/Proiect_Web_ANS</a>
                 , pentru a salva local proiectul.
             </li>
             <li>
-                Deschideti fisierul text de la adresa "xampp/apache/conf/httpd". Cautati "DocumentRoot"
-                (folosind
-                ctrl+f) si
-                schimbati-i adresa cu "C:/xampp/htdocs/Proiect_Web_ANS/public", trebuie schimbat inapoi la
-                valoarea
-                default dupa.
+                Faceti backup la fisierul "C:/xampp/apache/conf/httpd.conf" si apoi stergeti-l. In folderul
+                install al proiectului, copiati fisierul "httpd.conf" si il puneti in locul fisierului sters.
+                Dupa, faceti backup si stergeti fisierul php.ini din "C:/xampp/php" si copiati fisierul "php.ini" din
+                folderul
+                install al proiectului si il puneti in locul fisierului sters.
+            </li>
+            <li>
+                Rulati comenzile "composer install" si "npm install" in folderul proiectului. Asigurati-va ca aveti
+                instalat composer si npm pe masina locala.
+            </li>
+            <li>
+                Rulati comenzile sql din fisierul /public/sql/databaseCreation.sql in phpmyadmin sau phpStorm pentru
+                crearea tabelelor.
             </li>
             <li>
                 Acum, deschideti un browser (de preferat nu Edge) si accesati "localhost". Ar trebui ca acum sa
                 aveti
                 acces la proiectul nostru, si sa interactionati cu interfata noastra.
             </li>
-
         </ol>
+    </section>
+
+    <section property="data-integration">
+        <h3 property="name">Integrarea datelor</h3>
+        <p property="text">
+            Datele externe sunt preluate de pe site-ul Registrului Auto Roman si sunt prelucrate/sanitizate semi-automat
+            de catre noi pentru a uniformiza formatul datelor. Datele sunt stocate in sistemul de fisiere al aplicatiei.
+            Pentru prelucrarea si extractia datelor din fisierele CSV am folosit clasa CSVParse, o clasa proprie care
+            este un wrapper pentru functiile de baza de la PHP pentru a lucra cu fisiere CSV. Datele din aceste fisiere
+            sunt transformate in format JSON pentru a putea fi filtrate mai usor de a le trimite catre cine le doreste.
         </p>
+    </section>
+
+    <section property="data-exports">
+        <h3 property="name">Exportul datelor</h3>
+        <p property="text">
+            Dupa crearea unui proiect, utilizatorul poate sa-si vizualizeze proiectul. In pagina de vizualizare a
+            proiectului, utilizatorul are posibilitatea de a exporta datele din proiectul sau in diferite formate.
+            Pentru toate tipurile de chart-uri, utilizatorul poate sa exporte datele din proiectul sau in format CSV.
+            Pentru chart-ul de tip "Harta", utilizatorul poate exporta doar in formatul mentionat anterior. Pentru
+            restul
+            de chart-uri, utilizatorul poate exporta si in formatele PNG, JPEG, SVG si WebP. Pentru a realiza aceste
+            conversii, se prelucreaza graficul generat de libraria d3.js (acesta reprezinta un svg) si se transforma in
+            formatul dorit folosind functii/proprietati native de la JavaScript.
+        </p>
+    </section>
+
+    <section property="specials">
+        <h3 property="name">Functionalitati speciale pentru bonus</h3>
+        <ul>
+            <li>Arhitectura bazata pe servicii REST</li>
+            <li>Autentificare cu ajutorul unui token JWT</li>
+            <li>Criptarea parolelor in baza de date</li>
+            <li>Validarea datelor de intrare, atat pe frontend cat si pe backend, sanitizarea datelor de intrare,
+                protectie impotriva atacurilor de tip XSS
+            </li>
+            <li>Protectia impotriva atacurilor de tip SQL Injection</li>
+            <li>Folosirea PDO pentru a realiza conexiunea cu baza de date</li>
+            <li>Documentarea REST API-ului cu Swagger, accesul se face la localhost/docs/swagger</li>
+            <li>Libraria SCSS pentru a realiza stilizarea paginilor</li>
+            <li>Testarea unitara a unor parti din aplicatie cu PHPUnit</li>
+            <li>Functionalitati pentru administrarea datelor legate de utilizatori (extra fata de cerintele problemei)
+            </li>
+            <li>Scrierea de la zero a unor componente esentiale ale backend-ului, fara a folosi librarii, exemple de
+                astfel de componente ar fi
+                clasele Router, Database (wrapper peste PDO), JWT, ResponseHandler, CSVParse (wrapper peste metodele
+                primitive din php),
+                JsonUtil
+            </li>
+            <li>Folosirea exclusiva a paradigmei OOP in backend</li>
+        </ul>
+
     </section>
 
     <section>
         <h2 property="name">Implementarea</h2>
         <section>
-            <h3 property="name">Frontend</h3>
+            <h3 property="name">Frontend (Neactualizat, deja verificat in saptamana 8, sectiunea Backend este noua)</h3>
             <p property="text">
                 Frontend-ul aplicatiei este realizat in HTML, CSS, SCSS si JavaScript.
             </p>
@@ -510,7 +917,6 @@
                             navigare catre pagina "Logout" care deconecteaza utilizatorul.
                         </li>
                     </ul>
-                    </p>
                 </section>
                 <section>
                     <h5 property="name">Continut</h5>
@@ -532,7 +938,6 @@
                         Partea din dreapta contine un video de prezentare a aplicatiei, acesta momentan nu
                         exista,
                         deci a fost pus un video aleator aparut de pe youtube.
-                        </p>
                     </section>
 
                     <section>
@@ -583,7 +988,6 @@
                             aplicatiei. De asemenea, la momentul actual link-ul trimite la pagina curenta.
                         </li>
                     </ul>
-                    </p>
 
                     <p property="text">
                         In partea de mijloc, se regasesc informatii de contact precum:
@@ -592,7 +996,6 @@
                         <li>Numarul de telefon al administratorilor aplicatiei.</li>
                         <li>Un link catre pagina de github a aplicatiei.</li>
                     </ul>
-                    </p>
 
                     <p property="text">
                         In partea de dreapta, se regasesc linkuri catre paginile noastre de pe retele sociale
@@ -603,7 +1006,6 @@
                         <li>Instagram</li>
                         <li>LinkedIn</li>
                     </ul>
-                    </p>
 
                 </section>
             </section>
@@ -612,10 +1014,10 @@
                 <p property="text">
                     Pagina "About us" este pagina aplicatiei care descrie atat componenta echipei, motivatia din
                     spatele aplicatiei, scopul acesteia, cat si detalierea muncii depuse de fiecare membru al
-                    echipei. Aceasta pagina contine meniul de navigare, continutul propriu-zis
+                    echipei (neactualizat). Aceasta pagina contine meniul de navigare, continutul propriu-zis
                     al paginii si footer-ul, primul si ultimul element enumerat aici fiind specifice fiecarei
                     pagini
-                    ale aplicatiei.
+                    ale aplicatiei. Scopul acestei pagini este de a imita o aplicatie reala si serioasa.
                 </p>
                 <section>
                     <h5 property="name">Continut</h5>
@@ -694,7 +1096,7 @@
                             asemenea,
                             dedesubtul titlului exista doua butoane: cel din stanga, denumit "View Profile"
                             trimite catre pagina "Profile" a utilizatorului curent, iar cel din dreapta, denumit
-                            "Create new project", trimite catre pagina "Upload", unde este posibila crearea unui
+                            "Create new project", trimite catre pagina "Create project", unde este posibila crearea unui
                             nou
                             proiect.
                         </p>
@@ -712,17 +1114,14 @@
                             pot face cu respectivul proiect, si anume:
                         <ul>
                             <li>"View" - care permite vizualizarea proiectului curent.</li>
-                            <li>"Modify" - care permite editarea proiectului curent. Pagina nu este implementata
+                            <li>"Modify" - care permite editarea proiectului curent.
                             </li>
-                            <li>"Delete" - care permite stergerea proiectului curent. Momentan, aceste link-uri
-                                sunt inactive.
+                            <li>"Delete" - care permite stergerea proiectului curent.
                             </li>
                         </ul>
-                        </p>
                     </section>
                 </section>
             </section>
-
             <section>
                 <h4 property="name">Pagina "Contact us"</h4>
                 <p property="text">
@@ -731,7 +1130,6 @@
                     pagina contine meniul de navigare, continutul propriu-zis al paginii
                     si footer-ul, primul si ultimul element enumerat aici fiind specifice fiecarei pagini ale
                     aplicatiei.
-                </p>
                 </p>
                 <section>
                     <h5 property="name">Continut</h5>
@@ -754,12 +1152,9 @@
                                 transmita echipei de administrare.
                             </li>
                         </ul>
-
-                        </p>
                     </section>
                 </section>
             </section>
-
             <section>
                 <h4 property="name">Pagina "Login"</h4>
                 <p property="text">
@@ -769,7 +1164,7 @@
                     incearca conectarea unui utilizator neinregistrat in aplicatie,
                     acesta are parte de suport, avand posibilitatea de a accesa din cadrul formularului pagina
                     de
-                    inregistrare, unde isi poate creea un cont nou, sau de a accesa pagina de reamintire a
+                    inregistrare, unde isi poate creea un cont nou, sau de a accesa pagina de recuperare a
                     prolei
                     sale, unde va parcurge pasii necesari pentru
                     a-si afla propria parola. Aceasta pagina contine meniul de navigare, continutul propriu-zis
@@ -777,7 +1172,6 @@
                     paginii si footer-ul, primul si ultimul element enumerat aici fiind specifice fiecarei
                     pagini
                     ale aplicatiei.
-                </p>
                 </p>
                 <section>
                     <h5 property="name">Continut</h5>
@@ -811,15 +1205,13 @@
                         cu
                         credentiale la intamplare dar
                         care respecta formatul si doreste sa se logheze, este redirection pe pagina "Dashboard".
-                        </p>
                     </section>
                 </section>
             </section>
-
             <section>
-                <h4 property="name">Pagina "Sign up"</h4>
+                <h4 property="name">Pagina "Register"</h4>
                 <p property="text">
-                    Pagina "Sign up" este pagina aplicatiei care ilustreaza un formular de inregistrare in
+                    Pagina "Register" este pagina aplicatiei care ilustreaza un formular de inregistrare in
                     aplicatie, prin care un utilizator neinregistrat isi poate crea un cont pentru aplicatie.
                     Totusi, daca se incearca inregistrarea unui utilizator care are deja un cont
                     in aplicatie, acesta are parte de suport, avand posibilitatea de a accesa din cadrul
@@ -828,7 +1220,6 @@
                     meniul de navigare, continutul propriu-zis al paginii
                     si footer-ul, primul si ultimul element enumerat aici fiind specifice fiecarei pagini ale
                     aplicatiei.
-                </p>
                 </p>
                 <section>
                     <h5 property="name">Continut</h5>
@@ -865,11 +1256,10 @@
                         "Already have an account?" este urmata
                         de un link care conduce utilizatorul deja inregistrat catre pagina "Login", de unde
                         poate
-                        intra in contul sau din aplicatie.</p>
+                        intra in contul sau din aplicatie.
                     </section>
                 </section>
             </section>
-
             <section>
                 <h4 property="name">Pagina "Reset password"</h4>
                 <p property="text">
@@ -879,7 +1269,6 @@
                     contine meniul de navigare, continutul propriu-zis al paginii si footer-ul, primul si
                     ultimul
                     element enumerat aici fiind specifice fiecarei pagini ale aplicatiei.
-                </p>
                 </p>
                 <section>
                     <h5 property="name">Continut</h5>
@@ -906,17 +1295,16 @@
                     </section>
                 </section>
             </section>
-
             <section>
                 <h4 property="name">Pagina "User profile"</h4>
                 <p property="text">
                     Pagina "User profile" este pagina aplicatiei care permite vizualizarea datelor personale
                     asociate contului unui utilizator inregistrat. Totodata, utilizatorul are posibilitatea sa
-                    editeze aceste informatii si sa le salveze. Aceasta pagina contine meniul
+                    editeze aceste informatii si sa le salveze. In plus, de aici utilizatorul poate sa-si schimbe parola
+                    si sa stearga contul. Aceasta pagina contine meniul
                     de navigare, continutul propriu-zis al paginii si footer-ul, primul si ultimul element
                     enumerat
                     aici fiind specifice fiecarei pagini ale aplicatiei.
-                </p>
                 </p>
                 <section>
                     <h5 property="name">Continut</h5>
@@ -951,8 +1339,6 @@
                                 "Save" - ce permite salvarea editarilor efectuate
                             </li>
                         </ul>
-
-                        </p>
                     </section>
 
                     <section>
@@ -964,79 +1350,12 @@
                             <li>"Last name" - caseta pentru numele de familie al utilizatorului</li>
                             <li>"Username" - caseta pentru numele de utilizator</li>
                             <li>"Email - caseta pentru adresa de e-mail a utilizatorului</li>
-                            <li>"Contry" - caseta in care utilizatorul poate alege tara de provenienta dintr-o
-                                multime de tari predefinite.
-                            </li>
                             <li>"Bio" - caseta pentru informatii aditionale despre utilizator</li>
                         </ul>
-                        </p>
                     </section>
 
                 </section>
             </section>
-
-            <section>
-                <h4 property="name">Pagina "Upload"</h4>
-                <p property="text">
-                    Pagina "Upload" (accesata localhost/upload) este pagina aplicatiei care permite crearea unui
-                    nou
-                    proiect, utilizatorul avand 4 optiuni pentru importarea datelor ce urmeaza a fi
-                    prelucrate.Aceasta pagina contine meniul de navigare, continutul propriu-zis
-                    al paginii si footer-ul, primul si ultimul element enumerat aici fiind specifice fiecarei
-                    pagini
-                    ale aplicatiei.
-                </p>
-                </p>
-                <section>
-                    <h5 property="name">Continut</h5>
-                    <p>
-                        Continutul paginii este alcatuit din 2 zone, si anume: o zona cu butoanele de control,
-                        in
-                        partea stanga si o zona de facilitare a incarcarii datelor, in partea dreapta.
-                    <section>
-                        <h5 property="name">Zona butoanelor de control</h5>
-                        <p>
-                            Zona butoanelor cuprinde 4 optiuni diferite de importare a datelor, dupa cum
-                            urmeaza:
-                        <ul>
-                            <li>"Paste" - permite inserarea datelor in format textual</li>
-                            <li>"Upload" - permite importarea fisierelor de pe dispozitivul local.La apasarea
-                                lui,
-                                sunt afisate numele de fisiere care sunt importate
-                            </li>
-                            <li>"From URL" - permite inserarea unui link care trimite la datele de importat</li>
-                            <li>"Try our samples" - permite incarcarea unor date predefinite in aplicatie</li>
-                        </ul>
-                        </p>
-                    </section>
-
-                    <section>
-                        <h5 property="name">Zona facilitarii importarii datelor</h5>
-                        <p>
-                            Aceasta zona dreptunghiulara are un comportament diferit in functie de butonul de
-                            control selectat, dupa cum urmeaza:
-                        <ul>
-                            <li>Pentru butonul "Paste" selectat, zona permite introducerea unui text ce urmeaza
-                                a fi
-                                parsat
-                            </li>
-                            <li>Pentru butonul "Upload" selectat, zona va deschide o fereastra ce permite fie
-                                navigarea printre documentele de pe masina locala si selectarea acestora, fie
-                                tragerea si plasarea fisierelor, prin intermediul cursorului
-                            </li>
-                            <li> Pentru butonul "URL" selectat, zona permite introducerea unui link catre datele
-                                de
-                                importat
-                            </li>
-                            <li>Pentru butonul "Try our samples" selectat, zona permite incarcarea unor date
-                                predefinite in aplicatie
-                            </li>
-                        </ul>
-                        </p>
-                    </section>
-                </section>
-            </section>
-
             <section>
                 <h4 property="name">Pagina "Project"</h4>
                 <p property="text">
@@ -1048,7 +1367,6 @@
                     continutul propriu-zis al paginii si footer-ul, primul si ultimul element enumerat aici
                     fiind
                     specifice fiecarei pagini ale aplicatiei.
-                </p>
                 </p>
                 <section>
                     <h5 property="name">Continut</h5>
@@ -1067,12 +1385,7 @@
                             anume:
                         <ul>
                             <li>"Project Name" - numele proiectului curent</li>
-                            <li>"Date created" - data la care a fost creat proiectul curent</li>
-                            <li>"Last modified" - data la care a avut loc ultima modificare a proiectului curent
-                            </li>
-                            <li>"Description" - scurta descriere a proiectului curent</li>
                             <li>"Author" - numele de utilizator al autorului acestui proiect</li>
-                            <li>"Contributors" - numele de utilizator ai contribuitorilor la acest proiect</li>
                             <li>"Chart Type" - tipul de diagrame sub forma carora vor fi vizualizate date,
                                 statistici.La momentul actual, este hardcodat un singur mod de vizualizare, si
                                 anume
@@ -1080,8 +1393,8 @@
                             </li>
                         </ul>
 
-                        In partea de jos a acestei zone se afla cele 6 butoane de control(4 dintre ele oferind
-                        modalitati de exportare), dispuse orizontal, dupa cum urmeaza:
+                        In partea de jos a acestei zone se afla cele 5 butoane de control, dispuse orizontal, dupa cum
+                        urmeaza:
                         <ul>
                             <li>"Download CSV" - permite descarcarea in format CSV a statisticilor generate</li>
                             <li>"Download PNG" - permite descarcarea in format PNG a statisticilor generate;
@@ -1089,16 +1402,8 @@
                             <li>"Download JPEG" - permite descarcarea in format JPEG a statisticilor generate;
                             </li>
                             <li>"Download SVG" - permite descarcarea in format SVG a statisticilor generate</li>
-                            <li>"Share link" - permite distribuirea link-ului catre vizualizarea proiectului
-                                curent;
-                                momentan aceasta functionalitate nu este implementata
-                            </li>
-                            <li>"Add Collaborators" - permite adaugarea unor noi colaboratori pentru proiectul
-                                curent; momentan aceasta functionalitate nu este implementata
-                            </li>
+                            <li>"Download WebP" - permite descarcarea in format WebP a statisticilor generate;</li>
                         </ul>
-
-                        </p>
                     </section>
 
                     <section>
@@ -1120,8 +1425,184 @@
         <section>
             <h3 property="name">Backend</h3>
             <p property="text">
+            <section>
+                <h4 property="name">Clasa Database</h4>
+                Pentru inceput, mentionam ca ne-am folosit de extenia PHP Data Objects(PDO), considerand utile
+                urmatoarele caracteristici specifice PDO:
+                <ul>
+                    <li>
+                        Abstracția bazei de date: PDO oferă o abstracție a bazei de date, ceea ce înseamnă că codul PHP
+                        poate fi scris într-un mod independent de baza de date specifică; in cazul nostru, codul scris
+                        in php va fi functional pentru orice tip de baza de date alegem.Totusi, aplicatia noastra se
+                        conecteaza la o baza
+                        de date MariaDB.
+                    </li>
+                    <li>
+                        Conectarea și gestionarea conexiunii: PDO oferă metode pentru a stabili și gestiona conexiunea
+                        cu baza de date. Prin intermediul clasei PDO, sepcificam detaliile de conectare, cum ar fi
+                        gazda, numele bazei de date, utilizatorul și parola. De asemenea, puteți gestiona închiderea
+                        conexiunii și reapelarea conexiunii în cazul în care aceasta este întreruptă.
+                    </li>
+                    <li>
+                        Executarea interogărilor SQL: Utilizând PDO, puteți executa interogări SQL către baza de date.
+                        Aceasta include atât interogări de selecție (SELECT), cât și interogări de modificare (INSERT,
+                        UPDATE, DELETE), precum și alte operațiuni specifice bazei de date. PDO oferă metode pentru a
+                        pregăti și executa interogări, a lega parametrii, a obține rezultatele și a gestiona
+                        tranzacțiile.
+                    </li>
+                    <li>
+                        Securitatea: PDO facilitează utilizarea interogărilor parametrizate, ceea ce ajută la prevenirea
+                        atacurilor de tip SQL injection. Prin utilizarea interogărilor parametrizate, PDO sanitizează
+                        automat valorile introduse de utilizatori, eliminând riscul de a interpreta greșit datele
+                        introduse și de a permite injecția de cod malitios în interogări SQL.
+                    </li>
+                </ul>
+                <strong>Clasa Database</strong> , care este o clasa de tip Singleton, este conceptual asemanatoare cu un
+                wrapper peste extensia PDO.
+                Aceasta clasa are doua date membru, si anume:
+                <ul>
+                    <li>
+                        <strong>$instance</strong>, de tipul "?Database", care reprezinta instanta bazei de date cu care
+                        vom lucra.
+                    </li>
+                    <li>
+                        <strong>$connection</strong>, de tipul "?PDO",, care reprezinta conexiunea cu baza de date
+                        MariaDB.
+                    </li>
+                </ul>
+                Mai jos detaliem cateva dintre metodele principale din aceasta clasa.
+                <ol>
+                    <li>
+                        <strong>__construct()</strong>, care reprezinta constructorul clasei.
+                        Aceasta metoda face un apel catre a doua metoda detaliata:
+                    </li>
+                    <li>
+                        <strong>initConnection()</strong>, care cu ajutorul credentialelor bazei noastre de date din
+                        MariaDB, initiaza o conexiune la aceasta.
+                        Mai mult, prin setarea "PDO::ATTR_ERRMODE" la "PDO::ERRMODE_EXCEPTION", conexiunea PDO este
+                        configurata sa arunce exceptii atunci cand acestea apar,
+                        permitand prinderea si tratarea lor in blocuri try-catch.
+                    </li>
+                    <li>
+                        <strong>getInstance()</strong>, care returneaza instanta clasei, cu conexiunea gata realizata.
+                    </li>
+                    <li>
+                        <strong>query($sql,$params)</strong>, care dupa ce uneste parametrii dati la instructiunea sql
+                        data returneaza rezultatul executiei, rezultat ce este de tipul PDOStatement si reprezinta un
+                        Result Set caruia
+                        urmeaza sa-i fie extrase valorile returnate prin fetch().
+                    </li>
+                    <li>
+                        <strong>fetchOne()</strong> este folosita pentru returnarea unui singur rand din Result Set-ul
+                        obtinut prin query().Foloseste metoda fetch() din PDO.
+                    </li>
+                    <li>
+                        <strong>fetchAll()</strong> este folosita pentru returnarea tuturor randurilor din Result Set-ul
+                        obtinut prin query().Foloseste metoda fetchAll() din PDO.
+                    </li>
+                    <li>
+                        <strong>insert(), update(), delete()</strong> sunt metode asupra bazei de date cu intelesurile
+                        obisnuite.
+                    </li>
+                </ol>
+            </section>
 
-            </p>
+            <section>
+                <h3>Clasa JsonUtil</h3>
+                Clasa aceasta este utila pentru manipularea datelor in vederea realizarii diagramelor.
+                Astfel, cu metodele <strong>filtrateAfterYearsAndColumns() si extractTotalPerDistinctColumnValue()</strong>
+                extragem datele in format JSON filtarate dupa anumite criterii, iar cu metodele <strong>extractTotalFromJSON() si extractTotalByYear() </strong>
+                extragem datele in format JSON grupate dupa ani.Aceste ultime doua functii sunt utile pentru realizarea Line Chart-ului.
+            </section>
+
+            <section>
+                <h3 property="name">Controllere</h3>
+                <section property="about">
+                    <h4 property="name">Clasa AboutController</h4>
+                    <p property="text">
+                        About Controller este clasa care se ocupa de returnarea datelor specifice paginii /about,
+                        contine doar o metoda get().
+                    </p>
+                </section>
+
+                <section property="admin">
+                    <h4 property="name">Clasa AdminController</h4>
+                    <p property="text">
+                        Admin Controller este clasa care se ocupa de returnarea datelor specifice paginii /admin,
+                        contine doar o metoda getInfo().
+                    </p>
+                </section>
+
+                <section property="home">
+                    <h4 property="name">Clasa HomeController</h4>
+                    <p property="text">
+                        Home Controller este clasa care se ocupa de returnarea datelor specifice paginii /home,
+                        contine doar o metoda get().
+                    </p>
+                </section>
+
+                <section property="auth">
+                    <h4 property="name">Clasa AuthController</h4>
+                    <p property="text">
+                        Auth Controller este clasa care se ocupa de verificarea token-urilor de autentificare a unui
+                        utilizator, dar si pentru un utilizator administrator.
+                    </p>
+                </section>
+
+                <section property="contact">
+                    <h4 property="name">Clasa ContactController</h4>
+                    <p property="text">
+                        Contact Controller este clasa care se ocupa de returnarea datelor specifice paginii /contact,
+                        dar si pentru
+                        trimiterea unui email catre administratorul aplicatiei.
+                    </p>
+                </section>
+
+                <section property="dashboard">
+                    <h4 property="name">Clasa DashboardController</h4>
+                    <p property="text">
+                        Dashboard Controller este clasa care se ocupa de extragerea de proiecte specifice utilizatorului
+                        curent.
+                    </p>
+                </section>
+
+                <section property="login">
+                    <h4 property="name">Clasa LoginController</h4>
+                    <p property="text">
+                        Login Controller este clasa care se ocupa de returnarea datelor specifice paginii /login, dar
+                        si pentru efectuarea autentificarii unui utilizator, returnand un token JWT.
+                    </p>
+                </section>
+
+                <section property="password">
+                    <h4 property="name">Clasa PasswordController</h4>
+                    <p property="text">
+                        Password Controller este clasa care se ocupa de generarea de email pentru resetarea parolei
+                        utilizatorului, schimbarea parolei utilizatorului, dar si recuperarea parolei utilizatorului.
+                    </p>
+                </section>
+
+                <section property="project">
+                    <h4 property="name">Clasa ProjectController</h4>
+                    <p property="text">
+                        Project Controller este clasa care se ocupa de createa, stergerea, extragerea unui proiect.
+                        Clasa mai contine
+                        si o metoda care se ocupa de extragerea tuturor proiectelor, dar si metode ajutatoare pentru a
+                        extrage proiecte specifice utilizatorului curent.
+                    </p>
+                </section>
+
+                <section property="user">
+                    <h4 property="name">Clasa UserController</h4>
+                    <p property="text">
+                        User Controller este clasa care se ocupa de crearea unui utilizator, dar si de extragerea
+                        utilizatorului curent. Clasa mai contine si metode pentru efectuarea stergerii, actualizarii, dar
+                        si pentru extragerea tuturor utilizatorilor.
+                    </p>
+                </section>
+
+            </section>
+
         </section>
     </section>
 
@@ -1149,7 +1630,7 @@
             caracterele '\' din sirul de caractere dat ca input. Adica nu permite markup-urilor HTML sa fie
             interpretate.
             In final, asupra rezultatului obtinut, se aplica metoda "htmlspecialchars($data)" din php, care
-            transforma caracterele speciale( "<", ">", "&", "'", sau """ )
+            transforma caracterele speciale( "&lt;", ">", "&", "'", sau """ )
             în entități HTML, ceea ce înseamnă că orice HTML și JavaScript inserat nu va fi interpretat ca atare, ci va
             fi afișat ca text simplu.
         </p>
@@ -1171,6 +1652,14 @@
             cazul
             unui atac la baza de date.
         </p>
+        <p>
+            Folosirea JWT-urilor pentru a asigura autentificarea utilizatorilor. Astfel, la fiecare request, se va
+            verifica daca token-ul JWT trimis de catre utilizator este valid, iar in cazul in care acesta nu este
+            valid, request-ul nu va fi procesat. In felul acesta, se asigura faptul ca doar utilizatorii autentificati
+            pot accesa resursele protejate ale aplicatiei. In plus, exista doua tipuri de token-uri JWT, unul pentru
+            utilizatorii obisnuiti si unul pentru administratori. In felul acesta, se asigura faptul ca doar
+            administratorii pot accesa resursele protejate ale aplicatiei destinate exclusiv acestora.
+        </p>
     </section>
 
     <section property="technologies">
@@ -1184,12 +1673,14 @@
             JavaScript pentru a oferi o experienta mai placuta utilizatorului. Pe partea de backend, tehnologia
             pe
             baza careia s-a bazat aplicatia si API-ul este PHP. In final, pe partea de server web s-a folosit
-            Apache, iar la baza de date ne-am rezumat la folosirea SGBD-ului MySQL. Pentru redarea grafica a
+            Apache, iar la baza de date ne-am rezumat la folosirea SGBD-ului MariaDB. Pentru redarea grafica a
             datelor
             am folosit libraria D3.js. Aplicatia nu foloseste niciun framework, scopul fiind de a demonstra
             cunostintele noastre in domeniul web. Ca alte librarii externe folosite in cadrul proiectului, este libraria
             SendGrid, care ne-a ajutat la trimiterea de email-uri, SCSS pentru a usura scrierea codului CSS, libraria
-            Swagger pentru a genera documentatia API-ului.
+            Swagger pentru a genera documentatia API-ului. S-a folosit SVG-ul de pe site-ul <a
+                href="https://simplemaps.com/resources/svg-ro">https://simplemaps.com/resources/svg-ro</a> pentru a
+            genera harta Romaniei.
         </p>
     </section>
 
