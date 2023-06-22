@@ -12,6 +12,9 @@ $router->add('GET','/api/home','HomeController::get');
 // about routes
 $router->add('GET','/api/about','AboutController::get');
 
+// admin routes
+$router->add('GET','/api/admin','AdminController::get');
+
 // contact routes
 $router->add('POST', '/api/contact', 'ContactController::create');
 

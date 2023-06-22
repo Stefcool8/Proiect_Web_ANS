@@ -40,7 +40,7 @@ class AdminController
      *     )
      * )
      */
-    public function getInfo() {
+    public function get() {
         ResponseHandler::getResponseHandler()->sendResponse(200, [
             'title' => 'Admin Page',
         ]);
