@@ -1524,6 +1524,21 @@
             </section>
 
             <section>
+                <h3>Clasa JWT</h3>
+                Clasa aceasta este utila pentru crearea si manipularea propriilor JWT-uri, stocate la nivelul Browser-ului in LocalStorage, folosind in procesul de verificare a permisiunilor unui utilizator.
+                In acest sens, functia <strong>encode(array $payload)</strong> genereaza, cu ajutorul unei parole secrete si a unui algoritm de criptare (HS256),
+                token-ul care va fi atribuit in mod unic unui user in momentul logarii.Acesta functie se foloseste si de <strong>base64_encode()</strong> din PHP, pentru codificarea datelor.
+                In mod analog, clasa JWT prezinta si functia <strong>decode(array $payload)</strong>, care se foloseste de <strong>base64_decode()</strong> din PHP, pentru decriptarea token-ului.
+            </section>
+
+            <section>
+                <h3>Clasa Email Sender</h3>
+                Clasa aceasta este utila pentru trimiterea de email-uri cu ajutorul SendGrid.
+                Email-urile acestea sunt peronalizate cu ajutorul functiei sendEmail(), care seteaza mereu
+                adresa emitatorului ca fiind adresa specifica aplicatiei noastre.
+            </section>
+
+            <section>
                 <h3 property="name">Controllere</h3>
                 <section property="about">
                     <h4 property="name">Clasa AboutController</h4>
