@@ -13,7 +13,6 @@ document.addEventListener('DOMContentLoaded', async() => {
                 'Content-Type': 'application/json',
             },
         });
-
         if (response.status === 401) {
             // Unauthorized access, redirect to home page
             window.location.href = "/home";
@@ -23,7 +22,9 @@ document.addEventListener('DOMContentLoaded', async() => {
         const result = await response.json();
 
         if (response.ok) {
-            document.querySelector('.page-name p').textContent = 'Admin page, Hello ' + result.data.data.username;
+            document.querySelector(".page-name p").textContent = 'Admin page, Hello ' + result.data.data.username;
+            const userLink = document.querySelector(".view-profile-btn");
+            userLink.href = "/user/" + result.data.data.uuid;
         } else {
             // Handle the error
             console.error(result.message);

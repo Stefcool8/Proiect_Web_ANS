@@ -1,10 +1,3 @@
-<?php
-require_once __DIR__ . '/shared/general.php';
-$data = fetch_data('contact', [
-    'title' => 'Default title'
-]);
-
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,7 +21,7 @@ $data = fetch_data('contact', [
 <div class="contact-page">
     <main class="main-content">
         <div class="contact-form-container">
-            <h2><?= $data['title'] ?></h2>
+            <h2>Contact Us</h2>
             <form id="contact-form" method="POST">
                 <div class="error-message hidden"></div>
                 <div class="success-message hidden"></div>

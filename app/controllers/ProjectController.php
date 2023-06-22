@@ -8,61 +8,10 @@ use App\Utils\JsonUtil;
 use Exception;
 
 
-/**
- * Controller for Project operations
- *
- */
+
 class ProjectController extends Controller
 {
-    /**
-     * @OA\Post(
-     *     path="/api/project",
-     *     summary="Create a new project",
-     *     operationId="createProject",
-     *     tags={"Project"},
-     *     @OA\RequestBody(
-     *         description="Project data",
-     *         required=true,
-     *         @OA\JsonContent(
-     *             @OA\Property(property="name", type="string", example="project"),
-     *             @OA\Property(property="chart", type="string", example="example Chart"),
-     *             @OA\Property(property="uuidUser", type="string", example="uuidExample")
-     *         )
-     *     ),
-     *     @OA\Response(
-     *         response=200,
-     *         description="User created successfully",
-     *         @OA\JsonContent(
-     *             @OA\Property(property="status_code", type="integer", example=200),
-     *             @OA\Property(property="message", type="string", example="Project created successfully")
-     *         )
-     *     ),
-     *     @OA\Response(
-     *         response=400,
-     *         description="Invalid request body",
-     *         @OA\JsonContent(
-     *             @OA\Property(property="status_code", type="integer", example=400),
-     *             @OA\Property(property="error", type="string", example="Invalid request body")
-     *         )
-     *     ),
-     *     @OA\Response(
-     *         response=409,
-     *         description="Project already exists",
-     *         @OA\JsonContent(
-     *             @OA\Property(property="status_code", type="integer", example=409),
-     *             @OA\Property(property="error", type="string", example="Project already exists")
-     *         )
-     *     ),
-     *     @OA\Response(
-     *          response=500,
-     *          description="Internal Server Error",
-     *          @OA\JsonContent(
-     *              @OA\Property(property="status_code", type="integer", example=500),
-     *              @OA\Property(property="error", type="string", example="Internal Server Error")
-     *         )
-     *    )
-     * )
-     */
+
     public function create()
     {
         // get the request body
@@ -135,9 +84,6 @@ class ProjectController extends Controller
         }
     }
 
-    /**
-     * @throws Exception
-     */
     public function createChartProject($db, $body, $uuidUser, $tableName, $dataColumn) {
         // if the chart is not a map chart, dataColumn is required
         if ($tableName != 'map_chart' && !isset($body['dataColumn'])) {
@@ -193,50 +139,7 @@ class ProjectController extends Controller
         }
     }
 
-    /**
-     * @OA\Delete(
-     *     path="/api/project/{uuid}",
-     *     summary="Delete a project",
-     *     operationId="deleteProject",
-     *     tags={"Project"},
-     *     security={{"bearerAuth":{}}},
-     *
-     *     @OA\Parameter(
-     *         name="uuid",
-     *         in="path",
-     *         description="UUID of the project to be deleted",
-     *         required=true,
-     *         @OA\Schema(
-     *             type="string"
-     *         )
-     *     ),
-     *     @OA\Response(response="204", description="Project successfully deleted."),
-     *     @OA\Response(
-     *         response="404",
-     *         description="Project not found",
-     *         @OA\JsonContent(
-     *             @OA\Property(property="status_code", type="integer", example=404),
-     *             @OA\Property(property="error", type="string", example="Project not found")
-     *         )
-     *     ),
-     *     @OA\Response(
-     *         response="401",
-     *         description="Unauthorized",
-     *         @OA\JsonContent(
-     *             @OA\Property(property="status_code", type="integer", example=401),
-     *             @OA\Property(property="error", type="string", example="Unauthorized")
-     *         )
-     *     ),
-     *     @OA\Response(
-     *         response="500",
-     *         description="Internal Server Error",
-     *         @OA\JsonContent(
-     *             @OA\Property(property="status_code", type="integer", example=500),
-     *             @OA\Property(property="error", type="string", example="Internal Server Error")
-     *        )
-     *    )
-     * )
-     */
+
     public function delete($uuid)
     {
         $payload = $this->getPayload();
@@ -279,47 +182,7 @@ class ProjectController extends Controller
         }
     }
 
-    /**
-     * @OA\Get(
-     *     path="/api/project/{uuid}",
-     *     summary="Retrieve project information",
-     *     operationId="getProject",
-     *     tags={"Project"},
-     *
-     *     @OA\Parameter(
-     *         name="uuid",
-     *         in="path",
-     *         description="UUID of the project to retrieve",
-     *         required=true,
-     *         @OA\Schema(
-     *             type="string"
-     *         )
-     *     ),
-     *     @OA\Response(response="200", description="Project found", @OA\JsonContent(
-     *         @OA\Property(property="data", type="object",
-     *             @OA\Property(property="name", type="string"),
-     *             @OA\Property(property="chart", type="string"),
-     *             @OA\Property(property="uuidUser", type="string")
-     *            )
-     *     )),
-     *     @OA\Response(
-     *         response="404",
-     *         description="Project not found",
-     *         @OA\JsonContent(
-     *             @OA\Property(property="status_code", type="integer", example=404),
-     *             @OA\Property(property="error", type="string", example="Project not found")
-     *         )
-     *     ),
-     *     @OA\Response(
-     *         response="500",
-     *         description="Internal Server Error",
-     *         @OA\JsonContent(
-     *             @OA\Property(property="status_code", type="integer", example=500),
-     *             @OA\Property(property="error", type="string", example="Internal Server Error")
-     *        )
-     *    )
-     * )
-     */
+
     public function get($uuid)
     {
         $payload = $this->getPayload();
@@ -375,9 +238,6 @@ class ProjectController extends Controller
         }
     }
 
-    /**
-     * @throws Exception
-     */
     public function getChartProject($db, $project, $tableName, $dataColumn): array {
         $data = [];
 

@@ -9,40 +9,10 @@ use App\utils\EmailSender;
 
 use Exception;
 
-/**
- * Controller for password operations
- *
- */
+
 class PasswordController extends Controller {
 
-    /**
-     * @OA\Post(
-     *     path="/api/password/reset",
-     *     summary="Request a password reset",
-     *     tags={"Password"},
-     *     @OA\RequestBody(
-     *         required=true,
-     *         description="Email address of user",
-     *         @OA\JsonContent(
-     *            @OA\Property(property="email", type="string", format="email", example="user@example.com")
-     *         ),
-     *     ),
-     *     @OA\Response(
-     *         response=200,
-     *         description="Password reset link sent successfully",
-     *         @OA\JsonContent(
-     *             @OA\Property(property="message", type="string", example="Password reset link sent successfully")
-     *         )
-     *     ),
-     *     @OA\Response(
-     *         response=401,
-     *         description="User not found",
-     *         @OA\JsonContent(
-     *             @OA\Property(property="error", type="string", example="User not found")
-     *         )
-     *     )
-     * )
-     */
+
     public function forgotPassword() {
         $body = json_decode(file_get_contents('php://input'), true);
         $email = $this->sanitizeData($body['email']);
@@ -70,31 +40,7 @@ class PasswordController extends Controller {
         }
     }
 
-    /**
-     * @OA\Put(
-     *     path="/api/password/reset",
-     *     tags={"Password"},
-     *     summary="Reset user password",
-     *     operationId="resetPassword",
-     *     security={{"bearerAuth":{}}},
-     *     @OA\RequestBody(
-     *         required=true,
-     *         description="User password reset",
-     *         @OA\JsonContent(
-     *             required={"password"},
-     *             @OA\Property(property="password", type="string", format="password", example="password123", description="The new password"),
-     *         ),
-     *     ),
-     *     @OA\Response(
-     *         response=200,
-     *         description="Password reset successfully",
-     *     ),
-     *     @OA\Response(
-     *         response=401,
-     *         description="User not found, Unauthorized or Invalid token",
-     *     )
-     * )
-     */
+
     public function resetPassword() {
         $body = json_decode(file_get_contents('php://input'), true);
         $password = $this->sanitizeData($body['password']);
@@ -124,62 +70,7 @@ class PasswordController extends Controller {
         }
     }
 
-    /**
-     * @OA\Put(
-     *     path="/api/password/change/{uuid}",
-     *     tags={"Password"},
-     *     summary="Change user password",
-     *     operationId="changePassword",
-     *     security={{"bearerAuth":{}}},
-     *     @OA\Parameter(
-     *         name="uuid",
-     *         in="path",
-     *         description="The UUID of the user",
-     *         required=true,
-     *         @OA\Schema(
-     *             type="string",
-     *             example="648eaf3cbc160"
-     *         )
-     *     ),
-     *     @OA\RequestBody(
-     *         required=true,
-     *         description="Current and new password",
-     *         @OA\JsonContent(
-     *             required={"currentPassword", "newPassword"},
-     *             @OA\Property(property="currentPassword", type="string", format="password", example="oldPassword123", description="The current password"),
-     *             @OA\Property(property="newPassword", type="string", format="password", example="newPassword456", description="The new password"),
-     *         ),
-     *     ),
-     *     @OA\Response(
-     *         response=200,
-     *         description="Password updated successfully",
-     *         @OA\JsonContent(
-     *             @OA\Property(property="message", type="string", example="Password updated successfully"),
-     *         )
-     *     ),
-     *     @OA\Response(
-     *         response=400,
-     *         description="Missing required fields",
-     *         @OA\JsonContent(
-     *             @OA\Property(property="error", type="string", example="Missing required fields"),
-     *         )
-     *     ),
-     *     @OA\Response(
-     *         response=401,
-     *         description="Unauthorized, Invalid token or Incorrect current password",
-     *         @OA\JsonContent(
-     *             @OA\Property(property="error", type="string", example="Unauthorized"),
-     *         )
-     *     ),
-     *     @OA\Response(
-     *         response=404,
-     *         description="User not found",
-     *         @OA\JsonContent(
-     *             @OA\Property(property="error", type="string", example="User not found"),
-     *         )
-     *     )
-     * )
-     */
+
     public function changePassword($uuid) {
         $body = json_decode(file_get_contents('php://input'), true);
 
