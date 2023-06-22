@@ -39,6 +39,7 @@ $router->add('GET','/api/project/user/{uuid}/{startPage}','ProjectController::ge
 
 // login route
 $router->add('POST','/api/login', 'LoginController::login');
+$router->add('GET','/api/login','LoginController::get');
 
 // auth routes
 $router->add('GET', '/api/auth', 'AuthController::get');
