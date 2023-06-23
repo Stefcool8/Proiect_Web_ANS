@@ -23,13 +23,13 @@ const allColumns = [
 const workerPieColumns = [
     "JUDET",
     "CATEGORIE_NATIONALA",
-    "CATEGORIE_COMUNITARA",
+    "CATEGORIA_COMUNITARA",
     "VALUE_NAME"
 ];
 
 const workerMapColumns = [
     "CATEGORIE_NATIONALA",
-    "CATEGORIE_COMUNITARA",
+    "CATEGORIA_COMUNITARA",
     "MARCA",
     "DESCRIERE_COMERCIALA",
     "VALUE_NAME"
