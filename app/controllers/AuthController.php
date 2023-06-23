@@ -94,8 +94,6 @@ class AuthController extends Controller {
     }
 
     /**
-     * This is the OpenAPI documentation for the verifyAdmin() function.
-     *
      * @OA\Get(
      *     path="/api/auth/admin",
      *     operationId="verifyAdmin",
@@ -143,8 +141,6 @@ class AuthController extends Controller {
 
 
     /**
-     * This is the OpenAPI documentation for the verifyAccess() function.
-     *
      * @OA\Post(
      *     path="/api/auth/verifyAccess",
      *     operationId="verifyAccess",
