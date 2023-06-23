@@ -12,8 +12,8 @@ class LoginController extends Controller {
      * @OA\Get(
      *     path="/api/login",
      *     tags={"Login"},
-     *     summary="Get Login Form Data",
-     *     description="This endpoint is used to get the login form details.",
+     *     summary="Retrieve page title",
+     *     description="This endpoint is used to get the login page title.",
      *     @OA\Response(
      *         response=200,
      *         description="Success response with login form data.",
@@ -47,13 +47,13 @@ class LoginController extends Controller {
      *                     property="username",
      *                     description="The user's username",
      *                     type="string",
-     *                     example="nicolaee3"
+     *                     example="johnDoe"
      *                 ),
      *                 @OA\Property(
      *                     property="password",
      *                     description="The user's password",
      *                     type="string",
-     *                     example="parola"
+     *                     example="SecureP@ssword123"
      *                 )
      *             )
      *         )
@@ -72,18 +72,21 @@ class LoginController extends Controller {
      *                     @OA\Property(
      *                         property="username",
      *                         description="The username of the logged in user",
-     *                         type="string"
+     *                         type="string",
+     *                         example="johnDoe"
      *                     ),
      *                     @OA\Property(
      *                         property="uuid",
      *                         description="The uuid of the logged in user",
-     *                         type="string"
+     *                         type="string",
+     *                         example="648c882816eda"
      *                     )
      *                 ),
      *                 @OA\Property(
      *                     property="token",
      *                     description="The JWT token",
-     *                     type="string"
+     *                     type="string",
+     *                     example="johnDoe_JWT"
      *                 )
      *             )
      *         )

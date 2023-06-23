@@ -98,7 +98,7 @@ class AuthController extends Controller {
      *     path="/api/auth/admin",
      *     operationId="verifyAdmin",
      *     tags={"Authentication"},
-     *     summary="Validate the admin's token",
+     *     summary="Validate the admin's token and getting some information about admin",
      *     description="Endpoint for verifying admin privileges.",
      *     security={{"bearerAuth": {}}},
      *     @OA\Response(
@@ -107,7 +107,6 @@ class AuthController extends Controller {
      *         @OA\JsonContent(
      *             type="object",
      *             @OA\Property(property="data", type="object",
-     *                 @OA\Property(property="title", type="string", example="Admin"),
      *                 @OA\Property(property="isAdmin", type="boolean"),
      *                 @OA\Property(property="username",type="string")
      *             )
@@ -145,8 +144,8 @@ class AuthController extends Controller {
      *     path="/api/auth/verifyAccess",
      *     operationId="verifyAccess",
      *     tags={"Authentication"},
-     *     summary="Validate the admin's token",
-     *     description="Endpoint for verifying admin privileges.",
+     *     summary="Verify access based on token",
+     *     description="Verify access based on token",
      *     security={{"bearerAuth": {}}},
      *     @OA\Response(
      *         response=200,
@@ -154,7 +153,6 @@ class AuthController extends Controller {
      *         @OA\JsonContent(
      *             type="object",
      *             @OA\Property(property="data", type="object",
-     *                 @OA\Property(property="title", type="string", example="Admin"),
      *                 @OA\Property(property="isAdmin", type="boolean"),
      *                 @OA\Property(property="username",type="string")
      *             )
@@ -182,28 +180,7 @@ class AuthController extends Controller {
         }
 
         $uuid = $body['uuid'];
-        // get the token from the request header
-        $headers = apache_request_headers();
-
-        if (!isset($headers['Authorization'])) {
-            ResponseHandler::getResponseHandler()->sendResponse(401, [
-                'error' => 'Unauthorized'
-            ]);
-            return;
-        }
-
-        $authHeader = $headers['Authorization'];
-        $token = str_replace('Bearer ', '', $authHeader);
-
-        try {
-            // decode the token
-            $payload = JWT::getJWT()->decode($token);
-        } catch (InvalidArgumentException $e) {
-            ResponseHandler::getResponseHandler()->sendResponse(401, [
-                'error' => 'Unauthorized'
-            ]);
-            return;
-        }
+        $payload = $this->getPayload();
         if (!$payload['isAdmin']) {
             $db = Database::getInstance();
             $currentUser = $db->fetchOne("SELECT * FROM user WHERE username = :username", ['username' => $payload['username']]);
@@ -216,7 +193,6 @@ class AuthController extends Controller {
             } else {
                 ResponseHandler::getResponseHandler()->sendResponse(200, [
                     'data' => [
-                        'title' => 'HELLo',
                         'isAdmin' => $payload['isAdmin'],
                         'username' => $payload['username']
                     ]
@@ -226,7 +202,6 @@ class AuthController extends Controller {
         }
         ResponseHandler::getResponseHandler()->sendResponse(200, [
             'data' => [
-                'title' => 'Admin',
                 'isAdmin' => $payload['isAdmin'],
                 'username' => $payload['username']
             ]

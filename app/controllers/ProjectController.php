@@ -24,14 +24,14 @@ class ProjectController extends Controller
      *         description="Project data",
      *         required=true,
      *         @OA\JsonContent(
-     *             @OA\Property(property="name", type="string", example="project"),
-     *             @OA\Property(property="chart", type="string", example="example Chart"),
-     *             @OA\Property(property="uuidUser", type="string", example="uuidExample")
+     *             @OA\Property(property="name", type="string", example="Project"),
+     *             @OA\Property(property="chart", type="integer", example=1),
+     *             @OA\Property(property="uuidUser", type="string", example="648c882816eda")
      *         )
      *     ),
      *     @OA\Response(
      *         response=200,
-     *         description="User created successfully",
+     *         description="Project created successfully",
      *         @OA\JsonContent(
      *             @OA\Property(property="status_code", type="integer", example=200),
      *             @OA\Property(property="message", type="string", example="Project created successfully")
@@ -207,7 +207,8 @@ class ProjectController extends Controller
      *         description="UUID of the project to be deleted",
      *         required=true,
      *         @OA\Schema(
-     *             type="string"
+     *             type="string",
+     *             example="648c882816eda"
      *         )
      *     ),
      *     @OA\Response(response="204", description="Project successfully deleted."),
@@ -292,14 +293,15 @@ class ProjectController extends Controller
      *         description="UUID of the project to retrieve",
      *         required=true,
      *         @OA\Schema(
-     *             type="string"
+     *             type="string",
+     *             example="648c882816eda"
      *         )
      *     ),
      *     @OA\Response(response="200", description="Project found", @OA\JsonContent(
      *         @OA\Property(property="data", type="object",
-     *             @OA\Property(property="name", type="string"),
-     *             @OA\Property(property="chart", type="string"),
-     *             @OA\Property(property="uuidUser", type="string")
+     *             @OA\Property(property="name", type="string", example="Project"),
+     *             @OA\Property(property="chart", type="integer", example=1),
+     *             @OA\Property(property="uuid", type="string", example="johnDoe_Project1")
      *            )
      *     )),
      *     @OA\Response(
@@ -320,6 +322,8 @@ class ProjectController extends Controller
      *    )
      * )
      */
+
+
     public function get($uuid)
     {
         $payload = $this->getPayload();
@@ -437,6 +441,54 @@ class ProjectController extends Controller
         return $data;
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/project/user/{uuid}",
+     *     summary="Retrieve projects for a user",
+     *     operationId="getUserProjects",
+     *     tags={"Project"},
+     *
+     *     @OA\Parameter(
+     *         name="uuid",
+     *         in="path",
+     *         description="UUID of the user to retrieve projects for",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string",
+     *             example="648c882816eda"
+     *         )
+     *     ),
+     *     @OA\Response(response="200", description="Projects found", @OA\JsonContent(
+     *         @OA\Property(property="projects", type="array", @OA\Items(
+     *             @OA\Property(property="name", type="string", example="Project"),
+     *             @OA\Property(property="chart", type="integer", example=1),
+     *             @OA\Property(property="uuid", type="string", example="648c882816eda")
+     *         ))
+     *     )),
+     *     @OA\Response(
+     *         response="401",
+     *         description="Unauthorized",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="error", type="string", example="Unauthorized")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response="404",
+     *         description="No projects found for the user",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="error", type="string", example="No projects found for this user")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response="500",
+     *         description="Internal Server Error",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="error", type="string", example="Internal Server Error")
+     *        )
+     *    )
+     * )
+     */
+
     public function gets($uuid)
     {
         $payload = $this->getPayload();
@@ -480,6 +532,64 @@ class ProjectController extends Controller
         }
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/project/user/{uuid}/{startPage}",
+     *     summary="Retrieve projects for a user within a specified interval",
+     *     operationId="getUserProjectsByInterval",
+     *     tags={"Project"},
+     *
+     *     @OA\Parameter(
+     *         name="uuid",
+     *         in="path",
+     *         description="UUID of the user to retrieve projects for",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string",
+     *             example="648c882816eda"
+     *         )
+     *     ),
+     *     @OA\Parameter(
+     *         name="startPage",
+     *         in="path",
+     *         description="Start page of the interval (1-based index)",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer",
+     *             format="int32",
+     *             example=1
+     *         )
+     *     ),
+     *     @OA\Response(response="200", description="Projects found", @OA\JsonContent(
+     *         @OA\Property(property="projects", type="array", @OA\Items(
+     *             @OA\Property(property="name", type="string", example="Project"),
+     *             @OA\Property(property="chart", type="integer", example=1),
+     *             @OA\Property(property="uuid", type="string", example="johnDoe_Project1")
+     *         ))
+     *     )),
+     *     @OA\Response(
+     *         response="401",
+     *         description="Unauthorized",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="error", type="string", example="Unauthorized")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response="404",
+     *         description="No projects found for the user",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="error", type="string", example="No projects found for this user")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response="500",
+     *         description="Internal Server Error",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="error", type="string", example="Internal Server Error")
+     *        )
+     *    )
+     * )
+     */
     public function getByInterval($uuid, $startPage)
     {
         $payload = $this->getPayload();

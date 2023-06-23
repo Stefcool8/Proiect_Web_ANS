@@ -1,15 +1,9 @@
-<?php
-require_once __DIR__ . '/shared/general.php';
-$data = fetch_data('admin', [
-    'title' => 'Default title'
-]);
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin</title>
+    <title>Admin Panel</title>
 
     <!-- css libraries -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -26,8 +20,9 @@ $data = fetch_data('admin', [
 <?php require_once __DIR__ . '/shared/navbar.php'; ?>
 <main class="central-area">
     <div class="page-name">
-        <p><?= htmlspecialchars($data["title"]) ?></p>
+        <p> </p>
     </div>
+
     <div class="button-area">
         <a href="/user" class="view-profile-btn">View Profile</a>
         <a href="/project-initialization" class="create-project-btn">Create new project</a>
@@ -38,10 +33,5 @@ $data = fetch_data('admin', [
 </main>
 <?php require_once __DIR__ . '/shared/footer.php'; ?>
 <script src="/public/js/admin.js"></script>
-<script>
-    let user = JSON.parse(localStorage.getItem("user"));
-    const userLink = document.querySelector(".view-profile-btn");
-    userLink.href = "/user/" + user.uuid;
-</script>
 </body>
 </html>

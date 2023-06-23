@@ -7,15 +7,20 @@ use App\Utils\Router;
 $router = Router::getRouter();
 
 // home routes
-$router->add('GET', '/api/home', 'HomeController::get');
+$router->add('GET','/api/home','HomeController::get');
+
+// about routes
+$router->add('GET','/api/about','AboutController::get');
+
+// admin routes
+$router->add('GET','/api/admin','AdminController::get');
 
 // contact routes
 $router->add('POST', '/api/contact', 'ContactController::create');
-$router->add('GET', '/api/contact', 'ContactController::get');
+$router->add('GET','/api/contact','ContactController::get');
 
 // dashboard routes
 $router->add('GET', '/api/dashboard', 'DashboardController::get');
-$router->add('GET', '/api/admin','AdminController::getInfo');
 
 // user routes
 $router->add('POST', '/api/user', 'UserController::create');
@@ -32,12 +37,9 @@ $router->add('DELETE', '/api/project/{uuid}', 'ProjectController::delete');
 $router->add('GET','/api/project/{uuid}','ProjectController::get');
 $router->add('GET','/api/project/user/{uuid}/{startPage}','ProjectController::getByInterval');
 
-// about us route
-$router->add('GET', '/api/about', 'AboutController::get');
-
 // login route
-$router->add('GET','/api/login','LoginController::get');
 $router->add('POST','/api/login', 'LoginController::login');
+$router->add('GET','/api/login','LoginController::get');
 
 // auth routes
 $router->add('GET', '/api/auth', 'AuthController::get');

@@ -321,6 +321,7 @@ class UserController extends Controller {
      *         required=true,
      *         @OA\Schema(
      *             type="string",
+     *             example="648c882816eda"
      *         )
      *     ),
      *     @OA\RequestBody(
@@ -526,14 +527,24 @@ class UserController extends Controller {
      *                 @OA\Items(
      *                     type="object",
      *                     @OA\Property(
-     *                         property="uuid",
-     *                         type="string",
-     *                         example="user-123"
+     *                         property="isAdmin",
+     *                         type="boolean",
+     *                         example="false"
      *                     ),
      *                     @OA\Property(
-     *                         property="name",
+     *                         property="uuid",
      *                         type="string",
-     *                         example="John Doe"
+     *                         example="648c882816eda"
+     *                     ),
+     *                     @OA\Property(
+     *                         property="firstName",
+     *                         type="string",
+     *                         example="Doe"
+     *                     ),
+     *                     @OA\Property (
+     *                         property="lastName",
+     *                         type="string",
+     *                         example="John"
      *                     ),
      *                     @OA\Property(
      *                         property="email",
@@ -543,7 +554,7 @@ class UserController extends Controller {
      *                     @OA\Property(
      *                         property="username",
      *                         type="string",
-     *                         example="johndoe"
+     *                         example="johnDoe"
      *                     )
      *                 )
      *             )
@@ -616,6 +627,106 @@ class UserController extends Controller {
             ResponseHandler::getResponseHandler()->sendResponse(500, ["error" => "Internal Server Error"]);
         }
     }
+
+    /**
+     * @OA\Get(
+     *     path="/api/user/page/{startPage}",
+     *     summary="Retrieve users by page",
+     *     operationId="getUsersByInterval",
+     *     tags={"User"},
+     *     @OA\Parameter(
+     *         name="startPage",
+     *         in="path",
+     *         description="Page number to start from",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer",
+     *             format="int32",
+     *             example=1
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                 property="users",
+     *                 type="array",
+     *                 @OA\Items(
+     *                     type="object",
+     *                     @OA\Property(
+     *                         property="isAdmin",
+     *                         type="boolean",
+     *                         example=true
+     *                     ),
+     *                     @OA\Property(
+     *                         property="uuid",
+     *                         type="string",
+     *                         example="648c882816eda"
+     *                     ),
+     *                     @OA\Property(
+     *                         property="firstName",
+     *                         type="string",
+     *                         example="John"
+     *                     ),
+     *                     @OA\Property(
+     *                         property="lastName",
+     *                         type="string",
+     *                         example="Doe"
+     *                     ),
+     *                     @OA\Property(
+     *                         property="email",
+     *                         type="string",
+     *                         example="johndoe@example.com"
+     *                     ),
+     *                     @OA\Property(
+     *                         property="username",
+     *                         type="string",
+     *                         example="johnDoe"
+     *                     )
+     *                 )
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                 property="error",
+     *                 type="string",
+     *                 example="Unauthorized"
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="No users found",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                 property="error",
+     *                 type="string",
+     *                 example="No users found"
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=500,
+     *         description="Internal Server Error",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                 property="error",
+     *                 type="string",
+     *                 example="Internal Server Error"
+     *             )
+     *         )
+     *     )
+     * )
+     */
 
     public function getByInterval($startPage) {
         $payload = $this->getPayload();
