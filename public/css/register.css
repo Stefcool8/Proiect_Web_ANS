@@ -1,160 +1,181 @@
 .register {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
+
 .register .main-content {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-grow: 1;
-  padding: 1.35rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    padding: 1.35rem;
 }
+
 .register .container {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  max-width: 50rem;
-  background-color: white;
-  padding: 2.6rem;
-  border-radius: 1.25rem;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-  color: #416a59;
-  min-height: 40vh;
+    display: flex;
+    flex-direction: column;s
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 50rem;
+    background-color: white;
+    padding: 2.6rem;
+    border-radius: 1.25rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    color: #416a59;
+    min-height: 40vh;
 }
+
 .register form {
-  width: 100%;
+    width: 100%;
 }
+
 .register h2 {
-  text-align: center;
-  margin-bottom: 0.5rem;
-  font-size: 2.6rem;
-  border-bottom: 2px solid #ccc;
-  padding-bottom: 0.5rem;
-  color: #416a59;
+    text-align: center;
+    margin-bottom: 0.5rem;
+    font-size: 2.6rem;
+    border-bottom: 2px solid #ccc;
+    padding-bottom: 0.5rem;
+    color: #416a59;
 }
+
 .register .input-group {
-  margin-bottom: 0.5rem;
-  width: 100%;
+    margin-bottom: 0.5rem;
+    width: 100%;
 }
+
 .register label {
-  display: block;
-  margin-bottom: 0.5rem;
-  font-size: 2rem;
-  color: #416a59;
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 2rem;
+    color: #416a59;
 }
+
 .register input[type=text],
 .register input[type=password],
 .register input[type=email] {
-  width: 100%;
-  padding: 0.3rem;
-  border-radius: 0.6rem;
-  border: 1px solid #ccc;
-  font-size: 2rem;
-  transition: border 0.3s, box-shadow 0.3s;
+    width: 100%;
+    padding: 0.3rem;
+    border-radius: 0.6rem;
+    border: 1px solid #ccc;
+    font-size: 2rem;
+    transition: border 0.3s, box-shadow 0.3s;
 }
+
 .register input[type=text]:hover, .register input[type=text]:focus,
 .register input[type=password]:hover,
 .register input[type=password]:focus,
 .register input[type=email]:hover,
 .register input[type=email]:focus {
-  border: 1px solid #416a59;
-  box-shadow: 0 0 5px #416a59;
+    border: 1px solid #416a59;
+    box-shadow: 0 0 5px #416a59;
 }
+
 .register button {
-  display: block;
-  width: 100%;
-  padding: 0.5rem;
-  background-color: #416a59;
-  color: white;
-  font-size: 2rem;
-  border: none;
-  border-radius: 1.45rem;
-  cursor: pointer;
-  transition: all 0.3s;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-  margin-top: 2vh;
-}
-.register button:hover {
-  background-color: #2d4534;
-  transform: scale(1.02);
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-}
-.register button:active {
-  background-color: #2d4534;
-  transform: scale(0.98);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-.register .login-link {
-  text-align: center;
-  margin-top: 0.5rem;
-  font-size: 0.5rem;
-}
-.register .login-link p {
-  font-size: 1rem;
-  margin: 0;
-  color: #416a59;
-}
-.register .login-link a {
-  text-decoration: none;
-  font-size: 0.75rem;
-  color: #2d4534;
-}
-@media screen and (max-width: 826px) {
-  .register .container {
-    max-width: 80vw;
-  }
-  .register h2 {
+    display: block;
+    width: 100%;
+    padding: 0.5rem;
+    background-color: #416a59;
+    color: white;
     font-size: 2rem;
-  }
-  .register label {
+    border: none;
+    border-radius: 1.45rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    margin-top: 2vh;
+}
+
+.register button:hover {
+    background-color: #2d4534;
+    transform: scale(1.02);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.register button:active {
+    background-color: #2d4534;
+    transform: scale(0.98);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.register .login-link {
+    text-align: center;
+    margin-top: 0.5rem;
+    font-size: 0.5rem;
+}
+
+.register .login-link p {
     font-size: 1rem;
-  }
-  .register input[type=text],
-  .register input[type=password],
-  .register input[type=email],
-  .register button {
-    font-size: 1rem;
-  }
-  .register .login-link p,
-  .register .login-link a {
-    font-size: 1rem;
-  }
+    margin: 0;
+    color: #416a59;
+}
+
+.register .login-link a {
+    text-decoration: none;
+    font-size: 0.75rem;
+    color: #2d4534;
+}
+
+@media screen and (max-width: 826px) {
+    .register .container {
+        max-width: 80vw;
+    }
+
+    .register h2 {
+        font-size: 2rem;
+    }
+
+    .register label {
+        font-size: 1rem;
+    }
+
+    .register input[type=text],
+    .register input[type=password],
+    .register input[type=email],
+    .register button {
+        font-size: 1rem;
+    }
+
+    .register .login-link p,
+    .register .login-link a {
+        font-size: 1rem;
+    }
 }
 
 .error-message,
 .success-message {
-  font-weight: bold;
-  margin: 1rem 0;
-  padding: 0.3rem;
-  border-radius: 10px;
-  width: 100%;
-  text-align: center;
-  border: 1px solid;
-  box-shadow: 0 5px 16px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s;
+    font-weight: bold;
+    margin: 1rem 0;
+    padding: 0.3rem;
+    border-radius: 10px;
+    width: 100%;
+    text-align: center;
+    border: 1px solid;
+    box-shadow: 0 5px 16px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s;
 }
+
 .error-message.hidden,
 .success-message.hidden {
-  display: none;
+    display: none;
 }
+
 .error-message.visible,
 .success-message.visible {
-  display: block;
+    display: block;
 }
 
 .error-message {
-  color: #b00020;
-  background-color: #ffe9e9;
-  border-color: #b00020;
+    color: #b00020;
+    background-color: #ffe9e9;
+    border-color: #b00020;
 }
 
 .success-message {
-  color: #33ff9c;
-  background-color: #e9ffe9;
-  border-color: #33ff9c;
+    color: #33ff9c;
+    background-color: #e9ffe9;
+    border-color: #33ff9c;
 }
 
 /*# sourceMappingURL=register.css.map */
