@@ -25,14 +25,14 @@ class CSVParserTest extends TestCase
     {
         // Arrange
         $csvFile = 'testFiles/test.csv';
-        $expected = "NAME,AGE,CITY
-        JOHN,30,NEW YORK
-        JANE,25,LONDON";
+        /** @var string|mixed $expected */
+        $expected = "NAME,AGE,CITY\nJOHN,30,\"NEW YORK\"\nJANE,25,LONDON";
 
         $csvParser = CSVParser::getCSVParser();
 
         // Act
         $csvParser->sanitizeCSV($csvFile);
+        /** @var string|mixed $result */
         $result = file_get_contents($csvFile);
 
         // Assert
@@ -59,8 +59,11 @@ class CSVParserTest extends TestCase
         $csvParser = CSVParser::getCSVParser();
 
         // Act
-        $result = $csvParser->getJsonRowFormat($csvFile);
-
+        try {
+            $result = $csvParser->getJsonRowFormat($csvFile);
+        } catch (Exception $e) {
+            $this->fail($e->getMessage());
+        }
         // Assert
         $this->assertJsonStringEqualsJsonString($expected, $result);
     }
@@ -87,7 +90,11 @@ class CSVParserTest extends TestCase
         $csvParser = CSVParser::getCSVParser();
 
         // Act
-        $result = $csvParser->getJsonColumnFormat($csvFile);
+        try {
+            $result = $csvParser->getJsonColumnFormat($csvFile);
+        } catch (Exception $e) {
+            $this->fail($e->getMessage());
+        }
 
         // Assert
         $this->assertJsonStringEqualsJsonString($expected, $result);
@@ -106,7 +113,11 @@ class CSVParserTest extends TestCase
         $csvParser = CSVParser::getCSVParser();
 
         // Act
-        $result = $csvParser->getJsonFromColumn($csvFile, $columnNumber);
+        try {
+            $result = $csvParser->getJsonFromColumn($csvFile, $columnNumber);
+        } catch (Exception $e) {
+            $this->fail($e->getMessage());
+        }
 
         // Assert
         $this->assertJsonStringEqualsJsonString($expected, $result);
@@ -126,7 +137,11 @@ class CSVParserTest extends TestCase
         $csvParser = CSVParser::getCSVParser();
 
         // Act
-        $result = $csvParser->getJsonFromRow($csvFile, $rowNumber);
+        try {
+            $result = $csvParser->getJsonFromRow($csvFile, $rowNumber);
+        } catch (Exception $e) {
+            $this->fail($e->getMessage());
+        }
 
         // Assert
         $this->assertJsonStringEqualsJsonString($expected, $result);
@@ -136,12 +151,18 @@ class CSVParserTest extends TestCase
     {
         // Arrange
         $csvFile = 'testFiles/test.csv';
+        /** @var array|mixed $expected */
         $expected = ['NAME', 'AGE', 'CITY'];
 
         $csvParser = CSVParser::getCSVParser();
 
         // Act
-        $result = $csvParser->getHeader($csvFile);
+        try {
+            /** @var array|mixed $result */
+            $result = $csvParser->getHeader($csvFile);
+        } catch (Exception $e) {
+            $this->fail($e->getMessage());
+        }
 
         // Assert
         $this->assertEquals($expected, $result);
@@ -154,15 +175,25 @@ class CSVParserTest extends TestCase
         $newColumnIndex = 3;
         $newColumnName = 'COUNTRY';
         $newColumnValue = 'USA';
-        $expected = 'NAME,AGE,CITY,COUNTRY
-JOHN,30,NEW YORK,USA
-JANE,25,LONDON,USA';
+        /** @var string|mixed $expected */
+        $expected = "NAME,AGE,CITY,COUNTRY\nJOHN,30,\"NEW YORK\",USA\nJANE,25,LONDON,USA\n";
+
+        // Read the original content of the file
+        $originalContent = file_get_contents($csvFile);
 
         $csvParser = CSVParser::getCSVParser();
 
         // Act
-        $csvParser->addColumn($csvFile, $newColumnIndex, $newColumnName, $newColumnValue);
+        try {
+            $csvParser->addColumn($csvFile, $newColumnIndex, $newColumnName, $newColumnValue);
+        } catch (Exception $e) {
+            $this->fail($e->getMessage());
+        }
+        /** @var string|mixed $result */
         $result = file_get_contents($csvFile);
+
+        // Rewrite the original content back to the file
+        file_put_contents($csvFile, $originalContent);
 
         // Assert
         $this->assertEquals($expected, $result);
@@ -172,6 +203,7 @@ JANE,25,LONDON,USA';
     {
         // Arrange
         $csvParser1 = CSVParser::getCSVParser();
+        /** @var CSVParser|mixed $csvParser2 */
         $csvParser2 = CSVParser::getCSVParser();
 
         // Assert
