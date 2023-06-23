@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const result = await response.json();
 
     if (response.ok) {
-        const homeData = document.querySelector(".intro-heading p");
+        const homeData = document.querySelector(".intro-heading");
         homeData.textContent = result.data.title;
     } else {
         showError(result.data.error);
