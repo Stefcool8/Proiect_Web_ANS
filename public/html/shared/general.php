@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 // function to fetch data from an API using GET method
 function fetch_data($url, $default = []) {
@@ -9,13 +9,13 @@ function fetch_data($url, $default = []) {
     if ($json === false) {
         return $default;
     }
-        
+
     $response = json_decode($json, true);
-        
+
     if (json_last_error() !== JSON_ERROR_NONE) {
         return $default;
     }
-    
+
     return $response['data'] ?? $default;
 
 }
