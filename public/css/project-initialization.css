@@ -1,184 +1,199 @@
 .project-initialization {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
-
 .project-initialization .main-content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-grow: 1;
-    padding: 1.25rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+  padding: 1.25rem;
 }
-
 .project-initialization .container {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    max-width: 50rem;
-    background-color: white;
-    padding: 2.5rem;
-    border-radius: 1.25rem;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-    color: #416a59;
-    min-height: 40vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 50rem;
+  background-color: white;
+  padding: 2.5rem;
+  border-radius: 1.25rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  color: #416a59;
+  min-height: 40vh;
 }
-
 .project-initialization form {
-    width: 100%;
+  width: 100%;
 }
-
 .project-initialization h2 {
-    text-align: center;
-    margin-bottom: 0.5rem;
-    font-size: 2.5rem;
-    border-bottom: 2px solid #ccc;
-    padding-bottom: 0.5rem;
-    color: #416a59;
+  text-align: center;
+  margin-bottom: 0.5rem;
+  font-size: 2.5rem;
+  border-bottom: 2px solid #ccc;
+  padding-bottom: 0.5rem;
+  color: #416a59;
 }
-
 .project-initialization .input-group {
-    margin-bottom: 0.5rem;
-    width: 100%;
+  margin-bottom: 0.5rem;
+  width: 100%;
 }
-
 .project-initialization label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-size: 2rem;
-    color: #416a59;
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 2rem;
+  color: #416a59;
 }
-
 .project-initialization input[type=text],
 .project-initialization select {
-    width: 100%;
-    padding: 0.3rem;
-    border-radius: 0.6rem;
-    border: 1px solid #ccc;
-    font-size: 2rem;
-    transition: border 0.3s, box-shadow 0.3s;
+  width: 100%;
+  padding: 0.3rem;
+  border-radius: 0.6rem;
+  border: 1px solid #ccc;
+  font-size: 2rem;
+  transition: border 0.3s, box-shadow 0.3s;
 }
-
 .project-initialization input[type=text]:hover, .project-initialization input[type=text]:focus,
 .project-initialization select:hover,
 .project-initialization select:focus {
-    border: 1px solid #416a59;
-    box-shadow: 0 0 5px #416a59;
+  border: 1px solid #416a59;
+  box-shadow: 0 0 5px #416a59;
 }
-
 .project-initialization #chart-type option:first-child {
-    display: none;
+  display: none;
 }
-
 .project-initialization .year-checkbox-container {
-    display: flex; /* Change the display property to flex */
-    flex-wrap: wrap; /* Allow wrapping to the next line when needed */
-    column-gap: 2rem; /* Use gap property for spacing between items */
-    row-gap: 1rem; /* Use gap property for spacing between items */
+  display: flex; /* Change the display property to flex */
+  flex-wrap: wrap; /* Allow wrapping to the next line when needed */
+  column-gap: 2rem; /* Use gap property for spacing between items */
+  row-gap: 1rem; /* Use gap property for spacing between items */
 }
-
 .project-initialization .year-checkbox-container .year-item {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
-
 .project-initialization .year-checkbox-container .year-item input[type=checkbox] {
-    min-height: 1.5rem; /* Set a minimum height */
-    min-width: 1.5rem; /* Set a minimum width */
-    margin-right: 0.5rem; /* Add some spacing between checkbox and label */
+  min-height: 1.5rem; /* Set a minimum height */
+  min-width: 1.5rem; /* Set a minimum width */
+  margin-right: 0.5rem; /* Add some spacing between checkbox and label */
 }
-
 .project-initialization .year-checkbox-container .year-item input[type=checkbox]:checked + label {
-    font-weight: bold; /* Make the text bold */
+  font-weight: bold; /* Make the text bold */
 }
-
 .project-initialization .year-checkbox-container .year-item label {
-    font-size: 1.2rem;
+  font-size: 1.2rem;
 }
-
+.project-initialization .series-checkbox-container {
+  display: flex; /* Display the series items in a flex container */
+  flex-direction: column; /* Make the series items stack vertically */
+  flex-wrap: wrap; /* Allow wrapping to the next line when needed */
+  gap: 1rem; /* Add some spacing between series items */
+}
+.project-initialization .series-checkbox-container .series-item {
+  display: flex; /* Display the checkbox label, checkbox, and input in a flex container */
+  align-items: center; /* Vertically center the items */
+}
+.project-initialization .series-checkbox-container .series-item input[type=checkbox] {
+  min-height: 1.5rem; /* Set a minimum height */
+  min-width: 1.5rem; /* Set a minimum width */
+  margin-right: 0.5rem; /* Add some spacing between checkbox and input */
+}
+.project-initialization .series-checkbox-container .series-item input[type=text] {
+  flex: 1; /* Let the input expand to fill the remaining space */
+  padding: 0.3rem;
+  border-radius: 0.6rem;
+  border: 1px solid #ccc;
+  font-size: 1.2rem;
+  transition: border 0.3s, box-shadow 0.3s;
+}
+.project-initialization .series-checkbox-container .series-item input[type=text]:hover, .project-initialization .series-checkbox-container .series-item input[type=text]:focus {
+  border: 1px solid #416a59;
+  box-shadow: 0 0 5px #416a59;
+}
 .project-initialization button {
-    display: block;
-    width: 100%;
-    padding: 0.5rem;
-    background-color: #416a59;
-    color: white;
-    font-size: 2rem;
-    border: none;
-    border-radius: 1.25rem;
-    cursor: pointer;
-    transition: all 0.3s;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
-    margin-top: 2vh;
+  display: block;
+  width: 100%;
+  padding: 0.5rem;
+  background-color: #416a59;
+  color: white;
+  font-size: 2rem;
+  border: none;
+  border-radius: 1.25rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  margin-top: 2vh;
 }
-
 .project-initialization button:hover {
-    background-color: #2d4534;
-    transform: scale(1.02);
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  background-color: #2d4534;
+  transform: scale(1.02);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
-
 .project-initialization button:active {
-    background-color: #2d4534;
-    transform: scale(0.98);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  background-color: #2d4534;
+  transform: scale(0.98);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
-
 @media screen and (max-width: 826px) {
-    .project-initialization .container {
-        max-width: 80vw;
-    }
-
-    .project-initialization h2 {
-        font-size: 2rem;
-    }
-
-    .project-initialization label {
-        font-size: 1rem;
-    }
-
-    .project-initialization input[type=text],
-    .project-initialization select,
-    .project-initialization button {
-        font-size: 1rem;
-    }
+  .project-initialization .container {
+    max-width: 80vw;
+  }
+  .project-initialization h2 {
+    font-size: 2rem;
+  }
+  .project-initialization label {
+    font-size: 1rem;
+  }
+  .project-initialization input[type=text],
+  .project-initialization select,
+  .project-initialization button {
+    font-size: 1rem;
+  }
+  .project-initialization .series-item {
+    flex-direction: column; /* Change to column layout for smaller resolutions */
+    align-items: flex-start; /* Align items to the start */
+  }
+  .project-initialization .series-item input[type=checkbox] {
+    margin-right: 0; /* Remove right margin for checkbox */
+    margin-bottom: 0.5rem; /* Add bottom margin for spacing */
+  }
+  .project-initialization .series-item input[type=text] {
+    margin-top: 0.5rem; /* Add top margin for spacing */
+  }
 }
 
 .error-message,
 .success-message {
-    font-weight: bold;
-    margin: 1rem 0;
-    padding: 0.25rem;
-    border-radius: 10px;
-    width: 100%;
-    text-align: center;
-    border: 1px solid;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s;
+  font-weight: bold;
+  margin: 1rem 0;
+  padding: 0.25rem;
+  border-radius: 10px;
+  width: 100%;
+  text-align: center;
+  border: 1px solid;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s;
 }
-
 .error-message.hidden,
 .success-message.hidden {
-    display: none;
+  display: none;
 }
-
 .error-message.visible,
 .success-message.visible {
-    display: block;
+  display: block;
 }
 
 .error-message {
-    color: #b00020;
-    background-color: #ffe9e9;
-    border-color: #b00020;
+  color: #b00020;
+  background-color: #ffe9e9;
+  border-color: #b00020;
 }
 
 .success-message {
-    color: #33ff9c;
-    background-color: #e9ffe9;
-    border-color: #33ff9c;
+  color: #33ff9c;
+  background-color: #e9ffe9;
+  border-color: #33ff9c;
 }
 
 /*# sourceMappingURL=project-initialization.css.map */

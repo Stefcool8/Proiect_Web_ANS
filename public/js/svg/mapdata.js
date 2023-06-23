@@ -293,7 +293,7 @@ function setDescription(countyName, description) {
         case "sibiu":
             simplemaps_countrymap_mapdata.state_specific.ROU303.description = description;
             break;
-        case "valcea":
+        case "vilcea":
             simplemaps_countrymap_mapdata.state_specific.ROU304.description = description;
             break;
         case "brasov":
@@ -340,6 +340,7 @@ function setDescription(countyName, description) {
             break;
         case "tulcea":
             simplemaps_countrymap_mapdata.state_specific.ROU4847.description = description;
+            break;
     }
 }
 
@@ -348,6 +349,6 @@ const counties = ["dolj", "gorj", "mehedinti", "olt", "teleorman",
     "bucuresti", "calarasi", "dimbovita", "giurgiu", "ialomita", "constanta",
     "arad", "bihor", "caras severin", "timis", "botosani", "alba",
     "bistrita nasaud", "cluj", "hunedoara", "maramures", "mures", "salaj",
-    "satu mare", "arges", "sibiu", "valcea", "brasov", "covasna", "harghita",
+    "satu mare", "arges", "sibiu", "vilcea", "brasov", "covasna", "harghita",
     "iasi", "neamt", "prahova", "suceava", "bacau", "braila", "buzau", "galati",
     "vaslui", "vrancea", "ilfov", "tulcea"];

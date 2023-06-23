@@ -113,7 +113,7 @@ class ProjectController extends Controller
                 if ($body['chart'] == 0) {
                     $this->createChartProject($db, $body, $uuidUser, 'bar_chart', 'bars');
                 } else if ($body['chart'] == 1) {
-                    $this->createChartProject($db, $body, $uuidUser, 'line_chart', 'line');
+                    $this->createChartProject($db, $body, $uuidUser, 'line_chart', null);
                 } else if ($body['chart'] == 2) {
                     $this->createChartProject($db, $body, $uuidUser, 'pie_chart', 'slices');
                 } else if ($body['chart'] == 3) {
@@ -140,7 +140,7 @@ class ProjectController extends Controller
      */
     public function createChartProject($db, $body, $uuidUser, $tableName, $dataColumn) {
         // if the chart is not a map chart, dataColumn is required
-        if ($tableName != 'map_chart' && !isset($body['dataColumn'])) {
+        if ($tableName != 'map_chart' && $tableName != 'line_chart' && !isset($body['dataColumn'])) {
             throw new Exception("Invalid request body.");
         }
 
@@ -156,17 +156,10 @@ class ProjectController extends Controller
         $projectUuid = $db->fetchOne("SELECT uuid FROM project WHERE name = :name AND uuidUser = :uuidUser", ['name' => $body['name'], 'uuidUser' => $uuidUser]);
 
         // insert in chart table
-        if ($tableName == 'map_chart') {
-            // if the chart is a map chart, dataColumn is omitted
+        if ($tableName == 'map_chart' || $tableName == 'line_chart') {
+            // if the chart is a map chart or a line chart, dataColumn is omitted
             $db->insert($tableName, [
                 'uuidProject' => $projectUuid['uuid']
-            ]);
-        } else if ($tableName == 'line_chart') {
-            // if the chart is a line chart, lineValue is added
-            $db->insert($tableName, [
-                'uuidProject' => $projectUuid['uuid'],
-                $dataColumn => $body['dataColumn'],
-                'lineValue' => $body['lineValue']
             ]);
         } else {
             $db->insert($tableName, [
@@ -184,12 +177,14 @@ class ProjectController extends Controller
         }
 
         // insert in optional_conditions table if series is set
-        if (isset($body['seriesCode'])) {
-            $db->insert('optional_conditions', [
-                'uuidProject' => $projectUuid['uuid'],
-                'optionalColumn' => $body['seriesCode'],
-                'optionalValue' => $body['seriesValue']
-            ]);
+        if (isset($body['seriesCodes'])) {
+            for ($i = 0; $i < count($body['seriesCodes']); $i++) {
+                $db->insert('optional_conditions', [
+                    'uuidProject' => $projectUuid['uuid'],
+                    'optionalColumn' => $body['seriesCodes'][$i],
+                    'optionalValue' => $body['seriesValues'][$i]
+                ]);
+            }
         }
     }
 
@@ -357,7 +352,7 @@ class ProjectController extends Controller
                 if ($project['chart'] == 0) {
                     $data = $this->getChartProject($db, $project, 'bar_chart', 'bars');
                 } else if ($project['chart'] == 1) {
-                    $data = $this->getChartProject($db, $project, 'line_chart', 'line');
+                    $data = $this->getChartProject($db, $project, 'line_chart', null);
                 } else if ($project['chart'] == 2) {
                     $data = $this->getChartProject($db, $project, 'pie_chart', 'slices');
                 } else if ($project['chart'] == 3) {
@@ -404,27 +399,23 @@ class ProjectController extends Controller
         }
 
         // check if there are optional conditions for this project
-        $optional = $db->fetchOne("SELECT * FROM optional_conditions WHERE uuidProject = :uuidProject", ['uuidProject' => $project['uuid']]);
+        $optional = $db->fetchAll("SELECT * FROM optional_conditions WHERE uuidProject = :uuidProject", ['uuidProject' => $project['uuid']]);
 
         if ($tableName == 'line_chart') {
-            // if the chart is a line chart, we need to filter the data
-            $data['lineValue'] = $chartTable['lineValue'];
+            // if the chart is a line chart, we need to filter the data by year
 
             if ($optional) {
-                $data['seriesCode'] = $optional['optionalColumn'];
-                $data['seriesValue'] = $optional['optionalValue'];
-                $filterColumns = [$data['seriesCode'], $data['dataColumn']];
-                $filterValues = [$data['seriesValue'], $data['lineValue']];
+                $this->populateDataWithOptionalConditions($data, $optional);
 
-                $json = JsonUtil::getJsonUtil()->extractTotalByYear($data['years'], $filterColumns, $filterValues, $data['dataColumn']);
+                $json = JsonUtil::getJsonUtil()->extractTotalByYear($data['years'], $data['seriesCodes'], $data['seriesValues']);
             } else {
-                $json = JsonUtil::getJsonUtil()->extractTotalByYear($data['years'], [$data['dataColumn']], [$data['lineValue']], $data['dataColumn']);
+                $json = JsonUtil::getJsonUtil()->extractTotalByYear($data['years'], [], []);
             }
         } else {
             if ($optional) {
-                $data['seriesCode'] = $optional['optionalColumn'];
-                $data['seriesValue'] = $optional['optionalValue'];
-                $json = JsonUtil::getJsonUtil()->filtrateAfterYearsAndColumns($data['years'], [$data['seriesCode']], [$data['seriesValue']]);
+                $this->populateDataWithOptionalConditions($data, $optional);
+
+                $json = JsonUtil::getJsonUtil()->filtrateAfterYearsAndColumns($data['years'], $data['seriesCodes'], $data['seriesValues']);
             } else {
                 $json = JsonUtil::getJsonUtil()->filtrateAfterYearsAndColumns($data['years'], [], []);
             }
@@ -439,6 +430,13 @@ class ProjectController extends Controller
         $data['json'] = $json;
 
         return $data;
+    }
+
+    public function populateDataWithOptionalConditions(&$data, $optional) {
+        for ($i = 0; $i < count($optional); $i++) {
+            $data['seriesCodes'][$i] = $optional[$i]['optionalColumn'];
+            $data['seriesValues'][$i] = $optional[$i]['optionalValue'];
+        }
     }
 
     /**
