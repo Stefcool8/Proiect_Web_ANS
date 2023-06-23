@@ -428,7 +428,6 @@ class ProjectController extends Controller
             } else {
                 $json = JsonUtil::getJsonUtil()->filtrateAfterYearsAndColumns($data['years'], [], []);
             }
-            //}
             // add the json data to the response
             if ($dataColumn) {
                 $json = JsonUtil::getJsonUtil()->extractTotalPerDistinctColumnValue($json, $data['dataColumn']);
@@ -528,7 +527,6 @@ class ProjectController extends Controller
             } else {
                 ResponseHandler::getResponseHandler()->sendResponse(401, ['error' => 'Unauthorized']);
             }
-
         } catch (Exception $e) {
             ResponseHandler::getResponseHandler()->sendResponse(500, ["error" => "Internal Server Error"]);
         }
@@ -622,7 +620,6 @@ class ProjectController extends Controller
             }
 
             if ($payload['isAdmin'] || $currentUser['uuid'] == $uuid) {
-
                 // build the project data for the response
                 $projectData = [];
                 foreach ($projects as $project) {

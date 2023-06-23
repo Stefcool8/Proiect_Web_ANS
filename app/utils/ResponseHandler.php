@@ -3,7 +3,6 @@
 namespace App\utils;
 
 class ResponseHandler {
-
     // singleton instance
     private static ?ResponseHandler $responseHandler = null;
 

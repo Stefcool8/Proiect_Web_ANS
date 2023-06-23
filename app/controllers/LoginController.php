@@ -111,6 +111,10 @@ class LoginController extends Controller {
     public function login() {
         $body = json_decode(file_get_contents('php://input'), true);
 
+        if (!isset($body['username']) || !isset($body['password'])) {
+            ResponseHandler::getResponseHandler()->sendResponse(400, ['error' => 'Missing username or password']);
+            return;
+        }
         $username = $this->sanitizeData($body['username']);
         $password = $this->sanitizeData($body['password']);
 

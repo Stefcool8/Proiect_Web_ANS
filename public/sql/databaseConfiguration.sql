@@ -103,7 +103,7 @@ INSERT INTO `user` (`firstName`, `lastName`, `username`, `email`, `bio`, `passwo
 
 
 select * from user;
-select * from project;
+select * from project order by id desc;
 select * from bar_chart;
 select * from pie_chart;
 select * from line_chart;
@@ -111,7 +111,7 @@ select * from map_chart;
 select * from optional_conditions;
 select * from years;
 
-delete from project where id = 9;
+update user set isAdmin = 1 where id = 1;
 
 drop table user cascade;
 drop table project cascade;

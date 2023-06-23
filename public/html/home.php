@@ -53,9 +53,8 @@
         <article class="feature">
             <h3>Data sharing</h3>
             <p>Collaboration is key to effective data analysis. Our platform makes it simple to share your
-                visualizations with team members, stakeholders, or the public. Export your work in various formats,
-                or
-                generate shareable links for seamless access to your insights.</p>
+                visualizations with team members, stakeholders, or the public. Export your work in various formats
+                with just a few clicks.</p>
         </article>
     </section>
     <section class="about-section">

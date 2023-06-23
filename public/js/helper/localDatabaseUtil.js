@@ -41,21 +41,25 @@ function addLabelAndTextInput(parent, htmlFor, labelText, inputValue, readOnly) 
     parent.appendChild(input);
 }
 
-function loadJS(FILE_URL, async = true) {
+function loadJS(FILE_URL, async = true, callback) {
     let scriptEle = document.createElement("script");
 
     scriptEle.setAttribute("src", FILE_URL);
     scriptEle.setAttribute("type", "text/javascript");
     scriptEle.setAttribute("async", async.toString());
 
-    document.body.appendChild(scriptEle);
-
     // success event
     scriptEle.addEventListener("load", () => {
-        console.log("File loaded")
+        console.log("File loaded");
+        if (callback && typeof callback === "function") {
+            callback(); // Execute the callback function
+        }
     });
+
     // error event
     scriptEle.addEventListener("error", (ev) => {
         console.log("Error on loading file", ev);
     });
+
+    document.body.appendChild(scriptEle);
 }

@@ -10,7 +10,6 @@ let linesInput = null;
 let workersSelect = null;
 
 const inputs = [seriesInput,linesInput];
-const inputsLabesTypes = ['series-input','lines-input'];
 
 const allColumns = [
     "JUDET",
@@ -414,7 +413,6 @@ chartTypeSelect.addEventListener("change", () => {
     }
 });
 
-/*TODO: make the series select have an option "No series", that makes the input label disappear*/
 projectInitializationForm.addEventListener("submit", async (event) => {
     event.preventDefault();
 
@@ -446,12 +444,12 @@ projectInitializationForm.addEventListener("submit", async (event) => {
     }
     if (chartCode === 1) {
         // add the value line to the data object
-        data.lineValue = linesInput.value;
+        data.lineValue = linesInput.value.toUpperCase();
     }
 
     if (seriesSelect.value !== '') {
         const seriesCode = allColumns.indexOf(seriesSelect.value);
-        const seriesValue = seriesInput.value;
+        const seriesValue = seriesInput.value.toUpperCase();
 
         console.log(seriesCode);
         console.log(seriesValue);
@@ -488,9 +486,9 @@ projectInitializationForm.addEventListener("submit", async (event) => {
         if (response.ok) {
             // The project creation was successful
             showMessage(successMessage, "Project successfully created. Redirecting...");
-            //setTimeout(() => {
-            // window.location.href = "/home";
-            //}, 3000);
+            setTimeout(() => {
+             window.location.href = "/dashboard";
+            }, 3000);
         } else {
             // Handle the error
             showMessage(errorMessage, result.data.error);
