@@ -2,8 +2,13 @@ document.addEventListener('DOMContentLoaded', async() => {
     const token = localStorage.getItem('jwt');
     const url = window.location.href;
     const pageRegex = /page=(\d+)/;
-    const match = url.match(pageRegex);
-    const page = match ? match[1] : "1";
+    const urlParams = new URLSearchParams(window.location.search);
+    //const match = url.match(pageRegex);
+    //const page = match ? match[1] : "0";
+    let page = urlParams.get('page') || "1";
+    if (page < 1) {
+        window.location.href = "/viewUsers?page=1";
+    }
     const pageSize = 4;
     console.log(page);
     if (!token) {
@@ -54,7 +59,10 @@ document.addEventListener('DOMContentLoaded', async() => {
             alertCard.classList.add('project');
             const introContainter = document.querySelector('.page-name');
             $count = result.data.data.length;
-
+            if (page > ($count / pageSize) +1) {
+                window.location.href = "/viewUsers?page=1";
+            }
+            console.log($count);
             if ($count === 0) {
                 alertCard.textContent = "There is no user registered";
             } else if ($count === 1) {
