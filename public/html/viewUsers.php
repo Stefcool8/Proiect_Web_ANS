@@ -19,26 +19,26 @@
 </head>
 
 <body>
-    <?php require_once __DIR__ . '/shared/navbar.php'; ?>
-        <main class = "central-area">
-        <div class="page-name">
+<?php require_once __DIR__ . '/shared/navbar.php'; ?>
+<main class="central-area">
+    <div class="page-name">
+
+    </div>
+
+    <div class="project-area">
+        <div class="user-list">
 
         </div>
 
-        <div class="project-area">
-            <div class="user-list">
+    </div>
+    <div class="button-area-next-previous">
+        <a class="button button-previous">Previous Page</a>
+        <a class="button button-next">Next Page</a>
+    </div>
+</main>
 
-            </div>
-
-        </div>
-            <div class="button-area-next-previous">
-                <a  class="button button-previous">Previous Page</a>
-                <a  class="button button-next">Next Page</a>
-            </div>
-    </main>
-
-    <?php require_once __DIR__ . '/shared/footer.php'; ?>
-    <script src="/public/js/viewUsers.js"></script>
+<?php require_once __DIR__ . '/shared/footer.php'; ?>
+<script src="/public/js/viewUsers.js"></script>
 
 </body>
 

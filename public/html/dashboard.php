@@ -25,13 +25,13 @@
     <div class="profile-project-button-area">
         <a href="/user" class="view-profile-btn">View Profile</a>
         <a href="/project-initialization" class="create-project-btn">Create new project</a>
-        <a href ="/admin" class = "admin-panel-btn">Admin Panel</a>
+        <a href="/admin" class="admin-panel-btn">Admin Panel</a>
     </div>
     <div class="project-area">
     </div>
     <div class="button-area-next-previous">
-        <a  class="button button-previous">Previous Page</a>
-        <a  class="button button-next">Next Page</a>
+        <a class="button button-previous">Previous Page</a>
+        <a class="button button-next">Next Page</a>
     </div>
 </main>
 <?php require_once __DIR__ . '/shared/footer.php'; ?>
