@@ -10,7 +10,7 @@ const HomePage = (() => {
         player = new YT.Player("video-player", {
             height: "360",
             width: "640",
-            videoId: "oJ-T9VGhh9c",
+            videoId: "zwxHwc_BP1w",
             events: {
                 onReady: onPlayerReady,
                 onStateChange: onPlayerStateChange,
@@ -20,14 +20,13 @@ const HomePage = (() => {
     }
 
     function onPlayerReady(event) {
-        // event.target.playVideo();
     }
 
     function onPlayerStateChange(event) {
     }
 
     function onPlayerError(event) {
-        console.error("Error occured: " + event.data);
+        console.error("Error occurred: " + event.data);
     }
 
     function stopVideo() {
