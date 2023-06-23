@@ -58,50 +58,51 @@ function drawChart(project) {
     }
 }
 
-function downloadCsv(project) {
-    const json = JSON.parse(project.data.data.json);
+function getExportSvg(project) {
+    switch (project.data.data.chart) {
+        case 0:
+            return exportBarChart(project);
+        case 1:
+            return exportLineChart(project);
+        case 2:
+            return exportPieChart(project);
+    }
+}
 
-    const data = Object.entries(json)
-        .map(([name, value]) => ({ name, value }))
-        .sort((a, b) => b.value - a.value);
-
-    const csv = d3.csvFormat(data);
-
-    const blob = new Blob([csv], { type: 'text/csv' });
-    const url = window.URL.createObjectURL(blob);
-
-    const a = document.createElement('a');
-    a.setAttribute('hidden', '');
-    a.setAttribute('href', url);
-    a.setAttribute('download', `${project.data.data.name}.csv`);
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-
-    window.URL.revokeObjectURL(url);
-
-    console.log("Downloaded CSV");
+function getExportDimensions(project) {
+    switch (project.data.data.chart) {
+        case 0:
+            return [barExportWidth, barExportHeight];
+        case 1:
+            return [lineExportWidth, lineExportHeight];
+        case 2:
+            return [pieExportWidth, pieExportHeight];
+    }
 }
 
 function addDownloadButtonListeners(project) {
     downloadCsvButton.addEventListener('click', function() {
-        downloadCsv(project);
+        downloadCsv(project).then();
     });
 
     downloadPngButton.addEventListener('click', function() {
-        downloadPng(project).then();
+        downloadPng(project, getExportSvg(project),
+            getExportDimensions(project)[0], getExportDimensions(project)[1]).then();
     });
 
     downloadJpegButton.addEventListener('click', function() {
-        downloadJpeg(project).then();
+        downloadJpeg(project, getExportSvg(project),
+            getExportDimensions(project)[0], getExportDimensions(project)[1]).then();
     });
 
     downloadWebpButton.addEventListener('click', function() {
-        downloadWebp(project).then();
+        downloadWebp(project, getExportSvg(project),
+            getExportDimensions(project)[0], getExportDimensions(project)[1]).then();
     });
 
     downloadSvgButton.addEventListener('click', function() {
-        downloadSvg(project);
+        downloadSvg(project, getExportSvg(project),
+            getExportDimensions(project)[0], getExportDimensions(project)[1]).then();
     });
 }
 

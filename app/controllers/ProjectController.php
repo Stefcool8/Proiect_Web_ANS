@@ -424,7 +424,6 @@ class ProjectController extends Controller
             } else {
                 $json = JsonUtil::getJsonUtil()->filtrateAfterYearsAndColumns($data['years'], [], []);
             }
-            //}
             // add the json data to the response
             if ($dataColumn) {
                 $json = JsonUtil::getJsonUtil()->extractTotalPerDistinctColumnValue($json, $data['dataColumn']);
@@ -453,7 +452,7 @@ class ProjectController extends Controller
             $currentUser = $db->fetchOne("SELECT * FROM user WHERE username = :username", ['username' => $payload['username']]);
 
             // fetch all projects for this user
-            $projects = $db->fetchAll("SELECT * FROM project WHERE uuidUser = :uuidUser", ['uuidUser' => $uuid]);
+            $projects = $db->fetchAll("SELECT * FROM project WHERE uuidUser = :uuidUser ORDER BY id DESC", ['uuidUser' => $uuid]);
 
             // if there are no projects, return a message indicating this
             if (!$projects) {
@@ -476,7 +475,6 @@ class ProjectController extends Controller
             } else {
                 ResponseHandler::getResponseHandler()->sendResponse(401, ['error' => 'Unauthorized']);
             }
-
         } catch (Exception $e) {
             ResponseHandler::getResponseHandler()->sendResponse(500, ["error" => "Internal Server Error"]);
         }
@@ -501,13 +499,8 @@ class ProjectController extends Controller
 
             // Calculate the offset based on the start index and page size
             $offset = $startIndex * $pageSize;
-            // fetch all projects for this user
-            //$projects = $db->fetchAll("SELECT * FROM project WHERE uuidUser = :uuidUser", ['uuidUser' => $uuid]);
 
-            // $projects = $db->fetchAll("SELECT * FROM project WHERE uuidUser = :uuidUser LIMIT ".$pageSize,
-            //  ['uuidUser' => $uuid]);
-
-            $projects = $db->fetchAll("SELECT * FROM project WHERE uuidUser = :uuidUser LIMIT " . $pageSize . " OFFSET " . $offset,
+            $projects = $db->fetchAll("SELECT * FROM project WHERE uuidUser = :uuidUser ORDER BY id DESC LIMIT " . $pageSize . " OFFSET " . $offset,
                 ['uuidUser' => $uuid]);
 
             // if there are no projects, return a message indicating this
@@ -517,7 +510,6 @@ class ProjectController extends Controller
             }
 
             if ($payload['isAdmin'] || $currentUser['uuid'] == $uuid) {
-
                 // build the project data for the response
                 $projectData = [];
                 foreach ($projects as $project) {

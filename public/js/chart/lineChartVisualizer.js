@@ -1,8 +1,17 @@
-const defaultHeight = 500;
-const defaultWidth = 1500;
+const lineHeight = 500;
+const lineWidth = 1500;
+const lineExportWidth = 5120;
+const lineExportHeight = 2880;
+const axisFontSize = 16;
+const labelFontSize = 16;
+const exportAxisFontSize = 64;
+const exportLabelFontSize = 64;
+let lineMargin = {top: 10, right: 0, bottom: 10, left: 40};
 
-function drawLineChart(project) {
-    // Specify the chart's dimensions.
+function generalLineChart(project, width, height, axisSize, labelSize) {
+    let svg;
+    lineMargin = {top: lineMargin.top + axisSize, right: lineMargin.right + axisSize,
+                  bottom: lineMargin.bottom + axisSize, left: lineMargin.left + axisSize};
     const json = JSON.parse(project.data.data.json);
 
     const data = Object.entries(json)
@@ -13,53 +22,37 @@ function drawLineChart(project) {
     const names = data.map((entry) => entry.name);
     const values = data.map((entry) => entry.value);
 
-    // Remove existing chart if any.
-    d3.select("#chart-container").select("svg").remove();
-
-    // Get the width and height of the container element or use default values.
-    const containerWidth = defaultWidth;
-    const containerHeight = defaultHeight;
-
     // Set up the SVG element and chart dimensions based on the container size.
-    const svg = d3.select("#chart-container")
-        .append("svg")
-        .attr("viewBox", `0 0 ${containerWidth} ${containerHeight}`)
+    svg = d3.create("svg")
+        .attr("viewBox", [-3/2 * lineMargin.left, -lineMargin.top, width + 3*lineMargin.left, height + 2*lineMargin.top])
         .attr("preserveAspectRatio", "xMidYMid meet")
         .classed("svg-content", true);
 
-    const margin = { top: 20, right: 20, bottom: 30, left: 50 };
-    const width = containerWidth - margin.left - margin.right;
-    const height = containerHeight - margin.top - margin.bottom;
-
     const g = svg.append("g")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+        .attr("transform", "translate(" + lineMargin.left + "," + lineMargin.top + ")");
 
     // Set the x and y scales.
     const x = d3.scaleBand()
-        .rangeRound([0, width])
+        .rangeRound([0, width - lineMargin.left - lineMargin.right])
         .padding(0.1)
         .domain(names);
 
     const y = d3.scaleLinear()
-        .rangeRound([height, 0])
+        .rangeRound([height - lineMargin.top - lineMargin.bottom, 0])
         .domain([0, d3.max(values)]);
 
     // Draw the x-axis.
     g.append("g")
-        .attr("transform", "translate(0," + height + ")")
-        .call(d3.axisBottom(x));
+        .attr("transform", "translate(0," + (height - lineMargin.top - lineMargin.bottom) + ")")
+        .call(d3.axisBottom(x))
+        .selectAll("text")
+        .style("font-size", axisSize);
 
     // Draw the y-axis.
     g.append("g")
         .call(d3.axisLeft(y))
-        .append("text")
-        .attr("fill", "#000")
-        .attr("transform", "rotate(-90)")
-        .attr("y", 6)
-        .attr("dy", "0.71em")
-        .attr("text-anchor", "end")
-        .style("font-size", "14px")
-        .text("Value");
+        .selectAll("text")
+        .style("font-size", axisSize);
 
     // Draw the line chart.
     g.append("path")
@@ -90,10 +83,22 @@ function drawLineChart(project) {
         .attr("x", (d) => x(d.name) + x.bandwidth() / 2)
         .attr("y", (d) => y(d.value) - 10)
         .attr("text-anchor", "middle")
-        .style("font-size", "11px")
+        .style("font-size", labelSize)
         .text((d) => d.value);
 
+    return svg;
 }
+
+function drawLineChart(project) {
+    let lineSvg = generalLineChart(project, lineWidth, lineHeight, axisFontSize, labelFontSize);
+    document.getElementById("chart-container").appendChild(lineSvg.node());
+}
+
+function exportLineChart(project) {
+    // Return an enlarged version of the chart. (using the export dimensions)
+    return generalLineChart(project, lineExportWidth, lineExportHeight, exportAxisFontSize, exportLabelFontSize);
+}
+
 function addLineChartFields(project) {
     const slices = project.data.data.dataColumn;
 

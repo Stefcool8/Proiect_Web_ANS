@@ -62,7 +62,6 @@ class AuthController extends Controller {
      * )
      */
     public function get() {
-        
         // get the authorization field from the request header
         $headers = apache_request_headers();
 
@@ -125,7 +124,7 @@ class AuthController extends Controller {
      * )
      */
     public function getAdmin() {
-        $payload = $this ->getPayload();
+        $payload = $this->getPayload();
         if (!$payload['isAdmin']) {
             ResponseHandler::getResponseHandler()->sendResponse(401, [
                 'error' => 'Unauthorized'
@@ -173,8 +172,15 @@ class AuthController extends Controller {
      */
     public function verifyAccess()
     {
-
         $body = json_decode(file_get_contents('php://input'), true);
+
+        if (!isset($body['uuid'])) {
+            ResponseHandler::getResponseHandler()->sendResponse(400, [
+                'error' => 'Bad request'
+            ]);
+            return;
+        }
+
         $uuid = $body['uuid'];
         // get the token from the request header
         $headers = apache_request_headers();
@@ -183,7 +189,7 @@ class AuthController extends Controller {
             ResponseHandler::getResponseHandler()->sendResponse(401, [
                 'error' => 'Unauthorized'
             ]);
-            exit;
+            return;
         }
 
         $authHeader = $headers['Authorization'];
@@ -196,26 +202,17 @@ class AuthController extends Controller {
             ResponseHandler::getResponseHandler()->sendResponse(401, [
                 'error' => 'Unauthorized'
             ]);
-            exit;
+            return;
         }
         if (!$payload['isAdmin']) {
-
             $db = Database::getInstance();
             $currentUser = $db->fetchOne("SELECT * FROM user WHERE username = :username", ['username' => $payload['username']]);
-            /*ResponseHandler::getResponseHandler()->sendResponse(200, [
-                'data' => [
-                    'title' => 'DB',
-                    'isAdmin' => $currentUser['isAdmin'],
-                    'username' =>$currentUser['username'],
-                    'CurrentUserUUID' =>$currentUser['uuid'],
-                    'uuid' => $uuid,
-                ]
-            ]);
-            */
+
             if ($currentUser['uuid'] != $uuid) {
                 ResponseHandler::getResponseHandler()->sendResponse(401, [
                     'error' => 'Unauthorized'
                 ]);
+                return;
             } else {
                 ResponseHandler::getResponseHandler()->sendResponse(200, [
                     'data' => [
@@ -235,5 +232,4 @@ class AuthController extends Controller {
             ]
         ]);
     }
-
 }

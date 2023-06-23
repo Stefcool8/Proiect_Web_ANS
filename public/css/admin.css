@@ -1,5 +1,4 @@
 .central-area {
-  padding: 2rem 0;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -18,7 +17,6 @@
 .view-profile-btn,
 .view-users-btn {
   margin-top: 1rem;
-  margin-left: 0.5rem;
   font-size: 1.25rem;
   min-width: 10rem;
   max-width: 100%;
@@ -51,6 +49,7 @@
   justify-content: space-around;
   gap: 1rem;
   padding: 1rem;
+  width: 80%;
 }
 
 .project-area {

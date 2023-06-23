@@ -60,7 +60,7 @@ var simplemaps_countrymap_mapdata = {
         popup_nocss: "no",
 
         //Advanced settings
-        div: "chart-container",
+        div: "map-container",
         auto_load: "yes",
         url_new_tab: "no",
         images_directory: "default",
