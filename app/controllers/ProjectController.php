@@ -20,6 +20,7 @@ class ProjectController extends Controller
      *     summary="Create a new project",
      *     operationId="createProject",
      *     tags={"Project"},
+     *     security={{"bearerAuth":{}}},
      *     @OA\RequestBody(
      *         description="Project data",
      *         required=true,
@@ -281,6 +282,7 @@ class ProjectController extends Controller
      *     summary="Retrieve project information",
      *     operationId="getProject",
      *     tags={"Project"},
+     *     security={{"bearerAuth":{}}},
      *
      *     @OA\Parameter(
      *         name="uuid",
@@ -445,6 +447,7 @@ class ProjectController extends Controller
      *     summary="Retrieve projects for a user",
      *     operationId="getUserProjects",
      *     tags={"Project"},
+     *     security={{"bearerAuth":{}}},
      *
      *     @OA\Parameter(
      *         name="uuid",
@@ -536,6 +539,7 @@ class ProjectController extends Controller
      *     summary="Retrieve projects for a user within a specified interval",
      *     operationId="getUserProjectsByInterval",
      *     tags={"Project"},
+     *     security={{"bearerAuth":{}}},
      *
      *     @OA\Parameter(
      *         name="uuid",

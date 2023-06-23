@@ -108,7 +108,8 @@ class AuthController extends Controller {
      *             type="object",
      *             @OA\Property(property="data", type="object",
      *                 @OA\Property(property="isAdmin", type="boolean"),
-     *                 @OA\Property(property="username",type="string")
+     *                 @OA\Property(property="username",type="string"),
+     *                 @OA\Property(property="uuid", type="string")
      *             )
      *         )
      *     ),
@@ -136,10 +137,26 @@ class AuthController extends Controller {
             ]);
             return;
         }
+        try {
+            $db = Database::getInstance();
+
+            $existingUser = $db->fetchOne("SELECT * FROM user WHERE username = :username", ['username' => $payload['username']]);
+
+            if (!$existingUser) {
+                ResponseHandler::getResponseHandler()->sendResponse(409, ["error" => "Uuid assigned does not exist"]);
+                return;
+            }
+        } catch (Exception $e) {
+            // Handle potential exception during database connection
+            ResponseHandler::getResponseHandler()->sendResponse(500, ["error" => "Internal Server Error"]);
+            return;
+        }
+
         ResponseHandler::getResponseHandler()->sendResponse(200, [
             'data' => [
                 'isAdmin' => $payload['isAdmin'],
-                'username' => $payload['username']
+                'username' => $payload['username'],
+                'uuid' => $existingUser['uuid']
             ]
         ]);
     }
@@ -177,7 +194,7 @@ class AuthController extends Controller {
      *             type="object",
      *             @OA\Property(property="data", type="object",
      *                 @OA\Property(property="isAdmin", type="boolean"),
-     *                 @OA\Property(property="username",type="string")
+     *                 @OA\Property(property="username",type="string"),
      *             )
      *         )
      *     ),
@@ -206,6 +223,7 @@ class AuthController extends Controller {
 
         try {
             $db = Database::getInstance();
+
             $existingUser = $db->fetchOne("SELECT * FROM user WHERE uuid = :uuid", ['uuid' => $uuid]);
 
             if (!$existingUser) {
