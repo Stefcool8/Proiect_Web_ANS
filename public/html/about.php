@@ -22,7 +22,7 @@
     <div class="main-content">
         <div class="show">
             <div class="my-element">
-                <p> </p>
+                <p></p>
             </div>
         </div>
         <div class="central-area">
