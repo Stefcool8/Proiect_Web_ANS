@@ -511,6 +511,7 @@ class UserController extends Controller {
      *     summary="Retrieve list of users",
      *     operationId="getUsers",
      *     tags={"User"},
+     *     security={{"bearerAuth":{}}},
      *     @OA\Response(
      *         response=200,
      *         description="Successful operation",
@@ -634,6 +635,7 @@ class UserController extends Controller {
      *     summary="Retrieve users by page",
      *     operationId="getUsersByInterval",
      *     tags={"User"},
+     *     security={{"bearerAuth":{}}},
      *     @OA\Parameter(
      *         name="startPage",
      *         in="path",
