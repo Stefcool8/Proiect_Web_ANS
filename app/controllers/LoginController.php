@@ -80,6 +80,12 @@ class LoginController extends Controller {
      *                         description="The uuid of the logged in user",
      *                         type="string",
      *                         example="648c882816eda"
+     *                     ),
+     *                     @OA\Property (
+     *                         property="isAdmin",
+     *                         description="The isAdmin of the logged in user",
+     *                         type="boolean",
+     *                         example=false
      *                     )
      *                 ),
      *                 @OA\Property(
