@@ -68,7 +68,7 @@ class AuthController extends Controller {
         // if the authorization field is not set, return an error
         if (!isset($headers['Authorization']) || substr($headers['Authorization'], 0, 7) !== 'Bearer ') {
             ResponseHandler::getResponseHandler()->sendResponse(400, [
-                'error' => 'Bad request'
+                'error' => 'Unauthorized'
             ]);
             return;
         }
@@ -82,7 +82,7 @@ class AuthController extends Controller {
             JWT::getJWT()->decode($token);
         } catch (InvalidArgumentException $e) {
             ResponseHandler::getResponseHandler()->sendResponse(401, [
-                'error' => 'Unauthorized'
+                'error' => 'Bad request'
             ]);
             return;
         }
@@ -114,19 +114,25 @@ class AuthController extends Controller {
      *     ),
      *     @OA\Response(
      *         response=401,
-     *         description="Unauthorized",
+     *         description="Not admin",
      *         @OA\JsonContent(
      *             type="object",
-     *             @OA\Property(property="error", type="string", example="Unauthorized")
+     *             @OA\Property(property="error", type="string", example="Not admin")
      *         )
      *     )
      * )
      */
     public function getAdmin() {
         $payload = $this->getPayload();
-        if (!$payload['isAdmin']) {
+        if (!$payload) {
             ResponseHandler::getResponseHandler()->sendResponse(401, [
                 'error' => 'Unauthorized'
+            ]);
+            return;
+        }
+        if (!$payload['isAdmin']) {
+            ResponseHandler::getResponseHandler()->sendResponse(401, [
+                'error' => 'Not admin'
             ]);
             return;
         }
@@ -147,6 +153,23 @@ class AuthController extends Controller {
      *     summary="Verify access based on token",
      *     description="Verify access based on token",
      *     security={{"bearerAuth": {}}},
+     *      @OA\RequestBody(
+     *         description="Verify Access form data",
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 required={"uuid"},
+     *                 @OA\Property(
+     *                     property="uuid",
+     *                     description="The uuid of the user",
+     *                     type="string",
+     *                     example="648c882816eda"
+     *                 )
+     *             )
+     *         )
+     *     ),
      *     @OA\Response(
      *         response=200,
      *         description="Successful response",
@@ -180,10 +203,32 @@ class AuthController extends Controller {
         }
 
         $uuid = $body['uuid'];
+
+        try {
+            $db = Database::getInstance();
+            $existingUser = $db->fetchOne("SELECT * FROM user WHERE uuid = :uuid", ['uuid' => $uuid]);
+
+            if (!$existingUser) {
+                ResponseHandler::getResponseHandler()->sendResponse(409, ["error" => "Uuid assigned does not exist"]);
+                return;
+            }
+        } catch (Exception $e) {
+            // Handle potential exception during database connection
+            ResponseHandler::getResponseHandler()->sendResponse(500, ["error" => "Internal Server Error"]);
+            return;
+        }
+
         $payload = $this->getPayload();
+        if (!$payload) {
+            ResponseHandler::getResponseHandler()->sendResponse(401, [
+                'error' => 'Unauthorized'
+            ]);
+            return;
+        }
         if (!$payload['isAdmin']) {
             $db = Database::getInstance();
             $currentUser = $db->fetchOne("SELECT * FROM user WHERE username = :username", ['username' => $payload['username']]);
+
 
             if ($currentUser['uuid'] != $uuid) {
                 ResponseHandler::getResponseHandler()->sendResponse(401, [
