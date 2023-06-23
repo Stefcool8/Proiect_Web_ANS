@@ -21,6 +21,24 @@ class CSVParserTest extends TestCase
         $this->assertInstanceOf($expected, $actual);
     }
 
+    public function testSanitizeCSV_RemovesBackslashesAndReplacesSemicolons()
+    {
+        // Arrange
+        $csvFile = 'testFiles/test.csv';
+        $expected = "NAME,AGE,CITY
+        JOHN,30,NEW YORK
+        JANE,25,LONDON";
+
+        $csvParser = CSVParser::getCSVParser();
+
+        // Act
+        $csvParser->sanitizeCSV($csvFile);
+        $result = file_get_contents($csvFile);
+
+        // Assert
+        $this->assertEquals($expected, $result);
+    }
+
     public function testGetJsonRowFormat_ReturnsValidJsonString()
     {
         // Arrange
@@ -41,12 +59,7 @@ class CSVParserTest extends TestCase
         $csvParser = CSVParser::getCSVParser();
 
         // Act
-        try {
-            /** @var string|mixed $result */
-            $result = $csvParser->getJsonRowFormat($csvFile);
-        } catch (Exception $e) {
-            echo $e->getMessage();
-        }
+        $result = $csvParser->getJsonRowFormat($csvFile);
 
         // Assert
         $this->assertJsonStringEqualsJsonString($expected, $result);
@@ -74,12 +87,7 @@ class CSVParserTest extends TestCase
         $csvParser = CSVParser::getCSVParser();
 
         // Act
-        try {
-            /** @var string|mixed $result */
-            $result = $csvParser->getJsonColumnFormat($csvFile);
-        } catch (Exception $e) {
-            echo $e->getMessage();
-        }
+        $result = $csvParser->getJsonColumnFormat($csvFile);
 
         // Assert
         $this->assertJsonStringEqualsJsonString($expected, $result);
@@ -98,12 +106,7 @@ class CSVParserTest extends TestCase
         $csvParser = CSVParser::getCSVParser();
 
         // Act
-        try {
-            /** @var string|mixed $result */
-            $result = $csvParser->getJsonFromColumn($csvFile, $columnNumber);
-        } catch (Exception $e) {
-            echo $e->getMessage();
-        }
+        $result = $csvParser->getJsonFromColumn($csvFile, $columnNumber);
 
         // Assert
         $this->assertJsonStringEqualsJsonString($expected, $result);
@@ -115,34 +118,76 @@ class CSVParserTest extends TestCase
         $csvFile = 'testFiles/test.csv';
         $rowNumber = 1;
         $expected = '{
+            "NAME": "JANE",
             "AGE": "25",
-            "CITY": "LONDON",
-            "NAME": "JANE"
+            "CITY": "LONDON"
         }';
 
         $csvParser = CSVParser::getCSVParser();
 
         // Act
-        try {
-            /** @var string|mixed $result */
-            $result = $csvParser->getJsonFromRow($csvFile, $rowNumber);
-        } catch (Exception $e) {
-            echo $e->getMessage();
-        }
+        $result = $csvParser->getJsonFromRow($csvFile, $rowNumber);
 
         // Assert
         $this->assertJsonStringEqualsJsonString($expected, $result);
     }
 
+    public function testGetHeader_ReturnsArrayOfColumnHeaders()
+    {
+        // Arrange
+        $csvFile = 'testFiles/test.csv';
+        $expected = ['NAME', 'AGE', 'CITY'];
+
+        $csvParser = CSVParser::getCSVParser();
+
+        // Act
+        $result = $csvParser->getHeader($csvFile);
+
+        // Assert
+        $this->assertEquals($expected, $result);
+    }
+
+    public function testAddColumn_AddsNewColumnToCSVFile()
+    {
+        // Arrange
+        $csvFile = 'testFiles/test.csv';
+        $newColumnIndex = 3;
+        $newColumnName = 'COUNTRY';
+        $newColumnValue = 'USA';
+        $expected = 'NAME,AGE,CITY,COUNTRY
+JOHN,30,NEW YORK,USA
+JANE,25,LONDON,USA';
+
+        $csvParser = CSVParser::getCSVParser();
+
+        // Act
+        $csvParser->addColumn($csvFile, $newColumnIndex, $newColumnName, $newColumnValue);
+        $result = file_get_contents($csvFile);
+
+        // Assert
+        $this->assertEquals($expected, $result);
+    }
+
+    public function testGetCSVParser_KeepsSameInstance()
+    {
+        // Arrange
+        $csvParser1 = CSVParser::getCSVParser();
+        $csvParser2 = CSVParser::getCSVParser();
+
+        // Assert
+        $this->assertSame($csvParser1, $csvParser2);
+    }
+
     public function testGetJsonRowFormat_ThrowsExceptionForInvalidCSVFile()
     {
         // Arrange
-        $this->expectException(Exception::class);
-        $this->expectExceptionMessage('Error opening CSV file.');
-
         $csvFile = 'nonexistent.csv';
 
         $csvParser = CSVParser::getCSVParser();
+
+        // Assert
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Error opening CSV file.');
 
         // Act
         $csvParser->getJsonRowFormat($csvFile);
@@ -151,12 +196,13 @@ class CSVParserTest extends TestCase
     public function testGetJsonColumnFormat_ThrowsExceptionForInvalidCSVFile()
     {
         // Arrange
-        $this->expectException(Exception::class);
-        $this->expectExceptionMessage('Error parsing CSV file: Error opening CSV file.');
-
         $csvFile = 'nonexistent.csv';
 
         $csvParser = CSVParser::getCSVParser();
+
+        // Assert
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Error parsing CSV file: Error opening CSV file.');
 
         // Act
         $csvParser->getJsonColumnFormat($csvFile);
@@ -165,13 +211,14 @@ class CSVParserTest extends TestCase
     public function testGetJsonFromColumn_ThrowsExceptionForInvalidCSVFile()
     {
         // Arrange
-        $this->expectException(Exception::class);
-        $this->expectExceptionMessage('Error parsing CSV file: Error opening CSV file.');
-
         $csvFile = 'nonexistent.csv';
         $columnNumber = 1;
 
         $csvParser = CSVParser::getCSVParser();
+
+        // Assert
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Error parsing CSV file: Error opening CSV file.');
 
         // Act
         $csvParser->getJsonFromColumn($csvFile, $columnNumber);
@@ -180,13 +227,14 @@ class CSVParserTest extends TestCase
     public function testGetJsonFromRow_ThrowsExceptionForInvalidCSVFile()
     {
         // Arrange
-        $this->expectException(Exception::class);
-        $this->expectExceptionMessage('Error parsing CSV file: Error opening CSV file.');
-
         $csvFile = 'nonexistent.csv';
         $rowNumber = 1;
 
         $csvParser = CSVParser::getCSVParser();
+
+        // Assert
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Error parsing CSV file: Error opening CSV file.');
 
         // Act
         $csvParser->getJsonFromRow($csvFile, $rowNumber);
