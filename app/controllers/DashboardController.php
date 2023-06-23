@@ -63,7 +63,7 @@ class DashboardController extends Controller {
             $currentUser = $db->fetchOne("SELECT * FROM user WHERE username = :username", ['username' => $payload['username']]);
 
             if (!$currentUser) {
-                ResponseHandler::getResponseHandler()->sendResponse(401, ['error' => 'Unauthorized']);
+                ResponseHandler::getResponseHandler()->sendResponse(401, ['error' => 'User does not exist']);
                 return;
             }
 
