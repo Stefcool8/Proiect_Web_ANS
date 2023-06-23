@@ -26,12 +26,12 @@ document.addEventListener('DOMContentLoaded', async() => {
             const userLink = document.querySelector(".view-profile-btn");
             userLink.href = "/user/" + result.data.data.uuid;
         } else {
-            // Handle the error
+            // handle the error
             console.error(result.message);
         }
 
     } catch (error) {
-        // Handle any errors
+        // handle any errors
         console.error(error);
     }
 });
