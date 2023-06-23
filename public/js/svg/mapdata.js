@@ -342,3 +342,12 @@ function setDescription(countyName, description) {
             simplemaps_countrymap_mapdata.state_specific.ROU4847.description = description;
     }
 }
+
+// create an array with all the counties from the function above
+const counties = ["dolj", "gorj", "mehedinti", "olt", "teleorman",
+    "bucuresti", "calarasi", "dimbovita", "giurgiu", "ialomita", "constanta",
+    "arad", "bihor", "caras severin", "timis", "botosani", "alba",
+    "bistrita nasaud", "cluj", "hunedoara", "maramures", "mures", "salaj",
+    "satu mare", "arges", "sibiu", "valcea", "brasov", "covasna", "harghita",
+    "iasi", "neamt", "prahova", "suceava", "bacau", "braila", "buzau", "galati",
+    "vaslui", "vrancea", "ilfov", "tulcea"];

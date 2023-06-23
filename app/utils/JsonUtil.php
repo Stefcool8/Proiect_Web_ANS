@@ -23,10 +23,12 @@ class JsonUtil {
         foreach ($years as $year) {
             try {
                 // get json data
-                $json = CSVParser::getCSVParser()->getJsonRowFormat("../public/assets/csv/$year.csv");
+                $json = CSVParser::getCSVParser()->getJsonRowFormat(
+                    dirname(__DIR__, 2) . "\public\assets\csv\\$year.csv");
 
                 // get header
-                $header = CSVParser::getCSVParser()->getHeader("../public/assets/csv/$year.csv");
+                $header = CSVParser::getCSVParser()->getHeader(
+                    dirname(__DIR__, 2) . "\public\assets\csv\\$year.csv");
 
                 // decode json
                 $jsonArray = json_decode($json, true);

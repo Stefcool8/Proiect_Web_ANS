@@ -34,6 +34,13 @@ function drawMapChart(project) {
             name = name.toLowerCase();
             setDescription(name, 'Total: ' + value);
         });
+
+        // if the json is empty, display a message
+        if (Object.keys(json).length === 0) {
+            counties.forEach(county => {
+                setDescription(county, 'No data');
+            })
+        }
     });
 
     // load countrymap.js script dynamically
