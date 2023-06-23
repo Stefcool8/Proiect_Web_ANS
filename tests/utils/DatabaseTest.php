@@ -42,8 +42,11 @@ class DatabaseTest extends TestCase
 
     public function testInsertAndDelete(): void
     {
-        $table = 'users';
-        $data = ['username' => 'test_user', 'email' => 'test@example.com'];
+        $table = 'user';
+        $data = ['firstName' => 'Test', 'lastName' => 'User',
+            'username' => 'test_user', 'email' => 'test@example.com',
+            'bio' => 'This is a test user', 'password' => 'test123',
+            'uuid' => '1234567890', 'isAdmin' => 0];
 
         // Insert a new row
         self::$database->insert($table, $data);
@@ -51,6 +54,7 @@ class DatabaseTest extends TestCase
         // Fetch the inserted row
         $sql = "SELECT * FROM $table WHERE username = :username";
         $params = ['username' => 'test_user'];
+        /** @var array|mixed $result */
         $result = self::$database->fetchOne($sql, $params);
 
         $this->assertNotNull($result);
@@ -60,6 +64,7 @@ class DatabaseTest extends TestCase
         self::$database->delete($table, ['username' => 'test_user']);
 
         // Verify that the row has been deleted
+        /** @var array|mixed $result */
         $result = self::$database->fetchOne($sql, $params);
         $this->assertNull($result);
     }
