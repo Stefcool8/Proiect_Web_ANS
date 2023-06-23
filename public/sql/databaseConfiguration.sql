@@ -111,7 +111,7 @@ select * from map_chart;
 select * from optional_conditions;
 select * from years;
 
-delete from project where id = 9;
+update user set isAdmin = 1 where id = 1;
 
 drop table user cascade;
 drop table project cascade;
