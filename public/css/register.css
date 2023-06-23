@@ -14,7 +14,7 @@
 
 .register .container {
     display: flex;
-    flex-direction: column;s
+    flex-direction: column;
     justify-content: space-between;
     align-items: center;
     width: 100%;
