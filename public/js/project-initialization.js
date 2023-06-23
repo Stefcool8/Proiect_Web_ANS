@@ -4,12 +4,8 @@ const successMessage = document.querySelector(".success-message");
 const chartTypeSelect = document.getElementById("chart-type");
 const types = ['bars', 'slices', 'lines'];
 let yearCheckboxContainer = null;
-let seriesSelect = null;
-let seriesInput = null;
-let linesInput = null;
+let seriesCheckboxContainer = null;
 let workersSelect = null;
-
-const inputs = [seriesInput,linesInput];
 
 const allColumns = [
     "JUDET",
@@ -50,7 +46,7 @@ function hideMessage(element) {
 
 function yearsAreSelected() {
     // Check if at least one year is selected
-    const yearCheckboxes = document.querySelectorAll('input[type="checkbox"]');
+    const yearCheckboxes = document.querySelectorAll('input[name="year"]');
     let isYearSelected = false;
     for (let i = 0; i < yearCheckboxes.length; i++) {
         if (yearCheckboxes[i].checked) {
@@ -59,6 +55,37 @@ function yearsAreSelected() {
         }
     }
     return isYearSelected;
+}
+
+function seriesAreSelected() {
+    let seriesSelected = false;
+    const seriesCheckboxes = document.querySelectorAll('input[name="series"]');
+    seriesCheckboxes.forEach(checkbox => {
+        if (checkbox.checked) {
+            seriesSelected = true;
+        }
+    });
+    return seriesSelected;
+}
+
+function getSelectedSeriesCodes() {
+    const seriesCodes = [];
+    const seriesCheckboxes = document.querySelectorAll('input[name="series"]');
+    seriesCheckboxes.forEach(checkbox => {
+        if (checkbox.checked) {
+            seriesCodes.push(checkbox.value);
+        }
+    });
+    return seriesCodes;
+}
+
+function getSelectedSeriesValues() {
+    const seriesValues = [];
+    const seriesCheckboxes = document.querySelectorAll('input[name="series-input"]');
+    seriesCheckboxes.forEach(input => {
+        seriesValues.push(input.value.toUpperCase());
+    });
+    return seriesValues;
 }
 
 function getRightWorkersColumns(type) {
@@ -86,7 +113,7 @@ function getRightSeriesColumns(type) {
 function getSelectedYears() {
     // Get the selected years
     const selectedYears = [];
-    const yearCheckboxes = document.querySelectorAll('input[type="checkbox"]');
+    const yearCheckboxes = document.querySelectorAll('input[name="year"]');
     for (let i = 0; i < yearCheckboxes.length; i++) {
         if (yearCheckboxes[i].checked) {
             selectedYears.push(yearCheckboxes[i].value);
@@ -153,19 +180,14 @@ function getRightTagName(type) {
     return 'unKnown';
 }
 
-function removeLinesInput(){
-    if (linesInput != null) {
-        linesInput.remove();
-        linesInput = null;
-        document.querySelector('label[for="lines-input"]').remove();
+function removeSeriesCheckboxContainer() {
+    let seriesLabel = document.querySelector('label[for="series"]');
+    if (seriesLabel != null) {
+        seriesLabel.remove();
     }
-}
-
-function removeSeriesInput() {
-    if (seriesInput != null) {
-        seriesInput.remove();
-        seriesInput = null;
-        document.querySelector('label[for="series-input"]').remove();
+    if (seriesCheckboxContainer != null) {
+        seriesCheckboxContainer.remove();
+        seriesCheckboxContainer = null;
     }
 }
 
@@ -181,13 +203,7 @@ function removeAllWorkers() {
         workersSelect = null;
     }
 
-    if (seriesSelect != null) {
-        seriesSelect.remove();
-        seriesSelect = null;
-        document.querySelector('label[for="series"]').remove();
-    }
-    removeLinesInput();
-    removeSeriesInput();
+    removeSeriesCheckboxContainer();
 }
 
 function addYearsToCheckboxContainer() {
@@ -230,82 +246,70 @@ function addOptionsToSelectMenu(parentSelect, rightColumns, emptyOptionText, emp
     }
 }
 
-function createLinesInput() {
-    // create the div for the series
-    const inputGroup = document.createElement('div');
-    inputGroup.classList.add('input-group');
+function createSeriesInput(checkboxId) {
+    const seriesItem = document.getElementById(checkboxId).closest('.series-item');
 
-    const linesLabel = document.createElement('label');
-    linesLabel.htmlFor = 'lines-input';
-    linesLabel.textContent = 'Line value:';
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.name = 'series-input';
+    input.required = true;
 
-    linesInput = document.createElement('input');
-    linesInput.classList.add('lines-input');
-    linesInput.id = 'lines-input';
-    linesInput.name = 'series-input';
-    linesInput.type = 'text';
-    linesInput.placeholder = 'Enter a line value';
-    linesInput.required = true;
-
-    inputGroup.appendChild(linesLabel);
-    inputGroup.appendChild(linesInput);
-
-    // add the div to the form before the create button
-    projectInitializationForm.insertBefore(inputGroup, projectInitializationForm.lastElementChild);
+    seriesItem.appendChild(input);
 }
 
-function createSeriesInput() {
-    // create the div for the series
-    const inputGroup = document.createElement('div');
-    inputGroup.classList.add('input-group');
-
-    const seriesLabel = document.createElement('label');
-    seriesLabel.htmlFor = 'series-input';
-    seriesLabel.textContent = 'Value:';
-
-    seriesInput = document.createElement('input');
-    seriesInput.classList.add('series-input');
-    seriesInput.id = 'series-input';
-    seriesInput.name = 'series-input';
-    seriesInput.type = 'text';
-    seriesInput.placeholder = 'Enter a series';
-    seriesInput.required = true;
-
-    inputGroup.appendChild(seriesLabel);
-    inputGroup.appendChild(seriesInput);
-
-    // add the div to the form before the create button
-    projectInitializationForm.insertBefore(inputGroup, projectInitializationForm.lastElementChild);
-}
-
-function createSeriesSelect(type) {
-    // create the div for the series
-    const inputGroup = document.createElement('div');
-    inputGroup.classList.add('input-group');
-
-    const seriesLabel = document.createElement('label');
-    seriesLabel.htmlFor = 'series';
-    seriesLabel.textContent = 'Series:';
-
-    seriesSelect = document.createElement('select');
-    seriesSelect.classList.add('series-select');
-    seriesSelect.id = 'series-select';
-    seriesSelect.name = 'series';
-    addOptionsToSelectMenu(seriesSelect, getRightSeriesColumns(type), 'No series', false);
-
-    // add an event listener to the series select
-    seriesSelect.addEventListener('change', () => {
-        if (seriesSelect.value === '') {
-            // remove the series input
-            removeSeriesInput();
-        } else if (seriesInput == null) {
-            // create the input for the series
-            createSeriesInput();
+function addSeriesToCheckboxContainer(seriesCheckboxContainer) {
+    // generate checkboxes for the series
+    for (let i = 0; i < allColumns.length; i++) {
+        // if i = 0 and the chart is a map chart, skip the first column
+        if (i === 0 && getChartCode() === 3) {
+            continue;
         }
-    });
 
-    inputGroup.appendChild(seriesLabel);
-    inputGroup.appendChild(seriesSelect);
+        const seriesItem = document.createElement('div');
+        seriesItem.classList.add('series-item');
+
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.id = `series-${i}`;
+        checkbox.name = 'series';
+        checkbox.value = i.toString();
+
+        checkbox.addEventListener('change', function () {
+            if (checkbox.checked) {
+                createSeriesInput(checkbox.id);
+            } else {
+                const seriesItem = document.getElementById(checkbox.id).closest('.series-item');
+                const input = seriesItem.querySelector('input[type="text"]');
+                seriesItem.removeChild(input);
+            }
+        });
+
+        const label = document.createElement('label');
+        label.htmlFor = `series-${i}`;
+        label.textContent = allColumns[i];
+
+        seriesItem.appendChild(checkbox);
+        seriesItem.appendChild(label);
+        seriesCheckboxContainer.appendChild(seriesItem);
+    }
+}
+
+function createSeriesCheckboxes() {
+    // create the div for the series
+    const inputGroup = document.createElement('div');
+    inputGroup.classList.add('input-group');
+
+    const label = document.createElement('label');
+    label.htmlFor = 'series';
+    label.textContent = 'Series:';
+
+    seriesCheckboxContainer = document.createElement('div');
+    seriesCheckboxContainer.classList.add('series-checkbox-container');
+    seriesCheckboxContainer.id = 'series-checkboxes';
+    addSeriesToCheckboxContainer(seriesCheckboxContainer);
+
+    inputGroup.appendChild(label);
+    inputGroup.appendChild(seriesCheckboxContainer);
 
     // add the div to the form before the create button
     projectInitializationForm.insertBefore(inputGroup, projectInitializationForm.lastElementChild);
@@ -329,12 +333,9 @@ function createWorkersSelect(type) {
 
     // add an event listener to the workers select
     workersSelect.addEventListener('change', () => {
-        if (seriesSelect == null) {
-            // populate the series select
-            if (type === 'lineChart') {
-                createLinesInput();
-            }
-            createSeriesSelect(type);
+        if (seriesCheckboxContainer == null) {
+            // populate the series checkboxes
+            createSeriesCheckboxes();
         }
     });
 
@@ -363,11 +364,12 @@ function createYearCheckboxContainer() {
     yearCheckboxContainer.addEventListener('change', (event) => {
         if (event.target.matches('input[type="checkbox"]')) {
             if (event.target.checked) {
-                if (getChartCode() === 3) {
+                if (getChartCode() === 1 || getChartCode() === 3) {
+                    // worker select for line is not required, the chart is build on years
                     // worker select for map is implicitly set to 'workers' so we don't need to create it
-                    if (seriesSelect == null) {
-                        // populate the series select if it doesn't exist
-                        createSeriesSelect(chartTypeSelect.value);
+                    if (seriesCheckboxContainer == null) {
+                        // populate the series checkboxes
+                        createSeriesCheckboxes();
                     }
                 } else {
                     // for all other chart types, the workers select is required
@@ -402,10 +404,11 @@ chartTypeSelect.addEventListener("change", () => {
     if (yearsAreSelected()) {
         // populate the workers select if at least one year is selected
 
-        if (getChartCode() === 3) {
+        if (getChartCode() === 1 || getChartCode() === 3) {
+            // worker select for line is not required, the chart is build on years
             // worker select for map is implicitly set to 'county'
             // so we only need to create the optional series select
-            createSeriesSelect(chartTypeSelect.value);
+            createSeriesCheckboxes();
         } else {
             // create the workers select for the other chart types
             createWorkersSelect(chartTypeSelect.value);
@@ -436,27 +439,20 @@ projectInitializationForm.addEventListener("submit", async (event) => {
         years: years
     };
 
-    // add data column to the data object if the chart type is not a map
-    if (chartCode !== 3) {
+    // add data column to the data object if the chart type is not a map or a line chart
+    if (chartCode !== 1 && chartCode !== 3) {
         // add the data column to the data object
         data.dataColumn = allColumns.indexOf(workersSelect.value);
         console.log(data.dataColumn);
     }
-    if (chartCode === 1) {
-        // add the value line to the data object
-        data.lineValue = linesInput.value.toUpperCase();
-    }
 
-    if (seriesSelect.value !== '') {
-        const seriesCode = allColumns.indexOf(seriesSelect.value);
-        const seriesValue = seriesInput.value.toUpperCase();
+    // add the series
+    if (seriesAreSelected()) {
+        data.seriesCodes = getSelectedSeriesCodes();
+        data.seriesValues = getSelectedSeriesValues();
 
-        console.log(seriesCode);
-        console.log(seriesValue);
-
-        // add the series to the data object
-        data.seriesCode = seriesCode;
-        data.seriesValue = seriesValue;
+        console.log(data.seriesCodes);
+        console.log(data.seriesValues);
     }
 
     const token = localStorage.getItem('jwt');
@@ -487,7 +483,7 @@ projectInitializationForm.addEventListener("submit", async (event) => {
             // The project creation was successful
             showMessage(successMessage, "Project successfully created. Redirecting...");
             setTimeout(() => {
-             window.location.href = "/dashboard";
+                window.location.href = "/dashboard";
             }, 3000);
         } else {
             // Handle the error

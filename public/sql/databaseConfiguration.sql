@@ -49,9 +49,7 @@ CREATE TABLE `pie_chart` (
 --
 CREATE TABLE `line_chart` (
     `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `uuidProject` varchar(256) NOT NULL REFERENCES `project`(`uuid`),
-    `line` int(11) NOT NULL,
-    `lineValue` varchar(256) NOT NULL
+    `uuidProject` varchar(256) NOT NULL REFERENCES `project`(`uuid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
