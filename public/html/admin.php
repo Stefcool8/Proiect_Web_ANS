@@ -20,7 +20,7 @@
 <?php require_once __DIR__ . '/shared/navbar.php'; ?>
 <main class="central-area">
     <div class="page-name">
-        <p> </p>
+        <p></p>
     </div>
 
     <div class="button-area">

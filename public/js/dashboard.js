@@ -72,7 +72,6 @@ function createHeaders(token) {
 function updateUserInterface(result, uuid) {
     const adminPanel = document.querySelector(".admin-panel-btn");
     result.data.data.isAdmin ? adminPanel.classList.remove('hidden') : adminPanel.classList.add('hidden');
-    console.log(result.data.data.isAdmin);
 
     document.querySelector('.page-name p').textContent = 'Dashboard, Hello ' + result.data.data.username;
     document.querySelector(".view-profile-btn").href = "/user/" + uuid;
@@ -131,7 +130,7 @@ async function fetchUserProjects(token, uuid, page) {
             headers: createHeaders(token),
         });
 
-        if(response.status === 404) {
+        if (response.status === 404) {
             window.location.href = "/dashboard";
         }
 
@@ -205,7 +204,7 @@ function createDeleteEvent(project, token) {
         if (!response) {
             return;
         }
-        
+
         const responseDELETE = await fetch(`/api/project/${project.uuid}`, {
             method: "DELETE",
             headers: createHeaders(token),
