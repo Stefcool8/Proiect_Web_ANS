@@ -105,6 +105,39 @@ $alert-success: #33ff9c;
     }
   }
 
+  .series-checkbox-container {
+    display: flex; /* Display the series items in a flex container */
+    flex-direction: column; /* Make the series items stack vertically */
+    flex-wrap: wrap; /* Allow wrapping to the next line when needed */
+    gap: 1rem; /* Add some spacing between series items */
+
+    .series-item {
+      display: flex; /* Display the checkbox label, checkbox, and input in a flex container */
+      align-items: center; /* Vertically center the items */
+
+      input[type="checkbox"] {
+        min-height: 1.5rem; /* Set a minimum height */
+        min-width: 1.5rem; /* Set a minimum width */
+        margin-right: 0.5rem; /* Add some spacing between checkbox and input */
+      }
+
+      input[type="text"] {
+        flex: 1; /* Let the input expand to fill the remaining space */
+        padding: 0.3rem;
+        border-radius: 0.6rem;
+        border: 1px solid $border-color;
+        font-size: 1.2rem;
+        transition: border 0.3s, box-shadow 0.3s;
+
+        &:hover,
+        &:focus {
+          border: 1px solid $primary-color;
+          box-shadow: 0 0 5px $primary-color;
+        }
+      }
+    }
+  }
+
   button {
     display: block;
     width: 100%;
@@ -146,6 +179,19 @@ $alert-success: #33ff9c;
     select,
     button {
       font-size: 1rem;
+    }
+    .series-item {
+      flex-direction: column; /* Change to column layout for smaller resolutions */
+      align-items: flex-start; /* Align items to the start */
+
+      input[type="checkbox"] {
+        margin-right: 0; /* Remove right margin for checkbox */
+        margin-bottom: 0.5rem; /* Add bottom margin for spacing */
+      }
+
+      input[type="text"] {
+        margin-top: 0.5rem; /* Add top margin for spacing */
+      }
     }
   }
 }
