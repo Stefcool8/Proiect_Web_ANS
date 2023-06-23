@@ -81,11 +81,12 @@ class JsonUtilTest extends TestCase {
     public function testExtractTotalFromJSON(): void {
         $jsonUtil = JsonUtil::getJsonUtil();
 
-        $json = '{
-"ALBA": 304
-}';
+        $json = '[{
+"JUDET": "ALBA",
+"TOTAL": "1"
+}]';
         /** @var int|mixed $expectedResult */
-        $expectedResult = 304;
+        $expectedResult = 1;
 
         /** @var int|mixed $result */
         $result = $jsonUtil->extractTotalFromJSON($json);

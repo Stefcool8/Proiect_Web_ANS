@@ -24,9 +24,11 @@ class CSVParserTest extends TestCase
     public function testSanitizeCSV_RemovesBackslashesAndReplacesSemicolons()
     {
         // Arrange
-        $csvFile = 'testFiles/test.csv';
+        $csvFile = dirname(__DIR__, 2) . '\tests\utils\testFiles\test.csv';
         /** @var string|mixed $expected */
-        $expected = "NAME,AGE,CITY\nJOHN,30,\"NEW YORK\"\nJANE,25,LONDON";
+        $expected = "NAME,AGE,CITY
+JOHN,30,\"NEW YORK\"
+JANE,25,LONDON";
 
         $csvParser = CSVParser::getCSVParser();
 
@@ -42,7 +44,7 @@ class CSVParserTest extends TestCase
     public function testGetJsonRowFormat_ReturnsValidJsonString()
     {
         // Arrange
-        $csvFile = 'testFiles/test.csv';
+        $csvFile = dirname(__DIR__, 2) . '\tests\utils\testFiles\test.csv';
         $expected = '[
             {
                 "NAME": "JOHN",
@@ -71,7 +73,7 @@ class CSVParserTest extends TestCase
     public function testGetJsonColumnFormat_ReturnsValidJsonString()
     {
         // Arrange
-        $csvFile = 'testFiles/test.csv';
+        $csvFile = dirname(__DIR__, 2) . '\tests\utils\testFiles\test.csv';
         $expected = '{
             "NAME": [
                 "JOHN",
@@ -103,7 +105,7 @@ class CSVParserTest extends TestCase
     public function testGetJsonFromColumn_ReturnsValidJsonString()
     {
         // Arrange
-        $csvFile = 'testFiles/test.csv';
+        $csvFile = dirname(__DIR__, 2) . '\tests\utils\testFiles\test.csv';
         $columnNumber = 0;
         $expected = '[
             "JOHN",
@@ -126,7 +128,7 @@ class CSVParserTest extends TestCase
     public function testGetJsonFromRow_ReturnsValidJsonString()
     {
         // Arrange
-        $csvFile = 'testFiles/test.csv';
+        $csvFile = dirname(__DIR__, 2) . '\tests\utils\testFiles\test.csv';
         $rowNumber = 1;
         $expected = '{
             "NAME": "JANE",
@@ -150,7 +152,7 @@ class CSVParserTest extends TestCase
     public function testGetHeader_ReturnsArrayOfColumnHeaders()
     {
         // Arrange
-        $csvFile = 'testFiles/test.csv';
+        $csvFile = dirname(__DIR__, 2) . '\tests\utils\testFiles\test.csv';
         /** @var array|mixed $expected */
         $expected = ['NAME', 'AGE', 'CITY'];
 
@@ -171,7 +173,7 @@ class CSVParserTest extends TestCase
     public function testAddColumn_AddsNewColumnToCSVFile()
     {
         // Arrange
-        $csvFile = 'testFiles/test.csv';
+        $csvFile = dirname(__DIR__, 2) . '\tests\utils\testFiles\test.csv';
         $newColumnIndex = 3;
         $newColumnName = 'COUNTRY';
         $newColumnValue = 'USA';
