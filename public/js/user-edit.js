@@ -18,7 +18,7 @@ function getInputValue(selector) {
     return document.querySelector(selector).value;
 }
 
-document.addEventListener('DOMContentLoaded', async() => {
+document.addEventListener('DOMContentLoaded', async () => {
     try {
         const token = localStorage.getItem('jwt');
         if (!token) {
@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', async() => {
         }
 
         const uuid = getCurrentPageUuid();
-        const data = { uuid: uuid };
+        const data = {uuid: uuid};
 
         const accessVerified = await verifyAccess(token, data);
         if (!accessVerified) {
@@ -84,7 +84,7 @@ function populateFormFields(userResult) {
     document.querySelector('.data.bio').value = userResult.data.data.bio;
 }
 
-document.querySelector('form').addEventListener('submit', async(event) => {
+document.querySelector('form').addEventListener('submit', async (event) => {
     event.preventDefault();
 
     const userUpdate = {
@@ -139,7 +139,7 @@ function redirectTo(path) {
     window.location.href = path;
 }
 
-document.querySelector('.back-to-profile').addEventListener('click', function(e) {
+document.querySelector('.back-to-profile').addEventListener('click', function (e) {
     e.preventDefault();
     const uuid = getCurrentPageUuid();
     window.location.href = '/user/' + uuid;
