@@ -12,7 +12,10 @@ async function dashboard() {
     if (!uuid) return;
 
     const projectCount = await fetchUserProjectCount(token, uuid);
-    if (!projectCount && page > 1) redirectToDashboardPage(1);
+
+    //if(!projectCount) redirectToDashboardPage(1);
+
+    if (!projectCount && page >= 1) return;//redirectToDashboardPage(1);
 
     const projects = await fetchUserProjects(token, uuid, page, pageSize);
     if (!projects) return;
@@ -120,14 +123,14 @@ function redirectToHome() {
     window.location.href = "/home";
 }
 
-async function fetchUserProjects(token, uuid, page, pageSize) {
+async function fetchUserProjects(token, uuid, page) {
     try {
         const response = await fetch(`/api/project/user/${uuid}/${page}`, {
             method: 'GET',
             headers: createHeaders(token),
         });
 
-        if(response.status === 404) {
+        if (response.status === 404) {
             window.location.href = "/dashboard";
         }
 
@@ -187,7 +190,7 @@ function createViewEvent(project, token) {
         if (responseGet.ok) {
             window.location.href = `/project/${project.uuid}`;
         } else {
-            console.error(result.message);
+            console.error(responseGet.message);
         }
     };
 }
@@ -201,7 +204,7 @@ function createDeleteEvent(project, token) {
         if (!response) {
             return;
         }
-        
+
         const responseDELETE = await fetch(`/api/project/${project.uuid}`, {
             method: "DELETE",
             headers: createHeaders(token),
@@ -211,7 +214,7 @@ function createDeleteEvent(project, token) {
         if (responseDELETE.ok) {
             window.location.href = "/dashboard";
         } else {
-            console.error(result.message);
+            console.error(responseDELETE.message);
         }
     };
 }

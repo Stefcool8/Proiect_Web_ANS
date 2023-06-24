@@ -9,16 +9,12 @@ namespace App\utils;
  * @package App\Utils
  */
 class Router {
-
     // default controller namespace locations
     private array $locations = [
         'default' => 'App\Controllers\\'
     ];
-
-    
     // singleton instance of the Router class
     private static ?Router $router = null;
-
     // array of routes
     private array $routes = [];
 

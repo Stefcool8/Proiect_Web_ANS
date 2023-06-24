@@ -23,10 +23,12 @@ class JsonUtil {
         foreach ($years as $year) {
             try {
                 // get json data
-                $json = CSVParser::getCSVParser()->getJsonRowFormat("../public/assets/csv/$year.csv");
+                $json = CSVParser::getCSVParser()->getJsonRowFormat(
+                    dirname(__DIR__, 2) . "\public\assets\csv\\$year.csv");
 
                 // get header
-                $header = CSVParser::getCSVParser()->getHeader("../public/assets/csv/$year.csv");
+                $header = CSVParser::getCSVParser()->getHeader(
+                    dirname(__DIR__, 2) . "\public\assets\csv\\$year.csv");
 
                 // decode json
                 $jsonArray = json_decode($json, true);
@@ -58,28 +60,61 @@ class JsonUtil {
         return json_encode($data, JSON_PRETTY_PRINT);
     }
 
+    public function extractTotalByYear(array $years, array $filterColumns, array $filterValues): string {
+        $resultArray = []; // Initialize an empty array
+        foreach ($years as $year) {
+            $currentJson = JsonUtil::getJsonUtil()->filtrateAfterYearsAndColumns([$year], $filterColumns, $filterValues);
+            $totalFromJSON = JsonUtil::getJsonUtil()->extractTotalFromJSON($currentJson);
+            $resultArray[$year] = $totalFromJSON; // Assign the value to the array with the key $year
+        }
+        return json_encode($resultArray,JSON_PRETTY_PRINT);
+    }
+
     public function extractTotalPerDistinctColumnValue(string $json, int $column): string {
         $jsonArray = json_decode($json, true);
-        $data = [];
 
+        // if jsonArray is empty return empty json
+        if (count($jsonArray) == 0) {
+            return json_encode([]);
+        }
+
+        $data = [];
         // get header from json
         $header = array_keys($jsonArray[0]);
-       // var_dump($header);
         // get total column
         $totalColumn = $header[count($header) - 1];
 
         // extract the total per distinct column value
         foreach ($jsonArray as $row) {
             if (!isset($data[$row[$header[$column]]])) {
-                //var_dump($row[$header[$column]]);
                 $data[$row[$header[$column]]] = 0;
             }
-            //var_dump($row);
             $data[$row[$header[$column]]] += $row[$totalColumn];
         }
 
-
         return json_encode($data, JSON_PRETTY_PRINT);
+    }
+
+    public function extractTotalFromJSON(string $json): int {
+        $jsonArray = json_decode($json, true);
+        $total = 0;
+
+        // if jsonArray is empty return empty json
+        if (count($jsonArray) == 0) {
+            return 0;
+        }
+
+        // get header from json
+        $header = array_keys($jsonArray[0]);
+        // get total column
+        $totalColumn = $header[count($header) - 1];
+
+        // calculate total from json
+        foreach ($jsonArray as $row) {
+            $total += $row[$totalColumn];
+        }
+
+        return $total;
     }
 
     public function extractColumns(string $json, array $columns): string {

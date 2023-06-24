@@ -1,10 +1,3 @@
-<?php
-    // /{uuid}
-    // $query = parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY);
-    // parse_str($query, $params);
-    // $token = $params['token'];
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -46,6 +39,7 @@
                         <option value="barChart">Bar Chart</option>
                         <option value="lineChart">Line Chart</option>
                         <option value="pieChart">Pie Chart</option>
+                        <option value="mapChart">Map Chart</option>
                     </select>
                 </div>
                 <button type="submit">Create Project</button>

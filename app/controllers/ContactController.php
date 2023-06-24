@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers;
+namespace App\controllers;
 
 use App\utils\ResponseHandler;
 use App\utils\EmailSender;
@@ -34,7 +34,7 @@ class ContactController extends Controller {
      *                     property="email",
      *                     description="The email of the user",
      *                     type="string",
-     *                     example="martinescunicolaee3@gmail.com"
+     *                     example="john@example.com"
      *                 ),
      *                 @OA\Property(
      *                     property="subject",
@@ -94,7 +94,7 @@ class ContactController extends Controller {
 
         if (empty($body['name']) || empty($body['email']) || empty($body['subject']) || empty($body['message'])) {
             ResponseHandler::getResponseHandler()->sendResponse(400, ['error' => 'Invalid request body']);
-            exit;
+            return;
         }
 
         $name = $this->sanitizeData($body['name']);
@@ -105,11 +105,13 @@ class ContactController extends Controller {
         // check if honeypot is filled
         if (!empty($body['nickname'])) {
             ResponseHandler::getResponseHandler()->sendResponse(405, ['error' => 'Invalid request']);
+            return;
         }
 
         // validate email
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             ResponseHandler::getResponseHandler()->sendResponse(400, ['error' => 'Invalid request body']);
+            return;
         }
 
         // build email template
@@ -123,6 +125,7 @@ class ContactController extends Controller {
         $clientEmailSent = EmailSender::getEmailSender()->sendEmail($email, $name, 'Contact request submitted at ANS', $template);
         if (!$clientEmailSent) {
             ResponseHandler::getResponseHandler()->sendResponse(500, ['error' => 'Internal server error']);
+            return;
         }
 
         // send email to admin
@@ -137,7 +140,7 @@ class ContactController extends Controller {
     /**
      * @OA\Get(
      *     path="/api/contact",
-     *     summary="Get the contact page",
+     *     summary="Retrieve the page title",
      *     tags={"Contact"},
      *     @OA\Response(
      *         response=200,

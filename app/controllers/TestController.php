@@ -10,9 +10,11 @@ class TestController {
     public function test() {
         try {
             // $json = CSVParser::getCSVParser()->getHeader("../public/assets/csv/2019.csv");
-            $json = JsonUtil::getJsonUtil()->filtrateAfterYearsAndColumns(["2014"], [], []);
+            $json = JsonUtil::getJsonUtil()
+                ->filtrateAfterYearsAndColumns(["2012"], [0, 1], ['ALBA', 'AUTOBUZ']);
 
             $json = JsonUtil::getJsonUtil()->extractTotalPerDistinctColumnValue($json, 0);
+            var_dump(JsonUtil::getJsonUtil()->extractTotalFromJSON($json));
 
             // save json to file
             //file_put_contents("../public/assets/csv/test.json", $json);

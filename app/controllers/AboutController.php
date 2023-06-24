@@ -8,12 +8,12 @@ use App\utils\ResponseHandler;
  * Controller for the about us page
  * 
  */
-class AboutController extends Controller {
+class AboutController {
 
     /**
      * @OA\Get(
      *     path="/api/about",
-     *     summary="Retrieve about us page data",
+     *     summary="Retrieve page title",
      *     operationId="getAbout",
      *     tags={"About"},
      *     @OA\Response(

@@ -29,3 +29,24 @@ document.getElementById("myBtn2").onclick = function () {
 document.getElementById("myBtn3").onclick = function () {
     toggleReadMore("dots3", "more3", "myBtn3");
 };
+
+document.addEventListener("DOMContentLoaded", async () => {
+
+    const response = await fetch('/api/about', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    });
+
+    const result = await response.json();
+
+    if (response.ok) {
+        const aboutData = document.querySelector(".my-element p");
+        aboutData.textContent = result.data.title;
+    } else {
+        showError(result.data.error);
+        throw new Error(result.data.error);
+    }
+});
+

@@ -10,13 +10,11 @@ class Database {
     private static ?Database $instance = null;
     private ?PDO $connection;
 
-    private function __construct()
-    {
+    private function __construct() {
         $this->initConnection();
     }
 
-    private function initConnection(): void
-    {
+    private function initConnection(): void {
         $host = 'localhost';
         $dbname = 'web';
         $username = 'root';
@@ -35,8 +33,7 @@ class Database {
         }
     }
 
-    public static function getInstance(): Database
-    {
+    public static function getInstance(): Database {
         if (self::$instance === null) {
             self::$instance = new Database();
         }
@@ -49,8 +46,7 @@ class Database {
         return $result ?: null;
     }
 
-    private function query(string $sql, array $params = []): PDOStatement
-    {
+    private function query(string $sql, array $params = []): PDOStatement {
         $stmt = $this->connection->prepare($sql);
         // make parameter binding
         // This ensures that the values are treated as data and not as executable SQL code.
@@ -77,7 +73,7 @@ class Database {
 
     public function update(string $table, array $data, array $conditions): void {
         $set = implode(', ', array_map(fn($col) => "$col = :$col", array_keys($data)));
-        $where = implode(' AND ', array_map(fn($col) => "$col = :{$col}", array_keys($conditions)));
+        $where = implode(' AND ', array_map(fn($col) => "$col = :$col", array_keys($conditions)));
         $sql = "UPDATE $table SET $set WHERE $where";
         $this->query($sql, array_merge($data, $conditions));
     }

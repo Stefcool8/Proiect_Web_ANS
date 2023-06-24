@@ -14,7 +14,7 @@ class AdminController
     /**
      * @OA\Get(
      *     path="/api/admin",
-     *     summary="Retrieve admin page data",
+     *     summary="Retrieve page title",
      *     operationId="getAdmin",
      *     tags={"Admin"},
      *     @OA\Response(
@@ -40,7 +40,7 @@ class AdminController
      *     )
      * )
      */
-    public function getInfo() {
+    public function get() {
         ResponseHandler::getResponseHandler()->sendResponse(200, [
             'title' => 'Admin Page',
         ]);

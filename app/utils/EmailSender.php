@@ -11,6 +11,11 @@ class EmailSender {
 
     private function __construct() {}
 
+    /**
+     * Get the EmailSender instance
+     *
+     * @return EmailSender
+     */
     public static function getEmailSender(): EmailSender {
         if (self::$emailSender == null) {
             self::$emailSender = new EmailSender();
@@ -19,6 +24,16 @@ class EmailSender {
         return self::$emailSender;
     }
 
+    /**
+     * Send an email
+     *
+     * @param string $receiverEmail - The email of the receiver
+     * @param string $receiverName - The name of the receiver
+     * @param string $subject - The subject of the email
+     * @param string $content - The content of the email
+     *
+     * @return bool - True if the email was sent successfully, false otherwise
+     */
     public function sendEmail(string $receiverEmail, string $receiverName, string $subject, string $content): bool {
         try {
             $mail = new Mail();

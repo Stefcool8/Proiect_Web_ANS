@@ -1,9 +1,3 @@
-<?php
-require_once __DIR__ . '/shared/general.php';
-$data = fetch_data('home', [
-    'title' => 'Default title'
-]);
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,7 +24,7 @@ $data = fetch_data('home', [
 <main class="main-content">
     <section class="intro-section">
         <div class="intro-content">
-            <h2 class="intro-heading"><?= htmlspecialchars($data["title"]) ?></h2>
+            <h2 class="intro-heading">Default title</h2>
         </div>
         <div class="cta-button-group">
             <a href="/dashboard" class="cta-btn"><span>Use it now</span></a>
@@ -59,9 +53,8 @@ $data = fetch_data('home', [
         <article class="feature">
             <h3>Data sharing</h3>
             <p>Collaboration is key to effective data analysis. Our platform makes it simple to share your
-                visualizations with team members, stakeholders, or the public. Export your work in various formats,
-                or
-                generate shareable links for seamless access to your insights.</p>
+                visualizations with team members, stakeholders, or the public. Export your work in various formats
+                with just a few clicks.</p>
         </article>
     </section>
     <section class="about-section">

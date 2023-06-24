@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="/public/css/user.css">
     <link rel="stylesheet" href="/public/css/index.css">
     <link rel="icon" href="/public/assets/img/favicon.png">
-    <title>Edit User Profile</title>
+    <title>Change Password</title>
 </head>
 <body>
 <?php require_once __DIR__ . '/shared/navbar.php'; ?>

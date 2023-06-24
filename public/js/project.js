@@ -1,4 +1,5 @@
 const detailContainer = document.getElementById('detail-container');
+const chartContainer = document.getElementById('chart-container');
 
 const downloadCsvButton = document.getElementById('download-csv');
 const downloadPngButton = document.getElementById('download-png');
@@ -28,68 +29,80 @@ function populateProjectDetails(project) {
     // Add fields specific to the chart type
     if (project.data.data.chart === 0) {
         addBarChartFields(project);
-    }else if(project.data.data.chart === 2){
+    } else if (project.data.data.chart === 1) {
+        addLineChartFields(project);
+    } else if (project.data.data.chart === 2) {
         addPieChartFields(project);
+    } else if (project.data.data.chart === 3) {
+        addMapChartFields(project);
     }
 }
 
 function drawChart(project) {
     const chartType = project.data.data.chart;
-    console.log("ChartType: "+chartType);
     switch (chartType) {
         case 0:
             drawBarChart(project);
             break;
+        case 1:
+            drawLineChart(project);
+            break;
         case 2:
             drawPieChart(project);
             break;
+        case 3:
+            drawMapChart(project);
+            break;
+        default:
+            console.log("Invalid chart type");
     }
 }
 
-function downloadCsv(project) {
-    const json = JSON.parse(project.data.data.json);
+function getExportSvg(project) {
+    switch (project.data.data.chart) {
+        case 0:
+            return exportBarChart(project);
+        case 1:
+            return exportLineChart(project);
+        case 2:
+            return exportPieChart(project);
+    }
+}
 
-    const data = Object.entries(json)
-        .map(([name, value]) => ({ name, value }))
-        .sort((a, b) => b.value - a.value);
-
-    const csv = d3.csvFormat(data);
-
-    const blob = new Blob([csv], { type: 'text/csv' });
-    const url = window.URL.createObjectURL(blob);
-
-    const a = document.createElement('a');
-    a.setAttribute('hidden', '');
-    a.setAttribute('href', url);
-    a.setAttribute('download', `${project.data.data.name}.csv`);
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-
-    window.URL.revokeObjectURL(url);
-
-    console.log("Downloaded CSV");
+function getExportDimensions(project) {
+    switch (project.data.data.chart) {
+        case 0:
+            return [barExportWidth, barExportHeight];
+        case 1:
+            return [lineExportWidth, lineExportHeight];
+        case 2:
+            return [pieExportWidth, pieExportHeight];
+    }
 }
 
 function addDownloadButtonListeners(project) {
     downloadCsvButton.addEventListener('click', function() {
-        downloadCsv(project);
+        downloadCsv(project).then();
     });
 
     downloadPngButton.addEventListener('click', function() {
-        downloadPng(project).then();
+        downloadPng(project, getExportSvg(project),
+            getExportDimensions(project)[0], getExportDimensions(project)[1]).then();
     });
 
     downloadJpegButton.addEventListener('click', function() {
-        downloadJpeg(project).then();
+        downloadJpeg(project, getExportSvg(project),
+            getExportDimensions(project)[0], getExportDimensions(project)[1]).then();
     });
 
     downloadWebpButton.addEventListener('click', function() {
-        downloadWebp(project).then();
+        downloadWebp(project, getExportSvg(project),
+            getExportDimensions(project)[0], getExportDimensions(project)[1]).then();
     });
 
     downloadSvgButton.addEventListener('click', function() {
-        downloadSvg(project);
+        downloadSvg(project, getExportSvg(project),
+            getExportDimensions(project)[0], getExportDimensions(project)[1]).then();
     });
 }
 
@@ -106,7 +119,6 @@ async function fetchProjectDetails(uuid) {
                 'Authorization': 'Bearer ' + token,
             },
         });
-        console.log("Hei");
         if (response.ok) {
             const project = await response.json();
 

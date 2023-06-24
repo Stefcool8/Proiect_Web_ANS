@@ -36,6 +36,10 @@ function handleRegisterResponse(response) {
     }
 }
 
+function hideMessage(element) {
+    element.classList.remove("visible");
+}
+
 function showMessage(element, message) {
     element.textContent = message;
     element.classList.add("visible");
@@ -43,10 +47,6 @@ function showMessage(element, message) {
     setTimeout(() => {
         hideMessage(element);
     }, 3000);
-}
-
-function hideMessage(element) {
-    element.classList.remove("visible");
 }
 
 const registerForm = document.querySelector("form");

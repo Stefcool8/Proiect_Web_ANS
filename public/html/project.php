@@ -21,7 +21,7 @@
 <body>
 <?php require_once __DIR__ . '/shared/navbar.php'; ?>
 <div class="project">
-    <main class="main-content">
+    <main class="main-content" id="main-content">
         <div class="container" id="detail-container">
             <h2>Project</h2>
             <div class="input-group">
@@ -50,10 +50,12 @@
 </div>
 <?php require_once __DIR__ . '/shared/footer.php'; ?>
 <script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="/public/js/chart/chartUtil.js"></script>
 <script src="/public/js/helper/localDatabaseUtil.js"></script>
 <script src="/public/js/chart/barChartVisualizer.js"></script>
 <script src="/public/js/chart/pieChartVisualizer.js"></script>
-<!--<script src="/public/js/map.js"></script>-->
+<script src="/public/js/chart/lineChartVisualizer.js"></script>
+<script src="/public/js/chart/mapChartVisualizer.js"></script>
 <script src="/public/js/project.js"></script>
 </body>
 

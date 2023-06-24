@@ -7,13 +7,6 @@ const columns = [
     "TOTAL"
 ];
 
-const columnsPieChart =[
-    "JUDET",
-    "CATEGORIE_NATIONALA",
-    "CATEGORIE_COMUNITARA"
-];
-
-
 function chartCodeToName(chartCode) {
     switch (chartCode) {
         case 0:
@@ -22,6 +15,8 @@ function chartCodeToName(chartCode) {
             return "Line Chart";
         case 2:
             return "Pie Chart";
+        case 3:
+            return "Map Chart";
     }
     return "Unknown";
 }
@@ -44,4 +39,27 @@ function addLabelAndTextInput(parent, htmlFor, labelText, inputValue, readOnly) 
 
     parent.appendChild(label);
     parent.appendChild(input);
+}
+
+function loadJS(FILE_URL, async = true, callback) {
+    let scriptEle = document.createElement("script");
+
+    scriptEle.setAttribute("src", FILE_URL);
+    scriptEle.setAttribute("type", "text/javascript");
+    scriptEle.setAttribute("async", async.toString());
+
+    // success event
+    scriptEle.addEventListener("load", () => {
+        console.log("File loaded");
+        if (callback && typeof callback === "function") {
+            callback(); // Execute the callback function
+        }
+    });
+
+    // error event
+    scriptEle.addEventListener("error", (ev) => {
+        console.log("Error on loading file", ev);
+    });
+
+    document.body.appendChild(scriptEle);
 }

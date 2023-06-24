@@ -1,9 +1,3 @@
-<?php
-require_once __DIR__ . '/shared/general.php';
-$data = fetch_data('login', [
-    'title' => 'Default title'
-]);
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,7 +23,7 @@ $data = fetch_data('login', [
 <div class="login">
     <main class="main-content">
         <div class="container">
-            <h2><?= htmlspecialchars($data["title"]) ?></h2>
+            <h2></h2>
             <form method="post">
                 <div class="error-message hidden"></div>
                 <div class="success-message hidden"></div>

@@ -1,10 +1,3 @@
-<?php
-require_once __DIR__ . '/shared/general.php';
-$data = fetch_data('about', [
-    'title' => 'Default title'
-]);
-
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,7 +22,7 @@ $data = fetch_data('about', [
     <div class="main-content">
         <div class="show">
             <div class="my-element">
-                <p><?= htmlspecialchars($data["title"]) ?> </p>
+                <p></p>
             </div>
         </div>
         <div class="central-area">

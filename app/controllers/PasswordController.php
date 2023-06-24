@@ -24,7 +24,7 @@ class PasswordController extends Controller {
      *         required=true,
      *         description="Email address of user",
      *         @OA\JsonContent(
-     *            @OA\Property(property="email", type="string", format="email", example="user@example.com")
+     *            @OA\Property(property="email", type="string", format="email", example="john@example.com")
      *         ),
      *     ),
      *     @OA\Response(
@@ -45,6 +45,10 @@ class PasswordController extends Controller {
      */
     public function forgotPassword() {
         $body = json_decode(file_get_contents('php://input'), true);
+
+        if (!isset($body['email'])) {
+            ResponseHandler::getResponseHandler()->sendResponse(400, ['error' => 'Email address is required']);
+        }
         $email = $this->sanitizeData($body['email']);
 
         $db = Database::getInstance();
@@ -62,9 +66,8 @@ class PasswordController extends Controller {
             if ($clientEmailSent) {
                 ResponseHandler::getResponseHandler()->sendResponse(200, ['message' => 'Password reset link sent successfully']);
             } else {
-                exit;
+                ResponseHandler::getResponseHandler()->sendResponse(500, ['error' => 'Error sending email']);
             }
-
         } else {
             ResponseHandler::getResponseHandler()->sendResponse(401, ['error' => 'User not found']);
         }
@@ -82,7 +85,7 @@ class PasswordController extends Controller {
      *         description="User password reset",
      *         @OA\JsonContent(
      *             required={"password"},
-     *             @OA\Property(property="password", type="string", format="password", example="password123", description="The new password"),
+     *             @OA\Property(property="password", type="string", format="password", example="SecureP@ssword1234", description="The new password"),
      *         ),
      *     ),
      *     @OA\Response(
@@ -97,6 +100,10 @@ class PasswordController extends Controller {
      */
     public function resetPassword() {
         $body = json_decode(file_get_contents('php://input'), true);
+
+        if (!isset($body['password'])) {
+            ResponseHandler::getResponseHandler()->sendResponse(400, ['error' => 'Password is required']);
+        }
         $password = $this->sanitizeData($body['password']);
 
         // get the token from the request header
@@ -104,6 +111,7 @@ class PasswordController extends Controller {
 
         if (!isset($headers['Authorization'])) {
             ResponseHandler::getResponseHandler()->sendResponse(401, ['error' => 'Unauthorized']);
+            return;
         }
 
         try {
@@ -138,7 +146,7 @@ class PasswordController extends Controller {
      *         required=true,
      *         @OA\Schema(
      *             type="string",
-     *             example="648eaf3cbc160"
+     *             example="648c882816eda"
      *         )
      *     ),
      *     @OA\RequestBody(
@@ -146,8 +154,8 @@ class PasswordController extends Controller {
      *         description="Current and new password",
      *         @OA\JsonContent(
      *             required={"currentPassword", "newPassword"},
-     *             @OA\Property(property="currentPassword", type="string", format="password", example="oldPassword123", description="The current password"),
-     *             @OA\Property(property="newPassword", type="string", format="password", example="newPassword456", description="The new password"),
+     *             @OA\Property(property="currentPassword", type="string", format="password", example="SecureP@ssword123", description="The current password"),
+     *             @OA\Property(property="newPassword", type="string", format="password", example="SecureP@ssword1234", description="The new password"),
      *         ),
      *     ),
      *     @OA\Response(
@@ -185,9 +193,8 @@ class PasswordController extends Controller {
 
         if (!isset($body['currentPassword']) || !isset($body['newPassword'])) {
             ResponseHandler::getResponseHandler()->sendResponse(400, ['error' => 'Missing required fields']);
-            exit;
+            return;
         }
-
         $currentPassword = $this->sanitizeData($body['currentPassword']);
         $newPassword = $this->sanitizeData($body['newPassword']);
 
@@ -196,7 +203,7 @@ class PasswordController extends Controller {
 
         if (!isset($headers['Authorization'])) {
             ResponseHandler::getResponseHandler()->sendResponse(401, ['error' => 'Unauthorized']);
-            exit;
+            return;
         }
 
         try {
@@ -209,7 +216,7 @@ class PasswordController extends Controller {
             // check if is admin or the user is changing his own password
             if (!$decoded['isAdmin'] && $decoded['username'] !== $user['username']) {
                 ResponseHandler::getResponseHandler()->sendResponse(401, ['error' => 'Unauthorized']);
-                exit;
+                return;
             }
 
             if ($user) {

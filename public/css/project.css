@@ -52,8 +52,11 @@
   outline: none;
   box-shadow: none;
 }
-.project #chart-container svg text {
-  font-size: 16px;
+.project #chart-container {
+  overflow: hidden;
+}
+.project #chart-container #map-container {
+  max-width: 50rem;
 }
 .project .button-container {
   display: flex;

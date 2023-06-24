@@ -62,14 +62,13 @@ class AuthController extends Controller {
      * )
      */
     public function get() {
-        
         // get the authorization field from the request header
         $headers = apache_request_headers();
 
         // if the authorization field is not set, return an error
         if (!isset($headers['Authorization']) || substr($headers['Authorization'], 0, 7) !== 'Bearer ') {
             ResponseHandler::getResponseHandler()->sendResponse(400, [
-                'error' => 'Bad request'
+                'error' => 'Unauthorized'
             ]);
             return;
         }
@@ -83,7 +82,7 @@ class AuthController extends Controller {
             JWT::getJWT()->decode($token);
         } catch (InvalidArgumentException $e) {
             ResponseHandler::getResponseHandler()->sendResponse(401, [
-                'error' => 'Unauthorized'
+                'error' => 'Bad request'
             ]);
             return;
         }
@@ -95,13 +94,11 @@ class AuthController extends Controller {
     }
 
     /**
-     * This is the OpenAPI documentation for the verifyAdmin() function.
-     *
      * @OA\Get(
      *     path="/api/auth/admin",
      *     operationId="verifyAdmin",
      *     tags={"Authentication"},
-     *     summary="Validate the admin's token",
+     *     summary="Validate the admin's token and getting some information about admin",
      *     description="Endpoint for verifying admin privileges.",
      *     security={{"bearerAuth": {}}},
      *     @OA\Response(
@@ -110,58 +107,94 @@ class AuthController extends Controller {
      *         @OA\JsonContent(
      *             type="object",
      *             @OA\Property(property="data", type="object",
-     *                 @OA\Property(property="title", type="string", example="Admin"),
      *                 @OA\Property(property="isAdmin", type="boolean"),
-     *                 @OA\Property(property="username",type="string")
+     *                 @OA\Property(property="username",type="string"),
+     *                 @OA\Property(property="uuid", type="string")
      *             )
      *         )
      *     ),
      *     @OA\Response(
      *         response=401,
-     *         description="Unauthorized",
+     *         description="Not admin",
      *         @OA\JsonContent(
      *             type="object",
-     *             @OA\Property(property="error", type="string", example="Unauthorized")
+     *             @OA\Property(property="error", type="string", example="Not admin")
      *         )
      *     )
      * )
      */
     public function getAdmin() {
-        $payload = $this ->getPayload();
-        if (!$payload['isAdmin']) {
+        $payload = $this->getPayload();
+        if (!$payload) {
             ResponseHandler::getResponseHandler()->sendResponse(401, [
                 'error' => 'Unauthorized'
             ]);
             return;
         }
+        if (!$payload['isAdmin']) {
+            ResponseHandler::getResponseHandler()->sendResponse(401, [
+                'error' => 'Not admin'
+            ]);
+            return;
+        }
+        try {
+            $db = Database::getInstance();
+
+            $existingUser = $db->fetchOne("SELECT * FROM user WHERE username = :username", ['username' => $payload['username']]);
+
+            if (!$existingUser) {
+                ResponseHandler::getResponseHandler()->sendResponse(409, ["error" => "Uuid assigned does not exist"]);
+                return;
+            }
+        } catch (Exception $e) {
+            // Handle potential exception during database connection
+            ResponseHandler::getResponseHandler()->sendResponse(500, ["error" => "Internal Server Error"]);
+            return;
+        }
+
         ResponseHandler::getResponseHandler()->sendResponse(200, [
             'data' => [
                 'isAdmin' => $payload['isAdmin'],
-                'username' => $payload['username']
+                'username' => $payload['username'],
+                'uuid' => $existingUser['uuid']
             ]
         ]);
     }
 
 
     /**
-     * This is the OpenAPI documentation for the verifyAccess() function.
-     *
      * @OA\Post(
      *     path="/api/auth/verifyAccess",
      *     operationId="verifyAccess",
      *     tags={"Authentication"},
-     *     summary="Validate the admin's token",
-     *     description="Endpoint for verifying admin privileges.",
+     *     summary="Verify access based on token",
+     *     description="Verify access based on token",
      *     security={{"bearerAuth": {}}},
+     *      @OA\RequestBody(
+     *         description="Verify Access form data",
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 required={"uuid"},
+     *                 @OA\Property(
+     *                     property="uuid",
+     *                     description="The uuid of the user",
+     *                     type="string",
+     *                     example="648c882816eda"
+     *                 )
+     *             )
+     *         )
+     *     ),
      *     @OA\Response(
      *         response=200,
      *         description="Successful response",
      *         @OA\JsonContent(
      *             type="object",
      *             @OA\Property(property="data", type="object",
-     *                 @OA\Property(property="title", type="string", example="Admin"),
      *                 @OA\Property(property="isAdmin", type="boolean"),
-     *                 @OA\Property(property="username",type="string")
+     *                 @OA\Property(property="username",type="string"),
      *             )
      *         )
      *     ),
@@ -177,53 +210,52 @@ class AuthController extends Controller {
      */
     public function verifyAccess()
     {
-
         $body = json_decode(file_get_contents('php://input'), true);
-        $uuid = $body['uuid'];
-        // get the token from the request header
-        $headers = apache_request_headers();
 
-        if (!isset($headers['Authorization'])) {
-            ResponseHandler::getResponseHandler()->sendResponse(401, [
-                'error' => 'Unauthorized'
+        if (!isset($body['uuid'])) {
+            ResponseHandler::getResponseHandler()->sendResponse(400, [
+                'error' => 'Bad request'
             ]);
-            exit;
+            return;
         }
 
-        $authHeader = $headers['Authorization'];
-        $token = str_replace('Bearer ', '', $authHeader);
+        $uuid = $body['uuid'];
 
         try {
-            // decode the token
-            $payload = JWT::getJWT()->decode($token);
-        } catch (InvalidArgumentException $e) {
+            $db = Database::getInstance();
+
+            $existingUser = $db->fetchOne("SELECT * FROM user WHERE uuid = :uuid", ['uuid' => $uuid]);
+
+            if (!$existingUser) {
+                ResponseHandler::getResponseHandler()->sendResponse(409, ["error" => "Uuid assigned does not exist"]);
+                return;
+            }
+        } catch (Exception $e) {
+            // Handle potential exception during database connection
+            ResponseHandler::getResponseHandler()->sendResponse(500, ["error" => "Internal Server Error"]);
+            return;
+        }
+
+        $payload = $this->getPayload();
+        if (!$payload) {
             ResponseHandler::getResponseHandler()->sendResponse(401, [
                 'error' => 'Unauthorized'
             ]);
-            exit;
+            return;
         }
         if (!$payload['isAdmin']) {
-
             $db = Database::getInstance();
             $currentUser = $db->fetchOne("SELECT * FROM user WHERE username = :username", ['username' => $payload['username']]);
-            /*ResponseHandler::getResponseHandler()->sendResponse(200, [
-                'data' => [
-                    'title' => 'DB',
-                    'isAdmin' => $currentUser['isAdmin'],
-                    'username' =>$currentUser['username'],
-                    'CurrentUserUUID' =>$currentUser['uuid'],
-                    'uuid' => $uuid,
-                ]
-            ]);
-            */
+
+
             if ($currentUser['uuid'] != $uuid) {
                 ResponseHandler::getResponseHandler()->sendResponse(401, [
                     'error' => 'Unauthorized'
                 ]);
+                return;
             } else {
                 ResponseHandler::getResponseHandler()->sendResponse(200, [
                     'data' => [
-                        'title' => 'HELLo',
                         'isAdmin' => $payload['isAdmin'],
                         'username' => $payload['username']
                     ]
@@ -233,11 +265,9 @@ class AuthController extends Controller {
         }
         ResponseHandler::getResponseHandler()->sendResponse(200, [
             'data' => [
-                'title' => 'Admin',
                 'isAdmin' => $payload['isAdmin'],
                 'username' => $payload['username']
             ]
         ]);
     }
-
 }
