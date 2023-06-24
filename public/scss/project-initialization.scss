@@ -124,6 +124,7 @@ $alert-success: #33ff9c;
       input[type="text"] {
         flex: 1; /* Let the input expand to fill the remaining space */
         padding: 0.3rem;
+        margin-left: 0.5rem;
         border-radius: 0.6rem;
         border: 1px solid $border-color;
         font-size: 1.2rem;
