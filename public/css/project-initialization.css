@@ -120,7 +120,7 @@
 .project-initialization .series-checkbox-container .series-item input[type=text] {
     flex: 1; /* Let the input expand to fill the remaining space */
     padding: 0.3rem;
-    margin-left: 0.5rem;
+    margin-left: 1rem;
     border-radius: 0.6rem;
     border: 1px solid #ccc;
     font-size: 1.2rem;
